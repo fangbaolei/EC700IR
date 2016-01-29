@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="DevCtrl_PC" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_lib/Debug/libDevCtrl" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../_lib/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_lib/Release/libDevCtrl" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Unit filename="ControlCommand.cpp" />
+		<Unit filename="ControlFunc.cpp" />
+		<Unit filename="IPSearchThread.cpp" />
+		<Unit filename="../Inc/ControlCommand.h" />
+		<Unit filename="../Inc/ControlFunc.h" />
+		<Unit filename="../Inc/DSPLink.h" />
+		<Unit filename="../Inc/HvCmdLink.h" />
+		<Unit filename="../Inc/HvDspLinkApi.h" />
+		<Unit filename="../Inc/IPSearchThread.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

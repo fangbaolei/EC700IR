@@ -1,0 +1,472 @@
+# depslib dependency file v1.0
+1407738002 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1421648556 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/swerror.h
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceBaseType.h
+
+1407738003 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceCommDef.h
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1422269022 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvCameraType.h
+
+1421677248 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1422272047 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inifile.h
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/encode.h
+
+1422321910 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	<netdb.h>
+	"ximage.h"
+	<string>
+	<vector>
+
+1407738002 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/LinuxBmp.h
+	<iostream>
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/ximacfg.h
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/xiofile.h
+	"xfile.h"
+
+1407738001 /mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inc/xmemfile.h
+	"xfile.h"
+
+1407738003 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1407738002 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1407738002 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	"HvDeviceEx.h"
+	"HvAutoLinkDevice.h"
+
+1407738001 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1407738001 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1407738001 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1407738001 source:/mnt/hgfs/CodeSignalway/LINUX接口/HvDevice_New/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1428628936 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/CarFaceCtrl.cpp
+	"CarFaceCtrl.h"
+	"svBase/sv_error.h"
+	"resource.h"
+	<sys/stat.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+
+1428042788 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/CarFaceCtrl.h
+	"HvDeviceUtils.h"
+	"CarFaceRecogApi.h"
+	"hvthreadex.h"
+	"HvDevice.h"
+	"swwinerror.h"
+	<atltime.h>
+	<atlstr.h>
+	"HvDeviceEx.h"
+	"swerror.h"
+
+1428994142 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+	"svBase/svBase.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/swerror.h
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceBaseType.h
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceCommDef.h
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvCameraType.h
+
+1427940643 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1425614319 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/CarFaceRecogApi.h
+	"svBase/svBase.h"
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/svBase.h
+	"sv_basetype.h"
+	"sv_error.h"
+	"sv_memory.h"
+	"sv_math.h"
+	"sv_image.h"
+	"sv_point.h"
+	"sv_rect.h"
+	"sv_utils.h"
+	"sv_callback.h"
+	"sv_dma_cache.h"
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_basetype.h
+	"sv_config.h"
+
+1427875299 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_config.h
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_error.h
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_memory.h
+	"sv_basetype.h"
+	"sv_error.h"
+	"string.h"
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_math.h
+	"sv_basetype.h"
+
+1427875476 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_image.h
+	"sv_basetype.h"
+	"sv_error.h"
+	"sv_memory.h"
+	"sv_rect.h"
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_rect.h
+	"sv_basetype.h"
+	"sv_point.h"
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_point.h
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_utils.h
+	"sv_basetype.h"
+	"sv_error.h"
+	"sv_rect.h"
+	"sv_image.h"
+	<stdio.h>
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_callback.h
+
+1426491771 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/svBase/sv_dma_cache.h
+	"sv_basetype.h"
+	"sv_error.h"
+
+1403250015 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/hvthreadex.h
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1429170691 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	<netdb.h>
+	<setjmp.h>
+	"ximage.h"
+	"jpeglib.h"
+	"jerror.h"
+	<string>
+	<vector>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/LinuxBmp.h
+	<iostream>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inifile.h
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/ximacfg.h
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/xiofile.h
+	"xfile.h"
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inc/xmemfile.h
+	"xfile.h"
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1427869059 /mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/encode.h
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1427869059 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1429147010 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<string>
+	<errno.h>
+	<map>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+	"CarFaceCtrl.h"
+
+1428565942 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	"HvDeviceEx.h"
+	"HvAutoLinkDevice.h"
+	"encode.h"
+
+1427957787 source:/mnt/hgfs/CodeSignalway/CarFace_linux_HvDevice/HvThreadImplEx.cpp
+	<semaphore.h>
+	<assert.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+	<time.h>
+	"hvthreadex.h"
+

@@ -1,0 +1,12 @@
+mkrootfs_mercury_bak.sh：根文件系统制作脚本，脚本执行参数为debug
+rootfs_dm6467.32MB.img.gz：纯净版本根文件系统压缩镜像
+
+patch目录：包含应用程序目录App及脚本、驱动目录Script
+App：备份系统应用程序所在目录
+Script：脚本及驱动所在目录
+
+
+uImage.mercury：内核镜像文件
+
+fpga.xsvf：备份系统专用FPGA文件，请不要用正常系统的FPGA！！
+

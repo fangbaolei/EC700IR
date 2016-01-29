@@ -1,0 +1,9 @@
+; HvDeviceAx.def : Declares the module parameters.
+
+LIBRARY      "HvDeviceAx.OCX"
+
+EXPORTS
+	DllCanUnloadNow     PRIVATE
+	DllGetClassObject   PRIVATE
+	DllRegisterServer   PRIVATE
+	DllUnregisterServer PRIVATE

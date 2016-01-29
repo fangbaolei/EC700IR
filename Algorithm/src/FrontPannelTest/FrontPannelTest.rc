@@ -1,0 +1,334 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\FrontPannelTest.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\FrontPannelTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_FRONTPANNELTEST_DIALOG DIALOGEX 0, 0, 581, 276
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "FrontPannelTest"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "升级程序版本：1234567890123456789012345678901234567890123456789012345678901234",
+                    IDC_STATIC_SV,219,33,306,11
+    LTEXT           "主程序版本：1234567890123456789012345678901234567890123456789012345678901234",
+                    IDC_STATIC_MV,219,14,299,11
+    LTEXT           "设备IP：",IDC_STATIC,8,12,28,11
+    CONTROL         "",IDC_IPADDRESS1,"SysIPAddress32",WS_TABSTOP,37,12,132,
+                    11
+    LTEXT           "工作模式：正常模式 工作状态：停止 温度：32.5℃",
+                    IDC_STATIC_INFO,9,37,161,10
+    PUSHBUTTON      "连接设备",IDC_BUTTON1,174,10,40,15
+    CONTROL         "",IDC_STATIC_PIC,"Static",SS_BLACKFRAME,174,84,208,182
+    LTEXT           "快门时间：55555 增益：255 R=128 G=1128 B=128",
+                    IDC_STATIC_FRAMINFO,173,70,208,10
+    CONTROL         "显示视频",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,174,57,55,11
+    GROUPBOX        "基本信息",IDC_STATIC,1,1,579,50
+    LTEXT           "偏光镜状态：未启用",IDC_STATIC_PL,1,61,75,12,WS_BORDER
+    LTEXT           "地灯状态：熄灭",IDC_STATIC_PA,94,61,75,12,WS_BORDER
+    GROUPBOX        "频闪补光脉宽",IDC_STATIC,1,81,166,69
+    LTEXT           "通道1",IDC_STATIC,6,96,18,10
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",WS_BORDER | 0x1,27,
+                    96,101,8
+    EDITTEXT        IDC_EDIT1,130,92,32,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "通道2",IDC_STATIC,6,109,18,10
+    CONTROL         "",IDC_PROGRESS2,"msctls_progress32",WS_BORDER | 0x1,27,
+                    109,101,8
+    EDITTEXT        IDC_EDIT2,130,106,31,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "通道3",IDC_STATIC,6,122,18,10
+    CONTROL         "",IDC_PROGRESS3,"msctls_progress32",WS_BORDER | 0x1,27,
+                    122,101,8
+    EDITTEXT        IDC_EDIT3,130,120,30,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "通道4",IDC_STATIC,6,136,18,10
+    CONTROL         "",IDC_PROGRESS4,"msctls_progress32",WS_BORDER | 0x1,27,
+                    136,101,8
+    EDITTEXT        IDC_EDIT4,130,133,30,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "补光脉宽等级：0级",IDC_STATIC_PUL,1,161,165,10,
+                    WS_BORDER
+    GROUPBOX        "抓拍信号源信息",IDC_STATIC,1,182,165,83
+    LTEXT           "通道1",IDC_STATIC,6,213,18,10
+    LTEXT           "通道2",IDC_STATIC,7,229,18,10
+    LTEXT           "通道3",IDC_STATIC,7,247,18,10
+    LTEXT           "脉宽",IDC_STATIC,29,197,18,10
+    LTEXT           "极性",IDC_STATIC,66,197,18,10
+    LTEXT           "耦合",IDC_STATIC,99,197,18,10
+    LTEXT           "模式",IDC_STATIC,131,197,18,10
+    EDITTEXT        IDC_EDIT5,26,208,38,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT6,67,208,30,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT7,99,208,31,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT8,132,208,29,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT9,26,227,37,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT10,67,227,30,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT11,99,227,29,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT12,132,226,28,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT13,26,244,36,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT14,67,244,29,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT15,99,244,30,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT16,132,244,28,14,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "控制板参数配置",IDC_STATIC,389,56,191,213
+    LTEXT           "工作模式",IDC_STATIC,454,73,28,11
+    COMBOBOX        IDC_COMBO1,485,73,29,52,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "工作状态",IDC_STATIC,515,73,29,11
+    COMBOBOX        IDC_COMBO2,549,73,28,56,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "偏光镜测试",IDC_STATIC,394,234,36,11
+    COMBOBOX        IDC_COMBO3,433,234,81,45,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "最小值",IDC_STATIC,397,100,22,10
+    GROUPBOX        "频闪补光脉宽范围",IDC_STATIC,393,89,182,41
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,425,100,109,11
+    EDITTEXT        IDC_EDIT17,538,98,32,12,ES_AUTOHSCROLL
+    LTEXT           "最大值",IDC_STATIC,397,116,22,10
+    CONTROL         "",IDC_SLIDER2,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,425,116,109,11
+    EDITTEXT        IDC_EDIT18,538,114,32,12,ES_AUTOHSCROLL
+    GROUPBOX        "抓拍信号源配置",IDC_STATIC,393,134,183,67
+    LTEXT           "通道1",IDC_STATIC,397,157,22,10
+    LTEXT           "脉宽",IDC_STATIC,417,143,36,10
+    LTEXT           "极性",IDC_STATIC,454,143,16,10
+    LTEXT           "耦合",IDC_STATIC,485,143,14,10
+    LTEXT           "模式",IDC_STATIC,519,143,17,10
+    EDITTEXT        IDC_EDIT19,419,156,33,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO4,453,156,27,36,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO5,480,156,37,37,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO6,518,156,30,35,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "确定",IDC_BUTTON2,549,156,22,12
+    LTEXT           "通道2",IDC_STATIC,397,171,22,10
+    EDITTEXT        IDC_EDIT20,418,170,33,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO7,453,170,27,37,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO8,480,170,37,35,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO9,518,170,30,33,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "确定",IDC_BUTTON3,549,170,22,12
+    LTEXT           "通道3",IDC_STATIC,397,184,22,10
+    EDITTEXT        IDC_EDIT21,418,184,33,12,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO10,453,184,27,35,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO11,480,184,37,35,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    COMBOBOX        IDC_COMBO12,518,184,31,38,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "确定",IDC_BUTTON4,549,184,22,12
+    PUSHBUTTON      "升级控制板",IDC_BUTTON5,491,205,41,17
+    PUSHBUTTON      "获取当前参数",IDC_BUTTON6,441,205,45,17
+    CONTROL         "自动运行控制板",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,393,70,59,14
+    EDITTEXT        IDC_EDIT22,433,250,31,12,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "控制板类型：未知",IDC_STATIC_PST,9,26,161,10
+    GROUPBOX        "测试设备",IDC_STATIC,393,224,183,41
+    LTEXT           "级",IDC_STATIC,467,252,13,11
+    PUSHBUTTON      "闪光灯测试",IDC_BUTTON11,517,234,56,17
+    LTEXT           "频闪灯测试",IDC_STATIC,394,251,36,11
+    PUSHBUTTON      "恢复默认参数",IDC_BUTTON12,394,205,45,17
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 269, 70
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "升级控制板"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "升级文件路径",IDC_STATIC,8,9,51,11
+    EDITTEXT        IDC_EDIT1,63,9,160,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "选取文件",IDC_BUTTON1,226,9,39,12
+    PUSHBUTTON      "取消退出",IDC_BUTTON8,180,27,39,12
+    PUSHBUTTON      "确定升级",IDC_BUTTON9,224,27,39,12
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",WS_BORDER | 0x1,1,
+                    45,266,12
+    LTEXT           "Static",IDC_STATIC_STATUS,8,28,168,11,WS_BORDER
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 230, 93
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "警告"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Static",IDC_STATIC,3,4,224,62,WS_BORDER
+    PUSHBUTTON      "重新升级",IDC_BUTTON1,3,71,87,16
+    PUSHBUTTON      "切换到正常模式",IDC_BUTTON8,139,71,87,16
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,2,0,38
+ PRODUCTVERSION 2,2,0,38
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "2, 2, 0, 38"
+            VALUE "InternalName", "FrontPannelTest.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "FrontPannelTest.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "2, 2, 0, 38"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_FRONTPANNELTEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 580
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 273
+    END
+
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 67
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 92
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 FrontPannelTest(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\FrontPannelTest.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

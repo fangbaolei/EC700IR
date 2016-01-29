@@ -1,0 +1,44 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="E:\c\svn\repos_ApplySrc_latest\src\ImgProcess\Tracker\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\TrafficLight\findBlobs.cpp"
+Source="..\TrafficLight\trafficlight_recognizer.cpp"
+Source="..\TrafficLight\TrafficLightImpl.cpp"
+Source="..\TrafficLight\TrafficLightInfo.cpp"
+Source="HVCAMdelay.asm"
+Source="ObjectTrackingInfo.cpp"
+Source="scalespeedimpl.cpp"
+Source="TLDetResult.cpp"
+Source="TrackerImplHigh.cpp"
+Source="TrackImplPhoto.cpp"
+Source="TrackInfoHigh.cpp"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\..\_lib\6467\Debug\Tracker.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\..\_lib\6467\Release\Tracker.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -q -fr"..\..\..\_temp\6467\Debug\Tracker" -ft"..\..\..\_temp\6467\Debug\Tracker" -i"..\..\DSPLink\_6455cslinc" -i"..\..\Inc" -i"..\..\DSPLink\inc" -d"_DEBUG" -d"CHIP_6455" -d"_DSP_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-q -o2 -fr"..\..\..\_temp\6467\Release\Tracker" -ft"..\..\..\_temp\6467\Release\Tracker" -i"..\..\DSPLink\_6455cslinc" -i"..\..\Inc" -i"..\..\DSPLink\inc" -d"CHIP_6455" -d"_DSP_" -mv6400+
+
+["DspBiosBuilder" Settings: "Debug"]
+Options=-v6x
+
+["DspBiosBuilder" Settings: "Release"]
+Options=-v6x
+

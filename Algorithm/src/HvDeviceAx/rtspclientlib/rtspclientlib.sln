@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtspclientlib", "rtspclientlib.vcxproj", "{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestRtspClient", "..\TestRtspClient\TestRtspClient.vcxproj", "{409510EA-9ED1-4D65-9DD4-6B4A17729253}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Debug|Win32.Build.0 = Debug|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Release|Win32.ActiveCfg = Release|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Release|Win32.Build.0 = Release|Win32
+		{409510EA-9ED1-4D65-9DD4-6B4A17729253}.Debug|Win32.ActiveCfg = Debug|Win32
+		{409510EA-9ED1-4D65-9DD4-6B4A17729253}.Debug|Win32.Build.0 = Debug|Win32
+		{409510EA-9ED1-4D65-9DD4-6B4A17729253}.Release|Win32.ActiveCfg = Release|Win32
+		{409510EA-9ED1-4D65-9DD4-6B4A17729253}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

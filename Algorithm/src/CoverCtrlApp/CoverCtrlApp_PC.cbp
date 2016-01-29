@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CoverCtrlApp_PC" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_bin/Debug/CoverCtrlApp_PC" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../_obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="libResultProcess.a" />
+					<Add library="libHvPlatform.a" />
+					<Add directory="../../_lib/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_bin/Release/CoverCtrlApp_PC" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../_obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libResultProcess.a" />
+					<Add library="libHvPlatform.a" />
+					<Add directory="../../_lib/Release" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-w" />
+			<Add option="-DLINUX" />
+			<Add option="-DPC_TEST" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Linker>
+			<Add option="-lrt" />
+			<Add library="pthread" />
+		</Linker>
+		<Unit filename="DataCtrl.cpp" />
+		<Unit filename="DataCtrl.h" />
+		<Unit filename="main.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

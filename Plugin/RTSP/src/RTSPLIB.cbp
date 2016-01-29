@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="RTSPLIB" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="libRTSPLIB" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="libRTSPLIB" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Linker>
+			<Add option="-lrt" />
+			<Add option="-lpthread" />
+		</Linker>
+		<Unit filename="ADTSAudioFileServerMediaSubsession.cpp" />
+		<Unit filename="ADTSAudioFileServerMediaSubsession.hh" />
+		<Unit filename="ADTSAudioFileSource.cpp" />
+		<Unit filename="ADTSAudioFileSource.hh" />
+		<Unit filename="Base64.cpp" />
+		<Unit filename="Base64.hh" />
+		<Unit filename="BasicHashTable.cpp" />
+		<Unit filename="BasicHashTable.hh" />
+		<Unit filename="BasicTaskScheduler.cpp" />
+		<Unit filename="BasicTaskScheduler0.cpp" />
+		<Unit filename="BasicUDPSink.cpp" />
+		<Unit filename="BasicUDPSink.hh" />
+		<Unit filename="BasicUDPSource.cpp" />
+		<Unit filename="BasicUDPSource.hh" />
+		<Unit filename="BasicUsageEnvironment.cpp" />
+		<Unit filename="BasicUsageEnvironment.hh" />
+		<Unit filename="BasicUsageEnvironment0.cpp" />
+		<Unit filename="BasicUsageEnvironment0.hh" />
+		<Unit filename="BasicUsageEnvironment_version.hh" />
+		<Unit filename="BitVector.cpp" />
+		<Unit filename="BitVector.hh" />
+		<Unit filename="Boolean.hh" />
+		<Unit filename="ByteStreamFileSource.cpp" />
+		<Unit filename="ByteStreamFileSource.hh" />
+		<Unit filename="ByteStreamMultiFileSource.cpp" />
+		<Unit filename="ByteStreamMultiFileSource.hh" />
+		<Unit filename="DelayQueue.cpp" />
+		<Unit filename="DelayQueue.hh" />
+		<Unit filename="DigestAuthentication.cpp" />
+		<Unit filename="DigestAuthentication.hh" />
+		<Unit filename="DynamicRTSPServer.cpp" />
+		<Unit filename="DynamicRTSPServer.hh" />
+		<Unit filename="FileServerMediaSubsession.cpp" />
+		<Unit filename="FileServerMediaSubsession.hh" />
+		<Unit filename="FileSink.cpp" />
+		<Unit filename="FileSink.hh" />
+		<Unit filename="FramedFileSource.cpp" />
+		<Unit filename="FramedFileSource.hh" />
+		<Unit filename="FramedFilter.cpp" />
+		<Unit filename="FramedFilter.hh" />
+		<Unit filename="FramedSource.cpp" />
+		<Unit filename="FramedSource.hh" />
+		<Unit filename="GroupEId.cpp" />
+		<Unit filename="GroupEId.hh" />
+		<Unit filename="Groupsock.cpp" />
+		<Unit filename="Groupsock.hh" />
+		<Unit filename="GroupsockHelper.cpp" />
+		<Unit filename="GroupsockHelper.hh" />
+		<Unit filename="H264VideoFileServerMediaSubsession.cpp" />
+		<Unit filename="H264VideoFileServerMediaSubsession.hh" />
+		<Unit filename="H264VideoFileSink.cpp" />
+		<Unit filename="H264VideoFileSink.hh" />
+		<Unit filename="H264VideoRTPSink.cpp" />
+		<Unit filename="H264VideoRTPSink.hh" />
+		<Unit filename="H264VideoRTPSource.cpp" />
+		<Unit filename="H264VideoRTPSource.hh" />
+		<Unit filename="H264VideoStreamDiscreteFramer.cpp" />
+		<Unit filename="H264VideoStreamDiscreteFramer.hh" />
+		<Unit filename="H264VideoStreamFramer.cpp" />
+		<Unit filename="H264VideoStreamFramer.hh" />
+		<Unit filename="HandlerSet.hh" />
+		<Unit filename="HashTable.cpp" />
+		<Unit filename="HashTable.hh" />
+		<Unit filename="InputFile.cpp" />
+		<Unit filename="InputFile.hh" />
+		<Unit filename="Locale.cpp" />
+		<Unit filename="Locale.hh" />
+		<Unit filename="MPEG4GenericRTPSink.cpp" />
+		<Unit filename="MPEG4GenericRTPSink.hh" />
+		<Unit filename="MPEGVideoStreamFramer.cpp" />
+		<Unit filename="MPEGVideoStreamFramer.hh" />
+		<Unit filename="MPEGVideoStreamParser.cpp" />
+		<Unit filename="MPEGVideoStreamParser.hh" />
+		<Unit filename="Media.cpp" />
+		<Unit filename="Media.hh" />
+		<Unit filename="MediaSink.cpp" />
+		<Unit filename="MediaSink.hh" />
+		<Unit filename="MediaSource.cpp" />
+		<Unit filename="MediaSource.hh" />
+		<Unit filename="MultiFramedRTPSink.cpp" />
+		<Unit filename="MultiFramedRTPSink.hh" />
+		<Unit filename="MultiFramedRTPSource.cpp" />
+		<Unit filename="MultiFramedRTPSource.hh" />
+		<Unit filename="NetAddress.cpp" />
+		<Unit filename="NetAddress.hh" />
+		<Unit filename="NetCommon.h" />
+		<Unit filename="NetInterface.cpp" />
+		<Unit filename="NetInterface.hh" />
+		<Unit filename="OnDemandServerMediaSubsession.cpp" />
+		<Unit filename="OnDemandServerMediaSubsession.hh" />
+		<Unit filename="OutputFile.cpp" />
+		<Unit filename="OutputFile.hh" />
+		<Unit filename="RTCP.cpp" />
+		<Unit filename="RTCP.hh" />
+		<Unit filename="RTPInterface.cpp" />
+		<Unit filename="RTPInterface.hh" />
+		<Unit filename="RTPSink.cpp" />
+		<Unit filename="RTPSink.hh" />
+		<Unit filename="RTPSource.cpp" />
+		<Unit filename="RTPSource.hh" />
+		<Unit filename="RTSPCommon.cpp" />
+		<Unit filename="RTSPCommon.hh" />
+		<Unit filename="RTSPLIB.h" />
+		<Unit filename="RTSPServer.cpp" />
+		<Unit filename="RTSPServer.hh" />
+		<Unit filename="ServerMediaSession.cpp" />
+		<Unit filename="ServerMediaSession.hh" />
+		<Unit filename="SimpleRTPSink.cpp" />
+		<Unit filename="SimpleRTPSink.hh" />
+		<Unit filename="SimpleRTPSource.cpp" />
+		<Unit filename="SimpleRTPSource.hh" />
+		<Unit filename="StreamParser.cpp" />
+		<Unit filename="StreamParser.hh" />
+		<Unit filename="TunnelEncaps.hh" />
+		<Unit filename="UsageEnvironment.cpp" />
+		<Unit filename="UsageEnvironment.hh" />
+		<Unit filename="UsageEnvironment_version.hh" />
+		<Unit filename="VideoRTPSink.cpp" />
+		<Unit filename="VideoRTPSink.hh" />
+		<Unit filename="groupsock_version.hh" />
+		<Unit filename="inet.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="liveMedia.hh" />
+		<Unit filename="liveMedia_version.hh" />
+		<Unit filename="our_md5.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="our_md5.h" />
+		<Unit filename="our_md5hl.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rtcp_from_spec.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rtcp_from_spec.h" />
+		<Unit filename="strDup.cpp" />
+		<Unit filename="strDup.hh" />
+		<Unit filename="testOnDemandRTSPServer.cpp" />
+		<Unit filename="version.hh" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,63 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\work\DM6467_sync\LPR\src\CamDsp\"
+ProjectType=Executable
+CPUFamily=TMS320C64XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Project Dependencies]
+Source="CamDspProcLibProj\CamDspProc.pjt"
+Source="DmaCopyLibProj\DmaCopy.pjt"
+Source="H264EncoderLibProj\H264Encoder.pjt"
+Source="JpegEncoderLibProj\JpegEncoder.pjt"
+
+["CamDspProcLibProj\CamDspProc.pjt" Settings]
+MatchConfigName=true
+
+["DmaCopyLibProj\DmaCopy.pjt" Settings]
+MatchConfigName=true
+
+["H264EncoderLibProj\H264Encoder.pjt" Settings]
+MatchConfigName=true
+
+["JpegEncoderLibProj\JpegEncoder.pjt" Settings]
+MatchConfigName=true
+
+[Source Files]
+Source="boot.c"
+Source="DSPBIOS\CamDsp.tcf"
+Source="DSPLink.c"
+Source="main.c"
+Source="message.c"
+Source="ProcessDspCmd.c"
+Source="ProcessFunc.c"
+Source="CamDsp.cmd"
+
+[Generated Files]
+Source="DSPBIOS\CamDspcfg.s62"
+Source="DSPBIOS\CamDspcfg_c.c"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\_temp\6467\Debug\CamDsp" -ft"..\..\_temp\6467\Debug\CamDsp" -i"..\Inc" -i".\CamDspInc" -i"..\DSPLink\Csp\Csl\include" -i"..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"_DEBUG" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\_temp\6467\Release\CamDsp" -ft"..\..\_temp\6467\Release\CamDsp" -i"..\Inc" -i".\CamDspInc" -i"..\DSPLink\Csp\Csl\include" -i"..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+
+["Linker" Settings: "Debug"]
+Options=-a -c -m"..\..\_bin\6467\Debug\CamDsp.map" -o"..\..\_bin\6467\Debug\CamDsp.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=-a -c -m"..\..\_bin\6467\Release\CamDsp.map" -o"..\..\_bin\6467\Release\CamDsp.out" -w -x
+
+["CamDsp.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["CamDsp.cmd" Settings: "Release"]
+LinkOrder=1
+

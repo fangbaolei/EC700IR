@@ -1,0 +1,345 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\AutoLink_demo.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\AutoLink_demo.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_AUTOLINK_DEMO_DIALOG DIALOGEX 0, 0, 222, 208
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | 
+    WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_APPWINDOW
+CAPTION "AutoLinkServer"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "开启监听",IDC_BUTTON1,107,182,50,14
+    PUSHBUTTON      "关闭监听",IDC_BUTTON2,160,182,50,14
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_SINGLESEL | 
+                    LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,208,125
+    EDITTEXT        IDC_EDIT1,47,163,54,14,ES_AUTOHSCROLL
+    LTEXT           "监听端口：",IDC_STATIC,12,165,35,11
+    EDITTEXT        IDC_EDIT2,47,182,54,14,ES_AUTOHSCROLL
+    GROUPBOX        "基本配置",IDC_STATIC,7,135,208,67
+    LTEXT           "监听数量：",IDC_STATIC,12,184,35,8
+    LTEXT           "保存目录：",IDC_STATIC,12,147,35,11
+    EDITTEXT        IDC_DIR,47,144,136,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_FIND_DIR,187,144,23,14
+    PUSHBUTTON      "路径设置",IDC_BUTTON_DIR,107,163,50,14
+    PUSHBUTTON      "文件名设置",IDC_BUTTON_FILENAME,160,163,50,14
+END
+
+IDD_AUTOLINK_SETHISTORY DIALOGEX 0, 0, 162, 175
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设置参数"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "启用接收历史",IDC_ENABLE_HISTORY_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,7,64,10
+    CONTROL         "",IDC_BEGIN_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,70,42,72,15
+    CONTROL         "",IDC_END_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,70,104,72,15
+    LTEXT           "起始时间： ",IDC_STATIC,20,44,43,8
+    LTEXT           "结束时间：",IDC_STATIC,20,91,41,8
+    LTEXT           "索引：",IDC_STATIC,20,67,25,8
+    EDITTEXT        IDC_INDEX_EDIT,70,66,72,14,ES_AUTOHSCROLL
+    CONTROL         "启用",IDC_ENABLE_END_TIME_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,70,90,32,10
+    PUSHBUTTON      "保存",IDC_SAVE_BUTTON,51,154,50,14
+    PUSHBUTTON      "取消",IDC_CANCEL_BUTTON,105,154,50,14
+    GROUPBOX        "   参数  ",IDC_STATIC123,7,25,148,123
+    CONTROL         "启用",IDC_ENABLE_ONLYVIOLATION_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,70,131,32,10
+    LTEXT           "仅接收违章：",IDC_STATIC,20,131,49,8
+END
+
+IDD_AUTOLINK_NAMESET DIALOGEX 0, 0, 540, 165
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "文件名设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "车牌大图",IDC_CHECK_BIGIMG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,22,48,10,WS_EX_ACCEPTFILES
+    CONTROL         "车牌小图",IDC_CHECK_SMALLIMG,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,41,48,10
+    CONTROL         "二值图",IDC_CHECK_BIN,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,60,40,10
+    CONTROL         "附加信息",IDC_CHECK_INFO,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,78,48,10
+    CONTROL         "车牌结果",IDC_CHECK_PLATE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,98,48,10
+    CONTROL         "车牌记录",IDC_CHECK_PLATENO,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,13,118,48,10
+    EDITTEXT        IDC_EDIT_NAME1,64,20,410,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NAME2,64,39,410,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NAME3,64,57,410,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NAME4,64,76,410,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NAME5,64,96,410,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NAME6,64,115,410,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "编辑",IDC_BUTTON_NAMESET1,477,20,50,14
+    PUSHBUTTON      "编辑",IDC_BUTTON_NAMESET2,477,39,50,14
+    PUSHBUTTON      "编辑",IDC_BUTTON_NAMESET3,477,57,50,14
+    PUSHBUTTON      "编辑",IDC_BUTTON_NAMESET4,477,76,50,14
+    PUSHBUTTON      "编辑",IDC_BUTTON_NAMESET5,477,96,50,14
+    PUSHBUTTON      "确定",IDC_BUTTON_NAMEOK,369,144,50,14
+    PUSHBUTTON      "取消",IDC_BUTTON_NAMECANCEL,423,144,50,14
+    PUSHBUTTON      "还原",IDC_BUTTON_NAMEDEFAULT,477,144,50,14
+    GROUPBOX        "结果存储文件名设置",IDC_STATIC,7,7,526,131
+    PUSHBUTTON      "默认",IDC_BUTTON_NAMEINIT,7,144,50,14
+END
+
+IDD_DIALOG_DIRSET DIALOGEX 0, 0, 508, 91
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "路径设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "违法路径：",IDC_STATIC_ILLDIR,13,24,41,8
+    LTEXT           "正常路径：",IDC_STATIC_ILLDIR2,13,42,41,8
+    PUSHBUTTON      "还原",IDC_BUTTON_DIRDEFAULT,445,70,50,14
+    EDITTEXT        IDC_EDIT_DIR1,54,21,387,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_DIR2,54,40,387,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "编辑",IDC_BUTTON_DIRSET1,445,20,50,14
+    PUSHBUTTON      "编辑",IDC_BUTTON_DIRSET2,445,39,50,14
+    PUSHBUTTON      "确定",IDC_BUTTON_DIROK,337,70,50,14
+    PUSHBUTTON      "取消",IDC_BUTTON_DIRCANCEL,391,70,50,14
+    GROUPBOX        "路径设置",IDC_STATIC,7,7,494,55
+    PUSHBUTTON      "默认",IDC_BUTTON_INIT,7,70,50,14
+END
+
+IDD_DIALOG_CHANGE DIALOGEX 0, 0, 384, 146
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "匹配符设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "结果演示：",IDC_STATIC,14,23,41,8
+    LTEXT           "文字说明：",IDC_STATIC,14,43,41,8
+    LTEXT           "替换设置：",IDC_STATIC,14,62,41,8
+    PUSHBUTTON      "确定",IDC_BUTTON_MATCHOK,266,125,50,14
+    PUSHBUTTON      "取消",IDC_BUTTON_MATCHCANCEL,320,125,50,14
+    GROUPBOX        "匹配符替换",IDC_STATIC,7,7,370,112
+    EDITTEXT        IDC_EDIT_MATCH1,57,20,314,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    EDITTEXT        IDC_EDIT_MATCH2,57,40,314,14,ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    EDITTEXT        IDC_EDIT_MATCH3,57,59,314,14,ES_AUTOHSCROLL
+    COMBOBOX        IDC_COMBO_MATCHTIME,57,98,55,102,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MATCHPLATE,120,98,55,108,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MATCHDEV,182,98,55,112,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_MATCHOTHER,244,98,55,117,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "时间",IDC_STATIC,70,84,17,8
+    LTEXT           "车牌信息",IDC_STATIC,129,84,33,8
+    LTEXT           "设备信息",IDC_STATIC,192,84,33,8
+    LTEXT           "其他信息",IDC_STATIC,254,84,33,8
+    COMBOBOX        IDC_COMBO_TYPE,306,97,55,71,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "文件类型",IDC_STATIC,315,83,33,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,0,0,12
+ PRODUCTVERSION 2,0,0,12
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "FileDescription", "主动连接程序2.0"
+            VALUE "FileVersion", "2.0.0.12"
+            VALUE "InternalName", "AutoLink_Server.exe"
+            VALUE "OriginalFilename", "AutoLink_Server.exe"
+            VALUE "ProductVersion", "2.0.0.12"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_AUTOLINK_DEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 202
+    END
+
+    IDD_AUTOLINK_SETHISTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 155
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+
+    IDD_AUTOLINK_NAMESET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 533
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 158
+    END
+
+    IDD_DIALOG_DIRSET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 501
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 84
+    END
+
+    IDD_DIALOG_CHANGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 377
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 139
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "连接"
+    BEGIN
+        MENUITEM "配置",                        ID__RECV_HISTORY_CONFIG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Windows 套接字初始化失败。"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\AutoLink_demo.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

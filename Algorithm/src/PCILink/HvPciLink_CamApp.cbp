@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HvPciLink_CamApp" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_lib/Debug/libHvPciLink_CamApp" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Debug/CamApp/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_lib/Release/libHvPciLink_CamApp" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Release/CamApp/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add option="-D_ARM_APP_" />
+			<Add option="-DCHIP_6467" />
+			<Add option="-D_CAM_APP_" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Unit filename="../Inc/HvPciLinkApi.h" />
+		<Unit filename="HvPciLinkApi.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

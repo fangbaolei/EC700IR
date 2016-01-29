@@ -1,0 +1,91 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="V:\DM700_srirami\cdb_dces_dm700\test\csl\c6x\build\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\..\arm\src\csl_version.c"
+Source="..\src\_csl_beginCriticalSection.asm"
+Source="..\src\_csl_ddrGetAttrs.c"
+Source="..\src\_csl_emifGetAttrs.c"
+Source="..\src\_csl_endCriticalSection.asm"
+Source="..\src\_csl_intcCombEventDispatcher.c"
+Source="..\src\_csl_intcDispatcher.c"
+Source="..\src\_csl_intcIntrEnDisRes.asm"
+Source="..\src\_csl_intcIsrDispatch.asm"
+Source="..\src\_csl_intcNmiDummy.asm"
+Source="..\src\_csl_intcResource.c"
+Source="..\src\_csl_intcResourceAlloc.c"
+Source="..\src\_csl_resource.c"
+Source="..\src\_davinci_hd.c"
+Source="..\src\csl_chipReadReg.asm"
+Source="..\src\csl_chipWriteReg.asm"
+Source="..\src\csl_ddrClose.c"
+Source="..\src\csl_ddrInit.c"
+Source="..\src\csl_ddrOpen.c"
+Source="..\src\csl_ectl.c"
+Source="..\src\csl_edmaChannelClose.c"
+Source="..\src\csl_edmaChannelOpen.c"
+Source="..\src\csl_edmaClose.c"
+Source="..\src\csl_edmaGetBaseAddress.c"
+Source="..\src\csl_edmaGetHwChannelStatus.c"
+Source="..\src\csl_edmaGetHwModuleStatus.c"
+Source="..\src\csl_edmaGetHwRegionStatus.c"
+Source="..\src\csl_edmaHwChannelControl.c"
+Source="..\src\csl_edmaHwChannelSetup.c"
+Source="..\src\csl_edmaHwModuleControl.c"
+Source="..\src\csl_edmaHwRegionControl.c"
+Source="..\src\csl_edmaInit.c"
+Source="..\src\csl_edmaOpen.c"
+Source="..\src\csl_edmaParam.c"
+Source="..\src\csl_edmaRegionClose.c"
+Source="..\src\csl_edmaRegionOpen.c"
+Source="..\src\csl_emac.c"
+Source="..\src\csl_emifClose.c"
+Source="..\src\csl_emifInit.c"
+Source="..\src\csl_emifOpen.c"
+Source="..\src\csl_intcClose.c"
+Source="..\src\csl_intcExcep.c"
+Source="..\src\csl_intcGetHwStatus.c"
+Source="..\src\csl_intcHookIsr.c"
+Source="..\src\csl_intcHwControl.c"
+Source="..\src\csl_intcInit.c"
+Source="..\src\csl_intcOpen.c"
+Source="..\src\csl_intcPlugEventHandler.c"
+Source="..\src\csl_mcaspClose.c"
+Source="..\src\csl_mcaspGetChipCtxt.c"
+Source="..\src\csl_mcaspGetHwSetup.c"
+Source="..\src\csl_mcaspGetHwStatus.c"
+Source="..\src\csl_mcaspHwControl.c"
+Source="..\src\csl_mcaspHwSetup.c"
+Source="..\src\csl_mcaspHwSetupRaw.c"
+Source="..\src\csl_mcaspInit.c"
+Source="..\src\csl_mcaspOpen.c"
+Source="..\src\csl_mcaspRead.c"
+Source="..\src\csl_mcaspRegReset.c"
+Source="..\src\csl_mcaspResetCtrl.c"
+Source="..\src\csl_mcaspWrite.c"
+Source="..\src\csl_mdio.c"
+Source="..\src\csl_sysData.c"
+Source="..\src\csl_sysInit.c"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"V:\DM700_srirami\cdb_dces_dm700\test\csl\c6x\lib\dspcsl_davinci_hd.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o".\Release\dspcsl_davinci_hd.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug" -i"V:\DM700_srirami\cdb_dces_dm700\test\csl\c6x\include" -d"_DEBUG" -d"_TMS3206X" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o3 -fr"$(Proj_dir)\Release" -mv6400+
+

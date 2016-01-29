@@ -1,0 +1,96 @@
+<!--
+字段说明
+param:参数
+carleft:结果输出
+Object:控制流
+Filter:数据流
+Pin:数据流的输出
+
+属性说明
+1,class="类名"
+2,name="对象名",name为空时则类名即对象名
+3,In="有几个输入",Out="有几个输出",Format="数据格式",在拆分器中才用到此属性
+
+功能说明：对各个模块进行配置，目前有参数类、控制流和数据流三类
+1,参数类  :
+<VarList>
+</VarList>
+
+2,控制流类:
+<ObjectList>
+	<Ojbect class="控制流类" name="对象名"/>
+	...
+</ObjectList>
+
+3,数据流类:
+<FilterList>
+	只有一个输出的情况下	
+	<Filter class="数据流类" name="对象名" ConnectFilter="下一个数据流对象名" Pin="下一个输入的第几个输入,为空则表明第0个输入"/>
+	也可以如下下
+	<Filter class="数据流类" name="对象名">
+		<Pin value="0" ConnectFilter="下一个数据流对象名" Pin="0"/>
+	</Filter>
+	多个输出的情况下
+	<Filter class="数据流类" name="对象名">
+		<Pin value="0" ConnectFilter="下一个数据流对象名" Pin="0"/>
+		<Pin value="1" ConnectFilter="下一个数据流对象名" Pin="第几个输入"/>
+		...
+	</Filter>
+</FilterList>
+-->
+<?xml version="1.0" encoding="gb2312"?>
+<LprApp>
+	<VarList remark="参数">
+		<param class="CSWLPREPoliceParameter" remark="电子警察参数"/>
+		<carleft class="CSWEPoliceCarLeft" remark="电子警察结果输出"/>
+	</VarList>
+	<ObjectList remark="控制流">
+		<Object class="CSWCameralControlMSG" remark="摄像机控制"/>
+		<Object class="CSWNetCommandProcess" remark="网络控制"/>
+	</ObjectList>
+	<FilterList remark="数据流">
+		<Filter class="CSWH264SourceFilter" ConnectFilter="CSWH264SplitFilter" remark="H264采集,连接H264数据拆分器"/>
+		<Filter class="CSWBaseFilter" name="CSWH264SplitFilter" In="1" Out="3" Format="CSWImage" remark="定义数据拆分器,1个输入,3个输出,数据载体为CSWImage">
+			<Pin value="0" ConnectFilter="CSWH264HDDTransformFilter" Pin="0" remark="第0个输出连接H264存储的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWH264HDDTransformFilter" Pin="1" remark="第1个输出连接H264存储的第1个输入"/>
+			<Pin value="2" ConnectFilter="CSWRTSPTransformFilter" remark="第2个输出连接RTSP的第0个输入"/>
+		</Filter>
+		<Filter class="CSWRTSPTransformFilter" remark="RTSP网络发送"/>
+		<Filter class="CSWH264HDDTransformFilter" remark="H264硬盘存储">
+			<Pin value="0" ConnectFilter="CSWH264NetRenderFilter" Pin="0" remark="第0个输出连接H264网络发送的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWH264NetRenderFilter" Pin="1" remark="第1个输出连接H264网络发送的第1个输入"/>
+		</Filter>
+		<Filter class="CSWH264NetRenderFilter" remark="H264网络发送"/>
+		<Filter class="$(CaptureFilter)"  ConnectFilter="YUVSplitFilter" remark="图像采集连接数据拆分器"/>
+		<Filter class="CSWBaseFilter" name="YUVSplitFilter" In="1" Out="3" Format="CSWImage" remark="定义数据拆分器,1个输入,3个输出,数据载体为CSWImage">
+			<Pin value="0" ConnectFilter="CSWRecognizeTransformFilter" remark="第0个输出连接识别模块的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWMatchTransformFilter" remark="第1个输出连接信号匹配模块的第0个输入"/>
+			<Pin value="2" ConnectFilter="CSWAutoControlRenderFilter" Pin="1" remark="第2个输出连接自动控制模块的第1个输入"/>
+		</Filter>
+		<Filter class="CSWRecognizeTransformFilter" remark="识别模块">
+			<Pin value="0" ConnectFilter="CSWJPEGEncodeTransformFilter" Pin="0" remark="第0个输出连接JPEG压缩模块的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWMatchTransformFilter" Pin="1" remark="第1个输出连接信号匹配模块的第1个输入"/>
+			<Pin value="2" ConnectFilter="CSWAutoControlRenderFilter" Pin="0" remark="第2个输出连接自动控制模块的第0个输入"/>
+		</Filter>
+		<Filter class="CSWJPEGEncodeTransformFilter" ConnectFilter="CSWJPEGSplitFilter" remark="JPEG压缩模块,连接JPEG数据拆分器"/>
+		<Filter class="CSWBaseFilter" name="CSWJPEGSplitFilter" In="1" Out="2" Format="CSWPosImage" remark="定义JPEG数据拆分器,1个输入2个输出">
+			<Pin value="0" ConnectFilter="CSWJPEGNetRenderFilter" Pin="0" remark="第0个输出连接JPEG网络模块的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWJPEGNetRenderFilter" Pin="1" remark="第1个输出连接JPEG网络模块的第1个输入"/>
+		</Filter>
+		<Filter class="CSWJPEGNetRenderFilter" remark="JPEG网络发送模块"/>
+		<Filter class="CSWAutoControlRenderFilter" remark="自动控制模块"/>
+		<Filter class="CSWMatchTransformFilter" ConnectFilter="CarLeftSplitFilter" remark="信号匹配模块,连接数据拆分器"/>
+		<Filter class="CSWBaseFilter" name="CarLeftSplitFilter" In="1" Out="2" Format="CSWCarLeft" remark="定义数据拆分器,1个输入2个输出">
+			<Pin value="0" ConnectFilter="CSWEPoliceEventCheckerTransformFilter" remark="第0个输出连接交通信息采集的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWResultFilter" remark="第1个输出连接后处理模块的第0个输入"/>
+		</Filter>
+		<Filter class="CSWResultFilter" ConnectFilter="CSWRecordTransformFilter" Pin="0" remark="后处理模块,连接结果转换模块"/>
+		<Filter class="CSWEPoliceEventCheckerTransformFilter" ConnectFilter="CSWRecordTransformFilter" Pin="1" remark="交通信息采集,连接结果转换模块的第1个输入"/>
+		<Filter class="CSWRecordTransformFilter" ConnectFilter="CSWResultHDDTransformFilter" Pin="0" remark="结果转换模块,连接结果保存模块"/>
+		<Filter class="CSWResultHDDTransformFilter" remark="结果存储模块">
+			<Pin value="0" ConnectFilter="CSWResultNetRenderFilter" Pin="0" remark="结果存储模块的第0个输出连接结果网络发送模块的第0个输入"/>
+			<Pin value="1" ConnectFilter="CSWResultNetRenderFilter" Pin="1" remark="结果存储模块的第1个输出连接结果网络发送模块的第1个输入"/>
+		</Filter>
+		<Filter class="CSWResultNetRenderFilter" remark="网络发送模块"/>
+	</FilterList>
+</LprApp>

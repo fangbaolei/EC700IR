@@ -1,0 +1,37 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\work\DM6467_sync\LPR\src\CamDsp\CamDspProcLibProj\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\..\DSPLink\StringOverlay\StringOverlay.cpp"
+Source="BT1120_ROTATE_Y_1200_1600_To_UYVY_1200_1600_master.c"
+Source="BT1120_ROTATE_Y_To_YUV422P.c"
+Source="BT1120_ROTATE_Y_To_YUV422SP.c"
+Source="BT1120_To_UYVY.c"
+Source="BT1120_To_YUV420P.c"
+Source="BT1120_To_YUV422SP.c"
+Source="BT1120Field_To_UYVY.c"
+Source="BT1120UV_SplitUV.c"
+Source="CamDspProc.c"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\..\_lib\6467\Debug\CamDspProc.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\..\_lib\6467\Release\CamDspProc.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\..\_temp\6467\Debug\CamDsp" -ft"..\..\..\_temp\6467\Debug\CamDsp" -i"..\..\Inc" -i"..\CamDspInc" -i"..\..\DSPLink\Csp\Csl\include" -i"..\..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"_DEBUG" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\..\_temp\6467\Release\CamDsp" -ft"..\..\..\_temp\6467\Release\CamDsp" -i"..\..\Inc" -i"..\CamDspInc" -i"..\..\DSPLink\Csp\Csl\include" -i"..\..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+

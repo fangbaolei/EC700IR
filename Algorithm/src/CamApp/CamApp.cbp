@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="CamApp" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_bin/Debug/CamApp" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../_obj/Debug/CamApp" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../_lib/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_bin/Release/CamApp" prefix_auto="1" extension_auto="1" />
+				<Option object_output="../../_obj/Release/CamApp" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add directory="../../_lib/Release" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add option="-D_ARM_APP_" />
+			<Add option="-DCHIP_6467" />
+			<Add option="-D_CAM_APP_" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Linker>
+			<Add option="-lrt" />
+			<Add library="libResultProcess_CamApp.a" />
+			<Add library="libDevCtrl_CamApp.a" />
+			<Add library="libImgGather_CamApp.a" />
+			<Add library="libHvPciLink_CamApp.a" />
+			<Add library="libHvDspLink_CamApp.a" />
+			<Add library="libSignalMatch_CamApp.a" />
+			<Add library="libHvPlatform_CamApp.a" />
+			<Add library="libHvTelnet_CamApp.a" />
+			<Add library="../DSPLink/cmem/cmem.a" />
+		</Linker>
+		<Unit filename="DataCtrl.cpp" />
+		<Unit filename="DataCtrl.h" />
+		<Unit filename="DataMux.cpp" />
+		<Unit filename="DataMux.h" />
+		<Unit filename="FrontController.cpp" />
+		<Unit filename="FrontController.h" />
+		<Unit filename="LoadParam.cpp" />
+		<Unit filename="LoadParam.h" />
+		<Unit filename="PciCmdProcess_Master.cpp" />
+		<Unit filename="PciDataRecvThread_Master.cpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="../Inc/AgcAwbThread.h" />
+		<Unit filename="../Inc/CameraController.h" />
+		<Unit filename="../Inc/config.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

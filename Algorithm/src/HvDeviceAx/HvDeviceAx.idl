@@ -1,0 +1,102 @@
+// HvDeviceAx.idl : type library source for ActiveX Control project.
+
+// This file will be processed by the MIDL compiler tool to
+// produce the type library (HvDeviceAx.tlb) that will become a resource in
+// HvDeviceAx.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+[ uuid(52C4A44D-D2FF-4CBA-8B58-166CEA92BE1E), version(1.0),
+  helpfile("HvDeviceAx.hlp"),
+  helpstring("HvDeviceAx ActiveX Control module"),
+  control ]
+library HvDeviceAxLib
+{
+	importlib(STDOLE_TLB);
+
+	//  Primary dispatch interface for CHvDeviceAxCtrl
+
+	[ uuid(FBAD7529-8CC6-49B8-8411-B65AC8D98574),
+	  helpstring("Dispatch interface for HvDeviceAx Control")]
+	dispinterface _DHvDeviceAx
+	{
+		properties:
+		[id(1), helpstring("是否接收H264视频流开关")] LONG RecvH264Flag;
+		[id(2), helpstring("是否接收Jpeg视频流开关")] LONG RecvJpegFlag;
+		[id(3), helpstring("是否接收车牌二值化图开关")] LONG RecvPlateBinImageFlag;
+		[id(4), helpstring("是否接收车牌小图开关")] LONG RecvPlateImageFlag;
+		[id(5), helpstring("是否接收车辆大图开关")] LONG RecvSnapImageFlag;
+		[id(6), helpstring("H264视频时长参数（单位：分钟）")] LONG SaveH264VideoTime;
+		[id(21), helpstring("RECVRECORD")] LONG RecvRecordFlag;
+		//[id(26), helpstring("property H264FrameRateNum")] LONG H264FrameRateNum;
+		[id(29), helpstring("是否显示H.264视频开关")] LONG ShowH264VideoFlag;
+		[id(37), helpstring("是否接收违章视频开关")] LONG RecvIllegalVideoFlag;
+		//[id(41),helpstring("是否显示图标开关") ] LONG ShowIconFlag;
+		[id(41),helpstring("是否显示图标开关") ] LONG HideIcon;
+
+		methods:
+		[id(DISPID_ABOUTBOX)] void AboutBox();
+		[id(7), helpstring("连接识别器")] void ConnectTo(BSTR strAddr);
+		[id(8), helpstring("获取车辆ID号")] LONG GetCarID(void);
+		[id(9), helpstring("获取车牌")] BSTR GetPlate(void);
+		[id(10), helpstring("获取车牌颜色")] BSTR GetPlateColor(void);
+		[id(11), helpstring("获取车牌附加信息")] BSTR GetPlateInfo(void);
+		[id(12), helpstring("获取连接状态")] LONG GetStatus(SHORT iConnType);
+		[id(13), helpstring("保存H264视频")] LONG SaveH264Video(BSTR strFilePath);
+		[id(14), helpstring("保存Jpeg视频")] LONG SaveJpegVideo(BSTR strFileName);
+		[id(15), helpstring("保存二值图为BMP")] LONG SavePlateBin2BMP(BSTR strFileName);
+		[id(16), helpstring("保存二值图")] LONG SavePlateBinImage(BSTR strFileName);
+		[id(17), helpstring("保存小图")] LONG SavePlateImage(BSTR strFileName);
+		[id(18), helpstring("保存大图")] LONG SaveSnapImage(BSTR strFileName, SHORT iImageType);
+		[id(19), helpstring("断开识别器")] void Disconnect(void);
+		[id(20), helpstring("获取识别结果时间")] LONGLONG GetPlateResultTime();
+		[id(22), helpstring("获取文件名")] BSTR GetFileName(SHORT iType);
+		[id(23), helpstring("设置传控件文件名是路径还是文件名")] LONG SetPathType(SHORT iPathtType);
+		[id(24), helpstring("method SoftTriggerCaptureAndForceGetResult")] LONG SoftTriggerCaptureAndForceGetResult(void);
+		[id(25), helpstring("method SendTriggerOut")] LONG SendTriggerOut(void);
+		[id(27), helpstring("method GetH264FrameRateNum")] LONG GetH264FrameRateNum(void);
+		[id(28), helpstring("method SetH264FrameRateNum")] LONG SetH264FrameRateNum(LONG longH264FrameRateNum);
+		//[id(30), helpstring("method GetSaveFileStatus")] LONG GetSaveFileStatus(void);
+		[id(31), helpstring("method InportNameListEx")] LONG InportNameListEx(BSTR szWhiteNameList, LONG iWhiteListLen, BSTR szBlackNameList, LONG iBlackListLen);
+		[id(32), helpstring("method GetNameListEx")] BSTR GetNameListEx(void);
+		[id(33), helpstring("method InportNameList")] LONG InportNameList(CHAR* szWhiteNameList, LONG iWhiteListLen, CHAR* szBlackNameList, LONG iBlackListLen);
+		[id(34), helpstring("method GetNameList")] LONG GetNameList(CHAR* szWhiteNameList, LONG* iWhiteListLen, CHAR* szBlackNameList, LONG* iBlackListLen);
+		[id(35), helpstring("method TriggerSignal")] LONG TriggerSignal(LONG VideoID);
+		[id(36), helpstring("method TriggerAlarmSignal")] LONG TriggerAlarmSignal(void);
+		[id(38), helpstring("保存违章视频")] LONG SaveIllegalVideo(BSTR strFilePath);
+		[id(39), helpstring("获取违章原因")] BSTR GetIllegalReason(void);
+		[id(40), helpstring("保存大图")] LONG GetCaptureImage(LONG VideoID,BSTR strFileName);
+		[id(42), helpstring("获取设备SN")] BSTR GetDevSN(void);
+		[id(43)] BSTR GetDevMac(void);
+		[id(44), helpstring("获取自定义字符串")] BSTR GetCusTomInfo(void);
+		[id(45), helpstring("设置自定义字符串")] LONG SetCusTomInfo(BSTR strCustomInfo);
+	};
+
+	//  Event dispatch interface for CHvDeviceAxCtrl
+
+	[ uuid(E6101EF2-EBDE-47C7-A8C0-22D81243BD64),
+	  helpstring("Event interface for HvDeviceAx Control") ]
+	dispinterface _DHvDeviceAxEvents
+	{
+		properties:
+
+		methods:
+		[id(1)] void OnReceivePlate(void);
+		[id(2)] void OnReceiveJpegVideo(void);
+		[id(3)] void OnReceiveH264Video(void);
+		[id(DISPID_DBLCLICK)] void DblClick(void);
+		[id(DISPID_CLICK)] void Click(void);
+	};
+
+	//  Class information for CHvDeviceAxCtrl
+
+	[ uuid(7F3E4C52-224D-415A-9568-FD4BB30167CF),
+	  helpstring("HvDeviceAx Control"), control ]
+	coclass HvDeviceAx
+	{
+		[default] dispinterface _DHvDeviceAx;
+		[default, source] dispinterface _DHvDeviceAxEvents;
+	};
+
+};

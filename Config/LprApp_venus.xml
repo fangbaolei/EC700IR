@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="gb2312"?>
+<LprApp>
+	<VarList>
+		<param class="CSWLPREPoliceParameter"/>
+		<carleft class="CSWEPoliceCarLeft"/>
+	</VarList>
+	<ObjectList>
+		<Object class="CSWCameralControlMSG"/>
+		<Object class="CSWNetCommandProcess"/>
+	</ObjectList>
+	<FilterList>
+		<Filter class="CSWCentaurusSourceFilter">
+			<Pin value="0" ConnectFilter="CSWH264OverlayFilter"/>
+			<Pin value="1" ConnectFilter="CSWJPEGOverlayFilter"/>
+		</Filter>
+		<Filter class="CSWH264OverlayFilter" ConnectFilter="CSWCentaurusH264EncodeFilter"/>
+		<Filter class="CSWCentaurusH264EncodeFilter" ConnectFilter="CSWH264HDDTransformFilter"/>
+		<Filter class="CSWH264HDDTransformFilter">
+			<Pin value="0" ConnectFilter="CSWH264NetRenderFilter" Pin="0"/>
+			<Pin value="1" ConnectFilter="CSWH264NetRenderFilter" Pin="1"/>
+		</Filter>
+		<Filter class="CSWH264NetRenderFilter"/>
+		<Filter class="CSWJPEGOverlayFilter" ConnectFilter="CSWImage2SWPosImageTransformFilter"/>
+		<Filter class="CSWImage2SWPosImageTransformFilter" ConnectFilter="CSWJPEGEncodeTransformFilter"/>
+		<Filter class="CSWJPEGEncodeTransformFilter" ConnectFilter="CSWJPEGSplitFilter"/>
+		<Filter class="CSWBaseFilter" name="CSWJPEGSplitFilter" In="1" Out="2" Format="CSWPosImage">
+			<Pin value="0" ConnectFilter="CSWJPEGNetRenderFilter" Pin="0"/>
+			<Pin value="1" ConnectFilter="CSWJPEGNetRenderFilter" Pin="1"/>
+		</Filter>
+		<Filter class="CSWJPEGNetRenderFilter"/>
+		<Filter class="CSWResultFilter" ConnectFilter="CSWRecordTransformFilter" Pin="0"/>
+		<Filter class="CSWEPoliceEventCheckerTransformFilter" ConnectFilter="CSWRecordTransformFilter" Pin="1"/>
+		<Filter class="CSWRecordTransformFilter" ConnectFilter="CSWResultHDDTransformFilter"/>
+		<Filter class="CSWResultHDDTransformFilter">
+			<Pin value="0" ConnectFilter="CSWResultNetRenderFilter" Pin="0"/>
+			<Pin value="1" ConnectFilter="CSWResultNetRenderFilter" Pin="1"/>
+		</Filter>
+		<Filter class="CSWResultNetRenderFilter"/>
+	</FilterList>
+</LprApp>

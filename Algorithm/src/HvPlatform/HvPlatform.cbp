@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HvPlatform" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Option virtualFolders="Misc/;BaseType/;Image/;Math/;Stream/;Utils/;System/;Driver/;Camera/;CamTransmit/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_lib/Debug/libHvPlatform" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_lib/Release/libHvPlatform" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Release/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add option="-D_ARM_APP_" />
+			<Add option="-DCHIP_6467" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Unit filename="CamTransmit/BroadcastTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CAMCYBroadcastTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CAMCYTcpTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CAMNVCBroadcastTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CAMNVCUdpTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CTcpTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CUdpTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CamCYTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CamNVCTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/CamTransmit.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CamTransmit/NetTransmitUtils.cpp">
+			<Option virtualFolder="CamTransmit/" />
+		</Unit>
+		<Unit filename="CameraController.cpp">
+			<Option virtualFolder="Camera/" />
+		</Unit>
+		<Unit filename="DiskFileStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="DspLinkMemBlocks.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="EncryptStream.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="EprFileStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="GUIDS.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="GetPlateNameAlpha.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GetPlateNameUnicode.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GetPlateRecogParam.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GlobalDataTbl.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GlobalStackAlloc.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvDebugStateInfo.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvExit.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvFileStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="HvIfconfig.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvParamConvert.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvParamIO.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvParamNode.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvParamStore.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvRoute.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvSerialLink.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvSockUtils.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvSocketImpl_Linux.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvString.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="HvSystemInit.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvThreadBase.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvThreadImpl_Linux.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvTime.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvUtilsClass.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="Hvtarget_ARM.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="ICMP.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="ItgArea.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="MemStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="MemoryStream.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="PlateRecogParam_high.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="SerialBase.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="TcpipCfg.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="basecommon.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="crypt.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="fastcrc32.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="hv_math.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="image.cpp">
+			<Option virtualFolder="Image/" />
+		</Unit>
+		<Unit filename="interface.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="misc.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="prime.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="rsa.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="stack_alloc.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="swdrv_base.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swdrv_cam.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swdrv_devctrl.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swdrv_dma.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swdrv_pci.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swdrv_serial.cpp">
+			<Option virtualFolder="Driver/" />
+		</Unit>
+		<Unit filename="swimageobj.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="tinystr.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxml.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxmlerror.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxmlparser.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="verify.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="vlong.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="../Inc/HvList.h">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="../Inc/Queue.h">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="../Inc/SocketStream.h">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

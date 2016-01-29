@@ -1,0 +1,264 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\HvOcxTest.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\HvOcxTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 235, 55
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于 HvOcxTest"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "HvOcxTest Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "确定",IDOK,178,7,50,16,WS_GROUP
+END
+
+IDD_HVOCXTEST_DIALOG DIALOGEX 0, 0, 578, 370
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "HvOcxTest"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "连接",IDC_CONNECT,139,7,50,13
+    CONTROL         "",IDC_IP,"SysIPAddress32",WS_TABSTOP,47,7,87,13
+    LTEXT           "设备IP：",IDC_STATIC,11,9,32,10
+    LTEXT           "保存路径：",IDC_STATIC,13,248,35,12
+    EDITTEXT        IDC_EDIT_PATCH,50,246,105,13,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "选择路径",IDC_PATCH,161,246,50,13
+    EDITTEXT        IDC_VALUE,12,36,163,197,ES_MULTILINE | ES_READONLY | ES_WANTRETURN
+    CONTROL         "接收大图",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,121,43,10
+    CONTROL         "接收小图",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,140,57,11
+    CONTROL         "接收二值图",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,159,58,11
+    CONTROL         "接收Jpeg图片",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,194,57,11
+    CONTROL         "接收H264视频",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,212,57,11
+    GROUPBOX        "接收数据设置",IDC_STATIC,7,25,241,214
+    CONTROL         "保存车辆大图",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,296,60,11
+    CONTROL         "保存车牌小图",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,309,59,11
+    CONTROL         "保存二值图",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,79,296,57,11
+    CONTROL         "保存二值图为BMP",IDC_CHECK9,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,79,309,64,11
+    CONTROL         "保存jpeg图片",IDC_CHECK10,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,155,296,57,11
+    CONTROL         "保存H264视频",IDC_CHECK11,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,155,309,57,11
+    LTEXT           "H264保存时长（分钟）：",IDC_STATIC,14,337,41,18
+    EDITTEXT        IDC_EDIT_PATCH2,53,340,42,13,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "设置",IDC_SET_TIME,98,341,33,13
+    GROUPBOX        "保存数据设置",IDC_STATIC,7,286,241,73
+    LTEXT           "",IDC_STATIC1,181,37,53,8
+    LTEXT           "",IDC_STATIC2,181,49,60,8
+    LTEXT           "",IDC_STATIC3,181,61,53,8
+    PUSHBUTTON      "结果回调",IDC_BUTTON1,188,96,46,16
+    PUSHBUTTON      "软触发",IDC_BUTTON2,262,254,50,14
+    PUSHBUTTON      "12V触发输出",IDC_BUTTON3,263,277,50,14
+    EDITTEXT        IDC_EDIT_PATCH3,172,324,38,13,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "设置",IDC_SET_TIME2,215,323,24,13
+    LTEXT           "h264帧率",IDC_STATIC,139,327,32,10
+    LTEXT           "h264帧率",IDC_STATIC,139,344,32,10
+    EDITTEXT        IDC_EDIT_CUR_FRAM,172,342,38,12,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "获取",IDC_BUTTON4,215,342,24,12
+    LTEXT           "",IDC_STATIC_PATH,8,259,237,18
+    CONTROL         "显示H264视频",IDC_CHECK_SHOW_VEDIO,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,254,221,60,12
+    PUSHBUTTON      "上传黑白名单",IDC_BUTTON_INPUTLIST,263,300,50,14
+    PUSHBUTTON      "下载黑白名单",IDC_BUTTON_GETLIST,263,323,50,14
+    GROUPBOX        "功能测试",IDC_STATIC,254,237,317,122
+    PUSHBUTTON      "1路触发信号",IDC_BUTTON5,321,254,50,14
+    PUSHBUTTON      "2路触发信号",IDC_BUTTON7,321,277,50,14
+    PUSHBUTTON      "警报信号",IDC_BUTTON8,322,300,50,14
+    EDITTEXT        IDC_EDIT_NAME,408,274,109,14,ES_AUTOHSCROLL
+    LTEXT           "文件名不带后缀：",IDC_STATIC,380,275,28,19
+    CONTROL         "接收违章视频",IDC_CKIllegalVideo,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,184,177,57,11
+    CONTROL         "保存违章视频",IDC_CKSaveIllegalVideo,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,323,59,11
+    LTEXT           "",IDC_SIllegalInfo,177,75,68,19
+    CONTROL         "全文件名模式",IDC_CKIllegalVideo2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,388,258,57,11
+    CONTROL         "",IDC_HVDEVICEAXCTRL1,
+                    "{7F3E4C52-224D-415A-9568-FD4BB30167CF}",WS_TABSTOP,250,7,321,211
+    PUSHBUTTON      "获取一张图片",IDC_BUTTON_GETIMAGE,322,323,50,14
+    CONTROL         "隐藏图标",IDC_CHECK_ICONHIDE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,326,223,43,10
+    LTEXT           "SN:",IDC_SN_TXT,437,303,109,9
+    LTEXT           "MAC:",IDC_MAC_TXT,438,325,102,8
+    PUSHBUTTON      "获取设备SN",IDC_BUTTON11,381,301,50,14
+    PUSHBUTTON      "获取设备MAC",IDC_BUTTON12,383,321,50,14
+    PUSHBUTTON      "获取字符",IDC_BUTTON_GETINFO,470,341,50,14
+    PUSHBUTTON      "设置字符",IDC_BUTTON_SETINFO,521,341,50,14
+    EDITTEXT        IDC_EDIT_INFO,263,339,201,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "开始",IDC_BUTTON_START,490,317,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,17
+ PRODUCTVERSION 1,0,0,17
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "FileVersion", "1, 0, 0, 17"
+            VALUE "InternalName", "HvOcxTest.exe"
+            VALUE "OriginalFilename", "HvOcxTest.exe"
+            VALUE "ProductVersion", "1.0.0.17"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+
+    IDD_HVOCXTEST_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 571
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 363
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_HVOCXTEST_DIALOG DLGINIT
+BEGIN
+    IDC_HVDEVICEAXCTRL1, 0x376, 52, 0
+0x0000, 0x0000, 0x0000, 0x0001, 0x0000, 0x0000, 0x0000, 0x0000, 0x0001, 
+0x0000, 0x0001, 0x0000, 0x0001, 0x0000, 0x0001, 0x0000, 0x0001, 0x0000, 
+0x0000, 0x0000, 0x3a16, 0x0000, 0x2623, 0x0000, 0x0000, 0x0000, 
+    0
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "关于 HvOcxTest(&A)..."
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\HvOcxTest.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

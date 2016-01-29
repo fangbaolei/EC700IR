@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#IPADDR=192.168.1.68
+
+#Configures ip address of eth0.
+#echo "Configure IP to  $IPADDR ..."
+#ifconfig eth0 $IPADDR
+ifconfig eth0 up
+vconfig add eth0 10
+vconfig add eth0 20
+ifconfig eth0.10 up
+ifconfig eth0.20 up
+#udhcpc -i eth0 &
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="HvTelnet/HvTelnet.cbp" />
+		<Project filename="HvPlatform/HvPlatform.cbp" />
+		<Project filename="ResultProcess/ResultProcess.cbp" />
+		<Project filename="DevCtrl/DevCtrl.cbp" />
+		<Project filename="DSPLink/HvArm/HvDspLink.cbp" />
+		<Project filename="CoverCtrlApp/CoverCtrlApp.cbp" active="1">
+			<Depends filename="HvTelnet/HvTelnet.cbp" />
+			<Depends filename="HvPlatform/HvPlatform.cbp" />
+			<Depends filename="ResultProcess/ResultProcess.cbp" />
+			<Depends filename="DevCtrl/DevCtrl.cbp" />
+			<Depends filename="DSPLink/HvArm/HvDspLink.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

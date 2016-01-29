@@ -1,0 +1,77 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="D:\ubuntu_share\Mercury_working\Mercury_main\Algorithm\src\DSPLink\HvDsp\"
+ProjectType=Executable
+CPUFamily=TMS320C64XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Project Dependencies]
+Source="..\..\CamDsp\DmaCopyLibProj\DmaCopy.pjt"
+Source="..\..\CamDsp\JpegEncoderLibProj\JpegEncoder.pjt"
+Source="..\..\HvPlatform\HvPlatform_6467.pjt"
+Source="..\..\ImgProcess\Tracker\Tracker_6467.pjt"
+Source="..\..\Jpgdlib\TiImageProcesser.pjt"
+Source="..\DspCmdApi\DspCmdApi.pjt"
+
+["..\..\CamDsp\DmaCopyLibProj\DmaCopy.pjt" Settings]
+MatchConfigName=true
+
+["..\..\CamDsp\JpegEncoderLibProj\JpegEncoder.pjt" Settings]
+MatchConfigName=true
+
+["..\..\HvPlatform\HvPlatform_6467.pjt" Settings]
+MatchConfigName=true
+
+["..\..\ImgProcess\Tracker\Tracker_6467.pjt" Settings]
+MatchConfigName=true
+
+["..\..\Jpgdlib\TiImageProcesser.pjt" Settings]
+MatchConfigName=true
+
+["..\DspCmdApi\DspCmdApi.pjt" Settings]
+MatchConfigName=true
+
+[Source Files]
+Source="..\..\CamDsp\lib\JpegEnc\dmjpge_tigem.l64P"
+Source="..\..\Jpgdlib\img64x.lib"
+Source="..\..\Jpgdlib\jpegdec_ti.l64P"
+Source="..\..\Lib\HvModel.lib"
+Source="..\..\Lib\ObjectTracking.lib"
+Source="..\..\Lib\PlateDetector.lib"
+Source="..\..\Lib\ProcessPlate.lib"
+Source="..\..\Lib\recognition.lib"
+Source="boot.c"
+Source="DSPBIOS\DSPLinkMercury.tcf"
+Source="DSPLink.c"
+Source="main.c"
+Source="message.c"
+Source="DSPLinkMercury.cmd"
+
+[Generated Files]
+Source="DSPBIOS\DSPLinkMercurycfg.s62"
+Source="DSPBIOS\DSPLinkMercurycfg_c.c"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\..\_temp\6467\Debug\HvDSP" -ft"..\..\..\_temp\6467\Debug\HvDSP" -i"..\..\Inc" -i"..\..\DSPLink\inc" -i"..\..\inc" -i"..\Csp\Csl\include" -i"..\Csp\c6x\include" -i"..\..\CamDsp\CamDspInc" -d"_DEBUG" -d"CHIP_6467" -d"_DSP_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\..\_temp\6467\Release\HvDSP" -ft"..\..\..\_temp\6467\Release\HvDSP" -i"..\..\inc" -i"..\Csp\Csl\include" -i"..\Csp\c6x\include" -i"..\..\CamDsp\CamDspInc" -d"_DSP_" -d"CHIP_6467" -mv6400+
+
+["Linker" Settings: "Debug"]
+Options=-c -m"..\..\..\_bin\6467\Debug\MercuryDsp.map" -o"..\..\..\_bin\6467\Debug\MercuryDsp.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=-c -m"..\..\..\_bin\6467\Release\MercuryDsp.map" -o"..\..\..\_bin\6467\Release\MercuryDsp.out" -w -x
+
+["DSPLinkMercury.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["DSPLinkMercury.cmd" Settings: "Release"]
+LinkOrder=1
+

@@ -1,0 +1,1 @@
+ g++ -o ./lib/libHvDevice.so -shared -fPIC ./tinyXml/*.cpp ./*.cpp *.c ./lib/*.a -lpthread -I./inc -I./ -I./tinyXml -m64

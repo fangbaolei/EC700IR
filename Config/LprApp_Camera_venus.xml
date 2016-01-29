@@ -1,0 +1,55 @@
+<!--金星纯相机方案-->
+<?xml version="1.0" encoding="gb2312"?>
+<LprApp>
+    <VarList>
+        <param class="SWLPRVenusCameraParameter"/>
+    </VarList>
+    <ObjectList>
+        <Object class="CSWCameralControlMSG"/>
+        <Object class="CSWNetCommandProcess"/>
+        <Object class="CSWTriggerOut"/>
+        <Object class="CSWUserManager"/>
+    </ObjectList>
+    <FilterList>
+        <Filter class="$(CaptureFilter)">
+            <Pin value="0" ConnectFilter="YUVSplitFilter" create="1"/>
+            <Pin value="1" ConnectFilter="CSWH264OverlayFilter" create="1"/>		
+            <Pin value="2" ConnectFilter="CSWH264SecondOverlayFilter" create="1"/>	<!--第二路H264数据字符叠加-->	
+        </Filter>
+        <Filter class="CSWH264OverlayFilter" ConnectFilter="CSWCentaurusH264EncodeFilter" create="1"/>
+        <Filter class="CSWCentaurusH264EncodeFilter" ConnectFilter="CSWH264SplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWH264SplitFilter" In="1" Out="3" Format="CSWImage" >
+            <Pin value="0" ConnectFilter="CSWH264HDDTransformFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWRTSPTransformFilter"/>
+			<Pin value="2" ConnectFilter="CSWGBH264TransformFilter"/>
+        </Filter>	
+		<Filter class="CSWH264SecondOverlayFilter" ConnectFilter="CSWCentaurusH264SecondEncodeFilter" create="1"/>	<!--第二路H264数据编码-->
+		<Filter class="CSWCentaurusH264EncodeFilter" name="CSWCentaurusH264SecondEncodeFilter" ConnectFilter="CSWRTSPSecondTransformFilter"/>	<!--第二路H264数据发送-->
+		<Filter class="CSWRTSPTransformFilter" name="CSWRTSPSecondTransformFilter"/>	
+		<Filter class="CSWRTSPTransformFilter"/>
+		<Filter class="CSWGBH264TransformFilter"/>
+        <Filter class="CSWH264HDDTransformFilter">
+            <Pin value="0" ConnectFilter="CSWH264NetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWH264NetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWH264NetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWH264NetRenderFilter"/>
+        <Filter class="CSWBaseFilter" name="YUVSplitFilter" In="1" Out="2" Format="CSWImage" >
+            <Pin value="0" ConnectFilter="CSWJPEGCachTransformFilter"/>
+            <!-- Pin value="1" ConnectFilter="CSWAutoControlRenderFilter" Pin="1"/-->
+        </Filter>
+
+        <Filter class="CSWJPEGCachTransformFilter" >
+            <Pin value="0" ConnectFilter="CSWJPEGOverlayFilter" Pin="0"/>
+        </Filter>
+        <Filter class="CSWJPEGOverlayFilter" ConnectFilter="CSWJPEGEncodeTransformFilter"/>
+        <Filter class="CSWJPEGEncodeTransformFilter" ConnectFilter="CSWJPEGSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWJPEGSplitFilter" In="1" Out="3" Format="CSWPosImage" >
+            <Pin value="0" ConnectFilter="CSWJPEGNetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWJPEGNetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWJPEGNetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWJPEGNetRenderFilter"/>
+        <!--Filter class="CSWAutoControlRenderFilter"/-->
+    </FilterList>
+</LprApp>

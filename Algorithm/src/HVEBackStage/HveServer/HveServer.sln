@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HveServer", "HveServer.vcproj", "{DD75588F-BE6E-44B3-972F-161E3E898E23}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{DD75588F-BE6E-44B3-972F-161E3E898E23}.Debug.ActiveCfg = Debug|Win32
+		{DD75588F-BE6E-44B3-972F-161E3E898E23}.Debug.Build.0 = Debug|Win32
+		{DD75588F-BE6E-44B3-972F-161E3E898E23}.Release.ActiveCfg = Release|Win32
+		{DD75588F-BE6E-44B3-972F-161E3E898E23}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

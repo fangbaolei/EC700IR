@@ -1,0 +1,104 @@
+@charset "utf-8";
+*{
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+html{ height:100%;
+}
+body {
+	height:100%;
+	text-align:center;
+	background-color:#373737;
+	font-family:"Microsoft YaHei", "微软雅黑", "幼圆", "宋体", arial, simhei;
+	font-size:12px;
+}
+.footer{
+	height:10.9%;
+	background-color:rgb(233, 233, 233);
+	border-top:1px solid #fff;
+	text-align:center;
+	vertical-align:top;
+}
+.footer a{
+	color:#898887;
+	text-decoration:none;
+}
+.footer a:hover{
+	color:#ff6600;
+	text-decoration:underline;
+}
+.con{
+	margin:0 auto;
+	padding-top:7%;
+}
+.td_1{
+	width:300px;
+	height:111px;
+	border:1px solid #126e90;
+	margin-top:42px;
+}
+.tab_1_title{
+	width:53px;
+	height:55px;
+}
+.td_1 input{
+	background-color:#FFF;
+	width:232px;
+	height:25px;
+	text-align:left;
+	font-size:14px;
+	color:#aaa;
+	padding:15px 0 15px 15px;
+	float:right;
+	line-height:28px;
+}
+.text{
+	width:400px;
+}
+.text h1{
+	text-align:left;
+	font-size:12px;
+	width:100%;
+	color:#FFF;
+	margin-left:20px;
+}
+.text p{
+	text-align:left;
+	margin-left:20px;
+	color:#929292
+}
+.tab_2_title{
+	width:56px;
+	height:56px;
+	display:block;
+}
+.tab_2_title_1{ background-image: url(images/links2.png)}
+.tab_2_title_1:hover{ background-image:url(images/links_01.png)}
+.tab_2_title_2{ background-image:url(images/links1.png)}
+.tab_2_title_2:hover{ background-image:url(images/links_02.png)}
+.tab_2_title_3{ background-image:url(images/links.png)}
+.tab_2_title_3:hover{ background-image:url(images/links_03.png)}
+.tab_2_title_4{ background-image:url(images/links3.png)}
+.tab_2_title_4:hover{ background-image:url(images/links_04.png)}
+
+.jg{
+	height:30px;
+}
+.button{
+	position:absolute;
+	background-image:url(images/bottom.png);
+	width:100px;
+	height:35px;
+	left:202px;
+	z-index:1;
+	border-bottom:1px solid #2c2c2c;
+	border-left:1px solid #2c2c2c;
+	border-right:1px solid #2c2c2c;
+	color:#FFF;
+	font-size:16px;
+	cursor:pointer;
+}
+.button:hover{
+	background-image:url(images/bottom_1.png);
+}

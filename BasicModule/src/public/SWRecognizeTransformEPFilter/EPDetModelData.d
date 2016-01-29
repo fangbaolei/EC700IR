@@ -1,0 +1,2 @@
+public/SWRecognizeTransformEPFilter/EPDetModelData.o public/SWRecognizeTransformEPFilter/EPDetModelData.d : public/SWRecognizeTransformEPFilter/EPDetModelData.cpp \
+ public/SWRecognizeTransformEPFilter/EPDetModelData.h

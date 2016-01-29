@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="FreetypeUtils.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="410" topLine="18" />
+	</File>
+	<File name="FreetypeUtils.h" open="0" top="0" tabpos="1">
+		<Cursor position="1538" topLine="39" />
+	</File>
+	<File name="__gb2unicode__.h" open="0" top="0" tabpos="0">
+		<Cursor position="485" topLine="0" />
+	</File>
+	<File name="transcoding.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="375" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

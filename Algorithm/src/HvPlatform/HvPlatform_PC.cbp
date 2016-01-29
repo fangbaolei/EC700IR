@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HvPlatform_PC" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="Misc/;BaseType/;Image/;Math/;Stream/;Utils/;System/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_lib/Debug/libHvPlatform" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_lib/Release/libHvPlatform" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Unit filename="DetectorModelData.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="DiskFileStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="EncryptStream.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="GUIDS.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="GetPlateNameAlpha.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GetPlateNameUnicode.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GetPlateRecogParam.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GlobalDataTbl.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="GlobalStackAlloc.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvFileStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="HvModelStore.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvParamConvert.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvParamIO.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvParamNode.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvParamStore.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="HvSockUtils.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="HvSocketImpl_Linux.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvString.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="HvThreadBase.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvThreadImpl_Linux.cpp">
+			<Option virtualFolder="System/" />
+		</Unit>
+		<Unit filename="HvTime.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="ItgArea.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="LoadDetModel.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="LoadRecogModel.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="MemStorage.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="MemoryStream.cpp">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="PlateRecogParam_high.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="basecommon.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="crypt.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="fastcrc32.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="hv_math.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="image.cpp">
+			<Option virtualFolder="Image/" />
+		</Unit>
+		<Unit filename="interface.c">
+			<Option compilerVar="CC" />
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="misc.cpp">
+			<Option virtualFolder="Misc/" />
+		</Unit>
+		<Unit filename="prime.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="rsa.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="stack_alloc.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="swimageobj.cpp">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="tinystr.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxml.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxmlerror.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="tinyxmlparser.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="vlong.cpp">
+			<Option virtualFolder="Utils/" />
+		</Unit>
+		<Unit filename="../Inc/AutoPtr.h" />
+		<Unit filename="../Inc/CamyuLinkOpt.h" />
+		<Unit filename="../Inc/ControlCommand.h" />
+		<Unit filename="../Inc/ControlFunc.h" />
+		<Unit filename="../Inc/DSPLink.h" />
+		<Unit filename="../Inc/DSPLinkType.h" />
+		<Unit filename="../Inc/DataLinkImpl.h" />
+		<Unit filename="../Inc/DiskFileStorage.h" />
+		<Unit filename="../Inc/DspCmdApi.h" />
+		<Unit filename="../Inc/DspLinkCmd.h" />
+		<Unit filename="../Inc/EncryptStream.h" />
+		<Unit filename="../Inc/HvBaseType.h" />
+		<Unit filename="../Inc/HvCmdLink.h" />
+		<Unit filename="../Inc/HvDspLinkApi.h" />
+		<Unit filename="../Inc/HvDspTime.h" />
+		<Unit filename="../Inc/HvHistogram.h" />
+		<Unit filename="../Inc/HvImageNew.h" />
+		<Unit filename="../Inc/HvLinuxDef.h" />
+		<Unit filename="../Inc/HvList.h">
+			<Option virtualFolder="BaseType/" />
+		</Unit>
+		<Unit filename="../Inc/HvObjShift.h" />
+		<Unit filename="../Inc/HvParamConvert.h" />
+		<Unit filename="../Inc/HvParamIO.h" />
+		<Unit filename="../Inc/HvParamNode.h" />
+		<Unit filename="../Inc/HvParamStore.h" />
+		<Unit filename="../Inc/HvResultFilter.h" />
+		<Unit filename="../Inc/HvSockUtils.h" />
+		<Unit filename="../Inc/HvStream.h" />
+		<Unit filename="../Inc/HvString.h" />
+		<Unit filename="../Inc/HvTime.h" />
+		<Unit filename="../Inc/HvVarType.h" />
+		<Unit filename="../Inc/IPSearchThread.h" />
+		<Unit filename="../Inc/IResultSender.h" />
+		<Unit filename="../Inc/ImgGatherer.h" />
+		<Unit filename="../Inc/ItgArea.h" />
+		<Unit filename="../Inc/MemoryStream.h" />
+		<Unit filename="../Inc/ObjMatch.h" />
+		<Unit filename="../Inc/ObjTemple.h" />
+		<Unit filename="../Inc/ObjectTracking.h" />
+		<Unit filename="../Inc/ResultSenderImpl.h" />
+		<Unit filename="../Inc/SafeSaverImpl_DM6467.h" />
+		<Unit filename="../Inc/SocketStream.h">
+			<Option virtualFolder="Stream/" />
+		</Unit>
+		<Unit filename="../Inc/basecommon.h" />
+		<Unit filename="../Inc/cmem.h" />
+		<Unit filename="../Inc/coff.h" />
+		<Unit filename="../Inc/config.h" />
+		<Unit filename="../Inc/crypt.h" />
+		<Unit filename="../Inc/crypt2.h" />
+		<Unit filename="../Inc/detectormodel.h" />
+		<Unit filename="../Inc/dspsys_def.h" />
+		<Unit filename="../Inc/edma3.h" />
+		<Unit filename="../Inc/fastcrc32.h" />
+		<Unit filename="../Inc/gba-jpeg-decode.h" />
+		<Unit filename="../Inc/gba-jpeg.h" />
+		<Unit filename="../Inc/globaldatatbl.h" />
+		<Unit filename="../Inc/globalstackalloc.h" />
+		<Unit filename="../Inc/guiddef.h" />
+		<Unit filename="../Inc/hv2ipl.h" />
+		<Unit filename="../Inc/hvDataStruct.h" />
+		<Unit filename="../Inc/hv_math.h" />
+		<Unit filename="../Inc/hv_opt.h" />
+		<Unit filename="../Inc/hv_opt_base.h" />
+		<Unit filename="../Inc/hvbaseobj.h" />
+		<Unit filename="../Inc/hvcoretype.h" />
+		<Unit filename="../Inc/hvcrop.h" />
+		<Unit filename="../Inc/hvdspsys.h" />
+		<Unit filename="../Inc/hvenum.h" />
+		<Unit filename="../Inc/hvfilestorage.h" />
+		<Unit filename="../Inc/hvinterface.h" />
+		<Unit filename="../Inc/hvmodelstore.h" />
+		<Unit filename="../Inc/hvsecurity.h" />
+		<Unit filename="../Inc/hvsocket.h" />
+		<Unit filename="../Inc/hvsyserr.h" />
+		<Unit filename="../Inc/hvsysinterface.h" />
+		<Unit filename="../Inc/hvtarget.h" />
+		<Unit filename="../Inc/hvthread.h" />
+		<Unit filename="../Inc/hvthreadbase.h" />
+		<Unit filename="../Inc/hvutils.h" />
+		<Unit filename="../Inc/inspector.h" />
+		<Unit filename="../Inc/interface.h" />
+		<Unit filename="../Inc/memstorage.h" />
+		<Unit filename="../Inc/misc.h" />
+		<Unit filename="../Inc/modeldatinfo.h" />
+		<Unit filename="../Inc/platedetector.h" />
+		<Unit filename="../Inc/platerecogparam.h" />
+		<Unit filename="../Inc/prime.h" />
+		<Unit filename="../Inc/processplate.h" />
+		<Unit filename="../Inc/recogmodel.h" />
+		<Unit filename="../Inc/recognition.h" />
+		<Unit filename="../Inc/resultsend.h" />
+		<Unit filename="../Inc/rsa.h" />
+		<Unit filename="../Inc/safesaver.h" />
+		<Unit filename="../Inc/sendnetdata.h" />
+		<Unit filename="../Inc/stack_alloc.h" />
+		<Unit filename="../Inc/stdresultinfo.h" />
+		<Unit filename="../Inc/swbasetype.h" />
+		<Unit filename="../Inc/swimage.h" />
+		<Unit filename="../Inc/swimageobj.h" />
+		<Unit filename="../Inc/swobjbase.h" />
+		<Unit filename="../Inc/swplate.h" />
+		<Unit filename="../Inc/swplatetype.h" />
+		<Unit filename="../Inc/swwinerror.h" />
+		<Unit filename="../Inc/sysupdate.h" />
+		<Unit filename="../Inc/tinystr.h" />
+		<Unit filename="../Inc/tinyxml.h" />
+		<Unit filename="../Inc/tracker.h" />
+		<Unit filename="../Inc/trackerdef.h" />
+		<Unit filename="../Inc/vlong.h" />
+		<Unit filename="../Inc/vport.h" />
+		<Unit filename="../Inc/vportcap.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

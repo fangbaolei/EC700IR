@@ -1,0 +1,71 @@
+<!--金星卡口方案-->
+<?xml version="1.0" encoding="gb2312"?>
+<LprApp>
+    <VarList>
+        <param class="CSWLPRVenusTrafficGateParameter"/>
+        <carleft class="CSWTrafficGateCarLeft"/>
+    </VarList>
+    <ObjectList>
+        <Object class="CSWCameraControl2AMSG"/>
+        <Object class="CSWNetCommandProcess"/>
+        <Object class="CSWUserManager"/>
+        <Object class="CSWMD5EncryptFilter"/>
+    </ObjectList>
+    <FilterList>
+    	<Filter class="CSWExtendDataTransformFilter"/>
+        <Filter class="$(CaptureFilter)">
+            <Pin value="0" ConnectFilter="CSWJPEGDecodeTransformFilter"/>
+            <Pin value="1" ConnectFilter="CSWH264OverlayFilter"/>
+        </Filter>
+        <Filter class="CSWH264OverlayFilter" ConnectFilter="CSWCentaurusH264EncodeFilter" create="1"/>
+        <Filter class="CSWCentaurusH264EncodeFilter" ConnectFilter="CSWH264SplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWH264SplitFilter" In="1" Out="3" Format="CSWImage" >
+            <Pin value="0" ConnectFilter="CSWH264HDDTransformFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWRTSPTransformFilter"/>
+            <Pin value="2" ConnectFilter="CSWGBH264TransformFilter"/>
+        </Filter>
+        <Filter class="CSWRTSPTransformFilter"/>
+        <Filter class="CSWGBH264TransformFilter"/>
+        <Filter class="CSWH264HDDTransformFilter">
+            <Pin value="0" ConnectFilter="CSWH264NetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWH264NetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWH264NetRenderFilter" Pin="2"/>
+            <Pin value="3" ConnectFilter="CSWGBH264TransformFilter" Pin="1"/>
+        </Filter>
+        <Filter class="CSWH264NetRenderFilter"/>
+		<Filter class="CSWJPEGDecodeTransformFilter" ConnectFilter="YUVSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="YUVSplitFilter" In="1" Out="3" Format="CSWImage" >
+            <Pin value="0" ConnectFilter="CSWRecognizeTGTransformFilter"/>
+            <Pin value="1" ConnectFilter="CSWMatchTransformFilter"/>
+            <Pin value="2" ConnectFilter="CSWAutoControlRenderFilter" Pin="1"/>
+        </Filter>
+        <Filter class="CSWRecognizeTGTransformFilter" >
+            <Pin value="0" ConnectFilter="CSWJPEGOverlayFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWMatchTransformFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWAutoControlRenderFilter" Pin="0"/>
+        </Filter>
+        <Filter class="CSWJPEGOverlayFilter" ConnectFilter="CSWJPEGEncodeTransformFilter"/>
+        <Filter class="CSWJPEGEncodeTransformFilter" ConnectFilter="CSWJPEGSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWJPEGSplitFilter" In="1" Out="3" Format="CSWPosImage" >
+            <Pin value="0" ConnectFilter="CSWJPEGNetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWJPEGNetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWJPEGNetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWJPEGNetRenderFilter"/>
+        <Filter class="CSWAutoControlRenderFilter"/>
+        <Filter class="CSWMatchTransformFilter" ConnectFilter="CarLeftSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CarLeftSplitFilter" In="1" Out="2" Format="CSWCarLeft">
+            <Pin value="0" ConnectFilter="CSWEPoliceEventCheckerTransformFilter"/>
+            <Pin value="1" ConnectFilter="CSWResultFilter"/>
+        </Filter>
+        <Filter class="CSWResultFilter" ConnectFilter="CSWRecordTransformFilter" Pin="0"/>
+        <Filter class="CSWEPoliceEventCheckerTransformFilter" ConnectFilter="CSWRecordTransformFilter" Pin="1"/>
+        <Filter class="CSWRecordTransformFilter" ConnectFilter="CSWResultHDDTransformFilter" Pin="0"/>
+        <Filter class="CSWResultHDDTransformFilter">
+            <Pin value="0" ConnectFilter="CSWResultNetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWResultNetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWResultNetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWResultNetRenderFilter"/>
+    </FilterList>
+</LprApp>

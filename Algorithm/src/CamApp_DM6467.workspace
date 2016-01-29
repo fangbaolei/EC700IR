@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="CamApp">
+		<Project filename="HvTelnet/HvTelnet_CamApp.cbp" />
+		<Project filename="HvPlatform/HvPlatform_CamApp.cbp" />
+		<Project filename="SignalMatch/SignalMatch_CamApp.cbp" />
+		<Project filename="DSPLink/HvArm/HvDspLink_CamApp.cbp" />
+		<Project filename="PCILink/HvPciLink_CamApp.cbp" />
+		<Project filename="ImgGather/ImgGather_CamApp.cbp" />
+		<Project filename="DevCtrl/DevCtrl_CamApp.cbp" />
+		<Project filename="ResultProcess/ResultProcess_CamApp.cbp" />
+		<Project filename="CamApp/CamApp.cbp" active="1">
+			<Depends filename="HvTelnet/HvTelnet_CamApp.cbp" />
+			<Depends filename="HvPlatform/HvPlatform_CamApp.cbp" />
+			<Depends filename="SignalMatch/SignalMatch_CamApp.cbp" />
+			<Depends filename="DSPLink/HvArm/HvDspLink_CamApp.cbp" />
+			<Depends filename="PCILink/HvPciLink_CamApp.cbp" />
+			<Depends filename="ImgGather/ImgGather_CamApp.cbp" />
+			<Depends filename="DevCtrl/DevCtrl_CamApp.cbp" />
+			<Depends filename="ResultProcess/ResultProcess_CamApp.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

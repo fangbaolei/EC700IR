@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Deamon>
+	<Process name="./command" error="0"/>
+	<Process name="./log" error="0"/>
+	<Process name="/home/root/ipc_arch/bin/ipc_client.out" error="0" param="-t jupiter"/>
+	<Process name="./UpgradeApp" error="1" param="-mode backup -devtype jupiter">
+		<Exit value="2"/>
+	</Process>
+</Deamon>

@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\AACAudioMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AC3AudioFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AC3AudioMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AC3AudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AC3AudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AC3AudioStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ADTSAudioFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ADTSAudioFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioFileSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AMRAudioSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AudioInputDevice.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AVIFileSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Base64.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicHashTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicTaskScheduler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicTaskScheduler0.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicUDPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicUDPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicUsageEnvironment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BasicUsageEnvironment0.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\BitVector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ByteStreamFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ByteStreamMemoryBufferSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ByteStreamMultiFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DarwinInjector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DelayQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DeviceSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DigestAuthentication.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DVVideoFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DVVideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DVVideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\DVVideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\EBMLNumber.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\FileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\FileSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\FramedFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\FramedFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\FramedSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\GroupEId.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Groupsock.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\GroupsockHelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\GSMAudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H261VideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H263plusVideoFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H263plusVideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H263plusVideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H263plusVideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H263plusVideoStreamParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoFileSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoStreamDiscreteFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\H264VideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\HashTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\inet.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\InputFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\IOHandlers.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\JPEGVideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\JPEGVideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\JPEGVideoSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Locale.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MatroskaDemuxedTrack.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MatroskaFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MatroskaFileParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MatroskaFileServerDemux.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Media.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MediaSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MediaSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MediaSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADU.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADUdescriptor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADUinterleaving.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADURTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADURTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3ADUTranscoder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3AudioFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3AudioMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3FileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3Internals.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3InternalsHuffman.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3InternalsHuffmanTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3StreamState.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MP3Transcoder.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2AudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2AudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2AudioStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2Demux.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2DemuxedElementaryStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2DemuxedServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2FileServerDemux.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2VideoFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2VideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2VideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2VideoStreamDiscreteFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG1or2VideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2IndexFromTransportStream.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamFromESSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamFromPESSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamIndexFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamMultiplexor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportStreamTrickModeFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG2TransportUDPServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4ESVideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4ESVideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4GenericRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4GenericRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4LATMAudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4LATMAudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4VideoFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4VideoStreamDiscreteFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEG4VideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEGVideoStreamFramer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MPEGVideoStreamParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MultiFramedRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MultiFramedRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\NetAddress.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\NetInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\OnDemandServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\our_md5.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\our_md5hl.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\OutputFile.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\PassiveServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ProxyServerMediaSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\QCELPAudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\QuickTimeFileSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\QuickTimeGenericRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTCP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\rtcp_from_spec.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTPInterface.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTSPClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="rtspclientsource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTSPCommon.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTSPServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\RTSPServerSupportingHTTPStreaming.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ServerMediaSession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\SimpleRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\SimpleRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\SIPClient.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\strDup.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\StreamParser.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\StreamReplicator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\T140TextMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\T140TextRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\TCPStreamSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\TextRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\uLawAudioFilter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\UsageEnvironment.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VorbisAudioMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VorbisAudioRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VorbisAudioRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VP8VideoMatroskaFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VP8VideoRTPSink.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\VP8VideoRTPSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\WAVAudioFileServerMediaSubsession.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\WAVAudioFileSource.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\bs.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\getopt.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\NetCommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\our_md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rtcp_from_spec.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rtspclientsource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stdint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="rtspclientlib.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\AACAudioMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\AC3AudioFileServerMediaSubsession.hh" />
+    <None Include="include\AC3AudioMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\AC3AudioRTPSink.hh" />
+    <None Include="include\AC3AudioRTPSource.hh" />
+    <None Include="include\AC3AudioStreamFramer.hh" />
+    <None Include="include\ADTSAudioFileServerMediaSubsession.hh" />
+    <None Include="include\ADTSAudioFileSource.hh" />
+    <None Include="include\AMRAudioFileServerMediaSubsession.hh" />
+    <None Include="include\AMRAudioFileSink.hh" />
+    <None Include="include\AMRAudioFileSource.hh" />
+    <None Include="include\AMRAudioRTPSink.hh" />
+    <None Include="include\AMRAudioRTPSource.hh" />
+    <None Include="include\AMRAudioSource.hh" />
+    <None Include="include\AudioInputDevice.hh" />
+    <None Include="include\AudioRTPSink.hh" />
+    <None Include="include\AVIFileSink.hh" />
+    <None Include="include\Base64.hh" />
+    <None Include="include\BasicHashTable.hh" />
+    <None Include="include\BasicUDPSink.hh" />
+    <None Include="include\BasicUDPSource.hh" />
+    <None Include="include\BasicUsageEnvironment.hh" />
+    <None Include="include\BasicUsageEnvironment0.hh" />
+    <None Include="include\BasicUsageEnvironment_version.hh" />
+    <None Include="include\BitVector.hh" />
+    <None Include="include\Boolean.hh" />
+    <None Include="include\ByteStreamFileSource.hh" />
+    <None Include="include\ByteStreamMemoryBufferSource.hh" />
+    <None Include="include\ByteStreamMultiFileSource.hh" />
+    <None Include="include\DarwinInjector.hh" />
+    <None Include="include\DelayQueue.hh" />
+    <None Include="include\DeviceSource.hh" />
+    <None Include="include\DigestAuthentication.hh" />
+    <None Include="include\DVVideoFileServerMediaSubsession.hh" />
+    <None Include="include\DVVideoRTPSink.hh" />
+    <None Include="include\DVVideoRTPSource.hh" />
+    <None Include="include\DVVideoStreamFramer.hh" />
+    <None Include="include\EBMLNumber.hh" />
+    <None Include="include\FileServerMediaSubsession.hh" />
+    <None Include="include\FileSink.hh" />
+    <None Include="include\FramedFileSource.hh" />
+    <None Include="include\FramedFilter.hh" />
+    <None Include="include\FramedSource.hh" />
+    <None Include="include\GroupEId.hh" />
+    <None Include="include\Groupsock.hh" />
+    <None Include="include\groupsock_version.hh" />
+    <None Include="include\GroupsockHelper.hh" />
+    <None Include="include\GSMAudioRTPSink.hh" />
+    <None Include="include\H261VideoRTPSource.hh" />
+    <None Include="include\H263plusVideoFileServerMediaSubsession.hh" />
+    <None Include="include\H263plusVideoRTPSink.hh" />
+    <None Include="include\H263plusVideoRTPSource.hh" />
+    <None Include="include\H263plusVideoStreamFramer.hh" />
+    <None Include="include\H263plusVideoStreamParser.hh" />
+    <None Include="include\H264VideoFileServerMediaSubsession.hh" />
+    <None Include="include\H264VideoFileSink.hh" />
+    <None Include="include\H264VideoMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\H264VideoRTPSink.hh" />
+    <None Include="include\H264VideoRTPSource.hh" />
+    <None Include="include\H264VideoStreamDiscreteFramer.hh" />
+    <None Include="include\H264VideoStreamFramer.hh" />
+    <None Include="include\HandlerSet.hh" />
+    <None Include="include\HashTable.hh" />
+    <None Include="include\InputFile.hh" />
+    <None Include="include\IOHandlers.hh" />
+    <None Include="include\JPEGVideoRTPSink.hh" />
+    <None Include="include\JPEGVideoRTPSource.hh" />
+    <None Include="include\JPEGVideoSource.hh" />
+    <None Include="include\liveMedia.hh" />
+    <None Include="include\liveMedia_version.hh" />
+    <None Include="include\Locale.hh" />
+    <None Include="include\MatroskaDemuxedTrack.hh" />
+    <None Include="include\MatroskaFile.hh" />
+    <None Include="include\MatroskaFileParser.hh" />
+    <None Include="include\MatroskaFileServerDemux.hh" />
+    <None Include="include\Media.hh" />
+    <None Include="include\MediaSession.hh" />
+    <None Include="include\MediaSink.hh" />
+    <None Include="include\MediaSource.hh" />
+    <None Include="include\MP3ADU.hh" />
+    <None Include="include\MP3ADUdescriptor.hh" />
+    <None Include="include\MP3ADUinterleaving.hh" />
+    <None Include="include\MP3ADURTPSink.hh" />
+    <None Include="include\MP3ADURTPSource.hh" />
+    <None Include="include\MP3ADUTranscoder.hh" />
+    <None Include="include\MP3AudioFileServerMediaSubsession.hh" />
+    <None Include="include\MP3AudioMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\MP3FileSource.hh" />
+    <None Include="include\MP3Internals.hh" />
+    <None Include="include\MP3InternalsHuffman.hh" />
+    <None Include="include\MP3StreamState.hh" />
+    <None Include="include\MP3Transcoder.hh" />
+    <None Include="include\MPEG1or2AudioRTPSink.hh" />
+    <None Include="include\MPEG1or2AudioRTPSource.hh" />
+    <None Include="include\MPEG1or2AudioStreamFramer.hh" />
+    <None Include="include\MPEG1or2Demux.hh" />
+    <None Include="include\MPEG1or2DemuxedElementaryStream.hh" />
+    <None Include="include\MPEG1or2DemuxedServerMediaSubsession.hh" />
+    <None Include="include\MPEG1or2FileServerDemux.hh" />
+    <None Include="include\MPEG1or2VideoFileServerMediaSubsession.hh" />
+    <None Include="include\MPEG1or2VideoRTPSink.hh" />
+    <None Include="include\MPEG1or2VideoRTPSource.hh" />
+    <None Include="include\MPEG1or2VideoStreamDiscreteFramer.hh" />
+    <None Include="include\MPEG1or2VideoStreamFramer.hh" />
+    <None Include="include\MPEG2IndexFromTransportStream.hh" />
+    <None Include="include\MPEG2TransportFileServerMediaSubsession.hh" />
+    <None Include="include\MPEG2TransportStreamFramer.hh" />
+    <None Include="include\MPEG2TransportStreamFromESSource.hh" />
+    <None Include="include\MPEG2TransportStreamFromPESSource.hh" />
+    <None Include="include\MPEG2TransportStreamIndexFile.hh" />
+    <None Include="include\MPEG2TransportStreamMultiplexor.hh" />
+    <None Include="include\MPEG2TransportStreamTrickModeFilter.hh" />
+    <None Include="include\MPEG2TransportUDPServerMediaSubsession.hh" />
+    <None Include="include\MPEG4ESVideoRTPSink.hh" />
+    <None Include="include\MPEG4ESVideoRTPSource.hh" />
+    <None Include="include\MPEG4GenericRTPSink.hh" />
+    <None Include="include\MPEG4GenericRTPSource.hh" />
+    <None Include="include\MPEG4LATMAudioRTPSink.hh" />
+    <None Include="include\MPEG4LATMAudioRTPSource.hh" />
+    <None Include="include\MPEG4VideoFileServerMediaSubsession.hh" />
+    <None Include="include\MPEG4VideoStreamDiscreteFramer.hh" />
+    <None Include="include\MPEG4VideoStreamFramer.hh" />
+    <None Include="include\MPEGVideoStreamFramer.hh" />
+    <None Include="include\MPEGVideoStreamParser.hh" />
+    <None Include="include\MultiFramedRTPSink.hh" />
+    <None Include="include\MultiFramedRTPSource.hh" />
+    <None Include="include\NetAddress.hh" />
+    <None Include="include\NetInterface.hh" />
+    <None Include="include\OnDemandServerMediaSubsession.hh" />
+    <None Include="include\OutputFile.hh" />
+    <None Include="include\PassiveServerMediaSubsession.hh" />
+    <None Include="include\ProxyServerMediaSession.hh" />
+    <None Include="include\QCELPAudioRTPSource.hh" />
+    <None Include="include\QuickTimeFileSink.hh" />
+    <None Include="include\QuickTimeGenericRTPSource.hh" />
+    <None Include="include\RTCP.hh" />
+    <None Include="include\RTPInterface.hh" />
+    <None Include="include\RTPSink.hh" />
+    <None Include="include\RTPSource.hh" />
+    <None Include="include\RTSPClient.hh" />
+    <None Include="include\RTSPCommon.hh" />
+    <None Include="include\RTSPServer.hh" />
+    <None Include="include\RTSPServerSupportingHTTPStreaming.hh" />
+    <None Include="include\ServerMediaSession.hh" />
+    <None Include="include\SimpleRTPSink.hh" />
+    <None Include="include\SimpleRTPSource.hh" />
+    <None Include="include\SIPClient.hh" />
+    <None Include="include\strDup.hh" />
+    <None Include="include\StreamParser.hh" />
+    <None Include="include\StreamReplicator.hh" />
+    <None Include="include\T140TextMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\T140TextRTPSink.hh" />
+    <None Include="include\TCPStreamSink.hh" />
+    <None Include="include\TextRTPSink.hh" />
+    <None Include="include\TunnelEncaps.hh" />
+    <None Include="include\uLawAudioFilter.hh" />
+    <None Include="include\UsageEnvironment.hh" />
+    <None Include="include\UsageEnvironment_version.hh" />
+    <None Include="include\VideoRTPSink.hh" />
+    <None Include="include\VorbisAudioMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\VorbisAudioRTPSink.hh" />
+    <None Include="include\VorbisAudioRTPSource.hh" />
+    <None Include="include\VP8VideoMatroskaFileServerMediaSubsession.hh" />
+    <None Include="include\VP8VideoRTPSink.hh" />
+    <None Include="include\VP8VideoRTPSource.hh" />
+    <None Include="include\WAVAudioFileServerMediaSubsession.hh" />
+    <None Include="include\WAVAudioFileSource.hh" />
+  </ItemGroup>
+</Project>

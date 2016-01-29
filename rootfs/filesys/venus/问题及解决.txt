@@ -1,0 +1,5 @@
+烧写结束后重启设备，如果串口停在类似下面的信息处不动：
+UBI: scrubbed PEB 519 (LEB 0:599), data moved to PEB 514
+UBI: scrubbed PEB 525 (LEB 0:605), data moved to PEB 519
+
+直接按回车，出现login提示符，输入root即可进入linux命令行。

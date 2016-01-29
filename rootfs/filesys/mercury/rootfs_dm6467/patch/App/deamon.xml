@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Deamon>
+	<Process name="./command" error="0"/>
+	<Process name="./log" error="0"/>
+	<Process name="./OnvifApp" error="0"/>
+	<Process name="./RtspApp" error="0"/>
+	<Process name="./LprApp" error="1">
+		<Exit value="1" Process="./UpgradeApp"/>
+		<Exit value="2"/>
+	</Process>
+	<Process name="./UpgradeApp" error="1" create="0">
+		<Exit value="1" Process="./LprApp"/>
+		<Exit value="2"/>
+	</Process>
+</Deamon>

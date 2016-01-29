@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AutoLink_demo", "AutoLink_demo.vcproj", "{778DB7A9-D33E-4921-99C8-F16E8B5AF1F4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{778DB7A9-D33E-4921-99C8-F16E8B5AF1F4}.Debug.ActiveCfg = Debug|Win32
+		{778DB7A9-D33E-4921-99C8-F16E8B5AF1F4}.Debug.Build.0 = Debug|Win32
+		{778DB7A9-D33E-4921-99C8-F16E8B5AF1F4}.Release.ActiveCfg = Release|Win32
+		{778DB7A9-D33E-4921-99C8-F16E8B5AF1F4}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

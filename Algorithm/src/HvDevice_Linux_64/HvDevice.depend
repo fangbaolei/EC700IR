@@ -1,0 +1,1089 @@
+# depslib dependency file v1.0
+1337304061 source:/home/xurui/HvDevice/main.c
+
+1336719994 source:/home/xurui/HvDevice/HvDevice.cpp
+	"HvDevice.h"
+
+1336721067 /home/xurui/HvDevice/HvDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1341493791 /home/xurui/HvDevice/HvDeviceBaseType.h
+
+1341480038 /home/xurui/HvDevice/HvDeviceCommDef.h
+
+1336721034 /home/xurui/HvDevice/swerror.h
+
+1341637784 source:/home/xurui/HvDevice/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	<string>
+	<vector>
+
+1341637789 /home/xurui/HvDevice/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1342689272 /home/xurui/HvDevice/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1341637955 source:/home/xurui/HvDevice/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+
+1341501462 /home/xurui/HvDevice/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1341499294 /home/xurui/HvDevice/HvCameraType.h
+
+1337100801 /home/xurui/HvDevice/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1319383660 /home/xurui/HvDevice/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1319383584 /home/xurui/HvDevice/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1338807663 source:/home/xurui/HvDevice/Main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	"HvDeviceEx.h"
+
+1319383117 source:/home/xurui/HvDevice/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1319383126 source:/home/xurui/HvDevice/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1319383139 source:/home/xurui/HvDevice/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1319383147 source:/home/xurui/HvDevice/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1338100113 /home/xurui/HvDevice/LinuxBmp.h
+	<iostream>
+
+1341803987 source:/home/xurui/HvDevice/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	"HvDeviceEx.h"
+	"HvAutoLinkDevice.h"
+
+1273984658 /home/xurui/HvDevice/inifile.h
+
+1273984658 source:/home/xurui/HvDevice/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1341583963 source:/home/xurui/HvDevice/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1341483185 /home/xurui/HvDevice/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1341483185 /home/xurui/HvDevice/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1341583964 source:/home/lugb/SRC/LibHvDevice/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1343285159 /home/lugb/SRC/LibHvDevice/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336721034 /home/lugb/SRC/LibHvDevice/swerror.h
+
+1341493792 /home/lugb/SRC/LibHvDevice/HvDeviceBaseType.h
+
+1341480038 /home/lugb/SRC/LibHvDevice/HvDeviceCommDef.h
+
+1341483186 /home/lugb/SRC/LibHvDevice/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1343210046 /home/lugb/SRC/LibHvDevice/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1337100802 /home/lugb/SRC/LibHvDevice/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1341499294 /home/lugb/SRC/LibHvDevice/HvCameraType.h
+
+1343298502 /home/lugb/SRC/LibHvDevice/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1319383660 /home/lugb/SRC/LibHvDevice/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1319383584 /home/lugb/SRC/LibHvDevice/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1341483186 /home/lugb/SRC/LibHvDevice/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336719994 source:/home/lugb/SRC/LibHvDevice/HvDevice.cpp
+	"HvDevice.h"
+
+1336721068 /home/lugb/SRC/LibHvDevice/HvDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1343298997 source:/home/lugb/SRC/LibHvDevice/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+	<cstring>
+
+1273984658 /home/lugb/SRC/LibHvDevice/inifile.h
+
+1343383654 source:/home/lugb/SRC/LibHvDevice/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	<string>
+	<vector>
+
+1338100114 /home/lugb/SRC/LibHvDevice/LinuxBmp.h
+	<iostream>
+
+1273984658 source:/home/lugb/SRC/LibHvDevice/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1319383118 source:/home/lugb/SRC/LibHvDevice/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1319383126 source:/home/lugb/SRC/LibHvDevice/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1319383140 source:/home/lugb/SRC/LibHvDevice/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1319383148 source:/home/lugb/SRC/LibHvDevice/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1343384245 source:/home/lugb/SRC/LibHvDevice/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"HvAutoLinkDevice.h"
+
+1343120108 source:/home/lugb/SRC/LibHvDevice/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1343120181 /home/lugb/SRC/LibHvDevice/encode.h
+
+1341583964 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1343285159 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336721034 /home/lugb/SRC/LibHvDevice-07-27 (复件)/swerror.h
+
+1343558226 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceBaseType.h
+
+1341480038 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceCommDef.h
+
+1341483186 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1343210046 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1337100802 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1343558263 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvCameraType.h
+
+1343298502 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1319383660 /home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1319383584 /home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1341483186 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336719994 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDevice.cpp
+	"HvDevice.h"
+
+1336721068 /home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1343714406 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+	<cstring>
+
+1273984658 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inifile.h
+
+1343120181 /home/lugb/SRC/LibHvDevice-07-27 (复件)/encode.h
+
+1343652471 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	"ximage.h"
+	<string>
+	<vector>
+
+1338100114 /home/lugb/SRC/LibHvDevice-07-27 (复件)/LinuxBmp.h
+	<iostream>
+
+1343120108 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1273984658 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1343711687 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	<pthread.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"HvAutoLinkDevice.h"
+
+1319383118 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1319383126 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1319383140 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1319383148 source:/home/lugb/SRC/LibHvDevice-07-27 (复件)/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1098019582 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1088378984 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1343558714 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1097463894 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/ximacfg.h
+
+1029837060 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/xiofile.h
+	"xfile.h"
+
+1097276080 /home/lugb/SRC/LibHvDevice-07-27 (复件)/inc/xmemfile.h
+	"xfile.h"
+
+1341583964 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1343285159 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336721034 /home/lugb/SRC/LibHvDevice-08-01-历史录像/swerror.h
+
+1343558226 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceBaseType.h
+
+1341480038 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceCommDef.h
+
+1341483186 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1343210046 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1337100802 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1343558263 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvCameraType.h
+
+1343298502 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1319383660 /home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1319383584 /home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1341483186 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336719994 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDevice.cpp
+	"HvDevice.h"
+
+1336721068 /home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1343739723 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	"ximage.h"
+	<string>
+	<vector>
+
+1338100114 /home/lugb/SRC/LibHvDevice-08-01-历史录像/LinuxBmp.h
+	<iostream>
+
+1273984658 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inifile.h
+
+1343739543 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1088378984 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1343558714 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1097463894 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/ximacfg.h
+
+1029837060 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/xiofile.h
+	"xfile.h"
+
+1097276080 /home/lugb/SRC/LibHvDevice-08-01-历史录像/inc/xmemfile.h
+	"xfile.h"
+
+1343120108 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1343120181 /home/lugb/SRC/LibHvDevice-08-01-历史录像/encode.h
+
+1273984658 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1343904896 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	<pthread.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"HvAutoLinkDevice.h"
+
+1319383118 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1319383126 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1319383140 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1319383148 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1343910889 source:/home/lugb/SRC/LibHvDevice-08-01-历史录像/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+	<cstring>
+
+1341583964 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1344240832 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1336721034 /home/lugb/桌面/LibHvDevice-08-06-提交代码/swerror.h
+
+1343558226 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceBaseType.h
+
+1343965248 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceCommDef.h
+
+1341483186 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1343210046 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1337100802 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1343558263 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvCameraType.h
+
+1343298502 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1319383660 /home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1319383584 /home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1341483186 /home/lugb/桌面/LibHvDevice-08-06-提交代码/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1343120108 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+
+1343120181 /home/lugb/桌面/LibHvDevice-08-06-提交代码/encode.h
+
+1273984658 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1273984658 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inifile.h
+
+1344301080 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<string.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<sys/time.h>
+	<time.h>
+	<stdlib.h>
+	<errno.h>
+	<sys/stat.h>
+	<sys/types.h>
+	<sys/ioctl.h>
+	<pthread.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"HvAutoLinkDevice.h"
+
+1319383118 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1319383126 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1319383140 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1319383148 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1344319442 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+
+1344304935 source:/home/lugb/桌面/LibHvDevice-08-06-提交代码/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	"ximage.h"
+	<string>
+	<vector>
+
+1338100114 /home/lugb/桌面/LibHvDevice-08-06-提交代码/LinuxBmp.h
+	<iostream>
+
+1098019582 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1088378984 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1343558714 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1343874332 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/ximacfg.h
+
+1029837060 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/xiofile.h
+	"xfile.h"
+
+1097276080 /home/lugb/桌面/LibHvDevice-08-06-提交代码/inc/xmemfile.h
+	"xfile.h"
+
+1377074177 source:/home/lifan/workspace/HvDevice_Linux/encode.c
+	"encode.h"
+	<stddef.h>
+	<iconv.h>
+	<assert.h>
+	<string.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/encode.h
+
+1377135527 source:/home/lifan/workspace/HvDevice_Linux/HvAutoLink.cpp
+	"HvDeviceEx.h"
+	"HvAutoLink.h"
+	"HvAutoLinkDevice.h"
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvDeviceEx.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/swerror.h
+
+1377137350 /home/lifan/workspace/HvDevice_Linux/HvDeviceBaseType.h
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvDeviceCommDef.h
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvAutoLink.h
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HVAPI_HANDLE_CONTEXT_EX.h
+	"HvDeviceCommon.h"
+	"HvDeviceUtils.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvDeviceCommon.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<pthread.h>
+	"HvCameraType.h"
+	"HvDeviceUtils.h"
+	"HvDeviceEx.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvCameraType.h
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvDeviceUtils.h
+	"tinyxml.h"
+	"HvDeviceEx.h"
+	"HvCameraType.h"
+	"HVAPI_HANDLE_CONTEXT_EX.h"
+	<sys/types.h>
+	<sys/socket.h>
+	<unistd.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/tinyXml/tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/tinyXml/tinystr.h
+	<assert.h>
+	<string.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/HvAutoLinkDevice.h
+	"swerror.h"
+	"HvDeviceBaseType.h"
+	"HvDeviceCommDef.h"
+
+1377135485 source:/home/lifan/workspace/HvDevice_Linux/HvDeviceEx.cpp
+	<sys/time.h>
+	<time.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	"HvDeviceEx.h"
+	"HvDeviceUtils.h"
+	"inifile.h"
+	"encode.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inifile.h
+
+1377137282 source:/home/lifan/workspace/HvDevice_Linux/HvDeviceUtils.cpp
+	"HvDeviceUtils.h"
+	"LinuxBmp.h"
+	"inifile.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<netinet/in.h>
+	<fcntl.h>
+	<arpa/inet.h>
+	<errno.h>
+	<sys/time.h>
+	<time.h>
+	"ximage.h"
+	<string>
+	<vector>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/LinuxBmp.h
+	<iostream>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/ximage.h
+	"xfile.h"
+	"xiofile.h"
+	"xmemfile.h"
+	"ximadef.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/xfile.h
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	"ximadef.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/ximadef.h
+	"ximacfg.h"
+	"../HvCameraType.h"
+	"../LinuxBmp.h"
+	<windows.h>
+	<tchar.h>
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/ximacfg.h
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/xiofile.h
+	"xfile.h"
+
+1377067656 /home/lifan/workspace/HvDevice_Linux/inc/xmemfile.h
+	"xfile.h"
+
+1377067656 source:/home/lifan/workspace/HvDevice_Linux/inifile.c
+	<stdio.h>
+	<stdlib.h>
+	<assert.h>
+	<string.h>
+	<ctype.h>
+	"inifile.h"
+
+1377067656 source:/home/lifan/workspace/HvDevice_Linux/tinyXml/tinystr.cpp
+	"tinystr.h"
+
+1377067656 source:/home/lifan/workspace/HvDevice_Linux/tinyXml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1377067656 source:/home/lifan/workspace/HvDevice_Linux/tinyXml/tinyxmlerror.cpp
+	"tinyxml.h"
+
+1377067656 source:/home/lifan/workspace/HvDevice_Linux/tinyXml/tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+

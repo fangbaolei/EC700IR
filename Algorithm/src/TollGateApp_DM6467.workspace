@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="HvTelnet/HvTelnet.cbp" />
+		<Project filename="HvPlatform/HvPlatform.cbp" />
+		<Project filename="DSPLink/HvArm/HvDspLink.cbp" />
+		<Project filename="PCILink/HvPciLink.cbp" />
+		<Project filename="ImgProcess/ImgProcess.cbp" />
+		<Project filename="ImgGather/ImgGather.cbp" />
+		<Project filename="SignalMatch/SignalMatch.cbp" />
+		<Project filename="ResultProcess/ResultProcess.cbp" />
+		<Project filename="DevCtrl/DevCtrl.cbp" />
+		<Project filename="TollGateApp/TollGateApp.cbp" active="1">
+			<Depends filename="HvTelnet/HvTelnet.cbp" />
+			<Depends filename="HvPlatform/HvPlatform.cbp" />
+			<Depends filename="DSPLink/HvArm/HvDspLink.cbp" />
+			<Depends filename="PCILink/HvPciLink.cbp" />
+			<Depends filename="ImgProcess/ImgProcess.cbp" />
+			<Depends filename="ImgGather/ImgGather.cbp" />
+			<Depends filename="SignalMatch/SignalMatch.cbp" />
+			<Depends filename="ResultProcess/ResultProcess.cbp" />
+			<Depends filename="DevCtrl/DevCtrl.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>

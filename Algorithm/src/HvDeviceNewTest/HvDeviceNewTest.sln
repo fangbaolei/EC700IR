@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HvDeviceNewTest", "HvDeviceNewTest.vcproj", "{0B25E93A-1141-4527-95A4-EFDA87D7C7EB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F25BF69-6F36-4F4A-8BD7-722FECAED16C} = {7F25BF69-6F36-4F4A-8BD7-722FECAED16C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HvDevice", "..\HvDeviceDLL\HvDevice.vcproj", "{7F25BF69-6F36-4F4A-8BD7-722FECAED16C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestNewAutoLink", "..\TestNewAutoLink\TestNewAutoLink.vcproj", "{731AC85A-C8C6-4B4E-AEBB-D42E4E3381EB}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{0B25E93A-1141-4527-95A4-EFDA87D7C7EB}.Debug.ActiveCfg = Debug|Win32
+		{0B25E93A-1141-4527-95A4-EFDA87D7C7EB}.Debug.Build.0 = Debug|Win32
+		{0B25E93A-1141-4527-95A4-EFDA87D7C7EB}.Release.ActiveCfg = Release|Win32
+		{0B25E93A-1141-4527-95A4-EFDA87D7C7EB}.Release.Build.0 = Release|Win32
+		{7F25BF69-6F36-4F4A-8BD7-722FECAED16C}.Debug.ActiveCfg = Debug|Win32
+		{7F25BF69-6F36-4F4A-8BD7-722FECAED16C}.Debug.Build.0 = Debug|Win32
+		{7F25BF69-6F36-4F4A-8BD7-722FECAED16C}.Release.ActiveCfg = Release|Win32
+		{7F25BF69-6F36-4F4A-8BD7-722FECAED16C}.Release.Build.0 = Release|Win32
+		{731AC85A-C8C6-4B4E-AEBB-D42E4E3381EB}.Debug.ActiveCfg = Debug|Win32
+		{731AC85A-C8C6-4B4E-AEBB-D42E4E3381EB}.Debug.Build.0 = Debug|Win32
+		{731AC85A-C8C6-4B4E-AEBB-D42E4E3381EB}.Release.ActiveCfg = Release|Win32
+		{731AC85A-C8C6-4B4E-AEBB-D42E4E3381EB}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

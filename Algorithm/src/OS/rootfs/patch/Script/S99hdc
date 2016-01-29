@@ -1,0 +1,34 @@
+#!/bin/sh
+
+## 加载dsplink驱动
+insmod /lib/modules/DSPLink.ko
+rm -f /dev/DSPLink
+mknod /dev/DSPLink c `awk "\\$2==\"DSPLink\" {print \\$1}" /proc/devices` 0
+
+## 加载swdev驱动
+insmod /lib/modules/slw-dev.ko
+rm -f /dev/swdev
+mknod /dev/swdev c `awk "\\$2==\"swdev\" {print \\$1}" /proc/devices` 0
+
+ulimit -c unlimited
+
+## 因为程序中运行dm.sh，故需设置该路径为PATH
+export PATH="/usr/local/signalway:$PATH"
+if [ -d /usr/local/signalway/ ]; then
+    cd /usr/local/signalway/
+fi
+
+## 加载PCI驱动
+## 因为loader机制修改，不再需要此脚本
+##if [ -x loadko.sh ]; then
+##    ./loadko.sh
+##fi
+
+## 运行run.sh脚本
+if [ -x run.sh ]; then
+    ./run.sh
+fi
+if [ ! -x loadko.sh ] && [ ! -x run.sh ]; then
+    echo "Error! no run script files found!"
+    echo "Make sure you have put the correct files to \"/usr/local/signalway/\"."
+fi

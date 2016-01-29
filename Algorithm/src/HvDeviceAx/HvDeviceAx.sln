@@ -1,0 +1,40 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HvDeviceAx", "HvDeviceAx.vcxproj", "{0C740A93-3218-43D6-BC83-094E1E661A21}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HvOcxTest", "HvOcxTest\HvOcxTest.vcxproj", "{D1AB682E-2C90-4F27-9FD4-BF68763AD6A4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rtspclientlib", "rtspclientlib\rtspclientlib.vcxproj", "{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestNewHvDeviceAx", "..\TestNewHvDeviceAx\TestNewHvDeviceAx.vcxproj", "{C4C06990-A25D-49ED-A444-1EE830FE0B76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C740A93-3218-43D6-BC83-094E1E661A21}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0C740A93-3218-43D6-BC83-094E1E661A21}.Debug|Win32.Build.0 = Debug|Win32
+		{0C740A93-3218-43D6-BC83-094E1E661A21}.Release|Win32.ActiveCfg = Release|Win32
+		{0C740A93-3218-43D6-BC83-094E1E661A21}.Release|Win32.Build.0 = Release|Win32
+		{D1AB682E-2C90-4F27-9FD4-BF68763AD6A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D1AB682E-2C90-4F27-9FD4-BF68763AD6A4}.Debug|Win32.Build.0 = Debug|Win32
+		{D1AB682E-2C90-4F27-9FD4-BF68763AD6A4}.Release|Win32.ActiveCfg = Release|Win32
+		{D1AB682E-2C90-4F27-9FD4-BF68763AD6A4}.Release|Win32.Build.0 = Release|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Debug|Win32.Build.0 = Debug|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Release|Win32.ActiveCfg = Release|Win32
+		{A8DB9396-3DFE-4EE1-B0CF-048EE650BBB5}.Release|Win32.Build.0 = Release|Win32
+		{C4C06990-A25D-49ED-A444-1EE830FE0B76}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C4C06990-A25D-49ED-A444-1EE830FE0B76}.Debug|Win32.Build.0 = Debug|Win32
+		{C4C06990-A25D-49ED-A444-1EE830FE0B76}.Release|Win32.ActiveCfg = Release|Win32
+		{C4C06990-A25D-49ED-A444-1EE830FE0B76}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

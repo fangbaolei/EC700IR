@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HvDevice" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/HvDevice" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Debug" />
+				<Option object_output="bin/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Option host_application="HvDevice" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-D__DEBUG" />
+					<Add directory="tinyXml" />
+				</Compiler>
+				<Linker>
+					<Add option="-lpthread" />
+					<Add option="-lstdc++" />
+					<Add option="-lrt" />
+					<Add library="CarFaceLib/libCarFaceRecogApi.a" />
+					<Add library="CarFaceLib/libsvDetApi.x86.a" />
+					<Add library="CarFaceLib/libsvLprCore.x86.a" />
+					<Add library="CarFaceLib/libsvLprModel.x86.a" />
+					<Add library="CarFaceLib/libCarFaceCore.a" />
+					<Add library="CarFaceLib/libsvDet.x86.a" />
+					<Add library="CarFaceLib/libsvBase.x86.a" />
+					<Add library="lib/libjpeg.a" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/libHvDevice" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin/Release" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="tinyXml" />
+					<Add directory="svBase" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lpthread" />
+					<Add option="-lstdc++" />
+					<Add option="-lrt" />
+					<Add library="CarFaceLib/libCarFaceRecogApi.a" />
+					<Add library="CarFaceLib/libsvDetApi.x86.a" />
+					<Add library="CarFaceLib/libsvLprCore.x86.a" />
+					<Add library="CarFaceLib/libsvLprModel.x86.a" />
+					<Add library="CarFaceLib/libCarFaceCore.a" />
+					<Add library="CarFaceLib/libsvDet.x86.a" />
+					<Add library="CarFaceLib/libsvBase.x86.a" />
+					<Add library="lib/libjpeg.a" />
+				</Linker>
+			</Target>
+			<Target title="Debug2">
+				<Option output="HvDevice" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add directory="tinyXml" />
+				</Compiler>
+				<Linker>
+					<Add option="-lpthread" />
+					<Add option="-lstdc++" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="tinyXml" />
+			<Add directory="inc" />
+			<Add directory="lib" />
+		</Compiler>
+		<Unit filename="CarFaceCtrl.cpp" />
+		<Unit filename="CarFaceCtrl.h" />
+		<Unit filename="CarFaceRecogApi.h" />
+		<Unit filename="HVAPI_HANDLE_CONTEXT_EX.h" />
+		<Unit filename="HvAutoLink.cpp" />
+		<Unit filename="HvAutoLink.h" />
+		<Unit filename="HvAutoLinkDevice.h" />
+		<Unit filename="HvCameraType.h" />
+		<Unit filename="HvDeviceBaseType.h" />
+		<Unit filename="HvDeviceCommDef.h" />
+		<Unit filename="HvDeviceEx.cpp" />
+		<Unit filename="HvDeviceEx.h">
+			<Option target="Debug" />
+			<Option target="Debug2" />
+		</Unit>
+		<Unit filename="HvDeviceUtils.cpp" />
+		<Unit filename="HvDeviceUtils.h" />
+		<Unit filename="HvThreadImplEx.cpp" />
+		<Unit filename="LinuxBmp.h" />
+		<Unit filename="encode.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="encode.h" />
+		<Unit filename="hvthreadex.h" />
+		<Unit filename="inc/ximage.h" />
+		<Unit filename="inifile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="inifile.h" />
+		<Unit filename="libjpegHead/jmorecfg.h" />
+		<Unit filename="libjpegHead/jpeglib.h" />
+		<Unit filename="svBase/svBase.h" />
+		<Unit filename="svBase/sv_basetype.h" />
+		<Unit filename="svBase/sv_callback.h" />
+		<Unit filename="svBase/sv_config.h" />
+		<Unit filename="svBase/sv_dma_cache.h" />
+		<Unit filename="svBase/sv_error.h" />
+		<Unit filename="svBase/sv_image.h" />
+		<Unit filename="svBase/sv_math.h" />
+		<Unit filename="svBase/sv_memory.h" />
+		<Unit filename="svBase/sv_point.h" />
+		<Unit filename="svBase/sv_rect.h" />
+		<Unit filename="svBase/sv_utils.h" />
+		<Unit filename="swerror.h" />
+		<Unit filename="tinyXml/tinystr.cpp" />
+		<Unit filename="tinyXml/tinystr.h" />
+		<Unit filename="tinyXml/tinyxml.cpp" />
+		<Unit filename="tinyXml/tinyxml.h" />
+		<Unit filename="tinyXml/tinyxmlerror.cpp" />
+		<Unit filename="tinyXml/tinyxmlparser.cpp" />
+		<Extensions>
+			<envvars />
+			<code_completion />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="0" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+			</AutoVersioning>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,1004 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\HvDeviceNewTest.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\HvDeviceNewTest.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_HVDEVICENEWTEST_DIALOG DIALOGEX 0, 0, 523, 396
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "HvDevice新接口测试"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,1,4,422,388
+    PUSHBUTTON      "搜索设备并获取编号",IDC_BUTTON1,434,11,78,14
+    PUSHBUTTON      "连接设备并获取XML版本",IDC_BUTTON2,434,50,78,14
+    PUSHBUTTON      "断开连接",IDC_BUTTON3,434,70,78,14
+    PUSHBUTTON      "接收识别结果测试",IDC_BUTTON4,434,91,78,14
+    PUSHBUTTON      "接收图像测试",IDC_BUTTON8,434,110,78,14
+    PUSHBUTTON      "接收视频测试",IDC_BUTTON9,434,129,78,14
+    PUSHBUTTON      "命令测试",IDC_BUTTON10,434,147,78,14
+    PUSHBUTTON      "获取设备类型",IDC_BUTTON5,434,31,78,14
+    PUSHBUTTON      "峰值测试",IDC_BUTTON13,434,166,78,14
+    PUSHBUTTON      "老版接口测试",IDC_BUTTON14,434,184,78,14
+    PUSHBUTTON      "老版接口峰值测试",IDC_BUTTON16,434,203,78,14
+    PUSHBUTTON      "设置字符",IDC_BUTTON12,434,301,78,14
+    EDITTEXT        IDC_EDIT2,446,319,26,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,486,319,26,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT4,446,340,26,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT5,486,340,26,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CHAR,434,280,78,14,ES_AUTOHSCROLL
+    LTEXT           "R值",IDC_STATIC,433,322,12,8
+    LTEXT           "G值",IDC_STATIC,473,322,12,8
+    LTEXT           "B值",IDC_STATIC,433,342,12,8
+    LTEXT           "字体",IDC_STATIC,473,342,10,8
+    PUSHBUTTON      "上传控制板升级文件",IDC_BUTTON18,434,221,78,14
+    PUSHBUTTON      "主动连接测试",IDC_BUTTON15,434,239,78,14
+    PUSHBUTTON      "<<<静态连接 在下面输入IP",IDC_BUTTON_ADD_STATIC_IP,423,
+                    259,89,14
+    PUSHBUTTON      "抓拍",IDC_BUTTON_CAPTUEIMAGE,444,364,50,14
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 652, 387
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC_BEST,"Static",SS_BLACKFRAME,7,7,282,184
+    CONTROL         "",IDC_STATIC_LAST,"Static",SS_BLACKFRAME,7,198,282,184
+    CONTROL         "",IDC_STATIC_SMALL,"Static",SS_BLACKFRAME,300,9,182,28
+    CONTROL         "",IDC_STATIC_BINARY,"Static",SS_BLACKFRAME,301,46,182,
+                    28
+    CONTROL         "",IDC_STATIC_PLATE,"Static",SS_BLACKFRAME,301,79,182,28
+    EDITTEXT        IDC_EDIT1,301,116,183,168,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "设置大图回调",IDC_BUTTON1,517,9,78,21
+    PUSHBUTTON      "设置小图回调",IDC_BUTTON5,518,37,78,21
+    PUSHBUTTON      "设置二值图回调",IDC_BUTTON6,517,63,78,21
+    PUSHBUTTON      "设置车牌回调",IDC_BUTTON7,517,88,78,21
+    PUSHBUTTON      "红灯加红",IDC_BUTTON11,518,114,78,21
+    PUSHBUTTON      "保存结果",IDC_BUTTON12,518,141,78,21
+    EDITTEXT        IDC_EDIT2,301,294,184,85,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    PUSHBUTTON      "接收历史结果",IDC_BUTTON15,519,168,76,21
+    EDITTEXT        IDC_EDIT_RECT,511,202,97,86,ES_MULTILINE | 
+                    ES_AUTOHSCROLL | WS_DISABLED
+    EDITTEXT        DC_EDIT_FACE,511,301,97,86,ES_MULTILINE | ES_AUTOHSCROLL | 
+                    WS_DISABLED
+    PUSHBUTTON      "获取附加信息",IDC_BUTTON17,603,9,47,20
+    EDITTEXT        IDC_EDIT4,618,218,25,42,ES_MULTILINE | ES_READONLY | 
+                    ES_WANTRETURN
+    PUSHBUTTON      "设置状态信息回调",IDC_BUTTON18,601,33,51,19
+    PUSHBUTTON      " 截图功能",IDC_BTN_PRTSCR,601,97,50,14
+    PUSHBUTTON      "开始历史",IDC_START_HISTORY,602,132,50,14
+    PUSHBUTTON      "开始结果",IDC_START_RECORD,602,117,50,14
+    PUSHBUTTON      "保存一张图片",IDC_BUTTON_GETIMAGE,596,171,50,14
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 494, 310
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "图像连接测试"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC_JPEG,"Static",SS_BLACKFRAME,8,9,200,141
+    CONTROL         "",IDC_STATIC_LPR,"Static",SS_BLACKFRAME,233,7,200,141
+    CONTROL         "",IDC_STATIC_CAP,"Static",SS_BLACKFRAME,10,159,200,141
+    CONTROL         "JPEG视频流",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,245,
+                    159,70,18
+    CONTROL         "调试码流",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,245,
+                    188,70,18
+    LTEXT           "调试码流画框参数设置",IDC_STATIC,246,224,73,8
+    CONTROL         "绿框",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,329,224,30,
+                    10
+    CONTROL         "红框",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,373,224,30,
+                    10
+    PUSHBUTTON      "软触发",IDC_BTN_CAP,313,190,50,14
+END
+
+IDD_DIALOG3 DIALOGEX 0, 0, 481, 326
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC_VIDEO,"Static",SS_BLACKFRAME,6,7,470,280
+    PUSHBUTTON      "接收H264视频",IDC_BUTTON1,9,297,64,18
+    PUSHBUTTON      "接收历史录像",IDC_BUTTON2,78,297,59,18
+    LTEXT           "起始时间",IDC_STATIC,139,302,33,11
+    EDITTEXT        IDC_EDIT2,173,298,26,17,ES_AUTOHSCROLL
+    LTEXT           "年",IDC_STATIC,201,303,10,11
+    EDITTEXT        IDC_EDIT3,211,297,16,17,ES_AUTOHSCROLL
+    LTEXT           "月",IDC_STATIC,230,302,10,11
+    EDITTEXT        IDC_EDIT4,239,298,21,17,ES_AUTOHSCROLL
+    LTEXT           "日",IDC_STATIC,263,301,10,11
+    EDITTEXT        IDC_EDIT5,273,297,21,17,ES_AUTOHSCROLL
+    LTEXT           "时",IDC_STATIC,297,302,10,11
+    EDITTEXT        IDC_EDIT6,307,297,21,17,ES_AUTOHSCROLL
+    LTEXT           "分",IDC_STATIC,329,300,10,11
+    EDITTEXT        IDC_EDIT7,338,297,21,17,ES_AUTOHSCROLL
+    LTEXT           "秒",IDC_STATIC,362,300,10,11
+    EDITTEXT        IDC_EDIT8,395,297,31,17,ES_AUTOHSCROLL
+    LTEXT           "秒",IDC_STATIC,431,300,10,11
+    LTEXT           "时长",IDC_STATIC,377,300,18,11
+    PUSHBUTTON      "红灯加红",IDC_BUTTON3,441,295,36,18
+END
+
+IDD_DIALOG4 DIALOGEX 0, 0, 107, 105
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "历史录像红灯加红"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "红灯加红",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,9,1,47,18
+    LTEXT           "亮度增强",IDC_STATIC,9,25,33,13
+    EDITTEXT        IDC_EDIT1,47,23,58,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "色度阀值",IDC_STATIC,9,44,33,13
+    EDITTEXT        IDC_EDIT9,47,41,58,14,ES_AUTOHSCROLL
+    LTEXT           "压缩率",IDC_STATIC,10,63,33,13
+    EDITTEXT        IDC_EDIT10,48,60,57,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_BUTTON1,9,82,36,16
+    PUSHBUTTON      "取消",IDC_BUTTON8,61,81,36,16
+END
+
+IDD_DIALOG5 DIALOGEX 0, 0, 303, 129
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "命令测试"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT1,90,10,151,17,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT9,91,66,116,19,ES_AUTOHSCROLL
+    PUSHBUTTON      "ExecCmd",IDC_BUTTON1,250,9,43,16
+    PUSHBUTTON      "GetInfo",IDC_BUTTON4,223,69,43,16
+    PUSHBUTTON      "GetParam",IDC_BUTTON5,10,103,82,18
+    PUSHBUTTON      "SetParam",IDC_BUTTON6,211,103,82,18
+    EDITTEXT        IDC_EDIT11,91,43,116,17,ES_AUTOHSCROLL
+    GROUPBOX        "Get_From_Xml",IDC_STATIC,9,34,284,63
+    LTEXT           "命令名称:",IDC_STATIC,35,46,42,13
+    LTEXT           "获取信息名称:",IDC_STATIC,20,70,55,13
+    LTEXT           "命令字符串:",IDC_STATIC,27,13,50,13
+END
+
+IDD_DIALOG6 DIALOGEX 0, 0, 110, 103
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "结果大图红灯加红"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "加红模式",IDC_STATIC,5,8,37,13
+    LTEXT           "亮度增强",IDC_STATIC,5,29,37,13
+    LTEXT           "色度阀值",IDC_STATIC,5,46,37,13
+    LTEXT           "压缩率",IDC_STATIC,5,62,37,13
+    COMBOBOX        IDC_COMBO1,43,8,63,56,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    EDITTEXT        IDC_EDIT1,43,27,62,15,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT9,43,44,62,15,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        IDC_EDIT10,43,61,62,15,ES_AUTOHSCROLL | ES_NUMBER
+    PUSHBUTTON      "确定",IDC_BUTTON1,6,80,43,15
+    PUSHBUTTON      "取消",IDC_BUTTON8,61,80,43,15
+END
+
+IDD_DIALOG7 DIALOGEX 0, 0, 276, 82
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设置识别结果保存路径"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "保存识别结果",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,8,10,78,14
+    LTEXT           "保存路径：",IDC_STATIC,8,34,41,14
+    EDITTEXT        IDC_EDIT1,52,28,215,15,ES_AUTOHSCROLL
+    PUSHBUTTON      "确定",IDC_BUTTON1,23,52,92,18
+    PUSHBUTTON      "取消",IDC_BUTTON3,165,52,92,18
+END
+
+IDD_DIALOG8 DIALOGEX 0, 0, 496, 222
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "峰值测试"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "设备IP",IDC_STATIC,6,9,24,12
+    CONTROL         "",IDC_IPADDRESS1,"SysIPAddress32",WS_TABSTOP,38,6,137,
+                    15
+    PUSHBUTTON      "添加设备",IDC_BUTTON1,182,6,58,16
+    LISTBOX         IDC_LIST1,7,28,114,185,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "设置保存路径",IDC_BUTTON2,308,6,51,16
+    PUSHBUTTON      "启动测试",IDC_BUTTON3,364,6,59,16
+    PUSHBUTTON      "停止测试",IDC_BUTTON4,428,6,57,16
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,125,29,368,184
+    PUSHBUTTON      "删除设备",IDC_BUTTON8,245,6,56,16
+END
+
+IDD_HVNAVI DIALOGEX 0, 0, 587, 366
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+CAPTION "HvDevice旧接口测试"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "查看所有设备",IDC_BUTTON1,3,4,67,26
+    PUSHBUTTON      "摄像机前端设置",IDC_BUTTON2,76,4,67,26
+    PUSHBUTTON      "设置基本信息",IDC_BUTTON3,148,4,67,26
+    PUSHBUTTON      "结果显示",IDC_BUTTON4,219,4,67,26
+    PUSHBUTTON      "设备高级设置",IDC_BUTTON8,291,4,67,26
+    LTEXT           "设备列表",IDC_STATIC,3,36,408,13,WS_BORDER
+    LTEXT           "设备基本信息",IDC_STATIC,424,36,161,13,WS_BORDER
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,3,48,408,318
+    LISTBOX         IDC_LIST2,423,48,162,160,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_EDIT2,423,208,162,27,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT3,423,248,162,118,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "交通信息采集统计",IDC_STATIC,424,235,161,13,WS_BORDER
+END
+
+IDD_DIALOG9 DIALOGEX 0, 0, 227, 102
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设置接收历史结果"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "开始时间：",IDC_STATIC,8,8,43,13
+    EDITTEXT        IDC_EDIT1,50,8,29,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "年",IDC_STATIC,82,8,10,13
+    EDITTEXT        IDC_EDIT10,94,8,27,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "月",IDC_STATIC,126,8,10,13
+    EDITTEXT        IDC_EDIT11,137,8,27,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "日",IDC_STATIC,169,8,10,13
+    EDITTEXT        IDC_EDIT12,178,8,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "时",IDC_STATIC,205,8,10,13
+    CONTROL         "启用结束时间",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,164,28,62,18
+    LTEXT           "结束时间：",IDC_STATIC,8,49,43,13
+    EDITTEXT        IDC_EDIT13,50,49,29,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "年",IDC_STATIC,83,49,10,13
+    EDITTEXT        IDC_EDIT14,94,49,27,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "月",IDC_STATIC,126,49,10,13
+    EDITTEXT        IDC_EDIT15,137,49,27,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "日",IDC_STATIC,169,49,10,13
+    EDITTEXT        IDC_EDIT16,178,49,25,14,ES_AUTOHSCROLL | ES_NUMBER
+    LTEXT           "时",IDC_STATIC,205,49,10,13
+    PUSHBUTTON      "确定",IDC_BUTTON1,5,73,72,18
+    PUSHBUTTON      "取消",IDC_BUTTON3,87,73,72,18
+    LTEXT           "起始桢号：",IDC_STATIC,8,33,43,13
+    EDITTEXT        IDC_EDIT17,49,29,72,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "启用违章接收",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,164,72,62,18
+END
+
+IDD_DIALOG10 DIALOGEX 0, 0, 177, 54
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,120,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,120,24,50,14
+    LTEXT           "参数名：",IDC_STATIC,9,21,36,11
+    EDITTEXT        IDC_EDIT1,47,17,65,14,ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_SETIP DIALOGEX 0, 0, 201, 156
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设备IP设置"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDC_BUTTON1,23,122,50,14
+    PUSHBUTTON      "取消",IDC_BUTTON2,124,122,50,14
+    LTEXT           "IP：",IDC_STATIC,45,17,22,21
+    LTEXT           "MAC：",IDC_STATIC,37,95,29,21
+    LTEXT           "子网掩码：",IDC_STATIC,20,38,44,21
+    LTEXT           "网关：",IDC_STATIC,37,68,32,21
+    CONTROL         "",IDC_IPADDRESS1,"SysIPAddress32",WS_TABSTOP,66,14,104,
+                    13
+    CONTROL         "",IDC_IPADDRESS2,"SysIPAddress32",WS_TABSTOP,66,39,104,
+                    13
+    CONTROL         "",IDC_IPADDRESS3,"SysIPAddress32",WS_TABSTOP,65,65,104,
+                    13
+    EDITTEXT        IDC_EDIT2,65,92,104,13,ES_AUTOHSCROLL | ES_READONLY
+END
+
+IDD_DIALOG13 DIALOGEX 0, 0, 269, 70
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "升级控制板"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "升级文件路径：",IDC_STATIC,8,11,61,11
+    EDITTEXT        IDC_EDIT1,63,9,160,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "选取文件",IDC_BUTTON1,226,9,39,12
+    PUSHBUTTON      "取消退出",IDC_BUTTON8,180,27,39,12
+    PUSHBUTTON      "确定升级",IDC_BUTTON9,224,27,39,12
+    CONTROL         "",IDC_PROGRESS1,"msctls_progress32",WS_BORDER | 0x1,1,
+                    45,266,12
+    LTEXT           "Static",IDC_STATIC_STATUS,8,28,168,11,WS_BORDER
+END
+
+IDD_AUTOLINK_DEMO_DIALOG DIALOGEX 0, 0, 271, 239
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE
+CAPTION "AutoLinkServer"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "开启监听",IDC_BUTTON11,17,193,58,16
+    PUSHBUTTON      "关闭监听",IDC_BUTTON12,178,192,58,16
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_SINGLESEL | 
+                    LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,257,107
+    EDITTEXT        IDC_EDIT1,52,135,40,14,ES_AUTOHSCROLL
+    LTEXT           "监听端口：",IDC_STATIC,14,137,36,13
+    EDITTEXT        IDC_EDIT2,177,133,40,14,ES_AUTOHSCROLL
+    GROUPBOX        "基本配置",IDC_STATIC,7,120,257,60
+    LTEXT           "最大监听数：",IDC_STATIC,133,135,41,14
+    LTEXT           "保存路径：",IDC_STATIC,14,160,36,13
+    EDITTEXT        IDC_DIR,52,158,117,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_FIND_DIR,177,158,58,16
+END
+
+IDD_AUTOLINK_SETHISTORY DIALOGEX 0, 0, 237, 202
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设置参数"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "启用接收历史",IDC_ENABLE_HISTORY_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,23,18,64,10
+    CONTROL         "",IDC_BEGIN_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,105,46,72,15
+    CONTROL         "",IDC_END_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,105,110,72,15
+    LTEXT           "起始时间： ",IDC_STATIC,44,49,44,15
+    LTEXT           "结束时间：",IDC_STATIC,44,95,45,16
+    LTEXT           "索引：",IDC_STATIC,60,73,25,12
+    EDITTEXT        IDC_INDEX_EDIT,105,70,72,14,ES_AUTOHSCROLL
+    CONTROL         "启用",IDC_ENABLE_END_TIME_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,105,94,32,10
+    PUSHBUTTON      "保存",IDC_SAVE_BUTTON,32,163,50,14
+    PUSHBUTTON      "取消",IDC_CANCEL_BUTTON,139,163,50,14
+    GROUPBOX        "   参数  ",IDC_STATIC,17,34,203,119
+    CONTROL         "启用",IDC_ENABLE_ONLYVIOLATION_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,104,134,32,10
+    LTEXT           "仅接收违章：",IDC_STATIC,40,134,49,11
+END
+
+IDD_DIALOG11 DIALOGEX 0, 0, 230, 93
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "警告"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Static",IDC_STATIC,3,4,224,62,WS_BORDER
+    PUSHBUTTON      "重新升级",IDC_BUTTON1,3,71,87,16
+    PUSHBUTTON      "切换到正常模式",IDC_BUTTON8,139,71,87,16
+END
+
+IDD_DIALOG12 DIALOGEX 0, 0, 186, 90
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+END
+
+IDD_DIALOG14 DIALOGEX 0, 0, 780, 498
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_VSCROLL | WS_HSCROLL | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "参数：1～5",IDC_STATIC,7,15,46,8
+    EDITTEXT        IDC_PARAM1,58,12,40,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_PARAM2,109,13,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PARAM3,155,13,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PARAM4,203,14,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_PARAM5,255,15,40,14,ES_AUTOHSCROLL
+    LTEXT           "参数：6-10",IDC_STATIC,7,36,40,8
+    EDITTEXT        IDC_PARAM6,58,32,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT1,109,34,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,155,33,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,205,33,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT4,256,34,40,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "SetH264BitRate",IDC_SetH264BitRate,20,260,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetJpegCompressRate",IDC_SetJpegCompressRate,20,241,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDEnable",IDC_SetOSDEnable,117,279,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDTimeEnable",IDC_SetOSDTimeEnable,117,299,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDPos",IDC_SetOSDPos,20,321,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDFont",IDC_SetOSDFont,117,321,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDText",IDC_SetOSDText,20,343,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetCVBS",IDC_SetCVBS,20,280,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetManualShutter",IDC_SetManualShutter,320,306,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetManualGain",IDC_SetManualGain,320,327,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAWBEnable",IDC_SetAWBEnable,320,177,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAWBMode",IDC_SetAWBMode,224,329,88,14
+    PUSHBUTTON      "SetManualRGB",IDC_SetManualRGB,320,285,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAGCEnable",IDC_SetAGCEnable,320,199,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAGCLightBaseLine",IDC_SetAGCLightBaseLine,320,217,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAGCParam",IDC_SetAGCParam,320,240,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetLUT()",IDC_SetLUT,224,153,88,14
+    PUSHBUTTON      "SetBrightness",IDC_SetBrightness,224,135,88,14
+    PUSHBUTTON      "SetContrast",IDC_SetContrast,224,73,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetSharpness",IDC_SetSharpness,224,114,88,14
+    PUSHBUTTON      "SetSaturation",IDC_SetSaturation,224,94,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetWDREnable",IDC_SetWDREnable,224,198,88,14
+    PUSHBUTTON      "SetWDRLevel",IDC_SetWDRLevel,320,156,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetBLCLevel",IDC_SetBLCLevel,224,217,88,14
+    PUSHBUTTON      "SetDREMode",IDC_SetDREMode,224,241,88,14
+    PUSHBUTTON      "SetDREnable",IDC_SetDREnable,224,264,88,14
+    PUSHBUTTON      "SetDRELevel",IDC_SetDRELevel,224,287,88,14
+    PUSHBUTTON      "SetDeNoiseEnable",IDC_SetDeNoiseEnable,224,309,88,14
+    PUSHBUTTON      "SetDeNoiseMode",IDC_SetDeNoiseMode,418,199,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetDeNoiseLevel",IDC_SetDeNoiseLevel,418,216,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetFilterMode",IDC_SetFilterMode,224,350,88,14
+    GROUPBOX        "SetFunc",IDC_STATIC,7,55,513,433
+    PUSHBUTTON      "SetDCIRIS",IDC_SetDCIRIS,320,113,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetIPInfo",IDC_SetIPInfo,17,91,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetTime",IDC_SetTime,113,126,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetTimeZone",IDC_SetTimeZone,113,109,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetNTPEnable",IDC_SetNTPEnable,17,185,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetNTPServerIP",IDC_SetNTPServerIP,17,163,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "ResetDevice",IDC_ResetDevice,113,144,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "RestoreDefaultParam",IDC_RestoreDefaultParam,113,72,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "RestoreFactoryParam",IDC_RestoreFactoryParam,113,91,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetParamEx",IDC_SetParamEx,17,73,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetParamEx",IDC_GetParamEx,538,223,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetDevBasicInfo",IDC_GetDevBasicInfo,538,125,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    GROUPBOX        "Set Func Param",IDC_STATIC,7,7,298,51
+    PUSHBUTTON      "GetRunMode",IDC_GetRunMode,539,399,88,14
+    PUSHBUTTON      "GetDevState",IDC_GetDevState,538,143,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetResetReport",IDC_GetResetReport,538,184,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetResetCount",IDC_GetResetCount,538,162,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetLog",IDC_GetLog,537,351,88,14
+    PUSHBUTTON      "GetCameraState",IDC_GetCameraState,651,340,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetCameraBasicInfo",IDC_GetCameraBasicInfo,651,318,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetOSD",IDC_GetOSD,652,129,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "TriggerImage",IDC_TriggerImage,539,374,88,14
+    PUSHBUTTON      "GetLUT",IDC_GetLUT,651,358,88,14
+    PUSHBUTTON      "DoLogin",IDC_DoLogin,15,446,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "AddUser",IDC_AddUser,15,466,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "DelUser",IDC_DelUser,110,446,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "ModUser",IDC_ModUser,111,466,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetUsers",IDC_GetUsers,111,424,88,14
+    PUSHBUTTON      "GetVideoState",IDC_GetVideoState,652,110,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetSenseWdr",IDC_SetSenseWdr,224,175,88,14
+    PUSHBUTTON      "SetOCGate",IDC_SetOCGate1,113,163,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    EDITTEXT        IDC_EDIT_ExecCmdEx,320,18,254,20,ES_AUTOHSCROLL
+    PUSHBUTTON      "ExecCmdEx",IDC_ExecCmdEx,577,19,88,14
+    PUSHBUTTON      "SetNTPServerUpdateInterval",
+                    IDC_BUTTON_SetNTPServerUpdateInterval,17,211,112,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "StartCOMCheck",IDC_BUTTON_HVAPI_StartCOMCheck,113,185,
+                    88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "ShrinkDCIRIS",IDC_BUTTONHVAPI_ShrinkDCIRIS,320,74,88,14,
+                    0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "ZoomDCIRIS",IDC_BUTTON_HVAPI_ZoomDCIRIS,320,92,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetAGCZone",IDC_BUTTONHVAPI_GetAGCZone,651,379,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetGrayImageEnable",IDC_BUTTONHVAPI_SetGrayImageEnable,
+                    418,113,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetACSync",IDC_BUTTONHVAPI_SetACSync,418,131,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "StartCameraTest",IDC_BUTTONHVAPI_StartCameraTest,320,
+                    350,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetDebugJpegStatus",IDC_BUTTONHVAPI_SetDebugJpegStatus,
+                    117,240,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetOSDPlateEnable",IDC_BUTTONHVAPI_SetOSDPlateEnable,20,
+                    301,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetHddCheckReport",IDC_BUTTONHVAPI_GetHddCheckReport,
+                    538,201,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetTraceRank",IDC_BUTTONHVAPI_SetTraceRank,17,126,88,14,
+                    0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAutoJpegCompressEnable",
+                    IDC_BUTTONHVAPI_SetAutoJpegCompressEnable,20,394,116,14,
+                    0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "多线程测试",IDC_BUTTON1,673,40,88,14
+    PUSHBUTTON      "GetBlackBoxMessage",IDC_BUTTONHVAPI_GetBlackBoxMessage,
+                    538,324,88,14
+    GROUPBOX        "裸数据",IDC_STATIC,939,55,182,191
+    CONTROL         "Check1",IDC_CHECK_READ1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,939,84,39,10
+    PUSHBUTTON      "获取",IDC_BUTTON_READ_FPGA,1037,226,88,14
+    EDITTEXT        IDC_EDIT_READ_ADD1,987,79,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE1,1049,81,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check2",IDC_CHECK_READ2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,939,100,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD2,987,95,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE2,1049,98,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check3",IDC_CHECK_READ3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,939,118,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD3,987,113,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE3,1049,114,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check4",IDC_CHECK_READ4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,939,138,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD4,987,132,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE4,1049,134,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check5",IDC_CHECK_READ5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,940,159,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD5,988,154,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE5,1050,156,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check6",IDC_CHECK_READ6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,939,180,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD6,987,175,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE6,1049,175,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    CONTROL         "Check7",IDC_CHECK_READ7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,940,202,39,10
+    EDITTEXT        IDC_EDIT_READ_ADD7,988,196,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_READ_VALUE7,1050,198,40,16,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    GROUPBOX        "裸数据",IDC_STATIC,943,252,174,184
+    CONTROL         "Check1",IDC_CHECK_WRITE1,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,274,39,10
+    PUSHBUTTON      "设置",IDC_BUTTON_WRITE_FPGA,1046,420,88,14
+    EDITTEXT        IDC_EDIT_WRITE_ADD1,997,270,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE1,1043,270,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check2",IDC_CHECK_WRITE2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,290,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD2,997,286,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE2,1044,286,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check3",IDC_CHECK_WRITE3,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,308,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD3,997,303,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE3,1044,302,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check4",IDC_CHECK_WRITE4,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,329,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD4,997,322,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE4,1044,322,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check5",IDC_CHECK_WRITE5,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,350,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD5,997,345,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE5,1044,345,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check6",IDC_CHECK_WRITE6,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,370,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD6,997,366,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE6,1044,364,40,16,ES_AUTOHSCROLL
+    CONTROL         "Check7",IDC_CHECK_WRITE7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,949,393,39,10
+    EDITTEXT        IDC_EDIT_WRITE_ADD7,997,386,40,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_WRITE_VALUE7,1044,386,40,16,ES_AUTOHSCROLL
+    LTEXT           "地址0x",IDC_STATIC,997,260,25,8
+    LTEXT           "地址0x",IDC_STATIC,994,68,25,8
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT1,1084,271,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT2,1086,287,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT3,1083,305,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT4,1084,324,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT5,1085,348,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT6,1085,366,15,11
+    LTEXT           "Static",IDC_STATIC_WRITE_RESULT7,1083,390,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT1,1093,82,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT2,1093,100,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT3,1093,116,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT4,1093,137,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT5,1095,156,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT6,1092,178,15,11
+    LTEXT           "Static",IDC_STATIC_READ_RESULT7,1093,199,19,8
+    LTEXT           "值0x",IDC_STATIC,1047,260,17,8
+    LTEXT           "值0x",IDC_STATIC,1059,68,17,8
+    PUSHBUTTON      "SetImageEnhancementEnable",
+                    IDC_BUTTONHVAPI_SetImageEnhancementEnable,320,420,112,14,
+                    0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetGammaStrength",IDC_BUTTONHVAPI_SetGAMMAValue,418,92,
+                    88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetGAMMAEnable",IDC_BUTTONHVAPI_SetGAMMAEnable,418,73,
+                    88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetAcgZone",IDC_BUTTONsetacgzone,320,263,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetCtrlCplEnable",IDC_BUTTONHVAPI_SetCtrlCplEnable,320,
+                    135,88,14,0,WS_EX_DLGMODALFRAME
+    GROUPBOX        "相机模块接口",IDC_STATIC,217,65,299,418
+    PUSHBUTTON      "GetDevtypeEx",IDC_BUTTONGetDevtypeEx,538,86,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetIPByMacAddr",IDC_BUTTONSetIPByMacAddr,17,109,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetConnStatusEx",IDC_BUTTONGetConnStatusEx,538,106,88,
+                    14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetDeNoiseSNFEnable",
+                    IDC_BUTTONHVAPI_SetDeNoiseSNFEnable,418,176,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetDeNoiseTNFEnable",
+                    IDC_BUTTONHVAPI_SetDeNoiseTNFEnable,419,156,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetEdgeEnhance",IDC_BUTTONSetEdgeEnable,320,397,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    GROUPBOX        "用户管理模块",IDC_STATIC,15,416,189,69
+    GROUPBOX        "GetFunc",IDC_STATIC,525,52,243,435
+    GROUPBOX        "设备管理模块",IDC_STATIC,11,62,199,167
+    GROUPBOX        "视频模块接口",IDC_STATIC,14,232,194,179
+    PUSHBUTTON      "SET_2DDENOISE",IDC_SET_2DDENOISE,224,375,88,14
+    PUSHBUTTON      "SET_COLOR",IDC_SET_COLOR,224,398,88,14
+    PUSHBUTTON      "SET_2DDeNoiseValue",IDC_SET_2DDeNoiseValue,224,420,88,
+                    14
+    GROUPBOX        "设备管理",IDC_STATIC,532,73,106,406
+    GROUPBOX        "相机",IDC_STATIC,644,279,117,205
+    GROUPBOX        "视频",IDC_STATIC,644,74,117,199
+    PUSHBUTTON      "SetAutoJpegCompressParam",
+                    IDC_BUTTON_SetAutoJpegCompressParam,20,376,116,14,0,
+                    WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetRunStatusString",IDC_BUTTONGetRunStatusString,538,
+                    244,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "GetHDDStatus",IDC_BUTTONGetHDDStatus,538,264,88,14,0,
+                    WS_EX_DLGMODALFRAME
+    LTEXT           "注意：获取时，地址前加9",IDC_STATIC,986,58,93,8
+    PUSHBUTTON      "Button3",IDC_BUTTON3,577,41,88,14
+    PUSHBUTTON      "GetCameraWorkState",IDC_BUTTONGetCameraWorkState,538,
+                    283,88,14,0,WS_EX_DLGMODALFRAME
+    PUSHBUTTON      "SetTGIO",IDC_BUTTONSetTGIO,418,240,88,14
+    PUSHBUTTON      "SetF1IO",IDC_BUTTONSetF1IO,418,263,88,14
+    PUSHBUTTON      "SetEXPIO",IDC_BUTTONSetEXPIO,418,285,88,14
+    PUSHBUTTON      "SetALMIO",IDC_BUTTONSetALMIO,418,305,88,14
+    PUSHBUTTON      "GetTGIO",IDC_BUTTONGetTGIO,651,399,88,14
+    PUSHBUTTON      "GetF1IO",IDC_BUTTONGetF1IO,651,423,88,14
+    PUSHBUTTON      "GetEXPIO",IDC_BUTTONGetEXPIO,651,446,88,14
+    PUSHBUTTON      "GetALMIO",IDC_BUTTONGetALMIO,651,465,88,14
+    PUSHBUTTON      "SetColorGradation",IDC_BUTTONSetColorGradation,418,325,
+                    88,14
+    PUSHBUTTON      "SetVedioRequestControl",
+                    IDC_BUTTONSetVedioRequestControl,418,352,88,14
+    PUSHBUTTON      "SetAEScene",IDC_BUTTONHVAPI_SetAEScene,418,374,88,14
+    PUSHBUTTON      "GetAEScene",IDC_BUTTONHVAPI_GetAEScene,651,297,88,14
+    PUSHBUTTON      "SetCustomizedDevName",IDC_BUTTONSetDevName,17,144,88,14
+    PUSHBUTTON      "GetCustomizedDevName",IDC_BUTTONGetDevName,537,305,88,
+                    14
+    PUSHBUTTON      "SetH264SecondBitRate",IDC_BUTTONSetH264SecondBitRate,
+                    117,260,88,14
+    PUSHBUTTON      "GetH264SecondBitRate",IDC_BUTTONGetH264SecondBitRate,
+                    654,151,88,14
+    PUSHBUTTON      "SetDeNoiseSwitch",IDC_BUTTONSetDeNoiseSwitch,418,399,88,
+                    14
+    PUSHBUTTON      "SoftTriggerCapture",IDC_BUTTONHVAPI_SoftTriggerCapture,
+                    320,375,88,14
+    PUSHBUTTON      "SetSharpnessEnable",IDC_SetSharpnessEnable,224,446,88,
+                    14
+    PUSHBUTTON      "SetH264BitRateControl",IDC_SetH264BitRateControl,20,361,
+                    88,14,BS_MULTILINE
+    PUSHBUTTON      "SetStreamFps",IDC_SetStreamFps,115,342,88,14
+    PUSHBUTTON      "SetFaceDataAdv",IDC_BUTTONSetFaceDataAdv,140,208,65,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,1,0,174
+ PRODUCTVERSION 3,1,0,174
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "3, 1, 0, 174+20150811"
+            VALUE "InternalName", "HvDeviceNewTest.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "HvDeviceNewTest.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "3, 1, 0, 174++20150811"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_HVDEVICENEWTEST_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 512
+        BOTTOMMARGIN, 392
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        RIGHTMARGIN, 486
+        BOTTOMMARGIN, 309
+    END
+
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 325
+    END
+
+    IDD_DIALOG4, DIALOG
+    BEGIN
+        LEFTMARGIN, 2
+        RIGHTMARGIN, 105
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 104
+    END
+
+    IDD_DIALOG5, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 300
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 126
+    END
+
+    IDD_DIALOG6, DIALOG
+    BEGIN
+        RIGHTMARGIN, 109
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 102
+    END
+
+    IDD_DIALOG7, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 275
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 80
+    END
+
+    IDD_DIALOG8, DIALOG
+    BEGIN
+        RIGHTMARGIN, 493
+        BOTTOMMARGIN, 221
+    END
+
+    IDD_HVNAVI, DIALOG
+    BEGIN
+        RIGHTMARGIN, 585
+    END
+
+    IDD_DIALOG9, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 226
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 101
+    END
+
+    IDD_DIALOG10, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 170
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 47
+    END
+
+    IDD_DIALOG_SETIP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 194
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 149
+    END
+
+    IDD_DIALOG13, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 67
+    END
+
+    IDD_AUTOLINK_DEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 219
+    END
+
+    IDD_AUTOLINK_SETHISTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+
+    IDD_DIALOG11, DIALOG
+    BEGIN
+        BOTTOMMARGIN, 92
+    END
+
+    IDD_DIALOG12, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
+    END
+
+    IDD_DIALOG14, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        TOPMARGIN, 7
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "连接"
+    BEGIN
+        MENUITEM "配置",                        ID__RECV_HISTORY_CONFIG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 HvDeviceNewTest(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\HvDeviceNewTest.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

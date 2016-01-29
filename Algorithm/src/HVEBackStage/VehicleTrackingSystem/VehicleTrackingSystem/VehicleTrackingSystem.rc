@@ -1,0 +1,394 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\VehicleTrackingSystem.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\VehicleTrackingSystem.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_VEHICLETRACKINGSYSTEM_DIALOG DIALOGEX 0, 0, 822, 362
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | 
+    WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_OVERLAPPEDWINDOW
+CAPTION "VehicleTrackingSystem"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,212,141,492,221
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,1,2,207,139
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,1,155,198,153
+    GROUPBOX        "断面*过往车辆信息查询",IDC_STATIC222,212,2,201,137
+    LTEXT           "起始时间：",IDC_STATIC4,216,19,35,14
+    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,255,18,113,14
+    LTEXT           "结束时间：",IDC_STATIC5,215,39,35,14
+    CONTROL         "",IDC_DATETIMEPICKER3,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,254,38,113,14
+    LTEXT           "车牌号信息：",IDC_STATIC6,217,59,35,14
+    EDITTEXT        IDC_EDIT1,261,57,44,16,ES_AUTOHSCROLL
+    LTEXT           "车型：",IDC_STATIC7,312,57,26,14
+    COMBOBOX        IDC_COMBO1,343,59,65,81,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "压线",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,218,85,27,13
+    CONTROL         "越线",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,251,85,27,13
+    CONTROL         "紧急停车",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,280,85,38,13
+    CONTROL         "逆行",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,322,87,27,13
+    CONTROL         "超速",IDC_CHECK5,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    356,87,27,13
+    PUSHBUTTON      "查询",IDC_BUTTON1,310,115,81,20
+    GROUPBOX        "查询车辆行驶路径",IDC_STATIC333,423,13,249,123
+    LTEXT           "已选的数据站点",IDC_STATIC666,552,23,93,11,WS_BORDER
+    EDITTEXT        IDC_EDIT3,468,22,79,15,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "启用时间片查询",IDC_CHECK6,"Button",BS_AUTOCHECKBOX | 
+                    NOT WS_VISIBLE | WS_TABSTOP,428,36,64,12
+    LTEXT           "起始时间：",IDC_STATIC8,427,66,35,14
+    CONTROL         "",IDC_DATETIMEPICKER4,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,466,65,73,14
+    LTEXT           "结束时间：",IDC_STATIC9,426,86,35,14
+    CONTROL         "",IDC_DATETIMEPICKER5,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | WS_TABSTOP,466,85,73,14
+    PUSHBUTTON      "查询",IDC_BUTTON3,470,101,34,16
+    CONTROL         "设定数据站",IDC_CHECK7,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,428,52,64,12
+    PUSHBUTTON      "添加 ->>",IDC_BUTTON4,513,101,34,16
+    LTEXT           "数据站点：",IDC_STATIC10,426,102,35,14
+    COMBOBOX        IDC_COMBO2,429,119,90,93,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LISTBOX         IDC_LIST3,551,38,117,93,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_HSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_LIST4,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,709,10,105,148
+    CONTROL         "",IDC_STATIC_R_PIC,"Static",SS_BLACKFRAME,708,170,105,
+                    81
+    CONTROL         "",IDC_STATIC_C_PIC,"Static",SS_BLACKFRAME,709,265,105,
+                    81
+    CONTROL         "违章",IDC_CHECK8,"Button",BS_AUTOCHECKBOX | NOT 
+                    WS_VISIBLE | WS_TABSTOP,383,86,27,13
+    LTEXT           "车牌号码:",IDC_STATIC3331,429,25,35,11
+    COMBOBOX        IDC_COMBODIR1,238,110,65,81,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "方向：",IDC_STATICDIR1,217,112,26,10
+    COMBOBOX        IDC_COMBODIR2,510,43,65,81,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "方向：",IDC_STATICDIR2,486,47,26,10
+END
+
+IDD_HTML_DLG DIALOGEX 0, 0, 522, 210
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CLIPCHILDREN
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_MAP_EDIT_DIALOG DIALOGEX 0, 0, 525, 308
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | 
+    WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_OVERLAPPEDWINDOW
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME,6,23,519,283
+    LTEXT           "搜索地名：",IDC_STATIC111,105,5,43,16
+    EDITTEXT        IDC_EDIT1,153,2,142,17,ES_AUTOHSCROLL
+    PUSHBUTTON      "搜索地图",IDC_BUTTON1,301,1,69,17
+    PUSHBUTTON      "确定",IDC_BUTTON2,375,1,69,17
+END
+
+IDD_ADD_SERVER_DLG DIALOGEX 0, 0, 170, 136
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定添加",IDOK,7,114,50,14
+    PUSHBUTTON      "取消退出",IDCANCEL,111,114,50,14
+    LTEXT           "数据站名",IDC_STATIC,6,8,32,13
+    LTEXT           "服务器IP",IDC_STATIC,6,27,33,13
+    EDITTEXT        IDC_EDIT1,43,6,118,16,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,43,26,118,16,ES_AUTOHSCROLL
+    LTEXT           "数据库名",IDC_STATIC,6,47,33,13
+    EDITTEXT        IDC_EDIT3,43,46,118,16,ES_AUTOHSCROLL
+    LTEXT           "用户名",IDC_STATIC,6,70,33,13
+    EDITTEXT        IDC_EDIT4,43,68,118,16,ES_AUTOHSCROLL
+    LTEXT           "密码",IDC_STATIC,6,91,33,13
+    EDITTEXT        IDC_EDIT5,43,90,118,16,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+IDD_SET_LOCA_POINT_DLG DIALOGEX 0, 0, 562, 300
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+IDD_EDIT_ROAD_LINE DIALOGEX 0, 0, 527, 284
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "编辑路径"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC_MAP,"Static",SS_BLACKFRAME,5,10,332,264
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,343,10,180,264
+END
+
+IDD_DIALOG_RESULT_VIEW DIALOGEX 0, 0, 524, 285
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "车辆行驶信息展示窗口"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_STATIC_MAP,"Static",SS_BLACKFRAME,7,7,321,267
+    CONTROL         "",IDC_STATIC_PLATE,"Static",SS_BLACKFRAME,339,9,176,35
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,341,51,174,117
+    CONTROL         "",IDC_STATIC_RPIC,"Static",SS_BLACKFRAME,343,174,78,96
+    CONTROL         "",IDC_STATIC_CPIC,"Static",SS_BLACKFRAME,436,175,78,96
+END
+
+IDD_DIALOG_PICVIEW DIALOGEX 0, 0, 186, 88
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,6
+ PRODUCTVERSION 1,0,0,6
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "FileDescription", "VehicleTrackingSystem"
+            VALUE "FileVersion", "1.0.0.6"
+            VALUE "InternalName", "VehicleTrackingSystem.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "VehicleTrackingSystem.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.6"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_VEHICLETRACKINGSYSTEM_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 821
+        TOPMARGIN, 2
+    END
+
+    IDD_HTML_DLG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 520
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 208
+    END
+
+    IDD_ADD_SERVER_DLG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 168
+        BOTTOMMARGIN, 132
+    END
+
+    IDD_SET_LOCA_POINT_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 1
+        RIGHTMARGIN, 560
+        TOPMARGIN, 2
+        BOTTOMMARGIN, 297
+    END
+
+    IDD_EDIT_ROAD_LINE, DIALOG
+    BEGIN
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 283
+    END
+
+    IDD_DIALOG_RESULT_VIEW, DIALOG
+    BEGIN
+        RIGHTMARGIN, 522
+        BOTTOMMARGIN, 284
+    END
+
+    IDD_DIALOG_PICVIEW, DIALOG
+    BEGIN
+        RIGHTMARGIN, 185
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 86
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "文件"
+    BEGIN
+        MENUITEM "导入场景",                    ID_32771
+        MENUITEM "清除场景",                    ID_32776
+        MENUITEM "保存场景",                    ID_32772
+        POPUP "导入地图"
+        BEGIN
+            MENUITEM "本地图片",                    ID_32774
+            MENUITEM "网络地图",                    ID_32775
+        END
+        MENUITEM "增加数据站",                  ID_32782
+        MENUITEM "编辑路径",                    ID_32777
+    END
+    POPUP "结果处理"
+    BEGIN
+        MENUITEM "查询结果预览",                ID_32778
+        MENUITEM "查询结果保存",                ID_32779
+        MENUITEM "查看查询结果",                ID_32780
+    END
+    POPUP "车流量信息"
+    BEGIN
+        MENUITEM "显示流量统计信息",            32783
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+IDR_HTML                HTML                    "res\\html1.htm"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "关于 VehicleTrackingSystem(&A)..."
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\VehicleTrackingSystem.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

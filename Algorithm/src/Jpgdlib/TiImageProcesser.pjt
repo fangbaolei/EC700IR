@@ -1,0 +1,37 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="C:\work\DM6467_sync\LPR\src\Jpgdlib\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="alg_create.c"
+Source="alg_malloc.c"
+Source="BT1120_1600_1200_To_UYVY_1600_1200.c"
+Source="BT1120_ROTATE_Y_1200_1600_To_UYVY_1200_1600.c"
+Source="BT1120Field_1600_600_To_UYVY_1600_1200.c"
+Source="gba-jpeg-convert-dsp.cpp"
+Source="gba-jpeg-decode.cpp"
+Source="ijpegdec.c"
+Source="ImageFormatConvert.c"
+Source="TiImageProcesser.c"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\_lib\6467\Debug\TiImageProcesser.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\_lib\6467\Release\TiImageProcesser.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\_temp\6467\Debug\TiImageProcesser" -ft"..\..\_temp\6467\Debug\TiImageProcesser" -i"..\DSPLink\_6455cslinc" -i"..\Inc" -i"..\inc" -i"$(Install_dir)\C6000\xdais\src\api" -i"..\CamDsp\CamDspInc" -d"_DSP_" -d"CHIP_6467" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\_temp\6467\Release\TiImageProcesser" -ft"..\..\_temp\6467\Release\TiImageProcesser" -i"..\DSPLink\_6455cslinc" -i"..\inc" -i"$(Install_dir)\C6000\xdais\src\api" -i"..\CamDsp\CamDspInc" -d"_DSP_" -d"CHIP_6467" -mv6400+
+

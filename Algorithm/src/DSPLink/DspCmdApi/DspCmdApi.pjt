@@ -1,0 +1,35 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="F:\src_linux\LPR\src\DSPLink\DspCmdApi\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="DecodeJpeg.cpp"
+Source="DspCmdApi.cpp"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\..\_lib\6467\Debug\DspCmdApi.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\..\_lib\6467\Release\DspCmdApi.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -q -fr"..\..\..\_temp\6467\Debug\DspCmdApi" -ft"..\..\..\_temp\6467\Debug\DspCmdApi" -i"..\..\DSPLink\_6455cslinc" -i"..\..\Inc" -i"..\..\DSPLink\inc" -i"..\CamDsp\CamDspInc" -d"_DEBUG" -d"CHIP_6467" -d"_DSP_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-q -o2 -fr"..\..\..\_temp\6467\Release\DspCmdApi" -ft"..\..\..\_temp\6467\Release\DspCmdApi" -i"..\..\DSPLink\_6455cslinc" -i"..\..\Inc" -i"..\..\DSPLink\inc" -i"..\CamDsp\CamDspInc" -d"CHIP_6467" -d"_DSP_" -mv6400+
+
+["DspBiosBuilder" Settings: "Debug"]
+Options=-v6x
+
+["DspBiosBuilder" Settings: "Release"]
+Options=-v6x
+

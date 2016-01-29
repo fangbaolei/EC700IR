@@ -1,0 +1,16 @@
+GoogleTest的安装方法：
+
+首先把gtest-1.5.0.tar.gz源码包拷贝到用户自定义的一个目录下，
+这里假设为/home/Linux/gtest，
+然后在命令行环境下，进入到目录/home/Linux/gtest，
+之后依次运行如下命令即可（注：这里假定你的Linux开发环境已经安装了g++编译器）。
+
+tar -xzvf gtest-1.5.0.tar.gz
+cd gtest-1.5.0
+./configure
+make
+sudo make install
+make clean
+sudo ln -s /usr/local/lib/libgtest.so.0 /usr/lib/libgtest.so.0
+
+注：最后那条命令用于创建一个软链接文件，否则在执行通过gtest编写好的单元测试例程时可能出现由于找不到共享库而执行失败的情况。

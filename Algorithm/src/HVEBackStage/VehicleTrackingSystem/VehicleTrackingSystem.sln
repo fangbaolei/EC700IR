@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VehicleTrackingSystem", "VehicleTrackingSystem\VehicleTrackingSystem.vcproj", "{2CBDCAE2-2C82-4016-8262-F61DAE9C37B1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{2CBDCAE2-2C82-4016-8262-F61DAE9C37B1}.Debug.ActiveCfg = Debug|Win32
+		{2CBDCAE2-2C82-4016-8262-F61DAE9C37B1}.Debug.Build.0 = Debug|Win32
+		{2CBDCAE2-2C82-4016-8262-F61DAE9C37B1}.Release.ActiveCfg = Release|Win32
+		{2CBDCAE2-2C82-4016-8262-F61DAE9C37B1}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

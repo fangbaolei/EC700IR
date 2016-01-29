@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="HvDspLink" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../../_lib/Debug/libHvDspLink" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../_obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../../../_lib/Release/libHvDspLink" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../_obj/Release/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add option="-D_ARM_APP_" />
+			<Add option="-DCHIP_6467" />
+			<Add directory="../../Inc" />
+			<Add directory="../cmem/include" />
+		</Compiler>
+		<Unit filename="DSPLink.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="HvDspLinkApi.cpp" />
+		<Unit filename="LoadDspFromFlash.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="coff.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../Inc/DSPLink.h" />
+		<Unit filename="../../Inc/HvDspLinkApi.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

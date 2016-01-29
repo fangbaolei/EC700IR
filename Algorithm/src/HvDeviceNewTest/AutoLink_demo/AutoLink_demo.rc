@@ -1,0 +1,236 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (P.R.C.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
+    "LANGUAGE 4, 2\r\n"
+    "#pragma code_page(936)\r\n"
+    "#include ""res\\AutoLink_demo.rc2""  // 非 Microsoft Visual C++ 编辑过的资源\r\n"
+    "#include ""afxres.rc""         // 标准组件\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\AutoLink_demo.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_AUTOLINK_DEMO_DIALOG DIALOGEX 0, 0, 271, 239
+STYLE DS_SYSMODAL | DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | 
+    WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_WINDOWEDGE | WS_EX_APPWINDOW
+CAPTION "AutoLinkServer"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    PUSHBUTTON      "开启监听",IDC_BUTTON1,17,193,58,16
+    PUSHBUTTON      "关闭监听",IDC_BUTTON2,178,192,58,16
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_SINGLESEL | 
+                    LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,257,107
+    EDITTEXT        IDC_EDIT1,52,135,40,14,ES_AUTOHSCROLL
+    LTEXT           "监听端口：",IDC_STATIC,14,137,36,13
+    EDITTEXT        IDC_EDIT2,177,133,40,14,ES_AUTOHSCROLL
+    GROUPBOX        "基本配置",IDC_STATIC,7,120,257,60
+    LTEXT           "最大监听数：",IDC_STATIC,133,135,41,14
+    LTEXT           "保存路径：",IDC_STATIC,14,160,36,13
+    EDITTEXT        IDC_DIR,52,158,117,14,ES_AUTOHSCROLL
+    PUSHBUTTON      "浏览",IDC_FIND_DIR,177,158,58,16
+END
+
+IDD_AUTOLINK_SETHISTORY DIALOGEX 0, 0, 237, 202
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "设置参数"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "启用接收历史",IDC_ENABLE_HISTORY_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,23,18,64,10
+    CONTROL         "",IDC_BEGIN_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,105,46,72,15
+    CONTROL         "",IDC_END_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | 
+                    WS_TABSTOP,105,110,72,15
+    LTEXT           "起始时间： ",IDC_STATIC,44,49,44,15
+    LTEXT           "结束时间：",IDC_STATIC,44,95,45,16
+    LTEXT           "索引：",IDC_STATIC,60,73,25,12
+    EDITTEXT        IDC_INDEX_EDIT,105,70,72,14,ES_AUTOHSCROLL
+    CONTROL         "启用",IDC_ENABLE_END_TIME_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,105,94,32,10
+    PUSHBUTTON      "保存",IDC_SAVE_BUTTON,32,163,50,14
+    PUSHBUTTON      "取消",IDC_CANCEL_BUTTON,139,163,50,14
+    GROUPBOX        "   参数  ",IDC_STATIC,17,34,203,119
+    CONTROL         "启用",IDC_ENABLE_ONLYVIOLATION_CHECK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,104,134,32,10
+    LTEXT           "仅接收违章：",IDC_STATIC,40,134,49,11
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,14
+ PRODUCTVERSION 1,0,0,14
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080403a8"
+        BEGIN
+            VALUE "CompanyName", "TODO: <公司名>"
+            VALUE "FileDescription", "TODO: <文件说明>"
+            VALUE "FileVersion", "1.0.0.14"
+            VALUE "InternalName", "AutoLink_demo.exe"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
+            VALUE "OriginalFilename", "AutoLink_demo.exe"
+            VALUE "ProductName", "TODO: <产品名>"
+            VALUE "ProductVersion", "1.0.0.14"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 936
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_AUTOLINK_DEMO_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 264
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 219
+    END
+
+    IDD_AUTOLINK_SETHISTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 230
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 195
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "连接"
+    BEGIN
+        MENUITEM "配置",                        ID__RECV_HISTORY_CONFIG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDP_SOCKETS_INIT_FAILED "Windows 套接字初始化失败。"
+END
+
+#endif    // Chinese (P.R.C.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE 4, 2
+#pragma code_page(936)
+#include "res\AutoLink_demo.rc2"  // 非 Microsoft Visual C++ 编辑过的资源
+#include "afxres.rc"         // 标准组件
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

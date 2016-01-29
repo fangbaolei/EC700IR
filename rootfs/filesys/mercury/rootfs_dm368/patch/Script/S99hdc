@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# 加载cmem.ko
+modprobe cmemk phys_start=0x84C00000 phys_end=0x88000000 allowOverlap=1 phys_start_1=0x00001000 phys_end_1=0x00008000 pools_1=1x28672 useHeapIfPoolUnavailable=1
+modprobe irqk 
+modprobe edmak
+modprobe dm365mmap
+mknod /dev/dm365mmap c `awk "\\$2==\"dm365mmap\" {print \\$1}" /proc/devices` 0
+mknod /dev/video0 c 81 0
+mknod /dev/video3 c 81 1
+
+# 生成CoreDump
+#ulimit -c unlimited
+
+# 运行syslogd，产生syslog日志文件
+#syslogd
+
+# 配置USB网卡IP
+ifconfig usb0 123.123.219.219
+ifconfig usb0 netmask 255.255.255.0
+
+# 配置调试网口IP
+ifconfig eth0 172.18.18.99
+
+insmod /lib/modules/mp_dev.ko
+
+export PATH="/home/root:$PATH"
+if [ -d /home/root/ ]; then
+    cd /home/root/
+fi
+
+## 运行run.sh脚本
+if [ -x run.sh ]; then
+    ./run.sh
+fi
+if [ ! -x run.sh ]; then
+    echo "Error! no run script files found!"
+    echo "Make sure you have put the correct files to \"/home/root/\"."
+fi

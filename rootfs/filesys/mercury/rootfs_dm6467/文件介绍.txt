@@ -1,0 +1,15 @@
+mkrootfs_mercury.sh：根文件系统制作脚本
+rootfs_dm6467.32MB.img.gz：纯净版本根文件系统压缩镜像
+
+patch目录：包含应用程序目录App及脚本、驱动目录Script
+App：应用程序所在目录
+Script：脚本及驱动所在目录
+
+
+uImage.mercury：内核镜像文件
+
+fpga.xsvf：FPGA文件
+
+ubl_dm6467.bin: ubl文件 
+
+u-boot_dm6467.bin： uboot文件		

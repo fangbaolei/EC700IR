@@ -1,0 +1,31 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="F:\Dm6467_src_svn\LPR\src\"
+ProjectType=Executable
+CPUFamily=TMS320C64XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Project Dependencies]
+Source="CamDsp\CamDsp.pjt"
+
+["CamDsp\CamDsp.pjt" Settings]
+MatchConfigName=true
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug" -d"_DEBUG" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"$(Proj_dir)\Release" -mv6400+
+
+["Linker" Settings: "Debug"]
+Options=-a -c -m".\Debug\CamDsp_DM6467.map" -o".\Debug\CamDsp_DM6467.out" -w -x
+
+["Linker" Settings: "Release"]
+Options=-a -c -m".\Release\CamDsp_DM6467.map" -o".\Release\CamDsp_DM6467.out" -w -x
+

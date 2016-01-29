@@ -1,0 +1,42 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="D:\src\src_300W_youhua\LPR\src\HvPlatform\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="..\hvplatform\interface.c"
+Source="GetPlateNameUnicode.cpp"
+Source="GetPlateRecogParam.cpp"
+Source="GlobalDataTbl.c"
+Source="GlobalStackAlloc.c"
+Source="GUIDS.cpp"
+Source="hv_math.cpp"
+Source="HvModelStore.cpp"
+Source="image.cpp"
+Source="ItgArea.cpp"
+Source="LoadDetModel.cpp"
+Source="LoadRecogModel.cpp"
+Source="PlateRecogParam_high.cpp"
+Source="stack_alloc.cpp"
+Source="swimageobj.cpp"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\_lib\6467\Debug\hvplatform.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\_lib\6467\Release\hvplatform.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\_temp\6467\Debug\HvPlatform" -ft"..\..\_temp\6467\Debug\HvPlatform" -i"..\DSPLink\_6455cslinc" -i"..\Inc" -i"..\DSPLink\inc" -i"$(Install_dir)\C6000\xdais\src\api" -d"_DEBUG" -d"CHIP_6467" -d"_HIGH_DEVICE" -d"_DSP_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\_temp\6467\Release\HvPlatform" -ft"..\..\_temp\6467\Release\HvPlatform" -i"..\DSPLink\_6455cslinc" -i"..\Inc" -i"..\DSPLink\inc" -i"$(Install_dir)\C6000\xdais\src\api" -d"CHIP_6467" -d"_HIGH_DEVICE" -d"_DSP_" -mv6400+
+

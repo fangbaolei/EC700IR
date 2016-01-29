@@ -1,0 +1,72 @@
+<!--木星违章停车方案-->
+<?xml version="1.0" encoding="gb2312"?>
+<LprApp>
+    <VarList>
+        <param class="CSWLPRJupiterDomeCameraParameter"/>
+        <carleft class="CSWPeccancyParkingCarLeft"/>
+    </VarList>
+    <ObjectList>
+        <Object class="CSWDomeCameraControlMSG"/>
+        <Object class="CSWNetCommandProcess"/>
+        <Object class="CSWUserManager"/>
+        <Object class="CSWDomeRockerControlMSG"/>
+    </ObjectList>
+    <FilterList>
+        <Filter class="$(CaptureFilter)"> 
+            <Pin value="0" ConnectFilter="CSWJPEGDecodeTransformFilter"/>
+            <Pin value="1" ConnectFilter="CSWH264OverlayFilter"/>
+            <Pin value="2" ConnectFilter="CSWH264SecondOverlayFilter"/>	
+        </Filter>
+        <Filter class="CSWH264OverlayFilter" ConnectFilter="CSWCentaurusH264EncodeFilter" create="1"/>
+        <Filter class="CSWCentaurusH264EncodeFilter" ConnectFilter="CSWH264SplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWH264SplitFilter" In="1" Out="6" Format="CSWImage" >
+	    <Pin value="0" ConnectFilter="CSWH264QueueRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWRTSPTransformFilter"/>
+            <Pin value="2" ConnectFilter="CSWGBH264TransformFilter"/>
+            <Pin value="3" ConnectFilter="CSWH264NetRenderFilter" Pin="0"/>
+            <Pin value="4" ConnectFilter="CSWH264NetRenderFilter" Pin="1"/>
+            <Pin value="5" ConnectFilter="CSWH264NetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWRTSPTransformFilter"/>
+        <Filter class="CSWGBH264TransformFilter"/>
+        <Filter class="CSWH264QueueRenderFilter">
+        </Filter>
+        <Filter class="CSWH264NetRenderFilter"/>
+		<Filter class="CSWJPEGDecodeTransformFilter" ConnectFilter="YUVSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="YUVSplitFilter" In="1" Out="3" Format="CSWImage" >
+            <Pin value="0" ConnectFilter="CSWRecognizeTransformPPFilter"/>
+            <Pin value="1" ConnectFilter="CSWMatchTransformFilter"/>
+        </Filter>
+        <Filter class="CSWRecognizeTransformPPFilter" >
+            <Pin value="0" ConnectFilter="CSWJPEGOverlayFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWMatchTransformFilter" Pin="1"/>
+        </Filter>
+        <Filter class="CSWJPEGOverlayFilter" ConnectFilter="CSWJPEGEncodeTransformFilter"/>
+        <Filter class="CSWJPEGEncodeTransformFilter" ConnectFilter="CSWJPEGSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWJPEGSplitFilter" In="1" Out="3" Format="CSWPosImage" >
+            <Pin value="0" ConnectFilter="CSWJPEGNetRenderFilter" Pin="0"/>
+            <Pin value="1" ConnectFilter="CSWJPEGNetRenderFilter" Pin="1"/>
+            <Pin value="2" ConnectFilter="CSWJPEGNetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWJPEGNetRenderFilter"/>
+        <Filter class="CSWMatchTransformFilter" ConnectFilter="CarLeftSplitFilter"/>
+        <Filter class="CSWBaseFilter" name="CarLeftSplitFilter" In="1" Out="1" Format="CSWCarLeft">
+            <Pin value="0" ConnectFilter="CSWResultFilter"/>
+        </Filter>
+        <Filter class="CSWResultFilter" ConnectFilter="CSWRecordTransformFilter" Pin="0"/>
+        <Filter class="CSWRecordTransformFilter" ConnectFilter="CSWResultSplitFilter" Pin="0"/>
+        <Filter class="CSWResultFtpRenderFilter"/>
+        <Filter class="CSWBaseFilter" name="CSWResultSplitFilter" In="1" Out="4" Format="CSWRecord" remark="定义Result数据拆分器,1个输入4个输出">
+            <Pin value="0" ConnectFilter="CSWResultFtpRenderFilter" Pin="0" remark="第0个输出到ftp的第0个输入"/>
+            <Pin value="1" ConnectFilter="CSWResultNetRenderFilter" Pin="0"/>
+            <Pin value="2" ConnectFilter="CSWResultNetRenderFilter" Pin="1"/>
+            <Pin value="3" ConnectFilter="CSWResultNetRenderFilter" Pin="2"/>
+        </Filter>
+        <Filter class="CSWResultNetRenderFilter"/>
+        
+        <Filter class="CSWH264SecondOverlayFilter" ConnectFilter="CSWCentaurusH264SecondEncodeFilter" create="1"/>
+        <Filter class="CSWCentaurusH264EncodeFilter" name="CSWCentaurusH264SecondEncodeFilter" ConnectFilter="CSWRTSPSecondTransformFilter"/>
+        <Filter class="CSWRTSPTransformFilter" name="CSWRTSPSecondTransformFilter"/>
+        
+    </FilterList>
+</LprApp>

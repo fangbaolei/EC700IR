@@ -1,0 +1,70 @@
+水星平台DM6467根文件系统制作说明
+
+一、功能介绍
+本目录为水星平台DM6467根文件系统制作，使用制作脚本将额外的库、驱动文件、应用程序打包到纯净版本的根文件系统，以合适水星平台的使用。根文件系统镜像最大容量为32MB。
+
+==========================================================================================
+二、目录及文件介绍
+mkrootfs_mercury.sh：根文件系统制作脚本
+rootfs.signalway.32MB.img.gz：纯净版本根文件系统压缩镜像
+
+patch目录：包含应用程序目录App及脚本、驱动目录Script
+App：应用程序所在目录
+Script：脚本及驱动所在目录
+
+水星平台的DEV驱动文件名称：slw-dev_mercury.ko
+
+==========================================================================================
+三、使用说明
+1、将应用程序拷贝到patch目录的App下
+1)、正式版本：拷贝(loader todo：其它文件)到App目录下(因为loader负责加载Flash中的程序，必须位于文件系统中)；
+2)、网络启动：拷贝(fpga.xsvf loader deamon LprApp MercuryDsp.out command log command.sh deamon.xml LprApp.xml)到App目录下。
+注：因为拷贝的程序可更改，请修改脚本人员更新这个文件。
+
+2、切换到root用户
+3、运行脚本mkrootfs_mercury.sh(如无执行权限，请使用命令：chmod +x mkrootfs_mercury.sh)
+1)、制作正式的根文件系统(用于烧写到Flash中)：
+# ./mkrootfs_mercury.sh
+2)、制作网络启动根文件系统(用于网络启动，方便调试)：
+# ./mkrootfs_mercury.sh debug
+
+生成的根文件系统镜像名称：rootfs.img.gz.mercury
+
+==========================================================================================
+四、其它事项
+1、务必使用root权限运行脚本
+
+==========================================================================================
+五、高阶使用
+1、系统启动：
+系统启动后，会自动运行/etc/rc.d/rc3.d/S99hdc脚本，里面主要调用了loadko.sh、run.sh脚本，
+这两个脚本位于patch的Script目录，通过制作文件系统脚本被复制到/usr/local/signalway目录下面。
+
+S99hdc内容：
+1、加载DSPLink、SWDEV驱动；2、运行loadko.sh脚本；3、运行run.sh脚本
+
+run.sh：负责启动应用程序
+
+2、如果需要新加驱动或其它文件，请将其拷贝到App或Script目录，并修改mkrootfs_mercury.sh，各种可修改项目已经在该脚本中标注出来。
+
+==========================================================================================
+
+六、出错及其原因
+当运行脚本出错了，脚本打印出错信息并退出。请根据出错提示查找原因。示例如下：
+
+root@latelee:rootfs_dm6467# ./mkrootfs_mercury.sh debug
+copying files ...
+SRC:App/CamDsp.out
+DST:App/CamDsp_tmp.out
+create file successful!!
+cp: 写入 “/my_workshop/workdir/mercury_os/Mercury_FileSystem/rootfs_dm6467/tmp/usr/local/signalway/CamApp”: 设备上没有空间
+[Oops!! Error occurred!! Please see the message upside!!]
+
+上面提示“设备上没有空间”，意思是拷贝的文件很大，已经超过根文件系统镜像的最大容量。
+
+解决方法：精简程序
+
+==========================================================================================
+
+2013-04-28
+产品组

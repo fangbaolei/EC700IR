@@ -1,0 +1,29 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="F:\Dm6467_src_svn\LPR\src\CamDsp\JpegEncoderLibProj\"
+ProjectType=Library
+CPUFamily=TMS320C64XX
+Tool="Archiver"
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="CreateJpegEncode.c"
+Source="XDM_JpegEncode.c"
+
+["Archiver" Settings: "Debug"]
+Options=-r -o"..\..\..\_lib\6467\Debug\JpegEncoder.lib"
+
+["Archiver" Settings: "Release"]
+Options=-r -o"..\..\..\_lib\6467\Release\JpegEncoder.lib"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"..\..\..\_temp\6467\Debug\CamDsp" -ft"..\..\..\_temp\6467\Debug\CamDsp" -i"..\..\Inc" -i"..\CamDspInc" -i"..\..\DSPLink\Csp\Csl\include" -i"..\..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"_DEBUG" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+
+["Compiler" Settings: "Release"]
+Options=-o2 -fr"..\..\..\_temp\6467\Release\CamDsp" -ft"..\..\..\_temp\6467\Release\CamDsp" -i"..\..\Inc" -i"..\CamDspInc" -i"..\..\DSPLink\Csp\Csl\include" -i"..\..\DSPLink\Csp\c6x\include" -i"$(Install_dir)\C6000\xdais\src\api" -d"CHIP_6467" -d"_DSP_" -d"_NO_DSPBIOS_" -mv6400+
+

@@ -1,0 +1,166 @@
+
+uboot文件：
+u-boot.bin
+u-boot.min.bin
+
+注：本目录的u-boot已更新启动参数（内存由80改为128）。如果升级此目录uboot，升级后，需要恢复uboot参数。
+升级命令(自动搭建tftp服务器)：
+tftp 0x81000000 u-boot.min.bin; nand erase 0x0 0x20000;nand write.i 0x81000000 0x0 0x20000;
+tftp 0x81000000 u-boot.bin;nand erase 0x20000 0x60000;nand write.i 0x81000000 0x20000 0x60000;
+
+恢复uboot参数，依次输入以下命令：
+default_cfg 1
+default_cfg 0
+default_env
+
+然后复位。
+注意！！uboot会自动复位一次以恢复参数，后面不会再自动复位。
+
+
+===========================================================================================
+
+内核文件：
+uImage.venus：使能看门狗的内核(60s超时)
+
+===========================================================================================
+===========================================================================================
+
+uboot log
+首次提交: r3版本
+2013-12-23
+r4版本：支持uboot命令行烧写ubi格式镜像(注：是制作生成的第一阶段的镜像，参考制作脚本)
+
+2013-01-09
+版本号：U-Boot 2010.06-r7 (Jan 09 2014 - 15:22:04)
+r7版本：支持ramdisk，需要配合同日提交的内核使用。
+！！！！升级本版本的uboot，请必须恢复uboot参数！！！！！！！！！
+
+2013-01-14
+版本号：U-Boot 2010.06-r8 (Jan 14 2014 - 11:42:30)
+r8版本：因文件系统类型更改，在uboot下作启动参数判断，如是旧版本的uboot，自动修正为新的启动参数。
+
+2013-01-23
+版本号：U-Boot 2010.06-r9  
+修改内容：修正app操作eeprom时异常掉电后 uboot读序列号不成功的问题
+
+2014-07-17
+版本号：U-Boot 2010.06-r10  
+修改内容：添加木星支持 兼容金星；修正锁串口后出现乱码的bug
+
+2014-07-30
+版本号：U-Boot 2010.06-r11  
+修改内容：添加自动修正旧版本锁串口功能
+
+2014-08-11
+U-Boot 2010.06-r12
+修改内容：提高电源芯片输出电压
+
+===========================================================================================
+===========================================================================================
+
+kernel log
+首次提交：基本可用版本
+
+2013-12-23
+版本号：Linux venus 2.6.37_DM8127 #4 Mon Dec 23 13:05:12 CST 2013 armv7l unknown
+log:
+删除内核gpio复用宏（解决rs485不能接收数据bug），删除ttyS*文件的生成。
+用户可以使用"ln -s /dev/ttyO1 /dev/ttyS1"将rt485文件改成ttyS1。
+用户空间禁止看门狗操作，在命令行执行以下命令即可：
+echo 0 > /sys/bus/platform/devices/omap_wdt/enable 
+
+2013-12-26
+版本号：Linux venus 2.6.37_DM8127 #5 Thu Dec 26 08:50:38 CST 2013 armv7l unknown
+log：
+1、实现fpga复位功能。
+2、内核实现PWM功能(控制自动光圈)
+注：内核镜像对应内核svn第7版本。
+
+2014-01-06
+版本号：Linux venus 2.6.37_DM8127 #7 Mon Jan 6 10:54:45 CST 2014 armv7l unknown
+log：
+1、实现PWM触发(用于arm与dsp之间通信)。
+
+注：内核镜像对应内核svn第8版本。
+
+
+2014-01-09
+版本号：Linux venus 2.6.37_DM8127 #8 Wed Jan 8 15:50:17 CST 2014 armv7l unknown
+支持ramdisk，需要配合同日提交的uboot使用。
+
+注：内核镜像对应内核svn第9版本。
+
+2014-01-14
+Linux venus 2.6.37_DM8127 #10 Tue Jan 14 17:38:32 CST 2014 armv7l unknown
+注：内核镜像对应内核svn第11版本。
+
+2014-01-17
+修正FPGA复位引脚问题，表现：使用旧的内核，加载完fpga后，无法读寄存器。
+Linux venus 2.6.37_DM8127 #11 Fri Jan 17 18:12:57 CST 2014 armv7l unknown
+注：内核镜像对应内核svn第12版本。
+
+2014-01-21
+添加SD卡复位电源的操作。添加SD卡初始化延时。
+Linux venus 2.6.37_DM8127 #14 Tue Jan 21 14:19:15 CST 2014 armv7l unknown
+注：内核镜像对应内核svn第13版本。
+
+2014-2-11
+FPGA复位延时为1ms，nand计算ecc后禁止使能
+Linux venus 2.6.37_DM8127 #15 Tue Feb 11 16:24:57 CST 2014 armv7l unknown
+注：内核镜像对应内核svn第14版本。
+
+AT88芯片加长延时，将设置GPIO状态改为直接操作寄存器方式。
+(注：解决烧写加密有时认证不成功的问题)
+版本：
+Linux venus 2.6.37_DM8127 #19 Thu Feb 27 21:03:33 HKT 2014 armv7l unknown
+注：内核镜像对应内核svn第15版本。
+
+
+2014-04-29
+添加对ext4的支持。改善H264存储断流问题。
+在mount时如果遇到
+EXT4-fs (mmcblk0p1): Filesystem with huge files cannot be mounted RDWR without CONFIG_LBDAF
+请执行tune2fs -O ^huge_file /dev/mmcblk0p1(sd卡分区)
+版本：
+Linux venus 2.6.37_DM8127 #22 Tue Apr 29 11:07:43 HKT 2014 armv7l unknown
+注：内核镜像对应内核svn第16个版本
+
+2014-06-11
+更改内核分布，内核-用户空间分别是2GB
+Linux venus 2.6.37_DM8127 #26 Wed May 28 17:32:33 HKT 2014 armv7l unknown
+注：内核代码暂未提交svn上
+后注：对应内核svn第17个版本
+
+2014-07-18
+注：木星平台的引脚复用，在uboot中进行，故内核无需再做一次。因此无变化。
+
+2014-07-30
+修改内核关闭ecc不成功问题。
+Linux venus 2.6.37_DM8127 #28 Wed Jul 30 09:12:45 HKT 2014 armv7l unknown
+注：对应内核svn第20个版本
+
+2014-08-1
+修改与旧版本ecc兼容的问题
+Linux version 2.6.37_DM8127 #2 Fri Aug 1 09:34:20 CST 2014
+注：对应内核svn第21个版本
+
+2014-08-11
+修改SD储存异常复位问题,添加SD卡插拔和reinit接口
+Linux venus 2.6.37_DM8127+ #1 Mon Aug 11 16:44:34 HKT 2014 armv7l unknown
+注：对应内核svn第24个版本
+
+
+2014-08-13
+在看门狗中断中使用“软件冷启动”方式复位。解决关闭m3核后看门狗不能复位问题
+Linux venus 2.6.37_DM8127 #3 Wed Aug 13 11:21:24 HKT 2014 armv7l unknown
+注：对应内核svn第25个版本
+
+2015-04-10
+千兆网络开启TX、RX流控及以太网PAUSE帧功能(系统默认使能自动协商，无须设置，如果要设置，请使用swpa新加的设置网卡工作模式的接口，使用ethtool可能会有问题)
+Linux version Linux 2.6.37_DM8127+ #111 Thu Apr 9 11:13:22 CST 2015
+注：对应内核svn第31个版本(前面几个版本是土星平台的内核修改)
+
+2015-06-23
+为鱼眼初始化数据提高SPI时序。
+Linux version Linux 2.6.37_DM8127+ #1 Web Jun 10 16:15:42 HKT 2015
+注：对应内核svn第33个版本

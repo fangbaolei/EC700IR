@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ResultProcess" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Option virtualFolders="Protocol/;" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../../_lib/Debug/libResultProcess" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add directory="../../_lib/Debug" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="../../_lib/Release/libResultProcess" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../_obj/Release/" />
+				<Option type="2" />
+				<Option compiler="armelfgcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-DLINUX" />
+			<Add option="-D_ARM_APP_" />
+			<Add option="-DCHIP_6467" />
+			<Add directory="../Inc" />
+		</Compiler>
+		<Linker>
+			<Add option="-lrt" />
+		</Linker>
+		<Unit filename="../Inc/CameraCmdLink.h" />
+		<Unit filename="../Inc/CameraCmdProcess.h" />
+		<Unit filename="../Inc/CameraImageLink.h" />
+		<Unit filename="../Inc/CameraLinkBase.h" />
+		<Unit filename="../Inc/CameraRecordLink.h" />
+		<Unit filename="../Inc/CameraVideoLink.h" />
+		<Unit filename="../Inc/EventChecker.h" />
+		<Unit filename="../Inc/HvCameraLink.h" />
+		<Unit filename="../Inc/HvCameraLinkOpt.h" />
+		<Unit filename="../Inc/IResultSender.h" />
+		<Unit filename="../Inc/PciResultSender.h" />
+		<Unit filename="../Inc/TestServer.h" />
+		<Unit filename="../Inc/safesaver.h" />
+		<Unit filename="BigFile.cpp" />
+		<Unit filename="CameraCmdLink.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CameraCmdProcess.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CameraImageLink.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CameraLinkBase.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CameraRecordLink.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CameraVideoLink.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="CamyuServer.cpp" />
+		<Unit filename="ConstFileSys.cpp" />
+		<Unit filename="DM6467ResultSender.cpp" />
+		<Unit filename="DataCtrlBase.cpp" />
+		<Unit filename="EventChecker.cpp" />
+		<Unit filename="FileQueue.cpp" />
+		<Unit filename="FileQueueTable.cpp" />
+		<Unit filename="FixFileStream.cpp" />
+		<Unit filename="HvResultFilter.cpp" />
+		<Unit filename="ParseExecXmlExtCmd.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="PciResultSender.cpp" />
+		<Unit filename="ResultSenderImpl.cpp" />
+		<Unit filename="ResultTable.cpp" />
+		<Unit filename="SafeSaverImpl_CF.cpp" />
+		<Unit filename="SaveResultToHardDisk.cpp" />
+		<Unit filename="TestServer.cpp">
+			<Option virtualFolder="Protocol/" />
+		</Unit>
+		<Unit filename="VideoTable.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

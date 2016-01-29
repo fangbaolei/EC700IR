@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="gb2312"?>
+<Deamon>
+	<Process name="./command" error="0"/>
+	<Process name="./log" error="0"/>
+	<Process name="./OnvifApp" error="0"/>
+	<Process name="./RtspApp" error="0"/>
+	<Process name="./GB28181App" error="0"/>
+    <Process name="/tmp/LprApp" error="1" param="-hdd /dev/mmcblk*p">
+		<Exit value="1" Process="./UpgradeApp"/>
+		<Exit value="2"/>
+	</Process>
+	<Process name="./UpgradeApp" error="1" create="0" param="-mode normal">
+        <Exit value="1" Process="/tmp/LprApp"/>
+		<Exit value="2"/>
+	</Process>
+</Deamon>

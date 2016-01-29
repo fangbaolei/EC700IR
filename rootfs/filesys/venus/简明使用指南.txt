@@ -1,0 +1,32 @@
+一、制作第一级的镜像(即做升级包需要使用到的镜像)
+1、正式系统：
+./mkrootfs_venus.sh
+-->venus_rootfs.img
+2、备份系统：
+./mkrootfs_venus_back.sh
+-->venus_rootfs_back.img
+3、正式app：
+./mkubi_app.sh　App
+-->ubifs_app.img
+4、备份app：
+./mkubi_app_back.sh
+-->ubifs_app_back.img
+-->工厂烧写：ubifs_app_bak.factoryuse.img
+5、net补丁区：
+./mkubi_net.sh net_patch
+-->ubifs_net.img
+
+二、制作升级工具镜像
+(todo:待补充)
+1、正式系统：
+./mkrootfs_venus.sh
+
+2、备份系统：
+./mkrootfs_venus_back.sh
+
+3、正式app：
+./mkubi_app.sh　App
+4、备份app：
+./mkubi_app_back.sh
+5、net补丁区：
+./mkubi_net.sh net_patch
