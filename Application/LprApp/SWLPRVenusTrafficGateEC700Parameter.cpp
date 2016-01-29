@@ -2151,7 +2151,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, ""
 			, PROJECT_LEVEL
 		);
-		GetInt((LPCSTR)strCOMM
+		/*GetInt((LPCSTR)strCOMM
 			, "Road"
 			, &Get().cDevParam[i].iRoadNo
 			, Get().cDevParam[i].iRoadNo
@@ -2160,7 +2160,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, "所属车道编号"
 			, "所属车道编号"
 			, PROJECT_LEVEL
-		);
+		);*/
+		Get().cDevParam[i].iRoadNo=255;
 
 	if(Get().cCamCfgParam.iDynamicTriggerEnable>0)
 	{
@@ -2361,7 +2362,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , 0
                 , 0xFF
                 , "车道号"
-                , ""
+                , "从0起始"
                 , PROJECT_LEVEL
               );
 

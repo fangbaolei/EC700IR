@@ -876,10 +876,10 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 				{
 					if(CSWBaseDevice::NONE < pThis->m_cParam.signal[i].dwType
 							&& pThis->m_cParam.signal[i].dwType < CSWBaseDevice::MAX_COUNT
-							&& (pCarLeftMatchInfo->pCarLeft->GetRoadNo() == pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID))
+						&&pCarLeftMatchInfo->pCarLeft->GetRoadNo() == pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
 					{
 						pFunMatch pMatch = pThis->GetFunction(pThis->m_cParam.signal[i].dwType);
-						if(!pMatch)
+						/*if(!pMatch)
 						{
 							SW_TRACE_DEBUG("dwType = %d, not found match function\n", pThis->m_cParam.signal[i].dwType);
 							continue;
@@ -891,8 +891,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 						else
 						{
 							SW_TRACE_DEBUG("match error type:%d,RoadID=%d\n", pThis->m_cParam.signal[i].dwType,pThis->m_cParam.signal[i].dwRoadID);
-						}
-						/*if(!pMatch)
+						}*/
+						if(!pMatch)
 						{
 							fOk = false;
 							SW_TRACE_DEBUG("dwType = %d, not found match function", pThis->m_cParam.signal[i].dwType);
@@ -907,7 +907,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 						else
 						{
 							fOk = true;
-						}*/
+						}
 					}
 				}
 				pThis->m_cMutex.Unlock();
