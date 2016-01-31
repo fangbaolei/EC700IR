@@ -901,8 +901,8 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 					for( int i = 0; i < pProcessEvent->iCarLeftInfoCount; ++i )
 					{
 						//有车牌,而且是ARM判断为晚上才计入统计
-						if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0
-							&& fIsARMCheckNight)
+						if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0)
+							//&& fIsARMCheckNight)
 						{
 							iPulseLevel = AdjustPulseWidth(pProcessEvent->rgCarLeftInfo[i].cCoreResult.iCarAvgY);
 						}
@@ -1310,11 +1310,11 @@ HRESULT CSWRecognizeTGTransformFilter::OnEnvPeriodChanged(WPARAM wParam, LPARAM 
 {
     m_nCurEnvPeriod = (INT)wParam;
 
-    INT iOutputCtrlEnable = (wParam == 3) ? 0 : 1;
+    /*INT iOutputCtrlEnable = (wParam == 3) ? 0 : 1;
 	if(FAILED(CSWMessage::SendMessage(MSG_COM_OUTPUT_CTRL_ENABLE, (WPARAM)iOutputCtrlEnable, 0)))
 	{
 		CSWMessage::SendMessage(MSG_COM_OUTPUT_CTRL_ENABLE, (WPARAM)iOutputCtrlEnable, 0);
-	}
+	}*/
     return S_OK;
 }
 

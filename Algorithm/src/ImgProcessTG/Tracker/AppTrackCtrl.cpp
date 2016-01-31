@@ -704,7 +704,7 @@ namespace swTgApp
         //{
         //    m_fEnableCarArriveTrigger = FALSE;
         //}
-		pProcParam->fIsCaptureImage=FALSE;
+		//pProcParam->fIsCaptureImage=FALSE;
 #if 0
         // ×¥ÅÄÊ¶±ð
         pProcParam->fIsCaptureImage = TRUE;

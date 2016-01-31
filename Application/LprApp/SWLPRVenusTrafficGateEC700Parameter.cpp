@@ -2362,7 +2362,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , 0
                 , 0xFF
                 , "车道号"
-                , "从0起始"
+                , ""
                 , PROJECT_LEVEL
               );
 

@@ -65,8 +65,8 @@ CSWMatchTransformFilter::~CSWMatchTransformFilter(){
 	SAFE_RELEASE(m_pComTestDevic);
 }
 
-HRESULT CSWMatchTransformFilter::Initialize(PVOID pvParam1, PVOID pvParam2,BOOL fRadarTrigger){
-
+HRESULT CSWMatchTransformFilter::Initialize(PVOID pvParam1, PVOID pvParam2,BOOL fRadarTrigger)
+{
 	Close();
 	CSWAutoLock aLock(&m_cMutex);
 	swpa_memcpy(&m_cParam, pvParam1, sizeof(MATCHPARAM));
@@ -244,16 +244,22 @@ HRESULT CSWMatchTransformFilter::Receive(CSWObject* obj){
 		else if(IsDecendant(CSWCarLeft, obj))
 		{
 			CSWCarLeft *pCarLeft = (CSWCarLeft *)obj;
+			SW_TRACE_DEBUG("receive a CarLeft: CarArriveTime=%d, trigger id=%d, PlateNo=%s\n",
+						pCarLeft->GetCarArriveTime(), pCarLeft->GetTriggerIndex(), (LPCSTR)pCarLeft->GetPlateNo());
+			if(pCarLeft->GetTriggerIndex()<=0)
+			{
+				SAFE_DELETE(pCarLeft);
+				return S_OK;
+			}
 
 			BOOL bFull=FALSE;
 			m_cCarLeftMutex.Lock();
 			if(!(bFull=m_cCarLeftList.IsFull()))
 			{
-				SW_TRACE_DEBUG("receive a CarLeft: CarArriveTime=%d, trigger id=%d, PlateNo=%s\n",
-						pCarLeft->GetCarArriveTime(), pCarLeft->GetTriggerIndex(), (LPCSTR)pCarLeft->GetPlateNo());
 				pCarLeft->AddRef();
 				CARLEFT_MATCH_INFO* pCarLeftMatchInfo = new CARLEFT_MATCH_INFO;
 				pCarLeftMatchInfo->pCarLeft = pCarLeft;
+				pCarLeftMatchInfo->dwInputTime=CSWDateTime::GetSystemTick();
 				m_cCarLeftList.AddTail(pCarLeftMatchInfo);
 			}
 			else
@@ -580,6 +586,8 @@ HRESULT CSWMatchTransformFilter::OnOutput()
 			pCarLeft->SetImage(0, NULL);
 		}
 
+		SW_TRACE_DEBUG("RoadID=%d,Speed=%f, Time=%d\n",pCarLeft->GetRoadNo(),pCarLeft->GetCarspeed(),pCarLeft->GetCarArriveTime());
+
 		GetOut(0)->Deliver(pCarLeft);
 		pCarLeft->Release();
 		pCarLeft = NULL;
@@ -731,8 +739,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 		}
 
 		//外总控不使能的情况下
-		//if(!pThis->m_cParam.fEnable)
-		if(0)
+		if(!pThis->m_cParam.fEnable)
 		{
 			pThis->m_cCarLeftMutex.Lock();
 			while( !pThis->m_cCarLeftList.IsEmpty() )
@@ -876,7 +883,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 				{
 					if(CSWBaseDevice::NONE < pThis->m_cParam.signal[i].dwType
 							&& pThis->m_cParam.signal[i].dwType < CSWBaseDevice::MAX_COUNT
-						&&pCarLeftMatchInfo->pCarLeft->GetRoadNo() == pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
+						&&(pCarLeftMatchInfo->pCarLeft->GetRoadNo()+pThis->m_pTrackerCfg->iStartRoadNum)== pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
 					{
 						pFunMatch pMatch = pThis->GetFunction(pThis->m_cParam.signal[i].dwType);
 						/*if(!pMatch)
@@ -920,7 +927,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					{
 						SAFE_ADDREF(pCarLeftMatchInfo->pCarLeft);
 						pThis->m_cOutputList.AddTail(pCarLeftMatchInfo->pCarLeft);
-						SW_TRACE_DEBUG("m_cOutputList size:%d", pThis->m_cOutputList.GetCount());
+						SW_TRACE_DEBUG("m_cOutputList size:%d", pThis->m_cOutputList.GetCount());					
+						SW_TRACE_DEBUG("RoadID=%d,Speed=%f, Time=%d\n",pCarLeftMatchInfo->pCarLeft->GetRoadNo(),pCarLeftMatchInfo->pCarLeft->GetCarspeed(),pCarLeftMatchInfo->pCarLeft->GetCarArriveTime());
 						pThis->m_semOutput.Post();
 					}
 					else
@@ -940,7 +948,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					fOk = true;
 					for(int i = 0; i < sizeof(pThis->m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 					{
-						if(pThis->m_cParam.signal[i].dwRoadID == 0xFF || pThis->m_cParam.signal[i].dwRoadID == pCarLeftMatchInfo->pCarLeft->GetRoadNo())
+						if(pThis->m_cParam.signal[i].dwRoadID == 0xFF || pThis->m_cParam.signal[i].dwRoadID == (pCarLeftMatchInfo->pCarLeft->GetRoadNo()+pThis->m_pTrackerCfg->iStartRoadNum))
 						{
 							if(pThis->m_cParam.signal[i].dwCondition == 1)
 							{
@@ -965,6 +973,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 						{
 							pCarLeft->AddRef();
 							pThis->m_cOutputList.AddTail(pCarLeft);
+							SW_TRACE_DEBUG("RoadID=%d,Speed=%f, Time=%d\n",pCarLeftMatchInfo->pCarLeft->GetRoadNo(),pCarLeftMatchInfo->pCarLeft->GetCarspeed(),pCarLeftMatchInfo->pCarLeft->GetCarArriveTime());
 							SW_TRACE_DEBUG("m_cOutputList size:%d", pThis->m_cOutputList.GetCount());
 							pThis->m_semOutput.Post();
 						}
@@ -1005,8 +1014,7 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 				}
 				//车牌和信号的差值
 				else if(pSignal->signal[i].dwTime < pMatchInfo->dwInputTime 
-						&& pMatchInfo->dwInputTime - pSignal->signal[i].dwTime <= m_cParam.dwMatchMinTime
-						&& pMatchInfo->dwInputTime - pSignal->signal[i].dwTime < dwDiffTime)
+						&& pMatchInfo->dwInputTime - pSignal->signal[i].dwTime <= m_cParam.dwMatchMinTime)
 				{
 					dwDiffTime = pMatchInfo->dwInputTime - pSignal->signal[i].dwTime;
 					dwMatchIndex = i;
@@ -1099,7 +1107,7 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 	}
 
 	// 尽可能使用 trigger id 做匹配，刚开始匹配不上也需要等待一定时间
-	if (dwMatchIndex == 0xFFFFFFFF)
+	/*if (dwMatchIndex == 0xFFFFFFFF)
 	{
 		DWORD dwPlatePassTime = CSWDateTime::GetSystemTick() - pMatchInfo->dwInputTime;
 		if (dwPlatePassTime < m_cParam.dwPlateKeepTime / 2)
@@ -1131,7 +1139,7 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 				}
 			}
 		}
-	}
+	}*/
 
 	if(dwMatchIndex != 0xFFFFFFFF)
 	{	
