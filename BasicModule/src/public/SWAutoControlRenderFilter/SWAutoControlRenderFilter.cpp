@@ -352,6 +352,22 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 				        m_iLightType, m_iPluseLevel,
                         m_nWDRLevel, cInfo.iShutter);
 
+					switch(nStatus)
+					{
+						case 0:
+							m_fIsDay=FALSE;
+							m_fIsDayEx=FALSE;
+							break;
+						case 1:
+							m_fIsDay=FALSE;
+							m_fIsDayEx=TRUE;
+							break;
+						case 2:
+							m_fIsDay=TRUE;
+							m_fIsDayEx=(m_iLightType>7);
+							break;
+					}
+
 				    s_nFrameCount = 0;
 				    s_dwTotalY = 0;
                     OnSetCaptureAutoParam((WPARAM)0,(LPARAM)0);

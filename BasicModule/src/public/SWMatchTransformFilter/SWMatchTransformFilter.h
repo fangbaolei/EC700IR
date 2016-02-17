@@ -143,6 +143,9 @@ protected:
 	SW_END_MESSAGE_MAP()
 private:
 
+	static DWORD iRadarSignal1;
+	static DWORD iRadarSignal2;
+	
 	BOOL        m_fInitialize;
 	MATCHPARAM  m_cParam;
 	DEVICEPARAM m_cDevParam[2];
@@ -158,11 +161,11 @@ private:
 
 	// zhaopy
 	CSWThread m_cOutputThread;
-	CSWList<CSWCarLeft*, 15> m_cOutputList;
+	CSWList<CSWCarLeft*, 6> m_cOutputList;
 	CSWMutex  m_cOutputMutex;
 	CSWSemaphore m_semOutput;
 
-	CSWList<CARLEFT_MATCH_INFO*> m_cCarLeftList;
+	CSWList<CARLEFT_MATCH_INFO*,6> m_cCarLeftList;
 	CSWMutex m_cCarLeftMutex;
 
 	TRACKER_CFG_PARAM* m_pTrackerCfg;

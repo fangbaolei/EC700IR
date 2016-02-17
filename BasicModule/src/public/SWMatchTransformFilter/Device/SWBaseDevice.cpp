@@ -26,7 +26,7 @@ HRESULT CSWBaseDevice::Initialize(VOID (*OnEvent)(PVOID pvParam, CSWBaseDevice* 
 	{		
 		m_cFile.IOCtrl(SWPA_FILE_IOCTL_COMM_SET_ATTR, (PVOID)(LPCSTR)m_strParam);
 		m_cFile.IOCtrl(SWPA_FILE_IOCTL_COMM_IS_RS485, &m_fRS485);	
-		INT iTimeOut = 1000;
+		INT iTimeOut = 2000;
 		m_cFile.IOCtrl(SWPA_FILE_SET_READ_TIMEOUT, &iTimeOut);
 		m_cFile.IOCtrl(SWPA_FILE_SET_WRITE_TIMEOUT, &iTimeOut);
 		m_pOnEvent = OnEvent;

@@ -153,7 +153,7 @@ void CSWLPRParameter::SetDefaultTracker()
     Get().cTrackerCfgParam.cTrapArea.nDetectorMaxScaleNum = Get().cTrackerCfgParam.cDetectArea.nDetectorMaxScaleNum;
 
 	// 抓拍图识别参数  
-    Get().cTrackerCfgParam.cRecogSnapArea.fEnableDetAreaCtrl = TRUE;
+    Get().cTrackerCfgParam.cRecogSnapArea.fEnableDetAreaCtrl = FALSE;
     Get().cTrackerCfgParam.cRecogSnapArea.DetectorAreaLeft = Get().cMatchParam.iDetectorAreaLeft;
     Get().cTrackerCfgParam.cRecogSnapArea.DetectorAreaTop = Get().cMatchParam.iDetectorAreaTop;
     Get().cTrackerCfgParam.cRecogSnapArea.DetectorAreaRight = Get().cMatchParam.iDetectorAreaRight;
@@ -308,8 +308,8 @@ void CSWLPRParameter::SetDefaultCamApp()
     Get().cCamAppParam.iCaptureGainR = 46;
 	Get().cCamAppParam.iCaptureGainG = 36;
     Get().cCamAppParam.iCaptureGainB = 54;
-    Get().cCamAppParam.iCaptureGain = 80;
-    Get().cCamAppParam.iCaptureShutter = 1000;
+    Get().cCamAppParam.iCaptureGain = 180;
+    Get().cCamAppParam.iCaptureShutter = 3500;
     Get().cCamAppParam.iCaptureSharpenThreshold = 200;
     Get().cCamAppParam.iCaptureAutoParamEnable = 0;
     Get().cCamAppParam.iEnableCaptureGainRGB = 0;
@@ -577,10 +577,10 @@ void CSWLPRParameter::SetDefaultCamCfgParam()
 		Get().cCamCfgParam.irgGain[i] = -1;
 	}
 
-	Get().cCamCfgParam.iCaptureAutoParamEnable = 0;
-	Get().cCamCfgParam.iCaptureDayShutterMax = 1500;
+	Get().cCamCfgParam.iCaptureAutoParamEnable = 1;
+	Get().cCamCfgParam.iCaptureDayShutterMax = 2000;
 	Get().cCamCfgParam.iCaptureDayGainMax	= 180;
-	Get().cCamCfgParam.iCaptureNightShutterMax = 2000;
+	Get().cCamCfgParam.iCaptureNightShutterMax = 3500;
 	Get().cCamCfgParam.iCaptureNightGainMax = 180;
 }
 
@@ -672,11 +672,11 @@ void CSWLPRParameter::SetDefaultIPTCtrl()
 void CSWLPRParameter::SetDefaultOuterCtrl()
 {
 	swpa_memset(&Get().cMatchParam, 0, sizeof(Get().cMatchParam));
-    Get().cMatchParam.dwPlateKeepTime = 1500;
-    Get().cMatchParam.dwSignalKeepTime = 2000;
-    Get().cMatchParam.dwMatchMaxTime = 1500;
-    Get().cMatchParam.dwMatchMinTime = 1500;
-    Get().cMatchParam.fCaptureRecong = TRUE;
+    Get().cMatchParam.dwPlateKeepTime = 2000;
+    Get().cMatchParam.dwSignalKeepTime = 3000;
+    Get().cMatchParam.dwMatchMaxTime = 2000;
+    Get().cMatchParam.dwMatchMinTime = 2000;
+    Get().cMatchParam.fCaptureRecong = FALSE;
 
     Get().cMatchParam.signal[0].dwType = 3;
     Get().cMatchParam.signal[0].dwRoadID = 0xFF;

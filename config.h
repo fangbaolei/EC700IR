@@ -9,5 +9,5 @@
 #define APP_VERSION		188
 #define DSP_VERSION		584
 #define CONFIG_VERSION		37
-#define USER_VERSION		"+2015121514"
+#define USER_VERSION		"+2016020315"
 #endif

@@ -30,7 +30,7 @@ public:
    */
 	virtual HRESULT Initialize(INT iGlobalParamIndex, 
 		INT nLastLightType,INT nLastPulseLevel, INT nLastCplStatus, 
-		PVOID pvParam, INT iMinPlateLight, INT iMaxPlateLight,BOOL fRecognizeEnable);
+		PVOID pvParam, INT iMinPlateLight, INT iMaxPlateLight,BOOL fSendRecognize);
 	
 	virtual HRESULT RegisterCallBackFunction(PVOID OnDSPAlarm, PVOID pvParam);
 	virtual HRESULT Run();
@@ -166,7 +166,6 @@ public:
 	static const INT MAX_DECT_COUNT = 1;
 	static const INT MAX_MATCH_COUNT = 5;
 private:
-	BOOL m_fRecognizeEnable;	//识别开关
 	
 	TRACKER_CFG_PARAM *m_pTrackerCfg;
 	BOOL m_fSendJPEG;
@@ -180,6 +179,7 @@ private:
 	CSWThread* m_pThread;				// 识别线程
 	CSWSemaphore m_cSemImage;			
 
+	BOOL m_fSendRecognize;
 	BOOL m_fReverseRunFilterFlag;
 
 	DWORD m_dwPlateCount;		//车辆统计

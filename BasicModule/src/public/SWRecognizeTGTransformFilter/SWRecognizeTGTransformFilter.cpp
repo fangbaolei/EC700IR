@@ -61,7 +61,7 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 	, PVOID pvParam
 	, INT iMinPlateLight
 	, INT iMaxPlateLight
-	, BOOL fRecognizeEnable
+	, BOOL fSendRecognize
 	)
 {
 	if( m_fInitialized )
@@ -75,6 +75,8 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 
 	m_pTrackerCfg = (TRACKER_CFG_PARAM *)pvParam;
 	m_pTrackerCfg->iPlatform = 2;
+
+	m_fSendRecognize=fSendRecognize;
 
 	INIT_VIDEO_RECOGER_PARAM cInitParam;
 	cInitParam.nPlateRecogParamIndex = iGlobalParamIndex;
@@ -92,7 +94,6 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 		Clear();
 		return hr;
 	}
-	m_fRecognizeEnable=fRecognizeEnable;
 	m_iPlateLightCheckCount = m_pTrackerCfg->nPlateLightCheckCount;
 	m_iExpectPlateLightMax = iMaxPlateLight;
 	m_iExpectPlateLightMin = iMinPlateLight;
@@ -236,10 +237,10 @@ HRESULT CSWRecognizeTGTransformFilter::Run()
 		CSWBaseFilter::Run();
 		hr = m_pMatchThread->Start((START_ROUTINE)&CSWRecognizeTGTransformFilter::OnMatchImageProxy, (PVOID)this);
 		
-		if (S_OK == hr && m_fRecognizeEnable)
+		if (S_OK == hr)
 			hr = m_pProcQueueThread->Start((START_ROUTINE)&CSWRecognizeTGTransformFilter::OnProcessSyncProxy, (PVOID)this);
 
-		if (S_OK == hr && m_fRecognizeEnable)
+		if (S_OK == hr)
 			hr = m_pThread->Start((START_ROUTINE)&CSWRecognizeTGTransformFilter::OnProcessProxy, (PVOID)this);
 	}
 
@@ -1197,7 +1198,8 @@ HRESULT CSWRecognizeTGTransformFilter::CarLeftEvent(CARLEFT_INFO_STRUCT *pCarLef
             {
                 pCarLeft->SetRoadNo(0);
             }
-		    GetOut(1)->Deliver(pCarLeft);
+			if(m_fSendRecognize)
+		    	GetOut(1)->Deliver(pCarLeft);
 		}
 		
 		GetOut(3)->Deliver(pCarLeft->GetImage(PLATE_IMAGE));

@@ -92,8 +92,8 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
     Get().cCamAppParam.iCaptureGainB = 54;
 
     Get().cTrackerCfgParam.nProcessPlate_LightBlue = 0;
-    Get().cCamAppParam.iCaptureShutter = 1000;
-    Get().cCamAppParam.iCaptureGain = 80;
+    Get().cCamAppParam.iCaptureShutter = 3500;
+    Get().cCamAppParam.iCaptureGain = 180;
     Get().cCamAppParam.iCaptureSharpenThreshold = 200;
 	
 	Get().cCamAppParam.iTNFSNFValue = 1;	//卡口方案降噪强度只能是低，其他的强度容易导致画面拖影
@@ -120,7 +120,7 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamAppParam.iFlashCoupling		= 0;		//不耦合
 	Get().cCamAppParam.iFlashPluseWidth		= 50;		//闪光灯脉块
 
-    Get().cCamCfgParam.iCaptureAutoParamEnable = 0;		//不使用自动控制模块的抓拍图自动调整
+    Get().cCamCfgParam.iCaptureAutoParamEnable = 0;		//使用自动控制模块的抓拍图自动调整
     Get().cTrackerCfgParam.nRoadLineNumber = 3; //默认双车道
 	//默认车道线
     Get().cTrackerCfgParam.rgcRoadInfo[0].ptTop.x = 1303;
@@ -657,7 +657,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         , 3//MAX_ROADLINE_NUM
     	, "车道线数量"
     	, ""
-        , PROJECT_LEVEL
+        , CUSTOM_LEVEL
     );
 
 	Get().cTrackerCfgParam.iRoadNumberBegin = 0;
@@ -682,7 +682,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, CUSTOM_LEVEL
     );
 	
-    for (int i = 0; i < MAX_ROADLINE_NUM; i++)
+    for (int i = 0; i < 3; i++)
     {
         char szSection[256];
         sprintf(szSection, "\\Tracker\\RoadInfo\\Road%02d", i);
@@ -1516,7 +1516,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
           );
 #endif
 
-    GetEnum("\\HvDsp\\VideoProc\\MainVideo"
+    /*GetEnum("\\HvDsp\\VideoProc\\MainVideo"
             , "OutputLastSnapCrop"
             , &Get().cResultSenderParam.iLastSnapshotCropOutput
             , Get().cResultSenderParam.iLastSnapshotCropOutput
@@ -1544,17 +1544,20 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
            , 6
            , "特写图高度"
            , "分辨率等级:1(640) 2(768) 3(896) 4(1024) 5(1152) 6(1280)"
-           , CUSTOM_LEVEL);
+           , CUSTOM_LEVEL);*/
 
-//    GetEnum("\\HvDsp\\VideoProc\\MainVideo"
-//            , "OutputSnap"
-//            , &Get().cResultSenderParam.iBestSnapshotOutput
-//            , Get().cResultSenderParam.iBestSnapshotOutput
-//            , "0:不输出;1:输出"
-//            , "主视频最清晰大图输出"
-//            , ""
-//            , CUSTOM_LEVEL
-//           );
+//   GetEnum("\\HvDsp\\VideoProc\\MainVideo"
+//           , "OutputSnap"
+//           , &Get().cResultSenderParam.iBestSnapshotOutput
+//           , Get().cResultSenderParam.iBestSnapshotOutput
+//           , "0:不输出;1:输出"
+//           , "主视频最清晰大图输出"
+//           , ""
+//           , CUSTOM_LEVEL
+//          );
+
+	//不输出特写图
+	Get().cResultSenderParam.iLastSnapshotCropOutput=0;
 
     // 不允许设置最后大图，必须输出
     GetEnum("\\HvDsp\\VideoProc\\MainVideo"
@@ -1564,7 +1567,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "0:不输出;1:输出"
             , "全景图大图输出"
             , ""
-            , PROJECT_LEVEL
+            , CUSTOM_LEVEL
            );
 #if 0
     GetEnum("\\HvDsp\\Misc"
@@ -1616,8 +1619,10 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "0:关;1:开"
             , "逆行检测开关"
             , ""
-            , PROJECT_LEVEL
+            , CUSTOM_LEVEL
            );
+	if(Get().cTrackerCfgParam.nDetReverseRunEnable)
+		Get().cTrackerCfgParam.fFilterReverseEnable=FALSE;
 
     GetInt("\\Tracker\\DetReverseRun"
             , "Span"
@@ -1627,7 +1632,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , 100
             , "过滤慢速逆行车辆跨度"
             , ""
-            , PROJECT_LEVEL
+            , CUSTOM_LEVEL
           );
 
     /*GetFloat("\\HvDsp\\EventChecker"
@@ -1825,38 +1830,38 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , PROJECT_LEVEL
           );
 
-//    GetInt("\\HvDsp\\Camera\\Ctrl"
-//            , "NightShutterThreshold"
-//            , &Get().cCamCfgParam.iNightShutterThreshold
-//            , Get().cCamCfgParam.iNightShutterThreshold
-//            , -1
-//            , 30000
-//            , "夜晚判断快门阈值"
-//            , "-1表示与AGCShutterHOri参数值联动"
-//            , CUSTOM_LEVEL
-//          );
+    /*GetInt("\\HvDsp\\Camera\\Ctrl"
+            , "NightShutterThreshold"
+            , &Get().cCamCfgParam.iNightShutterThreshold
+            , Get().cCamCfgParam.iNightShutterThreshold
+            , -1
+            , 30000
+            , "夜晚判断快门阈值"
+            , "-1表示与AGCShutterHOri参数值联动"
+            , CUSTOM_LEVEL
+          );
 
-//    GetInt("\\HvDsp\\Camera\\Ctrl"
-//            , "NightAvgYThreshold"
-//            , &Get().cCamCfgParam.iNightAvgYThreshold
-//            , Get().cCamCfgParam.iNightAvgYThreshold
-//            , 0
-//            , 255
-//            , "夜晚判断环境亮度阈值"
-//            , ""
-//            , CUSTOM_LEVEL
-//          );
+    GetInt("\\HvDsp\\Camera\\Ctrl"
+            , "NightAvgYThreshold"
+            , &Get().cCamCfgParam.iNightAvgYThreshold
+            , Get().cCamCfgParam.iNightAvgYThreshold
+            , 0
+            , 255
+            , "夜晚判断环境亮度阈值"
+            , ""
+            , CUSTOM_LEVEL
+          );
 
-//    GetInt("\\HvDsp\\Camera\\Ctrl"
-//            , "DuskAvgYThreshold"
-//            , &Get().cCamCfgParam.iDuskAvgYThreshold
-//            , Get().cCamCfgParam.iDuskAvgYThreshold
-//            , 0
-//            , 255
-//            , "傍晚判断环境亮度阈值"
-//            , ""
-//            , CUSTOM_LEVEL
-//          );
+    GetInt("\\HvDsp\\Camera\\Ctrl"
+            , "DuskAvgYThreshold"
+            , &Get().cCamCfgParam.iDuskAvgYThreshold
+            , Get().cCamCfgParam.iDuskAvgYThreshold
+            , 0
+            , 255
+            , "傍晚判断环境亮度阈值"
+            , ""
+            , CUSTOM_LEVEL
+          );*/
 
    
     /*GetEnum("\\HvDsp\\Camera\\Ctrl"
@@ -1868,9 +1873,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , ""
             , CUSTOM_LEVEL
            );
-	*/
+	
 
-    /*GetEnum("\\HvDsp\\Camera\\Ctrl"
+    GetEnum("\\HvDsp\\Camera\\Ctrl"
             , "AutoParamEnable"
             , &Get().cCamCfgParam.iAutoParamEnable
             , Get().cCamCfgParam.iAutoParamEnable
@@ -2139,7 +2144,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			  ";115200:115200"
 			, "波特率"
 			, ""
-			, PROJECT_LEVEL
+			, CUSTOM_LEVEL
 		);
   	
 		GetEnum((LPCSTR)strCOMM
@@ -2149,7 +2154,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, "0:无;1:川速雷达;2:苏江车检器;4:奥利维亚雷达;5:四川九洲雷达"
 			, "外部设备类型"
 			, ""
-			, PROJECT_LEVEL
+			, CUSTOM_LEVEL
 		);
 		/*GetInt((LPCSTR)strCOMM
 			, "Road"
@@ -2173,7 +2178,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, 2
 			, "所属车道编号"
 			, "所属车道编号"
-			, PROJECT_LEVEL
+			, CUSTOM_LEVEL
 		);
 
 		GetInt((LPCSTR)strCOMM
@@ -2184,7 +2189,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, 2
 			, "所属车道编号"
 			, "所属车道编号"
-			, PROJECT_LEVEL
+			, CUSTOM_LEVEL
 		);
 	}
 		//金星只支持485
@@ -2247,10 +2252,10 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , "0:关闭;1:打开"
             , "外总控使能开关"
             , ""
-            , PROJECT_LEVEL
+            , CUSTOM_LEVEL
            );*/
 
-    GetInt("\\OuterCtrl[外总控]"
+    GetInt("\\OuterCtrl"
             , "SignalHoldTime"
             , (INT *)&Get().cMatchParam.dwSignalKeepTime
             , Get().cMatchParam.dwSignalKeepTime
@@ -2261,7 +2266,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , CUSTOM_LEVEL
           );
 
-    GetInt("\\OuterCtrl[外总控]"
+    GetInt("\\OuterCtrl"
             , "PlateHoldTime"
             , (INT *)&Get().cMatchParam.dwPlateKeepTime
             , Get().cMatchParam.dwPlateKeepTime
@@ -2272,7 +2277,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , CUSTOM_LEVEL
           );
 
-    GetInt("\\OuterCtrl[外总控]"
+    GetInt("\\OuterCtrl"
             , "MatchMinTime"
             , (INT *)&Get().cMatchParam.dwMatchMinTime
             , Get().cMatchParam.dwMatchMinTime
@@ -2283,7 +2288,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , CUSTOM_LEVEL
           );
 
-    GetInt("\\OuterCtrl[外总控]"
+    GetInt("\\OuterCtrl"
             , "MatchMaxTime"
             , (INT *)&Get().cMatchParam.dwMatchMaxTime
             , Get().cMatchParam.dwMatchMaxTime
@@ -2294,7 +2299,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , CUSTOM_LEVEL
           );
 
-    GetEnum("\\OuterCtrl[外总控]"
+    GetEnum("\\OuterCtrl"
             , "RecogSnapImg"
             , &Get().cMatchParam.fCaptureRecong
             , Get().cMatchParam.fCaptureRecong
@@ -2310,19 +2315,19 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
 	Get().cMatchParam.fCaptureRecong = FALSE;
 
     CHAR szRecogArea[64] = {0};
-    swpa_strcpy(szRecogArea, "[0,50,100,100],6,12");
-    GetString("\\OuterCtrl[外总控]"
+    swpa_strcpy(szRecogArea, "(0,50,100,100),6,12");
+    GetString("\\OuterCtrl"
             , "RecogArea"
             , szRecogArea
             , szRecogArea
             , 64
             , "抓拍识别区域"
-            , "抓拍识别区域(%)[左,上,右,下],最小车牌，最大车牌"
+            , "抓拍识别区域(%)(左,上,右,下),最小车牌，最大车牌"
             , PROJECT_LEVEL
             );
     swpa_sscanf(
             szRecogArea,
-            "[%d,%d,%d,%d],%d,%d",
+            "(%d,%d,%d,%d),%d,%d",
             &Get().cMatchParam.iDetectorAreaLeft,
             &Get().cMatchParam.iDetectorAreaTop,
             &Get().cMatchParam.iDetectorAreaRight,
@@ -2344,7 +2349,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
 
     for(int i = 0; i < sizeof(Get().cMatchParam.signal)/sizeof(SIGNAL_PARAM); i++)
     {
-        strTmp.Format("\\OuterCtrl[外总控]\\Signal%02d", i);
+        strTmp.Format("\\OuterCtrl\\Signal%02d", i);
         GetEnum((LPCSTR)strTmp
                 , "SignalType"
                 , (INT *)&Get().cMatchParam.signal[i].dwType
@@ -2352,7 +2357,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , "0:无;1:速度;3:抓拍图"
                 , "信号类型"
                 , ""
-                , PROJECT_LEVEL
+                , CUSTOM_LEVEL
                );
 
         GetInt((LPCSTR)strTmp
@@ -2363,7 +2368,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , 0xFF
                 , "车道号"
                 , ""
-                , PROJECT_LEVEL
+                , CUSTOM_LEVEL
               );
 
         GetEnum((LPCSTR)strTmp
@@ -2395,6 +2400,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , ""
                 , PROJECT_LEVEL
                );
+		
+		if(Get().cMatchParam.signal[i].dwType>0)
+			Get().cMatchParam.signal[i].dwCondition=0;
         // 限制速度信号及所属车道号的值
     }
 
@@ -2646,8 +2654,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "0:不使能;1:使能"
         , "自动抓拍参数设置使能"
         , "使能则自动，否则用手动参数"
-        , PROJECT_LEVEL
-    );
+        , CUSTOM_LEVEL
+    );	
 
 //    GetInt("\\CamApp"
 //        , "CaptureGainR"
@@ -2885,7 +2893,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, PROJECT_LEVEL
     );
 	
-    char szAGC[255];
+    char szAGC[255]={0};
 	//BOOL fAllAGCZoneIsOff = TRUE;
     for (int i = 0; i < 16; i++)
     {

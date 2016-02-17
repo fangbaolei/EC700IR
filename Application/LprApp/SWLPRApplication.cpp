@@ -2959,7 +2959,7 @@ HRESULT CSWLPRApplication::OnRecognizeTGTransformFilterInitialize(CSWObject *pOb
 	                     , (PVOID)&GetParam().Get().cTrackerCfgParam
 	                     , GetParam().Get().cCamCfgParam.iMinPlateLight
 	                     , GetParam().Get().cCamCfgParam.iMaxPlateLight
-	                     , GetParam().Get().cCamCfgParam.iDynamicTriggerEnable>0?TRUE:FALSE
+	                     , GetParam().Get().cCamCfgParam.iDynamicTriggerEnable>0
 	                );
 
 	pObject->Invoke("RegisterCallBackFunction", (PVOID)OnDSPAlarm, (PVOID)this);	

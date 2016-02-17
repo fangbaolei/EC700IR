@@ -273,11 +273,11 @@ CSWString CSWCarLeft::BuildNormalString()
 	{
 		CSWString strTmp;
 		//平均可信度
-		strTmp.Format("平均可信度:%.3f\n", swpa_exp(swpa_log(GetAverageConfidence()) * 0.143));
-		strInfo.Append(strTmp);
+		//strTmp.Format("平均可信度:%.3f\n", swpa_exp(swpa_log(GetAverageConfidence()) * 0.143));
+		//strInfo.Append(strTmp);
 		//首字符可信度
-		strTmp.Format("首字可信度:%.3f\n", GetFirstAverageConfidence());
-		strInfo.Append(strTmp);
+		//strTmp.Format("首字可信度:%.3f\n", GetFirstAverageConfidence());
+		//strInfo.Append(strTmp);
 
 		//输出车辆逆行标识
 		if(m_pTrackerCfg->nDetReverseRunEnable)
@@ -310,7 +310,7 @@ CSWString CSWCarLeft::BuildNormalString()
 		}
 
 		//双层牌类型
-		switch(GetPlateType())
+		/*switch(GetPlateType())
 		{
 		case PLATE_DOUBLE_YELLOW: strTmp = "车牌类型:双"; break;
 		case PLATE_DOUBLE_MOTO  : strTmp = "车牌类型:摩"; break;
@@ -319,11 +319,11 @@ CSWString CSWCarLeft::BuildNormalString()
 		if(!strTmp.IsEmpty())
 		{
 			strInfo.Append(strTmp);
-		}
+		}*/
 
 		//违章类型
-		strTmp.Format("违章类型:%d\n", GetPTType());
-		strInfo.Append(strTmp);
+		//strTmp.Format("违章类型:%d\n", GetPTType());
+		//strInfo.Append(strTmp);
 	}
 	
 	return strInfo;
@@ -373,7 +373,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   }
   
   //车牌颜色
-  pValue = new TiXmlElement("Color");
+  /*pValue = new TiXmlElement("Color");
   if ( pValue )
   {
       pValue->SetAttribute("raw_value", GetPlateColor());
@@ -435,7 +435,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
       }
       pValue->SetAttribute("value", nPlateType);
       pResult->LinkEndChild(pValue);
-  }
+  }*/
   
   //附加信息
   if(m_pTrackerCfg)
@@ -525,7 +525,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     }
 
     //可信度
-    pValue = new TiXmlElement("Confidence");
+    /*pValue = new TiXmlElement("Confidence");
     if (pValue)
     {
         strTmp.Format("%.3f", swpa_exp(swpa_log(GetAverageConfidence()) * 0.143));
@@ -542,7 +542,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
         pValue->SetAttribute("value", (LPCSTR)strTmp);
         pValue->SetAttribute("chnname", "首字可信度");
         pResult->LinkEndChild(pValue);
-    }
+    }*/
     
     //车辆检测时间
     pValue = new TiXmlElement("CarArriveTime");
@@ -556,7 +556,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     }
     
     //双层牌类型
-    switch(GetPlateType())
+    /*switch(GetPlateType())
     {
     case PLATE_DOUBLE_YELLOW: strTmp = "双"; break;
     case PLATE_DOUBLE_MOTO  : strTmp = "摩"; break;
@@ -571,7 +571,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     	    pValue->SetAttribute("chnname", "车牌类型");
     	    pResult->LinkEndChild(pValue);
     	}
-  	}
+  	}*/
     
     //车辆尺寸
     if(m_pTrackerCfg->fOutputCarSize && GetCarType() != CT_WALKMAN && GetCarType() != CT_BIKE && GetPlateType() != PLATE_DOUBLE_MOTO)
@@ -787,7 +787,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
 //  }
 
   // 最后大图车牌坐标
-  pValue = new TiXmlElement("LastPlatePos");
+  /*pValue = new TiXmlElement("LastPlatePos");
   if (pValue)
   {
       HV_RECT rectLast = GetLastPlateRect();
@@ -796,7 +796,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
       pValue->SetAttribute("value", (LPCSTR)strTmp);
       pValue->SetAttribute("chnname", "最后大图车牌坐标");
       pResult->LinkEndChild(pValue);
-  }
+  }*/
   
   //环境光亮度
   pValue = new TiXmlElement("AmbientLight");
@@ -821,7 +821,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   }
 
   //车牌亮度
-  pValue = new TiXmlElement("PlateLight");
+  /*pValue = new TiXmlElement("PlateLight");
   if (pValue)
   {
       strTmp.Format("%d", GetCarAvgY());
@@ -838,7 +838,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
       pValue->SetAttribute("value", (LPCSTR)strTmp);
       pValue->SetAttribute("chnname", "车牌对比度");
       pResult->LinkEndChild(pValue);
-  } 
+  } */
 
   // 后处理信息
   CSWString strFilterInfo = GetFilterInfo();

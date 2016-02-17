@@ -54,12 +54,10 @@
         <Filter class="CSWJPEGNetRenderFilter"/>
         <Filter class="CSWAutoControlRenderFilter"/>
         <Filter class="CSWMatchTransformFilter" ConnectFilter="CarLeftSplitFilter"/>
-        <Filter class="CSWBaseFilter" name="CarLeftSplitFilter" In="1" Out="2" Format="CSWCarLeft">
-            <Pin value="0" ConnectFilter="CSWEPoliceEventCheckerTransformFilter"/>
-            <Pin value="1" ConnectFilter="CSWResultFilter"/>
+        <Filter class="CSWBaseFilter" name="CarLeftSplitFilter" In="1" Out="1" Format="CSWCarLeft">
+            <Pin value="0" ConnectFilter="CSWResultFilter"/>
         </Filter>
         <Filter class="CSWResultFilter" ConnectFilter="CSWRecordTransformFilter" Pin="0"/>
-        <Filter class="CSWEPoliceEventCheckerTransformFilter" ConnectFilter="CSWRecordTransformFilter" Pin="1"/>
         <Filter class="CSWRecordTransformFilter" ConnectFilter="CSWResultHDDTransformFilter" Pin="0"/>
         <Filter class="CSWResultHDDTransformFilter">
             <Pin value="0" ConnectFilter="CSWResultNetRenderFilter" Pin="0"/>

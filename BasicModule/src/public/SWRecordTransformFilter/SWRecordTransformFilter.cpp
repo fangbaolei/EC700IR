@@ -10,10 +10,10 @@
 
 CSWRecordTransformFilter::CSWRecordTransformFilter()
 	:m_fInited(FALSE)
-	,CSWBaseFilter(2, 1)
+	,CSWBaseFilter(1, 1)
 {
 	GetIn(0)->AddObject(CLASSID(CSWCarLeft));
-	GetIn(1)->AddObject(CLASSID(CSWString));
+	//GetIn(1)->AddObject(CLASSID(CSWString));
 	GetOut(0)->AddObject(CLASSID(CSWRecord));
 	//GetOut(1)->AddObject(CLASSID(CSWRecord));
 	m_fInited = TRUE;

@@ -65,7 +65,6 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 			swpa_memset(bResultRadar,0,2);
 			if(S_OK == Read(&bResultRadar, 2) && NULL != m_pOnEvent)
 			{
-				SW_TRACE_DEBUG("bResult[0]=%x,bResult[1]=%x\n",bResultRadar[0],bResultRadar[1]);
 				if(bResultRadar[0]>0xF0&&bResultRadar[1]>0)
 				{
 				DWORD dwSpeed = bResultRadar[1];
