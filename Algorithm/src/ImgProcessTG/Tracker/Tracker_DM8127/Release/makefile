@@ -125,7 +125,7 @@ endif
 all: ../../../../../_lib/8127/Release/Tracker.lib
 
 # Tool invocations
-../../../../../_lib/8127/Release/Tracker.lib: $(OBJS)
+../../../../../_lib/8127/Release/Tracker.lib: $(OBJS) $(OBJ_SRCS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C6000 Archiver'
 	"D:/ti/ccsv5/tools/compiler/c6000_7.4.1/bin/ar6x" r "../../../../../_lib/8127/Release/Tracker.lib" $(ORDERED_OBJS)

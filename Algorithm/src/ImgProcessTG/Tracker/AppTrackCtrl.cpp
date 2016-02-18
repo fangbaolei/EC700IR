@@ -1610,11 +1610,11 @@ namespace swTgApp
         // ÄæÐÐ
         if(m_iDetectReverseEnable)
         {
-            pCurResult->fReverseRun = (TrackInfo.m_nReverseRunCount >= 3);
+            pCurResult->fReverseRun = TrackInfo.IsReverseRun();
         }
         else
         {
-            pCurResult->fReverseRun = false;
+            pCurResult->fReverseRun = FALSE;
         }
 
         pCurResult->nVoteCondition = m_fEnableCarArriveTrigger;

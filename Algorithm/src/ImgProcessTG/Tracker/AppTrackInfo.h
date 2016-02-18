@@ -96,7 +96,7 @@ public:
 //     /// 当前跟踪状态是否为停止
 //     virtual sv::SV_BOOL IsStop();
 //     /// 当前跟踪状态是否逆行
-//     virtual sv::SV_BOOL IsReverseRun();
+     virtual sv::SV_BOOL IsReverseRun();
 //     /// 当前是否为越线
 //     virtual sv::SV_BOOL IsCrossRoadLine(int* pnRoadNum = NULL);
 
@@ -173,6 +173,11 @@ public:
     static const int m_nMaxPlateMovePos = 64;
     int m_nPlateMovePosCount;
     HV_RECT m_rgrcPlateMovePos[m_nMaxPlateMovePos];
+
+	int m_nCenterPointMovePosCount;
+	static const int m_nMaxCenterPointMovePos = 64;
+	HV_RECT m_CenterPointMovPos[m_nMaxCenterPointMovePos];
+	
     // zhaopy 记录时间
     DWORD32 m_rgdwPlateTick[m_nMaxPlateMovePos];
 

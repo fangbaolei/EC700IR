@@ -6,6 +6,26 @@ using namespace sv;
 namespace swTgApp 
 {
 
+static bool IsOverLap(HV_RECT& rc0, HV_RECT& rc1, int p)
+{
+  int l = SV_MAX(rc0.left,rc1.left);
+  int t = SV_MAX(rc0.top,rc1.top);
+  int r = SV_MIN(rc0.right,rc1.right);
+  int b = SV_MIN(rc0.bottom,rc1.bottom);
+
+  if ( l>=r || t>=b)
+  {
+	  return false;
+  }
+
+  int nArea0 = (rc0.right - rc0.left + 1)*(rc0.bottom - rc0.top + 1);
+  int nArea1 = (rc1.right - rc1.left + 1)*(rc1.bottom - rc1.top + 1);
+  int nArea2 = (b-t+1) * (r-l+1);
+
+  return (100 * nArea2) >= p * SV_MIN(nArea0,nArea1);
+}
+
+
 CAppTrackInfo::TRACK_STATE TrackState2InfoState(int nTrackState)
 {
     using namespace svTgIrApi;
@@ -242,6 +262,12 @@ void CAppTrackInfo::Free()
     m_nLastPlateY = 0;  
 	
 	m_dwTriggerCameraTimes = 0;
+
+	m_nPlateMovePosCount = 0;
+	memset(m_rgrcPlateMovePos, 0, sizeof(HV_RECT) * m_nMaxPlateMovePos);
+
+	m_nCenterPointMovePosCount = 0;
+	memset(m_CenterPointMovPos, 0, sizeof(HV_POINT) * m_nMaxCenterPointMovePos);
 }
 
 sv::SV_BOOL CAppTrackInfo::IsUpdated()
@@ -253,6 +279,39 @@ void CAppTrackInfo::SetRoadInfo(CRoadInfo* pRoadInfo)
 {
     m_pRoadInfo = pRoadInfo;
 }
+
+// 当前跟踪状态是否逆行
+BOOL CAppTrackInfo::IsReverseRun()
+{
+	BOOL fReverseRun = FALSE;
+	if (m_nCenterPointMovePosCount > 3)
+	{
+		int iReverseCount = 0;
+		CRect rcPrePos = m_CenterPointMovPos[1];
+		sv::utTrace("m_CenterPointMovPos[1]={%d,%d,%d,%d,%d}\n", m_CenterPointMovPos[0].top,m_CenterPointMovPos[0].left,m_CenterPointMovPos[0].bottom,m_CenterPointMovPos[0].right,rcPrePos.CenterPoint().y);
+		for (int i = 1; i < m_nCenterPointMovePosCount; i++)
+		{
+			CRect rcCur = m_CenterPointMovPos[i];
+			sv::utTrace("m_CenterPointMovPos[%d]={%d,%d,%d,%d,%d}\n", i,m_CenterPointMovPos[i].top,m_CenterPointMovPos[i].left,m_CenterPointMovPos[i].bottom,m_CenterPointMovPos[i].right,rcCur.CenterPoint().y);
+			//iReverseCount += (rcCur.CenterPoint().y-rcPrePos.CenterPoint().y);
+			if (rcPrePos.CenterPoint().y > rcCur.CenterPoint().y)
+			{
+				iReverseCount += 2;
+			}
+			else
+			{
+				iReverseCount -= 2;
+			}
+		}
+		if (iReverseCount > 0)
+		{
+			fReverseRun = TRUE;
+		}
+		m_nReverseRunCount = iReverseCount;
+	}
+    return fReverseRun;
+}
+
 
 void CAppTrackInfo::Update(svTgIrApi::ITgTrack* pITgTrack)
 {
@@ -278,6 +337,20 @@ void CAppTrackInfo::Update(svTgIrApi::ITgTrack* pITgTrack)
         m_nCarColor = TgCarColor2CarColor(tkRes.nCarColor);
         m_nTrackType = TrackType2InfoType(tkRes.nTrackType);
     }
+
+	const svTgIrApi::TG_TRACK_LOCUS& cLastLocus = pITgTrack->GetLocus(pITgTrack->GetLocusCount() - 1);;  // 最近的轨迹
+
+	HV_RECT rcCurCenterPointPos={0};
+	rcCurCenterPointPos.left=cLastLocus.m_rcPos.m_nLeft;
+	rcCurCenterPointPos.right=cLastLocus.m_rcPos.m_nRight;
+	rcCurCenterPointPos.top=cLastLocus.m_rcPos.m_nTop;
+	rcCurCenterPointPos.bottom=cLastLocus.m_rcPos.m_nBottom;
+	if (m_nCenterPointMovePosCount == 0 || !IsOverLap(rcCurCenterPointPos, m_CenterPointMovPos[m_nCenterPointMovePosCount-1], 95) && m_nCenterPointMovePosCount < m_nMaxCenterPointMovePos)
+	{
+		m_CenterPointMovPos[m_nCenterPointMovePosCount] = rcCurCenterPointPos;
+		m_rgdwPlateTick[m_nCenterPointMovePosCount] = CAppTrackInfo::s_iCurImageTick;
+		++m_nCenterPointMovePosCount;
+	}
 
     //     // 无牌时会返回失败，但不重要
     //     bool fHavePlate = pITgTrack->GetPlate(&m_cLastPlate);
