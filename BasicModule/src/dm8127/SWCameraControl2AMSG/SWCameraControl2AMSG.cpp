@@ -23,6 +23,8 @@ CSWCameraControl2AMSG::CSWCameraControl2AMSG()
 	m_dwTriggerOutOutputType = 0;
 	m_dwAGCScene = 0;
 	m_fIsDayNow = TRUE;
+	m_IsDay=TRUE;
+	swpa_memset(rgWriteRegParam,0,sizeof(DWORD)*2);
 }
 
 CSWCameraControl2AMSG::~CSWCameraControl2AMSG()
@@ -200,8 +202,10 @@ HRESULT CSWCameraControl2AMSG::OnInitialCameralParam( WPARAM wParam,LPARAM lPara
                    pCameraParam->iFlashEnable, pCameraParam->iFlashCoupling, pCameraParam->iFlashOutputType,
                    pCameraParam->iFlashPolarity, pCameraParam->iFlashPluseWidth, pCameraParam->iF1OutputType);
 
+	//设置道路亮灯使能
     OnSetF1TriggerOut((WPARAM)dwParam, 0);
-    OnSetAlarmTriggerOut((WPARAM)dwParam, 0);
+	
+    OnSetAlarmTriggerOut((WPARAM)dwParam, 0);	
 	
 	// FAIL_RET(this->OnSetTriggerOut((WPARAM)dwParam,0));
 
@@ -245,6 +249,7 @@ HRESULT CSWCameraControl2AMSG::OnInitialCameralParam( WPARAM wParam,LPARAM lPara
         dwRegValue[1] |= 0x3;	//强制使能抓拍快门和增益
         CSWMessage::SendMessage(MSG_SET_CAM_FPGA_REG, (WPARAM)dwRegValue, NULL);
     }
+	
 #if 0	
 	INT rgCaptureShutterValue[2] = {0};
 	INT rgCaptureGainValue[2] = {0};
@@ -278,6 +283,12 @@ HRESULT CSWCameraControl2AMSG::OnSetColoMaxtrixEnable(WPARAM wParam,LPARAM lPara
 {
     DWORD Value = (DWORD)wParam;
     SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_SATURATION_CONTRAST_STATE, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage(MSG_2A_SET_SATURATION_CONTRAST_STATE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -362,6 +373,12 @@ HRESULT CSWCameraControl2AMSG::OnSetContrastThreshold(WPARAM wParam,LPARAM lPara
 {
 	DWORD Value = (DWORD)wParam;
     SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_CONTRAST, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_CONTRAST, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -374,6 +391,12 @@ HRESULT CSWCameraControl2AMSG::OnSetContrastThreshold(WPARAM wParam,LPARAM lPara
 HRESULT CSWCameraControl2AMSG::OnGetContrastThreshold(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_CONTRAST);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_CONTRAST, sizeof(DWORD), lParam );
 }
 
@@ -387,6 +410,12 @@ HRESULT CSWCameraControl2AMSG::OnSetSaturationThreshold(WPARAM wParam,LPARAM lPa
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_SATURATION, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_SATURATION, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -399,6 +428,12 @@ HRESULT CSWCameraControl2AMSG::OnSetSaturationThreshold(WPARAM wParam,LPARAM lPa
 HRESULT CSWCameraControl2AMSG::OnGetSaturationThreshold(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_SATURATION);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_SATURATION, sizeof(DWORD), lParam );
 }
 
@@ -412,6 +447,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCTh( WPARAM wParam,LPARAM lParam )
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AE_THRESHOLD, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_AE_THRESHOLD, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -426,6 +467,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCShutterRange( WPARAM wParam,LPARAM lParam
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AE_EXP_RANGE, Value);
     SendMessage(MSG_AUTO_SET_MAXAGCSHUTTER, Value >> 16, 0);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_AE_EXP_RANGE, (WPARAM)&Value , sizeof(DWORD));
 }
 /**
@@ -437,6 +484,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCShutterRange( WPARAM wParam,LPARAM lParam
 HRESULT CSWCameraControl2AMSG::OnGetAGCShutterRange( WPARAM wParam,LPARAM lParam )
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AE_EXP_RANGE);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AE_EXP_RANGE, sizeof(DWORD), lParam );
 }
 
@@ -450,6 +503,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCGainRange( WPARAM wParam,LPARAM lParam )
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AE_GAIN_RANGE, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_AE_GAIN_RANGE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -463,6 +522,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCScene( WPARAM wParam,LPARAM lParam )
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_SCENE, Value);
+
+	
+	
+	
+	
+	
 	if (S_OK != SendMessage( MSG_2A_SET_SCENE, (WPARAM)&Value , sizeof(DWORD)))
 	{
 		SW_TRACE_NORMAL("Set AGC Scene Failed\n");
@@ -470,6 +535,7 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCScene( WPARAM wParam,LPARAM lParam )
 	}
 	
 	m_dwAGCScene = wParam;
+	
 	return S_OK;
 }
 
@@ -503,6 +569,12 @@ HRESULT CSWCameraControl2AMSG::OnGetAGCScene( WPARAM wParam,LPARAM lParam )
 HRESULT CSWCameraControl2AMSG::OnGetAGCGainRange( WPARAM wParam,LPARAM lParam )
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AE_GAIN_RANGE);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AE_GAIN_RANGE, sizeof(DWORD), lParam );
 }
 
@@ -522,6 +594,11 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCZone(WPARAM wParam,LPARAM lParam)
     }
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AE_ZONE, Value);
 
+	
+	
+	
+	
+
 	return SendMessage( MSG_2A_SET_AE_ZONE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -536,6 +613,11 @@ HRESULT CSWCameraControl2AMSG::OnGetAGCZone(WPARAM wParam,LPARAM lParam)
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AE_ZONE);
     DWORD *rgiAGCZone = (DWORD *)lParam;
     DWORD nValue = 0 ;
+
+	
+	
+	
+	
 
 	HRESULT hr = SendMessage( MSG_2A_GET_AE_ZONE, sizeof(DWORD), (LPARAM)&nValue);
     if(S_OK == hr)
@@ -563,6 +645,12 @@ HRESULT CSWCameraControl2AMSG::OnGetAGCZone(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetAGCTh( WPARAM wParam,LPARAM lParam )
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AE_THRESHOLD);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AE_THRESHOLD, sizeof(DWORD), lParam );
 }
 /**
@@ -576,6 +664,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCGain(WPARAM wParam,LPARAM lParam)
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_GAIN, Value);
    	m_iManualGain = Value;
+	
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_GAIN, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -589,6 +683,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCEnable(WPARAM wParam,LPARAM lParam)
 {
     BOOL Value = (BOOL)wParam;
     SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AE_STATE, Value);
+
+	
+	
+	
+	
+
 	return SendMessage( MSG_2A_SET_AE_STATE, (WPARAM)&Value , sizeof(BOOL));
 }
 /**
@@ -600,6 +700,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetAGCEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AE_STATE);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AE_STATE, sizeof(DWORD), lParam );
 }
 
@@ -613,6 +719,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAWBEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
     SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AWB_STATE, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_AWB_STATE, (WPARAM)&Value , sizeof(BOOL));
 }
 /**
@@ -624,6 +736,12 @@ HRESULT CSWCameraControl2AMSG::OnSetAWBEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetAWBEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d  cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AWB_STATE);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AWB_STATE, sizeof(BOOL), lParam);
 }
 
@@ -637,6 +755,13 @@ HRESULT CSWCameraControl2AMSG::OnGetAWBEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetAGCGain(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_GAIN);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_GET_GAIN, sizeof(DWORD), lParam);
 }
 
@@ -664,6 +789,13 @@ HRESULT CSWCameraControl2AMSG::OnSetRGBGain(WPARAM wParam,LPARAM lParam)
     m_iManualGainB = tmp[2];
     Value = tmp[0]  | tmp[1] << 8 | tmp[2] << 16;
     SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_RGB, Value);
+
+	
+	
+	
+	
+
+	
     return SendMessage( MSG_2A_SET_RGB, (WPARAM)&Value , sizeof(BOOL));
 
 }
@@ -681,6 +813,13 @@ HRESULT CSWCameraControl2AMSG::OnGetRGBGain(WPARAM wParam,LPARAM lParam)
     if(temp == NULL || temp+1 == NULL || temp +2 == NULL)
         return E_FAIL;
     int iValue;
+
+	
+	
+	
+	
+
+	
 	if (S_OK == SendMessage( MSG_2A_GET_RGB, sizeof(DWORD), (LPARAM)&iValue))
     {
         temp[0] = (iValue >> 0 ) & 0xff;
@@ -702,6 +841,11 @@ HRESULT CSWCameraControl2AMSG::OnSetShutter(WPARAM wParam,LPARAM lParam)
     DWORD Value = (DWORD)wParam;
 	m_iManualShutter = Value;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_EXP, Value);
+
+		
+	
+	
+	
 	return SendMessage( MSG_2A_SET_EXP, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -714,6 +858,12 @@ HRESULT CSWCameraControl2AMSG::OnSetShutter(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetShutter(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_EXP);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_EXP, sizeof(DWORD), lParam);
 }
 
@@ -728,6 +878,13 @@ HRESULT CSWCameraControl2AMSG::OnSetDCApertureEnable(WPARAM wParam,LPARAM lParam
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_DCIRIS_AUTO_STATE, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_DCIRIS_AUTO_STATE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -753,6 +910,12 @@ HRESULT CSWCameraControl2AMSG::OnZoomDCAperture(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_ZOOM_DCIRIS);//未试成功
     INT Value = 1;//任意值
+
+		
+	
+	
+	
+	
     return SendMessage( MSG_2A_ZOOM_DCIRIS, (WPARAM)&Value , sizeof(INT));
 }
 
@@ -766,6 +929,13 @@ HRESULT CSWCameraControl2AMSG::OnShrinkDCAperture(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_SHRINK_DCIRIS);//为测试成功、
     INT Value = 1;//任意值
+
+	
+	
+	
+	
+
+	
    	return SendMessage( MSG_2A_SHRINK_DCIRIS, (WPARAM)&Value , sizeof(INT));
 }
 
@@ -780,6 +950,13 @@ HRESULT CSWCameraControl2AMSG::OnSetFilterSwitch(WPARAM wParam,LPARAM lParam)
     DWORD Value = (DWORD)wParam;
     m_FilterStatus = (2 == Value) ? 1 : 0;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_FILTER_STATE, m_FilterStatus);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_FILTER_STATE, (WPARAM)&m_FilterStatus , sizeof(DWORD));
 }
 /**
@@ -847,6 +1024,13 @@ HRESULT CSWCameraControl2AMSG::OnSetRedLightRect(WPARAM wParam,LPARAM lParam)
 		return E_POINTER;
 	}
 	DWORD rgdwRedInfo[6];
+
+	
+	
+	
+	
+
+	
     for(int i = 0; i < iCount; ++i)
     {
     	//SW_TRACE_DEBUG("<setred>%d(%d,%d,%d,%d).", i,
@@ -876,6 +1060,13 @@ HRESULT CSWCameraControl2AMSG::OnSetRedLightThreshold(WPARAM wParam,LPARAM lPara
     Value = (Value == 0x2d00 ? 0x0B33 : 0x0FFF);
 	Value = Value | (0x0 << 28); //28~31位为0：红灯
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_TRAFFIC_LIGTH_LUM_TH, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_TRAFFIC_LIGTH_LUM_TH, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -898,6 +1089,13 @@ HRESULT CSWCameraControl2AMSG::OnSetGreenLightRect(WPARAM wParam,LPARAM lParam)
 		return E_POINTER;
 	}
 	DWORD rgdwGreenInfo[6];
+
+	
+	
+	
+	
+
+	
     for(int i = 0; i < iCount; ++i)
     {
     	SW_TRACE_DEBUG("<setgreed>%d(%d,%d,%d,%d).", i,
@@ -943,6 +1141,12 @@ HRESULT CSWCameraControl2AMSG::OnSetWDRStrength(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
     SW_TRACE_DEBUG("%s %cmd = %d value = %d\n",__FUNCTION__,CMD_SET_WDR_STRENGTH,Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_WDR_STRENGTH, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -955,6 +1159,12 @@ HRESULT CSWCameraControl2AMSG::OnSetWDRStrength(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetWDRStrength(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_WDR_STRENGTH);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_WDR_STRENGTH, sizeof(DWORD), lParam );
 }
 
@@ -969,6 +1179,11 @@ HRESULT CSWCameraControl2AMSG::OnSetTNFEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_TNF_STATE, Value);
+
+	
+	
+	
+		
 	return SendMessage( MSG_2A_SET_TNF_STATE, (WPARAM)&Value, sizeof(DWORD));
 }
 
@@ -981,6 +1196,11 @@ HRESULT CSWCameraControl2AMSG::OnSetTNFEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetTNFEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_TNF_STATE);
+
+	
+	
+	
+		
 	return SendMessage( MSG_2A_GET_TNF_STATE, sizeof(DWORD), lParam );
 }
 
@@ -994,6 +1214,11 @@ HRESULT CSWCameraControl2AMSG::OnSetSNFEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_SNF_STATE, Value);
+
+	
+	
+	
+		
 	return SendMessage( MSG_2A_SET_SNF_STATE, (WPARAM)&Value, sizeof(DWORD));
 }
 
@@ -1006,6 +1231,11 @@ HRESULT CSWCameraControl2AMSG::OnSetSNFEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetSNFEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_SNF_STATE);
+
+	
+	
+	
+		
 	return SendMessage( MSG_2A_GET_SNF_STATE, sizeof(DWORD), lParam );
 }
 
@@ -1044,6 +1274,13 @@ HRESULT CSWCameraControl2AMSG::OnSetDeNoiseMode(WPARAM wParam,LPARAM lParam)
 
 	SW_TRACE_DEBUG("%s cmd1 = %d value1 = %d, cmd1 = %d value1 = %d\n",
 		__FUNCTION__,CMD_SET_TNF_STATE, dwTNFEnable,CMD_SET_SNF_STATE,dwSNFEnable);
+
+
+	
+	
+	
+	
+	
     if (S_OK == SendMessage( MSG_2A_SET_TNF_STATE, (WPARAM)&dwTNFEnable, sizeof(DWORD))
 		&& S_OK == SendMessage( MSG_2A_SET_SNF_STATE, (WPARAM)&dwSNFEnable, sizeof(DWORD)))
     {
@@ -1064,6 +1301,11 @@ HRESULT CSWCameraControl2AMSG::OnGetDeNoiseMode(WPARAM wParam,LPARAM lParam)
     {
         return E_FAIL;
     }
+
+		
+	
+	
+	
 
     DWORD dwSNFEnable = 0, dwTNFEnable=0;
     DWORD dwMode = 0;
@@ -1137,6 +1379,13 @@ HRESULT CSWCameraControl2AMSG::OnSetACSyncEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AC_SYNC_STATE, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_AC_SYNC_STATE, (WPARAM)&Value , sizeof(BOOL));
 }
 
@@ -1149,6 +1398,12 @@ HRESULT CSWCameraControl2AMSG::OnSetACSyncEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetACSyncEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AC_SYNC_STATE);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_AC_SYNC_STATE, sizeof(BOOL), lParam);
 }
 
@@ -1162,6 +1417,12 @@ HRESULT CSWCameraControl2AMSG::OnSetACSyncDelay(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AC_SYNC_DELAY, Value);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_AC_SYNC_DELAY, (WPARAM)&Value , sizeof(DWORD));
 }
 /**
@@ -1173,6 +1434,13 @@ HRESULT CSWCameraControl2AMSG::OnSetACSyncDelay(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetACSyncDelay(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_AC_SYNC_DELAY);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_GET_AC_SYNC_DELAY, sizeof(DWORD), lParam );
 }
 
@@ -1186,6 +1454,12 @@ HRESULT CSWCameraControl2AMSG::OnSetGrayImageEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_GRAY_IMAGE_STATE, Value);
+
+	
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_GRAY_IMAGE_STATE, (WPARAM)&Value , sizeof(BOOL));
 }
 /**
@@ -1197,6 +1471,11 @@ HRESULT CSWCameraControl2AMSG::OnSetGrayImageEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetGrayImageEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_GRAY_IMAGE_STATE);
+
+	
+	
+	
+		
 	return SendMessage( MSG_2A_GET_GRAY_IMAGE_STATE, sizeof(BOOL), lParam);
 }
 /**
@@ -1330,6 +1609,12 @@ HRESULT CSWCameraControl2AMSG::OnSetGammaStrength(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_GAMMA, Value);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_GAMMA, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -1342,6 +1627,12 @@ HRESULT CSWCameraControl2AMSG::OnSetGammaStrength(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetGammaStrength(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_GAMMA);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_GET_GAMMA, sizeof(DWORD), lParam );
 }
 
@@ -1355,6 +1646,11 @@ HRESULT CSWCameraControl2AMSG::OnSetGammaEnable(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_GAMMA_ENABLE, Value);
+
+		
+	
+	
+	
 	return SendMessage( MSG_2A_SET_GAMMA_ENABLE, (WPARAM)&Value , sizeof(BOOL));
 }
 
@@ -1367,6 +1663,11 @@ HRESULT CSWCameraControl2AMSG::OnSetGammaEnable(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetGammaEnable(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_GAMMA_ENABLE);
+
+		
+	
+	
+	
 	return SendMessage( MSG_2A_GET_GAMMA_ENABLE, sizeof(BOOL), lParam);
 }
 
@@ -1418,6 +1719,7 @@ HRESULT CSWCameraControl2AMSG::OnSetAGCParam(WPARAM wParam,LPARAM lParam)
     SW_TRACE_DEBUG("%s %d %d %d %d %d \n ",__FUNCTION__,__LINE__,pdwParam[0],pdwParam[1],pdwParam[2],pdwParam[3]);
     DWORD Shutter = pdwParam[0] | pdwParam[1] << 16;
     DWORD Gain =  pdwParam[2] | pdwParam[3] << 16;
+	SendMessage(MSG_REALTIME_SET_MAXAGCSHUTTERGAIN,pdwParam[1],pdwParam[3]);
     OnSetAGCShutterRange(Shutter,lParam);
     OnSetAGCGainRange(Gain,lParam);
     return S_OK;
@@ -1455,6 +1757,13 @@ HRESULT CSWCameraControl2AMSG::OnSetEdgeEnhance(WPARAM wParam,LPARAM lParam)
 {
     DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_EDGE_ENHANCE, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_EDGE_ENHANCE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -1467,6 +1776,11 @@ HRESULT CSWCameraControl2AMSG::OnSetEdgeEnhance(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetEdgeEnhance(WPARAM wParam,LPARAM lParam)
 {
     SW_TRACE_DEBUG("%s %d cmd = %d\n",__FUNCTION__,__LINE__,CMD_GET_EDGE_ENHANCE);
+
+		
+	
+	
+	
 	return SendMessage( MSG_2A_GET_EDGE_ENHANCE, sizeof(DWORD), lParam );
 }
 
@@ -1502,6 +1816,11 @@ HRESULT CSWCameraControl2AMSG::OnGetCameraWorkState(WPARAM wParam,LPARAM lParam)
         return E_FAIL;
     CHAR *szStr = (CHAR *)lParam;
 
+		
+	
+	
+	
+
 	FLOAT fltJpegFps = 0.0, fltH264Fps = 0.0;
 	CSWMessage::SendMessage(MSG_SOURCE_GET_JPEG_RAW_FPS, 0, (LPARAM)&fltJpegFps);
 	CSWMessage::SendMessage(MSG_SOURCE_GET_H264_RAW_FPS, 0, (LPARAM)&fltH264Fps);
@@ -1531,6 +1850,9 @@ HRESULT CSWCameraControl2AMSG::OnSetLEDSwitch(WPARAM wParam,LPARAM lParam)
 
 	DWORD dwSwitch = (DWORD)wParam;
 	
+	if(rgWriteRegParam[0]==0x927)
+		OnSetCamFpgaReg((WPARAM)rgWriteRegParam, 0);
+			
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_NORMAL_LED;
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
@@ -1563,6 +1885,11 @@ HRESULT CSWCameraControl2AMSG::OnGetLEDSwitch(WPARAM wParam,LPARAM lParam)
 	SW_TRACE_DEBUG("%s %d \n",__FUNCTION__,__LINE__);
 	if(lParam == NULL)
 		 return E_FAIL;
+
+		
+	
+	
+	
 
 	DWORD* pdwParam = (DWORD*)lParam;
 	
@@ -1621,7 +1948,16 @@ HRESULT CSWCameraControl2AMSG::OnSetTriggerOut(WPARAM wParam,LPARAM lParam)
 	tIOArg.coupling = 0;
 	tIOArg.polarity = dwPolarity;
 	tIOArg.output_type = dwOutputType;
-	tIOArg.pulse_width = m_dwLEDPluseWidth; //todo huanggr
+	 //todo huanggr
+	 rgWriteRegParam[1]&=~0xFF;
+	 rgWriteRegParam[1]|=0xFF;
+	tIOArg.pulse_width =(rgWriteRegParam[0]==0x927?(rgWriteRegParam[1]):m_dwLEDPluseWidth);
+	
+	
+	
+	
+
+	
 	if (S_OK != SendMessage( MSG_2A_SET_IO_ARG, (WPARAM)&tIOArg , sizeof(tIOArg)))
 	{
 		SW_TRACE_NORMAL("OnSetTriggerOut CMD_SET_IO_ARG Failed");
@@ -1651,6 +1987,13 @@ HRESULT CSWCameraControl2AMSG::OnGetTriggerOut(WPARAM wParam,LPARAM lParam)
 	
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_TRIGGEROUT;
+
+	
+	
+	
+	
+
+	
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
 	{
 		SW_TRACE_NORMAL("OnGetTriggerOut CMD_GET_IO_ARG Failed\n");
@@ -1680,6 +2023,11 @@ HRESULT CSWCameraControl2AMSG::OnSetF1TriggerOut(WPARAM wParam,LPARAM lParam)
 	tIOArg.polarity 	= pParam[3];
 	tIOArg.pulse_width	= pParam[4];
 
+		
+	
+	
+	
+
 //	tIOArg.pulse_width = m_dwLEDPluseWidth; //todo huanggr
 	if (S_OK != SendMessage( MSG_2A_SET_IO_ARG, (WPARAM)&tIOArg , sizeof(tIOArg)))
 	{
@@ -1702,6 +2050,11 @@ HRESULT CSWCameraControl2AMSG::OnGetF1TriggerOut(WPARAM wParam,LPARAM lParam)
 		return E_FAIL;
 
 	DWORD* pdwParam = (DWORD*)lParam;
+
+		
+	
+	
+	
 	
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_TRIGGEROUT;
@@ -1738,6 +2091,11 @@ HRESULT CSWCameraControl2AMSG::OnSetAlarmTriggerOut(WPARAM wParam,LPARAM lParam)
 	tIOArg.pulse_width	= pParam[4];
 
 //	tIOArg.pulse_width = m_dwLEDPluseWidth; //todo huanggr
+		
+	rgWriteRegParam[0]=0x927;
+	rgWriteRegParam[1]=0;
+	rgWriteRegParam[1] = ((pParam[0]<<11)|(pParam[1]<<10)|(pParam[2]<<9)|(pParam[3]<<8)|pParam[4]);		
+
 	if (S_OK != SendMessage( MSG_2A_SET_IO_ARG, (WPARAM)&tIOArg , sizeof(tIOArg)))
 	{
 		SW_TRACE_NORMAL("OnSetTriggerOut CMD_SET_IO_ARG Failed");
@@ -1762,6 +2120,11 @@ HRESULT CSWCameraControl2AMSG::OnGetAlarmTriggerOut(WPARAM wParam,LPARAM lParam)
 	
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_ALARM_OUT;
+
+		
+	
+	
+	
 
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
 	{
@@ -1793,8 +2156,21 @@ HRESULT CSWCameraControl2AMSG::OnSetEXPIO(WPARAM wParam,LPARAM lParam)
 	DWORD *pParam = (DWORD *)wParam;
 	DWORD dwPolarity = pParam[0];
 	DWORD dwOutputType = pParam[1];
-	tFPGA_IO_ARG tIOArg;
+
+	rgWriteRegParam[1]&=~((1<<8)|(1<<9));
+	rgWriteRegParam[1]|=((dwPolarity<<8)|(dwOutputType<<9));
+
+	if(rgWriteRegParam[0]==0x927)
+		OnSetCamFpgaReg((WPARAM)rgWriteRegParam, 0);
+	
+	/*tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_NORMAL_LED;
+
+		
+	
+	
+	
+	
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
     {
         SW_TRACE_NORMAL("OnSetEXPIO CMD_GET_IO_ARG Failed!");
@@ -1811,7 +2187,7 @@ HRESULT CSWCameraControl2AMSG::OnSetEXPIO(WPARAM wParam,LPARAM lParam)
 	}
 	
 	m_dwLEDPolarity = dwPolarity;		//缓存其配置参数
-	m_dwLEDOutputType = dwOutputType;
+	m_dwLEDOutputType = dwOutputType;*/
 	
 	return S_OK;
 }
@@ -1835,6 +2211,12 @@ HRESULT CSWCameraControl2AMSG::OnGetEXPIO(WPARAM wParam,LPARAM lParam)
 	
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_NORMAL_LED;
+
+		
+	
+	
+	
+	
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
 	{
 		SW_TRACE_NORMAL("OnGetEXPIO CMD_GET_IO_ARG Failed\n");
@@ -1859,8 +2241,15 @@ HRESULT CSWCameraControl2AMSG::OnSetEXPPluseWidth(WPARAM wParam,LPARAM lParam)
 {
     DWORD dwValue = (DWORD)wParam;
 
-    tFPGA_IO_ARG tIOArg;
+	rgWriteRegParam[1]&=~0xFF;
+	rgWriteRegParam[1]|=dwValue;
+
+	if(rgWriteRegParam[0]==0x927)
+		OnSetCamFpgaReg((WPARAM)rgWriteRegParam, 0);
+
+    /*tFPGA_IO_ARG tIOArg;
     tIOArg.type = E_NORMAL_LED;
+		
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
     {
         SW_TRACE_NORMAL("OnSetEXPPluseWidth CMD_GET_IO_ARG Failed!");
@@ -1874,7 +2263,7 @@ HRESULT CSWCameraControl2AMSG::OnSetEXPPluseWidth(WPARAM wParam,LPARAM lParam)
         return E_FAIL ;
     }
 
-    m_dwLEDPluseWidth = dwValue;
+    m_dwLEDPluseWidth = dwValue;*/
 
     // todo huanggr
     /*
@@ -1903,6 +2292,11 @@ HRESULT CSWCameraControl2AMSG::OnSetALMIO(WPARAM wParam,LPARAM lParam)
 	tIOArg.type = E_ALARM_OUT;
 	tIOArg.polarity = dwPolarity;
 	tIOArg.output_type = dwOutputType;
+
+		
+	
+	
+	
 	
 	return SendMessage( MSG_2A_SET_IO_ARG, (WPARAM)&tIOArg , sizeof(tIOArg));
 }
@@ -1925,6 +2319,12 @@ HRESULT CSWCameraControl2AMSG::OnGetALMIO(WPARAM wParam,LPARAM lParam)
 	
 	tFPGA_IO_ARG tIOArg;
 	tIOArg.type = E_ALARM_OUT;
+
+		
+	
+	
+	
+	
 	if (S_OK != SendMessage( MSG_2A_GET_IO_ARG, sizeof(tIOArg), (LPARAM)&tIOArg))
 	{
 		SW_TRACE_NORMAL("OnGetALMIO CMD_GET_IO_ARG Failed\n");
@@ -1952,6 +2352,13 @@ HRESULT CSWCameraControl2AMSG::OnSetTGIO(WPARAM wParam,LPARAM lParam)
 	//EgdeType
 	DWORD dwEgdeType = (DWORD)wParam;
 	SW_TRACE_DEBUG("OnSetTGIO EgdeType %d\n",dwEgdeType);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_EDGE_MOD, (WPARAM)&dwEgdeType , sizeof(DWORD));
 }
 
@@ -1965,6 +2372,11 @@ HRESULT CSWCameraControl2AMSG::OnSetTGIO(WPARAM wParam,LPARAM lParam)
 HRESULT CSWCameraControl2AMSG::OnGetTGIO(WPARAM wParam,LPARAM lParam)
 {
 	SW_TRACE_DEBUG("%s %d \n",__FUNCTION__,__LINE__);
+
+		
+	
+	
+	
 
 	return SendMessage( MSG_2A_GET_EDGE_MOD, sizeof(DWORD), lParam);
 }
@@ -1998,6 +2410,12 @@ HRESULT CSWCameraControl2AMSG::OnSetWorkMode(WPARAM wParam,LPARAM lParam)
 {
 	DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_WORKMODE, Value);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_WORKMODE, (WPARAM)&Value , sizeof(DWORD));
 }
 
@@ -2011,6 +2429,13 @@ HRESULT CSWCameraControl2AMSG::OnSetAWBMode(WPARAM wParam,LPARAM lParam)
 {
 	DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_AWB_MODE, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_AWB_MODE, (WPARAM)&Value, sizeof(DWORD));
 }
 
@@ -2018,12 +2443,12 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSofttouch(WPARAM wParam,LPARAM lParam
 {
 	//static DWORD s_dwLastInfo = 0;
 	const DWORD iLaneInfSoftReg = 0x92f;
-	DWORD rgWriteRegParam[2], dwReg[2];
+	DWORD crgWriteRegParam[2], dwReg[2];
 	INT iAGCEnable = 0;
 	INT iSet = 0;
 	INT iInfo = 0;
 	iSet = ( wParam & 0xFF000000 ) >> 24;
-	iInfo =( wParam & 0X00FFFFFF);
+	iInfo =( wParam & 0x00FFFFFF);
 
     //iSet = (iSet == 0) ? 1 : 2;
 
@@ -2038,17 +2463,32 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSofttouch(WPARAM wParam,LPARAM lParam
 		CSWMessage::SendMessage(MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM, NULL, NULL);
 	}*/
 
-	//设置道路亮灯使能
-	rgWriteRegParam[0] = iLaneInfSoftReg;
-	rgWriteRegParam[1] = iSet;
-	OnSetCamFpgaReg((WPARAM)rgWriteRegParam, 0);
+	if(!m_IsDay)
+	{			
+		if(iInfo==0)
+		{
+			iSet=3;
+		}		
+		//设置道路亮灯使能		
+		crgWriteRegParam[0] = iLaneInfSoftReg;
+		crgWriteRegParam[1] = iSet;
+		OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
+	}
 	
 	//SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SOFT_CAPTURE, iInfo);
 
 	return SendMessage( MSG_2A_SOFT_CAPTURE, (WPARAM)&iInfo , sizeof(INT));
 }
 
-
+HRESULT CSWCameraControl2AMSG::OnSetDspFlag(WPARAM wParam,LPARAM lParam)
+{
+	INT iStatus=(INT)wParam;
+	if(iStatus==0)
+		m_IsDay=TRUE;
+	else
+		m_IsDay=FALSE;
+	return S_OK;
+}
 
 /**
 * @brief MSG_SET_F1_OUTPUT_TYPE 设置F1输出模式
@@ -2060,6 +2500,12 @@ HRESULT CSWCameraControl2AMSG::OnSetF1OutputType(WPARAM wParam,LPARAM lParam)
 {
 	INT Value = (INT)wParam ? 1 : 0;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_FLASH_GATE, Value);
+
+		
+	
+	
+	
+	
 	return SendMessage( MSG_2A_SET_FLASH_GATE, (WPARAM)&Value , sizeof(INT));
 }
 
@@ -2071,14 +2517,42 @@ HRESULT CSWCameraControl2AMSG::OnSetF1OutputType(WPARAM wParam,LPARAM lParam)
 */
 HRESULT CSWCameraControl2AMSG::OnSetCaptureRGBEnable(WPARAM wParam,LPARAM lParam)
 {
-/*
-    int fEnable = (int)wParam;
+
+    /*int fEnable = (int)wParam;
     int rgnValue[3] = {0};
     rgnValue[0] = fEnable ? m_nCaptureR : -1;
     rgnValue[1] = fEnable ? m_nCaptureG : -1;
     rgnValue[2] = fEnable ? m_nCaptureB : -1;
-    OnSetCaptureRGBGain((WPARAM)rgnValue, lParam);
-    */
+    OnSetCaptureRGBGain((WPARAM)rgnValue, lParam);*/
+
+	DWORD rgFpgaParam[2] = {0};
+	rgFpgaParam[0] = 0x914;     // 使能抓拍快门
+	int fEnable = (int)wParam;
+	if(fEnable==0)
+		rgFpgaParam[1] = 0x03;
+	else
+    	rgFpgaParam[1] = 0x0b;
+    OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
+
+	if(fEnable!=0)
+	{
+	    rgFpgaParam[0] = 0xb0e;		// R 抓拍
+	    rgFpgaParam[1] = 0x4000;
+	    OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
+
+	    rgFpgaParam[0] = 0xb0f;		// G 抓拍
+	    rgFpgaParam[1] = 0x7200;
+	    OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
+
+	    rgFpgaParam[0] = 0xb10;		// G 抓拍
+	    rgFpgaParam[1] = 0x7200;
+	    OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
+
+	    rgFpgaParam[0] = 0xb11;		// B 抓拍
+	    rgFpgaParam[1] = 0xa500;
+	    OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
+	}
+    
     return S_OK;
 }
 
@@ -2141,6 +2615,11 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureShutter(WPARAM wParam,LPARAM lParam)
     DWORD* Value = (DWORD*)wParam;
     SW_TRACE_DEBUG("Set Capture Shutter:%d",*Value);
 
+		
+	
+	
+	
+
     return SendMessage( MSG_2A_SET_CAP_SHUTTER, (WPARAM)Value , sizeof(DWORD));
 }
 
@@ -2166,6 +2645,11 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureGain(WPARAM wParam,LPARAM lParam)
 {
     DWORD* Value = (DWORD*)wParam;
     SW_TRACE_DEBUG("Set Capture Gain:%d",*Value);
+
+		
+	
+	
+	
 
     return SendMessage( MSG_2A_SET_CAP_GAIN, (WPARAM)Value , sizeof(DWORD));
 }
@@ -2208,6 +2692,11 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureRGBGain(WPARAM wParam,LPARAM lParam)
         m_nCaptureB = prgnValue[2];
     }
 	DWORD Value = prgnValue[0]  | prgnValue[1] << 8 | prgnValue[2] << 16;
+
+		
+	
+	
+	
 	
     return SendMessage(MSG_2A_SET_CAP_RGB,(WPARAM)&Value,sizeof(DWORD));
 }
@@ -2235,6 +2724,11 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSharpen(WPARAM wParam,LPARAM lParam)
 {
 	DWORD Value = (DWORD)wParam;
 	SW_TRACE_DEBUG("Set Capture Sharpen:%d",Value);
+
+		
+	
+	
+	
 
 	return SendMessage(MSG_2A_SET_CAP_SHARPEN, (WPARAM)&Value , sizeof(DWORD));
 }
@@ -2266,6 +2760,13 @@ HRESULT CSWCameraControl2AMSG::OnSetWDRLevel(WPARAM wParam,LPARAM lParam)
 {
     int Value = (int)wParam;
 	SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SET_BACKLIGHT, Value);
+
+	
+	
+	
+	
+
+	
 	return SendMessage( MSG_2A_SET_BACKLIGHT, (WPARAM)&Value , sizeof(INT));
 }
 
@@ -2297,6 +2798,10 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureAutoParamEnable(WPARAM wParam,LPARAM 
 {
 	m_fCaptureAutoParamEnable = ((INT)wParam == 1) ? TRUE : FALSE;
 
+	//CSWMessage::SendMessage(MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM, wParam, NULL);
+
+	//SW_TRACE_DEBUG("OnSetCaptureAutoParamEnable value:%d \n",m_fCaptureAutoParamEnable);
+
 	//send remote msg
 	return S_OK;
 }
@@ -2320,6 +2825,11 @@ HRESULT CSWCameraControl2AMSG::OnGetPTZInfo(PVOID pvBuffer, INT iSize)
 	swpa_memset(&sInfo, 0, sizeof(sInfo));
 
 	/* not support any PTZ feature */
+
+		
+	
+	
+	
         
     return SendRemoteMessage(MSG_APP_REMOTE_SET_PTZ_INFO, (PVOID)&sInfo, sizeof(sInfo));
 }
@@ -2335,7 +2845,7 @@ BOOL CSWCameraControl2AMSG::OnIncreaseBrightness()
 
 
 	rgFpgaParam[0] = 0xb83;		//数字增益提亮
-    rgFpgaParam[1] = 0x02;
+    rgFpgaParam[1] = 0x01;
 	OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
 
 	rgFpgaParam[0] = 0xa3c;

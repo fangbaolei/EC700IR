@@ -33,7 +33,7 @@ void CSWLPRParameter::SetDefaultTracker()
 	Get().cTrackerCfgParam.nPlateDetect_Green = 0;
 	Get().cTrackerCfgParam.nNightThreshold = 55;
 	Get().cTrackerCfgParam.nPlateLightCheckCount = 5;
-	Get().cTrackerCfgParam.nMinPlateBrightness = 80;
+	Get().cTrackerCfgParam.nMinPlateBrightness = 90;
 	Get().cTrackerCfgParam.nMaxPlateBrightness = 120;
 	Get().cTrackerCfgParam.nCtrlCpl = 0;
 	Get().cTrackerCfgParam.nLightTypeCpl = ((int)LIGHT_TYPE_COUNT / 2);
@@ -48,11 +48,11 @@ void CSWLPRParameter::SetDefaultTracker()
     Get().cTrackerCfgParam.fltOverLineSensitivity = 2.75f;
     Get().cTrackerCfgParam.nRoadLineNumber = 3;
 	Get().cTrackerCfgParam.nOutputRoadTypeName = 0;
-    Get().cTrackerCfgParam.nCaptureOnePos = 50;
-    Get().cTrackerCfgParam.nCaptureTwoPos = 80;
+    Get().cTrackerCfgParam.nCaptureOnePos = 20;
+    Get().cTrackerCfgParam.nCaptureTwoPos = 55;
 	Get().cTrackerCfgParam.nCaptureThreePos = 0;
     Get().cTrackerCfgParam.cActionDetect.iDetectCarStopTime = 10;
-    Get().cTrackerCfgParam.nDetReverseRunEnable = 0;
+    Get().cTrackerCfgParam.nDetReverseRunEnable = 1;
 	Get().cTrackerCfgParam.nSpan = 5;
 	Get().cTrackerCfgParam.iRoadNumberBegin = 0;
     Get().cTrackerCfgParam.iStartRoadNum = 1;
@@ -284,13 +284,14 @@ void CSWLPRParameter::SetDefaultCamApp()
 	Get().cCamAppParam.iVbrSensivititySecond = 0;
 
 	Get().cCamAppParam.iAGCTh = 100;
-    Get().cCamAppParam.iAGCShutterLOri = 100;
-    Get().cCamAppParam.iAGCShutterHOri = 3000;
+    Get().cCamAppParam.iAGCShutterLOri = 500;
+    Get().cCamAppParam.iAGCShutterHOri = 3800;
     Get().cCamAppParam.iAGCGainLOri = 10;
-    Get().cCamAppParam.iAGCGainHOri = 150;
+    Get().cCamAppParam.iAGCGainHOri = 120;
 	Get().cCamAppParam.iAGCScene = 0;
-    Get().cCamAppParam.iAGCDayNightShutterControl = 0;
-    Get().cCamAppParam.iAGCNightShutterHOri = 3500;
+    Get().cCamAppParam.iAGCDayNightShutterControl = 1;
+    Get().cCamAppParam.iAGCNightShutterHOri = 1000;
+	Get().cCamAppParam.iAGCNightGainHOri = 30;
 
     Get().cCamAppParam.iGainR = 36;
     Get().cCamAppParam.iGainG = 36;
@@ -308,10 +309,13 @@ void CSWLPRParameter::SetDefaultCamApp()
     Get().cCamAppParam.iCaptureGainR = 46;
 	Get().cCamAppParam.iCaptureGainG = 36;
     Get().cCamAppParam.iCaptureGainB = 54;
-    Get().cCamAppParam.iCaptureGain = 180;
-    Get().cCamAppParam.iCaptureShutter = 3500;
+	Get().cCamAppParam.iCaptureDayGainR = 46;
+	Get().cCamAppParam.iCaptureDayGainG = 36;
+    Get().cCamAppParam.iCaptureDayGainB = 54;
+    Get().cCamAppParam.iCaptureGain = 60;
+    Get().cCamAppParam.iCaptureShutter = 1500;
     Get().cCamAppParam.iCaptureSharpenThreshold = 200;
-    Get().cCamAppParam.iCaptureAutoParamEnable = 0;
+    Get().cCamAppParam.iCaptureAutoParamEnable = 1;
     Get().cCamAppParam.iEnableCaptureGainRGB = 0;
     Get().cCamAppParam.iEnableCaptureGain = 1;
     Get().cCamAppParam.iEnableCaptureShutter = 1;
@@ -436,8 +440,8 @@ void CSWLPRParameter::SetDefaultCamApp()
     Get().cCamAppParam.iF1OutputType = 1;
 
     Get().cCamAppParam.iFlashEnable		= 1;
-	Get().cCamAppParam.iFlashPolarity		= 0;
-    Get().cCamAppParam.iFlashOutputType	= 1;
+	Get().cCamAppParam.iFlashPolarity		= 1;
+    Get().cCamAppParam.iFlashOutputType	= 0;
 	Get().cCamAppParam.iFlashCoupling  	= 0;
     Get().cCamAppParam.iFlashPluseWidth	= 50;
 
@@ -467,7 +471,7 @@ void CSWLPRParameter::SetDefaultCharacter()
 
 void CSWLPRParameter::SetDefaultOnvif()
 {
-	Get().cOnvifParam.iOnvifEnable = 1;
+	Get().cOnvifParam.iOnvifEnable = 0;
 	Get().cOnvifParam.iAuthenticateEnable = 0;
 
 	
@@ -552,7 +556,7 @@ void CSWLPRParameter::SetDefaultCamCfgParam()
     Get().cCamCfgParam.iAutoParamEnable = 1;
 	Get().cCamCfgParam.fltDB = 3.0;
     Get().cCamCfgParam.iMinExposureTime  = 0;
-	Get().cCamCfgParam.iMinGain  = 70;
+	Get().cCamCfgParam.iMinGain  = 10;
     Get().cCamCfgParam.iMaxExposureTime  = 2500;
 	Get().cCamCfgParam.iMaxGain  = 220;
     Get().cCamCfgParam.iMaxAGCLimit = 163;
@@ -578,10 +582,10 @@ void CSWLPRParameter::SetDefaultCamCfgParam()
 	}
 
 	Get().cCamCfgParam.iCaptureAutoParamEnable = 1;
-	Get().cCamCfgParam.iCaptureDayShutterMax = 2000;
-	Get().cCamCfgParam.iCaptureDayGainMax	= 180;
-	Get().cCamCfgParam.iCaptureNightShutterMax = 3500;
-	Get().cCamCfgParam.iCaptureNightGainMax = 180;
+	Get().cCamCfgParam.iCaptureDayShutterMax = 3800;
+	Get().cCamCfgParam.iCaptureDayGainMax	= 120;
+	Get().cCamCfgParam.iCaptureNightShutterMax = 1500;
+	Get().cCamCfgParam.iCaptureNightGainMax = 60;
 }
 
 
@@ -593,7 +597,7 @@ void CSWLPRParameter::SetDefaultHvDSP()
 	Get().cResultSenderParam.iRecordFreeSpacePerDisk = 10;
 	Get().cResultSenderParam.iVideoFreeSpacePerDisk = 10;
 	Get().cResultSenderParam.iVideoDisplayTime = 500;
-	Get().cResultSenderParam.iDrawRect = 1;
+	Get().cResultSenderParam.iDrawRect = 0;
 	Get().cResultSenderParam.iEddyType = 0;
 	Get().cResultSenderParam.iSpeedLimit = 1000;
 	Get().cResultSenderParam.iSaveType = 0;
@@ -625,7 +629,7 @@ void CSWLPRParameter::SetDefaultHvDSP()
 	strcpy(Get().cResultSenderParam.szPeccancyPriority, "逆行-非机动车道-闯红灯-不按车道行驶-压线-超速");
 	Get().cResultSenderParam.iCapMode = 0;
 	Get().cResultSenderParam.iFlashDifferentLane = 0;
-    Get().cResultSenderParam.iFlashOneByOne = 0;
+    Get().cResultSenderParam.iFlashOneByOne = 1;
 
 	Get().cResultSenderParam.fEnableTriggerOut = 1;
 	Get().cResultSenderParam.nTriggerOutNormalStatus = 1;
@@ -659,11 +663,11 @@ void CSWLPRParameter::SetDefaultHvDSP()
 
 void CSWLPRParameter::SetDefaultIPTCtrl()
 {
-	for(int i = 0; i < 2; i++)
+	for(int i = 1; i < 2; i++)
 	{
 		Get().cDevParam[i].iBaudrate = 9600;
-		Get().cDevParam[i].iDeviceType = 0;
-		Get().cDevParam[i].iRoadNo = 0;
+		Get().cDevParam[i].iDeviceType = 1;
+		Get().cDevParam[i].iRoadNo = 255;
 		//金星只能用RS485
 		Get().cDevParam[i].iCommType = 1;
 	}
@@ -672,14 +676,20 @@ void CSWLPRParameter::SetDefaultIPTCtrl()
 void CSWLPRParameter::SetDefaultOuterCtrl()
 {
 	swpa_memset(&Get().cMatchParam, 0, sizeof(Get().cMatchParam));
-    Get().cMatchParam.dwPlateKeepTime = 2000;
-    Get().cMatchParam.dwSignalKeepTime = 3000;
-    Get().cMatchParam.dwMatchMaxTime = 2000;
-    Get().cMatchParam.dwMatchMinTime = 2000;
+    Get().cMatchParam.dwPlateKeepTime = 1500;
+    Get().cMatchParam.dwSignalKeepTime = 2000;
+    Get().cMatchParam.dwMatchMaxTime = 1500;
+    Get().cMatchParam.dwMatchMinTime = 1500;
     Get().cMatchParam.fCaptureRecong = FALSE;
 
     Get().cMatchParam.signal[0].dwType = 3;
     Get().cMatchParam.signal[0].dwRoadID = 0xFF;
+
+	Get().cMatchParam.signal[1].dwType = 1;
+    Get().cMatchParam.signal[1].dwRoadID = 0;
+
+	Get().cMatchParam.signal[2].dwType = 1;
+    Get().cMatchParam.signal[2].dwRoadID = 1;
 }
 
 
@@ -707,7 +717,7 @@ void CSWLPRParameter::ResetParam(VOID)
 		
 	Get().cAutoRebootParam.fEnable = FALSE;			
 	Get().cAutoRebootParam.iCarLeftCountLimit = 50;
-	Get().cAutoRebootParam.iSysUpTimeLimit = 48;	
+	Get().cAutoRebootParam.iSysUpTimeLimit = 24;	
 
 	Get().cDomeRockerParam.fRockerEnable = FALSE;
 	Get().cDomeRockerParam.iBaudrate = 9600;
@@ -798,7 +808,7 @@ HRESULT CSWLPRParameter::InitSystem()
   	, "LogLevel"
   	, &Get().nLogLevel
   	, Get().nLogLevel
-  	, "0:错误等级;1:常规等级;2:操作等级;3:调试等级"
+  	, "0:Error level;1:Normal level;2:Operational level;3:Debug level"
   	, ""
   	, ""
   	, PROJECT_LEVEL
@@ -811,7 +821,7 @@ HRESULT CSWLPRParameter::InitSystem()
 		, szTemp
 		, ""
 		, sizeof(szTemp)
-		, "设备序列号"
+		, "Device serial number "
 		, ""
 		, CUSTOM_LEVEL
 		, TRUE
@@ -873,7 +883,7 @@ HRESULT CSWLPRParameter::InitSystem()
     	, szTemp
     	, szTemp
     	, sizeof(szTemp)
-      , "模块版本号"
+      , "Module version"
       , ""
       , CUSTOM_LEVEL
       , TRUE
@@ -883,7 +893,7 @@ HRESULT CSWLPRParameter::InitSystem()
 		, szVersion
 		, szVersion
 		, sizeof(szVersion)
-		, "固件版本号"
+		, "Firmware version"
 		, ""
 		, CUSTOM_LEVEL
 		, TRUE
@@ -891,7 +901,7 @@ HRESULT CSWLPRParameter::InitSystem()
 		
 	sprintf(szTemp
     , "%s%d%s" 
-		, VERSIONHEADER
+		, "3.1.107."
         , MAIN_VERSION
 #ifdef USER_VERSION
         , USER_VERSION
@@ -905,7 +915,7 @@ HRESULT CSWLPRParameter::InitSystem()
     	, szTemp
     	, szTemp
     	, sizeof(szTemp)
-      , "软件版本号"
+      , "Software version"
       , ""
       , CUSTOM_LEVEL
       , TRUE
@@ -918,7 +928,7 @@ HRESULT CSWLPRParameter::InitSystem()
         , Get().cTcpipCfgParam.szIp
         , Get().cTcpipCfgParam.szIp
         , 31
-        , "IP地址"
+        , "IP Address"
         , ""
         , CUSTOM_LEVEL
         , TRUE
@@ -929,7 +939,7 @@ HRESULT CSWLPRParameter::InitSystem()
     	, Get().cTcpipCfgParam.szNetmask
     	, Get().cTcpipCfgParam.szNetmask
     	, 31
-    	, "子网掩码"
+    	, "Subnet mask"
     	, ""
     	, CUSTOM_LEVEL
     	, TRUE
@@ -940,7 +950,7 @@ HRESULT CSWLPRParameter::InitSystem()
     	, Get().cTcpipCfgParam.szGateway
     	, Get().cTcpipCfgParam.szGateway
     	, 31
-    	, "网关"
+    	, "Gateway"
     	, ""
     	, CUSTOM_LEVEL
     	, TRUE
@@ -978,7 +988,7 @@ HRESULT CSWLPRParameter::InitSystem()
 				, szMac
 				, szMac
 				, 32
-				, "MAC地址"
+				, "MAC address"
 				, ""
 				, CUSTOM_LEVEL
 				, TRUE
@@ -2799,7 +2809,7 @@ HRESULT CSWLPRParameter::InitCamApp(VOID)
     	, "MinPlus"
     	, &Get().cCamCfgParam.iMinGain
     	, Get().cCamCfgParam.iMinGain
-    	, 70
+    	, 10
     	, 360
     	, "最小增益"
     	, ""
@@ -2821,7 +2831,7 @@ HRESULT CSWLPRParameter::InitCamApp(VOID)
     	, "MaxPlus"
     	, &Get().cCamCfgParam.iMaxGain
     	, Get().cCamCfgParam.iMaxGain
-    	, 70
+    	, 10
     	, 360
     	, "最大增益"
     	, ""

@@ -13,7 +13,7 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 {
 	Get().nWorkModeIndex = PRM_CAP_FACE;
 //	Get().nWorkModeIndex = PRM_TRAFFICE_FACE;
-	m_strWorkMode.Format("卡口");
+	m_strWorkMode.Format("TrafficGate");
 	Get().nCameraWorkMode = 19;		//816CCD卡口方案相机工作模式
 	Get().nMCFWUsecase = ICX816;
 
@@ -41,7 +41,7 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 
 	Get().cTrackerCfgParam.cTrapArea.nDetectorMinScaleNum = Get().cTrackerCfgParam.cDetectArea.nDetectorMinScaleNum;
 	Get().cTrackerCfgParam.cTrapArea.nDetectorMaxScaleNum = Get().cTrackerCfgParam.cDetectArea.nDetectorMaxScaleNum;
-	Get().cTrackerCfgParam.iImageConstDelay = 200;
+	Get().cTrackerCfgParam.iImageConstDelay = 0;
 
     Get().cCamCfgParam.iMaxExposureTime = 2500;
 	Get().cCamCfgParam.iMinExposureTime = 0;
@@ -49,14 +49,14 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamCfgParam.iMaxAGCLimit = 163;
 	Get().cCamCfgParam.iDynamicTriggerEnable = 1;	
 	Get().cCamCfgParam.iNightShutterThreshold = -1;
-    Get().cCamCfgParam.iNightAvgYThreshold = 10;
-    Get().cCamCfgParam.iDuskAvgYThreshold = 50;
+    Get().cCamCfgParam.iNightAvgYThreshold = 55;
+    Get().cCamCfgParam.iDuskAvgYThreshold = 60;
     Get().cCamCfgParam.iDynamicCfgEnable = 1;
 
 	//Get().cCamCfgParam.iWorkType = 0;
 	
-    Get().cCamAppParam.iAGCShutterHOri = 3000;
-	Get().cCamAppParam.iAGCGainHOri = 150;
+    Get().cCamAppParam.iAGCShutterHOri = 3800;
+	Get().cCamAppParam.iAGCGainHOri = 120;
     Get().cCamAppParam.iAGCGainLOri = 10;	//最小增益默认为10，最小增益太大容易引起AGC震荡
 
 	//卡口默认的视频测速修正系数
@@ -67,8 +67,8 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamAppParam.iResolution = 0;	//默认为1080P
 	
 	// 抓拍位置初始值
-	Get().cTrackerCfgParam.nCaptureOnePos = 50;
-	Get().cTrackerCfgParam.nCaptureTwoPos = 80;
+	Get().cTrackerCfgParam.nCaptureOnePos = 20;
+	Get().cTrackerCfgParam.nCaptureTwoPos = 60;
 
 	// 金星无频闪补光灯
 	//Get().cTrackerCfgParam.iUsedLight = 1;
@@ -92,14 +92,14 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
     Get().cCamAppParam.iCaptureGainB = 54;
 
     Get().cTrackerCfgParam.nProcessPlate_LightBlue = 0;
-    Get().cCamAppParam.iCaptureShutter = 3500;
-    Get().cCamAppParam.iCaptureGain = 180;
+    Get().cCamAppParam.iCaptureShutter = 1500;
+    Get().cCamAppParam.iCaptureGain = 60;
     Get().cCamAppParam.iCaptureSharpenThreshold = 200;
 	
 	Get().cCamAppParam.iTNFSNFValue = 1;	//卡口方案降噪强度只能是低，其他的强度容易导致画面拖影
 
     Get().cOverlay.cJPEGInfo.iY = 0;	//默认叠加到图片外下方
-	Get().cTrackerCfgParam.nDetReverseRunEnable = 0;//默认不检测逆行
+	Get().cTrackerCfgParam.nDetReverseRunEnable = 1;//默认不检测逆行
 	Get().cCamAppParam.iJpegAutoCompressEnable = 1;	//默认打开自动调节
 	Get().cCamAppParam.iJpegExpectSize = 300;		//默认300Kbyte
 
@@ -115,12 +115,12 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamAppParam.iLEDPolarity = 0;	//补光灯默认负极性	
 
 	Get().cCamAppParam.iFlashEnable 		= 1;		//默认使能
-	Get().cCamAppParam.iFlashPolarity 		= 0;		//负极性
-	Get().cCamAppParam.iFlashOutputType 	= 1;		//OC开关 
+	Get().cCamAppParam.iFlashPolarity 		= 1;		//负极性
+	Get().cCamAppParam.iFlashOutputType 	= 0;		//OC开关 
 	Get().cCamAppParam.iFlashCoupling		= 0;		//不耦合
 	Get().cCamAppParam.iFlashPluseWidth		= 50;		//闪光灯脉块
 
-    Get().cCamCfgParam.iCaptureAutoParamEnable = 0;		//使用自动控制模块的抓拍图自动调整
+    Get().cCamCfgParam.iCaptureAutoParamEnable = 1;		//使用自动控制模块的抓拍图自动调整
     Get().cTrackerCfgParam.nRoadLineNumber = 3; //默认双车道
 	//默认车道线
     Get().cTrackerCfgParam.rgcRoadInfo[0].ptTop.x = 1303;
@@ -152,9 +152,9 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	张牌，我们需要的是最后一张牌，因此不能过滤相同牌，多
 	出的牌由前置机过滤
 	*/
-	Get().cTrackerCfgParam.nBlockTwinsTimeout = 60;
+	Get().cTrackerCfgParam.nBlockTwinsTimeout = 0;
 
-    Get().cTrackerCfgParam.nMinPlateBrightness = 80;
+    Get().cTrackerCfgParam.nMinPlateBrightness = 90;
 	Get().cTrackerCfgParam.nMaxPlateBrightness = 120;
 
     Get().cOverlay.cJPEGInfo.fEnable = FALSE;
@@ -164,6 +164,31 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamAppParam.iMaxBitRate = 4 * 1024;
 	Get().cResultSenderParam.iBestSnapshotOutput = 1;
 	Get().cResultSenderParam.iLastSnapshotOutput = 1;
+
+	Get().cCamAppParam.iSNFTNFMode = 1;
+	Get().cTrackerCfgParam.nNightPlus = 1;
+	Get().cTrackerCfgParam.cVideoDet.nCheckAcross = 0;
+
+	Get().cCamAppParam.iEnableCaptureGain = 1;
+	Get().cCamAppParam.iEnableCaptureShutter = 1;
+
+	Get().cResultSenderParam.iFlashOneByOne=1;
+	Get().cDevParam[1].iDeviceType=1;
+	Get().cDevParam[1].iComNo2RoadNo1=0;
+	Get().cDevParam[1].iComNo2RoadNo2=1;
+	Get().cDevParam[1].iRoadNo=255;
+
+	Get().cMatchParam.signal[0].dwType=3;
+	Get().cMatchParam.signal[0].dwRoadID=255;
+
+	Get().cMatchParam.signal[1].dwType=1;
+	Get().cMatchParam.signal[1].dwRoadID=0;
+
+	Get().cMatchParam.signal[2].dwType=1;
+	Get().cMatchParam.signal[2].dwRoadID=1;
+
+	Get().cTrackerCfgParam.nNightMaxLightTH=13;
+	Get().cTrackerCfgParam.nDuskMaxLightTH=60;
 }
 
 CSWLPRVenusTrafficGateEC700Parameter::~CSWLPRVenusTrafficGateEC700Parameter()
@@ -238,8 +263,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "EnablePlateEnhance"
     	, &Get().cTrackerCfgParam.nEnablePlateEnhance
     	, Get().cTrackerCfgParam.nEnablePlateEnhance
-    	, "0:关闭;1:打开"
-    	, "分割前是否进行图片增强"
+    	, "0:Enable;1:Disable"
+    	, "Enable image enhanced (before segmentation)"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -254,19 +279,41 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, PROJECT_LEVEL
     );*/
 
+	GetInt("\\Tracker\\ProcessPlate"
+    	, "DuskMaxLightTH"
+    	, &Get().cTrackerCfgParam.nDuskMaxLightTH
+    	, Get().cTrackerCfgParam.nDuskMaxLightTH
+    	, 1
+    	, 200
+    	, "Dusk maximum ambient brightness"
+    	, ""
+    	, PROJECT_LEVEL
+    );
+
+	GetInt("\\Tracker\\ProcessPlate"
+    	, "NightMaxLightTH"
+    	, &Get().cTrackerCfgParam.nNightMaxLightTH
+    	, Get().cTrackerCfgParam.nNightMaxLightTH
+    	, 0
+    	, Get().cTrackerCfgParam.nDuskMaxLightTH-1
+    	, "Night maximum ambient brightness"
+    	, ""
+    	, PROJECT_LEVEL
+    );
+
     GetInt("\\Tracker\\ProcessPlate"
     	, "PlateResizeThreshold"
     	, &Get().cTrackerCfgParam.nPlateResizeThreshold
     	, Get().cTrackerCfgParam.nPlateResizeThreshold
     	, 0
     	, 200
-    	, "分割前小图拉伸宽度阈值"
+    	, "Small image stretched width threshold (before segmentation)"
     	, ""
     	, PROJECT_LEVEL
     );
 
 
-    GetInt("\\Tracker\\ProcessPlate\\BlackPlate"
+    /*GetInt("\\Tracker\\ProcessPlate\\BlackPlate"
     	, "PlateLightCheckCount"
     	, &Get().cTrackerCfgParam.nPlateLightCheckCount
     	, Get().cTrackerCfgParam.nPlateLightCheckCount
@@ -297,9 +344,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "车牌最高亮度"
     	, ""
     	, CUSTOM_LEVEL
-    );
+    );*/
     
-    GetInt("\\Tracker\\ProcessPlate\\BlackPlate"
+    /*GetInt("\\Tracker\\ProcessPlate\\BlackPlate"
     	, "H0"
     	, &Get().cTrackerCfgParam.nProcessPlate_BlackPlateThreshold_H0
     	, Get().cTrackerCfgParam.nProcessPlate_BlackPlateThreshold_H0
@@ -332,7 +379,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, PROJECT_LEVEL
     );
 
-    /*GetEnum("Tracker\\Recognition"
+    GetEnum("Tracker\\Recognition"
     	, "UseEdgeMethod"
     	, &Get().cTrackerCfgParam.fUseEdgeMethod
     	, Get().cTrackerCfgParam.fUseEdgeMethod
@@ -342,7 +389,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, PROJECT_LEVEL
     );*/
     
-    GetEnum("Tracker\\Recognition"
+    /*GetEnum("Tracker\\Recognition"
     	, "EnableT1Model"
     	, &Get().cTrackerCfgParam.fEnableT1Model
     	, Get().cTrackerCfgParam.fEnableT1Model
@@ -353,7 +400,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     );
 
     
-    /*GetInt("Tracker\\Recognition"
+    GetInt("Tracker\\Recognition"
     	, "RecogAsteriskThreshold"
     	, &Get().cTrackerCfgParam.nRecogAsteriskThreshold
     	, Get().cTrackerCfgParam.nRecogAsteriskThreshold
@@ -395,7 +442,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, CUSTOM_LEVEL
     );
 #endif
-    GetEnum("Tracker\\Misc"
+    /*GetEnum("Tracker\\Misc"
     	, "NightPlus"
     	, &Get().cTrackerCfgParam.nNightPlus
     	, Get().cTrackerCfgParam.nNightPlus
@@ -403,8 +450,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "晚上加强非机动车检测,只有场景足够亮时可用,否则会增加多检"
     	, ""
     	, PROJECT_LEVEL
-    );
-    	
+__macrores    	
 	/*Get().cTrackerCfgParam.nWalkManSpeed = 200;
     GetInt("Tracker\\Misc"
     	, "WalkManSpeed"
@@ -434,7 +480,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.nCarArrivedDelay
     	, 0
     	, 100
-    	, "车辆到达触发延迟距离(米)"
+    	, "Vehicle arrives trigger delay distance (m)"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -445,19 +491,19 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.iImageConstDelay
     	, 0
     	, 400
-    	, "图片延时时长"
-    	, "图片延时时长(ms)"
+    	, "Image delay time"
+    	, "Image delay time(ms)"
     	, PROJECT_LEVEL
     );
 
     
-    GetInt("Tracker\\TrackInfo"
+    /*GetInt("Tracker\\TrackInfo"
     	, "BlockTwinsTimeout"
     	, &Get().cTrackerCfgParam.nBlockTwinsTimeout
     	, Get().cTrackerCfgParam.nBlockTwinsTimeout
     	, 0
     	, 3600
-    	, "相同结果最小时间间隔(S)"
+    	, "相同结果最小时间间隔(s)"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -482,7 +528,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "平均得分下限"
     	, ""
     	, 1
-    );
+    );*/
     
     /*GetInt("Tracker\\TrackInfo"
     	, "FirstConfidenceQuan"
@@ -524,10 +570,10 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	,"EnableTrap"
     	, &Get().cTrackerCfgParam.cTrapArea.fEnableDetAreaCtrl
     	, Get().cTrackerCfgParam.cTrapArea.fEnableDetAreaCtrl
-    	, "0:关闭;1:打开"
-    	, "梯形扫描区域控制开关"
+    	, "0:Close;1:Open"
+    	, "Trapezoidal scanning area control switch"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
 
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -536,9 +582,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.TopLeftX
     	, 0
     	, 100
-    	, "扫描左上区域坐标X"
+    	, "Left top X Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -547,9 +593,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.TopLeftY
     	, 0
     	, 100
-    	, "扫描左上区域坐标Y"
+    	, "Left top Y Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -558,9 +604,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.TopRightX
     	, 0
     	, 100
-    	, "扫描右上区域坐标X"
+    	, "Right top X Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -569,9 +615,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.TopRightY
     	, 0
     	, 100
-    	, "扫描右上区域坐标Y"
+    	, "Right top Y Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
 
     GetInt("Tracker\\DetAreaCtrl\\Normal","BottomLeftX"
@@ -579,9 +625,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.BottomLeftX
     	, 0 
     	, 100
-    	, "扫描左下区域坐标X"
+    	, "Left bottom X Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -590,9 +636,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.BottomLeftY
     	, 0
     	, 100
-    	, "扫描左下区域坐标Y"
+    	, "Left bottom Y Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -601,9 +647,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.BottomRightX
     	, 0
     	, 100
-    	, "扫描右下区域坐标X"
+    	, "Right bottom X Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
     
     GetInt("Tracker\\DetAreaCtrl\\Normal"
@@ -612,9 +658,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cTrapArea.BottomRightY
     	, 0
     	, 100
-    	, "扫描右下区域坐标Y"
+    	, "Right bottom Y Coordinates of scanning area"
     	, ""
-    	, CUSTOM_LEVEL
+    	, PROJECT_LEVEL
     );
 
 	//当最大最小车牌宽度为-1时自动计算，但是开放出来允许设置，
@@ -626,7 +672,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cDetectArea.nDetectorMinScaleNum
     	, -1
     	, 16
-    	, "检测的最小宽度(-1为自动计算)"
+    	, "The minimum width of detection( -1:Automatic calculation)"
         , "56*(1.1^MinScale):0-56;1-61;2-67;3-74;4-81;5-90;6-99;\n  \
                                               7-109;8-120;9-132;10-145;11-159;12-175;\n \
                                               13-193;14-212;15-233;16-257"
@@ -638,7 +684,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cDetectArea.nDetectorMaxScaleNum
     	, -1
     	, 16
-    	, "检测的最大宽度(-1为自动计算)"
+    	, "The max width of detection( -1:Automatic calculation) 56*(1.1^MaxScale)"
     	, "56*(1.1^MaxScale)"
     	, PROJECT_LEVEL
     );
@@ -655,7 +701,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.nRoadLineNumber
     	, 2
         , 3//MAX_ROADLINE_NUM
-    	, "车道线数量"
+    	, "Lane count"
     	, ""
         , CUSTOM_LEVEL
     );
@@ -666,8 +712,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "RoadNumberBegin"
     	, &Get().cTrackerCfgParam.iRoadNumberBegin 
     	, Get().cTrackerCfgParam.iRoadNumberBegin
-    	, "0:从左开始;1:从右开始"
-      , "车道编号起始方向"
+    	, "0:From left;1: From right"
+      , "Lane number starting direction"
       , ""
       , CUSTOM_LEVEL
     );
@@ -677,8 +723,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, &Get().cTrackerCfgParam.iStartRoadNum
     	, Get().cTrackerCfgParam.iStartRoadNum
     	, "0:0;1:1;2:2;3:3;4:4;5:5;6:6;7:7;8:8;9:9"
-    	, "车道号起始编号"
-    	, "0:从0开始,1:从1开始,以此类推..."
+    	, "Start Number of Lane Number"
+    	, "0:Start from 0;1:Start from1, and so on..."
     	, CUSTOM_LEVEL
     );
 	
@@ -693,7 +739,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         	, Get().cTrackerCfgParam.rgcRoadInfo[i].ptTop.x
         	, 0
         	, 5000
-        	, "顶X坐标"
+        	, "Top X coordinates"
         	, ""
         	, CUSTOM_LEVEL
         );
@@ -704,7 +750,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         	, Get().cTrackerCfgParam.rgcRoadInfo[i].ptTop.y
         	, 0
         	, 5000
-        	, "顶Y坐标"
+        	, "Top Y coordinates"
         	, ""
         	, CUSTOM_LEVEL
         );
@@ -715,7 +761,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         	, Get().cTrackerCfgParam.rgcRoadInfo[i].ptBottom.x
         	, 0
         	, 5000
-        	, "底X坐标"
+        	, "Bottom X coordinates"
         	, ""
         	, CUSTOM_LEVEL
         );
@@ -726,7 +772,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         	, Get().cTrackerCfgParam.rgcRoadInfo[i].ptBottom.y
         	, 0
         	, 5000
-        	, "底Y坐标"
+        	, "Bottom Y coordinates"
         	, ""
         	, CUSTOM_LEVEL
         );
@@ -759,8 +805,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "VideoDetMode"
     	, &Get().cTrackerCfgParam.cVideoDet.nVideoDetMode
     	, Get().cTrackerCfgParam.cVideoDet.nVideoDetMode
-    	, "0:不使用视频检测;1:只使用背景检测;2:使用视频检测"
-    	, "视频检测模式"
+    	, "0:don't use video detection;1:only use background detection;2:use video detection"
+    	, "Video detection mode"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -771,7 +817,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.rcVideoDetArea.left
     	, 0
     	, 100
-    	, "视频检测左区域"
+    	, "Left of video detection area"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -782,7 +828,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.rcVideoDetArea.right
     	, 0
     	, 100
-    	, "视频检测右区域"
+    	, "Right of video detection area"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -793,7 +839,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.rcVideoDetArea.top
     	, 0
     	, 100
-    	, "视频检测上区域"
+    	, "Top of video detection area"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -804,7 +850,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.rcVideoDetArea.bottom
     	, 0
     	, 100
-    	, "视频检测下区域"
+    	, "Bottom of video detection area"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -815,7 +861,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.nDayBackgroudThreshold
     	, 0
     	, 255
-    	, "白天背景检测阈值"
+    	, "Day-time detection threshold"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -826,7 +872,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.nNightBackgroudThreshold
     	, 0
     	, 255
-    	, "晚上背景检测阈值"
+    	, "Night-time detection threshold"
     	, ""
     	, PROJECT_LEVEL
     ); 
@@ -838,12 +884,12 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, Get().cTrackerCfgParam.cVideoDet.nVoteFrameCount
     	, 15
     	, 100
-    	, "投票有效帧数，当帧数大于此值就投票"
+    	, "Voting valid frame count, when count number greater than this  value, then vote"
     	, ""
     	, PROJECT_LEVEL
     );
     
-    GetEnum("\\Tracker\\VideoDet"
+    /*GetEnum("\\Tracker\\VideoDet"
     	, "CheckAcross"
     	, &Get().cTrackerCfgParam.cVideoDet.nCheckAcross
     	, Get().cTrackerCfgParam.cVideoDet.nCheckAcross
@@ -851,7 +897,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
     	, "是否检测横向行驶的物体"
     	, ""
     	, PROJECT_LEVEL
-    );
+    );*/
     
 
     //Scale有效性判断
@@ -908,8 +954,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, "ShadowDetMode"
 		, &Get().cTrackerCfgParam.cVideoDet.nShadowDetMode
 		, Get().cTrackerCfgParam.cVideoDet.nShadowDetMode
-		, "0:不使用阴影检测;1:使用阴影检测"
-		, "阴影检测模式"
+		, "0:Don't use shadow detection;1:Use shadow detection"
+		, "Shadow detection mode"
 		, ""
 		, PROJECT_LEVEL
 	);
@@ -920,8 +966,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, Get().cTrackerCfgParam.cVideoDet.nShadowDetEffect
 		, 0
 		, 100
-		, "阴影检测强弱程度值"
-		, "0:使用缺省值(不精确), 1:阴影检测强弱程度最小, 100:阴影检测强弱程度最大"
+		, "Shadow Detection Degree Value"
+		, "0:Use default value(inaccuracy);1:Shadow detection Min. power;100:Shadow detection Max. power"
 		, PROJECT_LEVEL
 	);
 	
@@ -929,9 +975,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, "DiffType"
 		, &Get().cTrackerCfgParam.cVideoDet.nDiffType
 		, Get().cTrackerCfgParam.cVideoDet.nDiffType
-		, "0:帧差提取;1:帧差后sobel前景"
-		, "前景提取方式"
-		, "值为0:帧差提取 值为1:帧差后sobel前景，针对高速路卡口两车道车身多检"
+		, "0:Frame difference extract;1:After Fram difference front scene"
+		, "Front Scene  Extraction Method"
+		, "0:Frame difference extract;1:After from difference front scene, aim at chekpoint on highway two lanes vehicle body check"
 		, PROJECT_LEVEL
 	);
 	
@@ -939,8 +985,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, "MedFilter"
 		, &Get().cTrackerCfgParam.cVideoDet.nMedFilter
 		, Get().cTrackerCfgParam.cVideoDet.nMedFilter
-		, "0:关闭;1:打开"
-		, "抑制抖动开关"
+		, "0:Close;1:Open"
+		, "Jitter suppression switch"
 		, ""
 		, PROJECT_LEVEL
 	);
@@ -951,8 +997,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, Get().cTrackerCfgParam.cVideoDet.nMedFilterUpLine
 		, 0
 		, 100
-		, "抑制抖动作用区域上区域"
-		, "值为0:屏幕最上方 值为100:屏幕最下方"
+		, "Jitter Suppression Function Upper Area"
+		, "0:Top of the screen;100:Bottom of the screen"
 		, PROJECT_LEVEL
 	);
 	
@@ -962,12 +1008,12 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, Get().cTrackerCfgParam.cVideoDet.nMedFilterDownLine
 		, 0
 		, 100
-		, "抑制抖动作用区域下区域"
-		, "值为0:屏幕最上方 值为100:屏幕最下方"
+		, "Jitter Suppression Function Lower Area"
+		, "0:Top of the screen;100:Bottom of the screen"
 		, PROJECT_LEVEL
 	);
 	
-	GetEnum("\\Tracker\\Recognition"
+	/*GetEnum("\\Tracker\\Recognition"
 		, "EnableRecogCarColor"
 		, &Get().cTrackerCfgParam.fEnableRecgCarColor
 		, Get().cTrackerCfgParam.fEnableRecgCarColor
@@ -975,7 +1021,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, "车身颜色识别开关"
 		, ""
         , PROJECT_LEVEL
-	);
+	);*/
 	
 	if (Get().cTrackerCfgParam.nMinFaceScale > Get().cTrackerCfgParam.nMaxFaceScale)
 	{
@@ -1077,7 +1123,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
 		, Get().cTrackerCfgParam.nNightThreshold
 		, 0
 		, 240
-		, "夜晚模式亮度上限"
+		, "Brightness upper limit in night mode"
 		, ""
 		, PROJECT_LEVEL
 		);
@@ -1171,9 +1217,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         , Get().cTrackerCfgParam.nCaptureOnePos
         , 0
         , 100
-        , "第一张图的位置"
+        , "Position of first snapshot"
         , ""
-        , CUSTOM_LEVEL
+        , PROJECT_LEVEL
     );
 
     GetInt("Tracker\\Misc"
@@ -1182,7 +1228,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitTracker(VOID)
         , Get().cTrackerCfgParam.nCaptureTwoPos
         , 0
         , 100
-        , "第二张图的位置"
+        , "Position of video detection image"
         , ""
         , CUSTOM_LEVEL
     );
@@ -1197,8 +1243,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
     	, "IPNCLogOutput"
     	, &Get().cCamCfgParam.iIPNCLogOutput
     	, Get().cCamCfgParam.iIPNCLogOutput
-    	, "0:不输出;1:输出"
-    	, "输出IPNC日志信息"
+    	, "0: No output;1: Output"
+    	, "Output IPNC log information"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -1207,21 +1253,21 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "OutputFilterInfo"
             , &Get().cResultSenderParam.fOutputFilterInfo
             , Get().cResultSenderParam.fOutputFilterInfo
-            , "0:不输出;1:输出"
-            , "输出后处理信息"
+            , "0:No output;1:Output"
+            , "Output processed information"
             , ""
-            , CUSTOM_LEVEL
+            , PROJECT_LEVEL
            );
 
     // 参数传递.
     Get().cResultSenderParam.cProcRule.fOutPutFilterInfo = Get().cResultSenderParam.fOutputFilterInfo;
 
-    GetEnum("\\HvDsp\\Misc"
+   GetEnum("\\HvDsp\\Misc"
             , "DrawRect"
             , &Get().cResultSenderParam.iDrawRect
             , Get().cResultSenderParam.iDrawRect
-            , "0:不发送;1:发送"
-            , "发送图像画红框"
+            , "0:Don't send;1:Send"
+            , "Send image painted red frame"
             , ""
             , PROJECT_LEVEL
            );
@@ -1351,8 +1397,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "EnableNTP"
             , &Get().cResultSenderParam.fEnableNtp
             , Get().cResultSenderParam.fEnableNtp
-            , "0:不使能;1:使能"
-            , "NTP使能开关"
+            , "0:Disable;1:Enable"
+            , "Enable NTP"
             , ""
             , CUSTOM_LEVEL
            );
@@ -1364,7 +1410,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , Get().cResultSenderParam.iNtpSyncInterval
             , 300
             , 2147483647
-            , "NTP时间同步间隔(单位秒)"
+            , "NTP time synchronization interval(S)"
             , ""
             , CUSTOM_LEVEL
           );
@@ -1375,7 +1421,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , Get().cResultSenderParam.szNtpServerIP
             , Get().cResultSenderParam.szNtpServerIP
             , sizeof(Get().cResultSenderParam.szNtpServerIP)
-            , "NTP服务器IP地址"
+            , "NTP service IP"
             , ""
             , CUSTOM_LEVEL
             );
@@ -1409,7 +1455,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
 			"22:GMT+10;"
 			"23:GMT+11;"
 			"24:GMT+12"
-		, "时区"
+		, "Time zone"
 		, ""
 		, CUSTOM_LEVEL
 	);
@@ -1418,13 +1464,13 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
         , "FlashOneByOne"
         , &Get().cResultSenderParam.iFlashOneByOne
         , Get().cResultSenderParam.iFlashOneByOne
-        , "0:关闭;1:开启"
-        , "闪光灯轮闪"
-        , "接入两个闪光灯时，开启时可轮流闪烁"
+        , "0:Close;1:Open"
+        , "Two flash light take turns to flash"
+        , "When opening, Two flash light take turns to flash"
         , CUSTOM_LEVEL
     );
 
-    GetString("\\HvDsp\\FilterRule"
+    /*GetString("\\HvDsp\\FilterRule"
             , "Compaty"
             , Get().cResultSenderParam.cProcRule.szCompatyRule
             , Get().cResultSenderParam.cProcRule.szCompatyRule
@@ -1462,23 +1508,23 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "循环替换"
             , ""
             , CUSTOM_LEVEL
-           );
+           );*/
 
-    GetString("\\HvDsp\\Identify", "StreetName"
+    GetString("\\HvDsp\\Identify", "RoadName"
             , Get().cResultSenderParam.szStreetName
             , Get().cResultSenderParam.szStreetName
             , sizeof(Get().cResultSenderParam.szStreetName)
-            , "路口名称"
+            , "Road name"
             , ""
             , CUSTOM_LEVEL
             );
 
     GetString("\\HvDsp\\Identify"
-            , "StreetDirection"
+            , "RoadDirection"
             , Get().cResultSenderParam.szStreetDirection
             , Get().cResultSenderParam.szStreetDirection
             , sizeof(Get().cResultSenderParam.szStreetDirection)
-            , "路口方向"
+            , "Road direction"
             , ""
             , CUSTOM_LEVEL
             );
@@ -1564,8 +1610,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "OutputLastSnap"
             , &Get().cResultSenderParam.iLastSnapshotOutput
             , Get().cResultSenderParam.iLastSnapshotOutput
-            , "0:不输出;1:输出"
-            , "全景图大图输出"
+            , "0:No output;1:Output"
+            , "Output vedio snapshot image"
             , ""
             , CUSTOM_LEVEL
            );
@@ -1616,15 +1662,15 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "DetReverseRunEnable"
             , &Get().cTrackerCfgParam.nDetReverseRunEnable
             , Get().cTrackerCfgParam.nDetReverseRunEnable
-            , "0:关;1:开"
-            , "逆行检测开关"
+            , "0:Close;1:Open"
+            , "Opposite direction detection switch"
             , ""
             , CUSTOM_LEVEL
            );
 	if(Get().cTrackerCfgParam.nDetReverseRunEnable)
 		Get().cTrackerCfgParam.fFilterReverseEnable=FALSE;
 
-    GetInt("\\Tracker\\DetReverseRun"
+    /*GetInt("\\Tracker\\DetReverseRun"
             , "Span"
             , &Get().cTrackerCfgParam.nSpan
             , Get().cTrackerCfgParam.nSpan
@@ -1633,7 +1679,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "过滤慢速逆行车辆跨度"
             , ""
             , CUSTOM_LEVEL
-          );
+          );*/
 
     /*GetFloat("\\HvDsp\\EventChecker"
             , "OverLineSensitivity"
@@ -1720,7 +1766,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , Get().cResultSenderParam.iSpeedLimit
             , 0
             , 1000
-            , "速度上限值(km/h)"
+            , "Speed upper limit(km/h)"
             , ""
             , CUSTOM_LEVEL
           );
@@ -1731,8 +1777,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
             , "OutputCarSize"
             , &Get().cTrackerCfgParam.fOutputCarSize
             , Get().cTrackerCfgParam.fOutputCarSize
-            , "0:不输出;1:输出"
-            , "输出车辆尺寸"
+            , "0:No output;1:Output"
+            , "Output vehicle size"
             , ""
             , PROJECT_LEVEL
            );
@@ -1743,8 +1789,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
         , Get().cResultSenderParam.fEnableTriggerOut
         , 0
         , 1
-        , "触发输出使能开关"
-        , "0是不触发，1是触发"
+        , "Enable output trigger switch"
+        , "0:No output;1:Output"
         , PROJECT_LEVEL
         );
 
@@ -1754,7 +1800,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitHvDsp(VOID)
         , Get().cResultSenderParam.nTriggerOutPlusWidth
         , 100
         , 30000
-        , "触发输出通断时间，单位为ms"
+        , "Trigger output on-off time (ms)"
         , ""
         , PROJECT_LEVEL
         );
@@ -1771,7 +1817,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , Get().cCamCfgParam.szIP
             , Get().cCamCfgParam.szIP
             , (100-1)
-            , "识别相机IP"
+            , "Recognition Camera IP"
             , ""
             , PROJECT_LEVEL
             );
@@ -1780,8 +1826,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , "ProtocolType"
             , &Get().cCamCfgParam.iCamType
             , Get().cCamCfgParam.iCamType
-            , "0:一体机协议;1:测试协议"
-            , "协议类型"
+            , "0:Smart camera protocol;1:Test protocol"
+            , "Protocol type"
             , ""
             , PROJECT_LEVEL
            );
@@ -1792,8 +1838,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , Get().cCamCfgParam.iCamPort
             , 1024
             , 99999
-            , "测试协议端口号"
-            , "端口号"
+            , "Test protocol port type"
+            , "Port"
             , PROJECT_LEVEL
           );
 
@@ -1802,18 +1848,18 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , "DynamicCfgEnable"
             , &Get().cCamCfgParam.iDynamicCfgEnable
             , Get().cCamCfgParam.iDynamicCfgEnable
-            , "0:关闭;1:打开"
-            , "动态设置参数"
+            , "0:Close;1:Open"
+            , "Dynamic settings"
             , ""
-            , PROJECT_LEVEL
+            , CUSTOM_LEVEL
            );
 
     GetEnum("\\HvDsp\\Camera\\Ctrl"
             , "DynamicTriggerEnable"
             , &Get().cCamCfgParam.iDynamicTriggerEnable
             , Get().cCamCfgParam.iDynamicTriggerEnable
-            , "0:雷达触发;1:视频触发"
-            , "触发抓拍相机"
+            , "0:Radar trigger;1:Video detection trigger"
+            , "Trigger snapshot camera"
             , ""
             , PROJECT_LEVEL
            );
@@ -1825,7 +1871,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , Get().cCamCfgParam.iTriggerDelay
             , 0
             , 65535
-            , "触发延时(ms)"
+            , "Trigger delay(ms)"
             , ""
             , PROJECT_LEVEL
           );
@@ -1900,7 +1946,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , Get().cCamCfgParam.iMaxAGCLimit
             , 0
             , 255
-            , "最大AGC门限值"
+            , "Max. AGC threshold"
             , ""
             , CUSTOM_LEVEL
           );
@@ -1911,7 +1957,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
             , Get().cCamCfgParam.iMinAGCLimit
             , 0
             , 255
-            , "最小AGC门限值"
+            , "Min. AGC threshold"
             , ""
             , CUSTOM_LEVEL
           );
@@ -2038,19 +2084,6 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
 //            , PROJECT_LEVEL
 //          );
 
-
-	
-//	GetInt("\\HvDsp\\Camera\\WorkType"
-//				, "WorkType"
-//				, &Get().cCamCfgParam.iWorkType
-//				, Get().cCamCfgParam.iWorkType
-//				, 0
-//				, 1
-//				, "正装侧装"
-//				, "0为正装(红外检车)，1为侧装(雷达检车)"
-//				, PROJECT_LEVEL
-//			  );
-
     char szText[255] = {0};
     char szChnText[255] = {0};
     const char *szLightType[] =
@@ -2070,10 +2103,12 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
         "Night",
         "Night2"
     };
+    int iAGCDB = (Get().cCamCfgParam.iMaxAGCLimit - Get().cCamCfgParam.iMinAGCLimit) / 13;
     for (int i = 0; i < MAX_LEVEL_COUNT; i++)
     {
+		Get().cCamCfgParam.irgAGCLimit[i] = Get().cCamCfgParam.iMinAGCLimit + (iAGCDB * i);
         sprintf(szText, "\\HvDsp\\Camera\\%s", szLightType[i]);
-        sprintf(szChnText, "%d级曝光时间", i);
+        sprintf(szChnText, "%d Level Exposure Time", i);
         GetInt(szText
                 , "ExposureTime"
                 , &Get().cCamCfgParam.irgExposureTime[i]
@@ -2085,7 +2120,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
                 , CUSTOM_LEVEL
               );
 
-        sprintf(szChnText, "%d级增益", i);
+        sprintf(szChnText, "%d Level Gain", i);
         GetInt(szText
                 , "Plus"
                 , &Get().cCamCfgParam.irgGain[i]
@@ -2097,7 +2132,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamApp(VOID)
                 , CUSTOM_LEVEL
               );
 
-        sprintf(szChnText, "%d级AGC增益门限", i);
+        sprintf(szChnText, "%d Level AGC Gain Threshold", i);
         GetInt(szText
                 , "AGCLimit"
                 , &Get().cCamCfgParam.irgAGCLimit[i]
@@ -2129,7 +2164,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 		GetEnum((LPCSTR)strCOMM
 			, "Baudrate"
 			, &Get().cDevParam[i].iBaudrate
-			, 9600
+			, Get().cDevParam[i].iBaudrate
 			, "300:300"
 			  ";600:600"
 			  ";1200:1200"
@@ -2142,7 +2177,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			  ";56000:56000"
 			  ";57600:57600"
 			  ";115200:115200"
-			, "波特率"
+			, "Baud rate"
 			, ""
 			, CUSTOM_LEVEL
 		);
@@ -2151,8 +2186,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, "DeviceType"
 			, &Get().cDevParam[i].iDeviceType
 			, Get().cDevParam[i].iDeviceType
-			, "0:无;1:川速雷达;2:苏江车检器;4:奥利维亚雷达;5:四川九洲雷达"
-			, "外部设备类型"
+			, "0:None;1:Radar serial converter server"
+			, "Outer devices types"
 			, ""
 			, CUSTOM_LEVEL
 		);
@@ -2166,18 +2201,17 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, "所属车道编号"
 			, PROJECT_LEVEL
 		);*/
-		Get().cDevParam[i].iRoadNo=255;
-
+		
 	if(Get().cCamCfgParam.iDynamicTriggerEnable>0)
 	{
 		GetInt((LPCSTR)strCOMM
 			, "COM2RoadNo1"
 			, &Get().cDevParam[i].iComNo2RoadNo1
 			, Get().cDevParam[i].iComNo2RoadNo1
+			, 0
 			, 1
-			, 2
-			, "所属车道编号"
-			, "所属车道编号"
+			, "Com1 Lane number"
+			, "Only effective when DeviceType=1 0:Left lane,1:Right lane"
 			, CUSTOM_LEVEL
 		);
 
@@ -2185,10 +2219,32 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitIPTCtrl(VOID)
 			, "COM2RoadNo2"
 			, &Get().cDevParam[i].iComNo2RoadNo2
 			, Get().cDevParam[i].iComNo2RoadNo2
+			, 0
 			, 1
-			, 2
-			, "所属车道编号"
-			, "所属车道编号"
+			, "Com2 Lane number"
+			, "Only effective when DeviceType=1 0:Left lane,1:Right lane"
+			, CUSTOM_LEVEL
+		);
+
+		GetInt((LPCSTR)strCOMM
+			, "COM2RoadNo3"
+			, &Get().cDevParam[i].iComNo2RoadNo3
+			, Get().cDevParam[i].iComNo2RoadNo3
+			, 0
+			, 1
+			, "Com3 Lane number"
+			, "Only effective when DeviceType=1 0:Left lane,1:Right lane"
+			, CUSTOM_LEVEL
+		);
+
+		GetInt((LPCSTR)strCOMM
+			, "COM2RoadNo4"
+			, &Get().cDevParam[i].iComNo2RoadNo4
+			, Get().cDevParam[i].iComNo2RoadNo4
+			, 0
+			, 1
+			, "Com4 Lane number"
+			, "Only effective when DeviceType=1 0:Left lane,1:Right lane"
 			, CUSTOM_LEVEL
 		);
 	}
@@ -2260,8 +2316,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , (INT *)&Get().cMatchParam.dwSignalKeepTime
             , Get().cMatchParam.dwSignalKeepTime
             , 500
-            , 600000
-            , "信号保留时间"
+            , 10000
+            , "Signal reserve duration"
             , ""
             , CUSTOM_LEVEL
           );
@@ -2271,8 +2327,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , (INT *)&Get().cMatchParam.dwPlateKeepTime
             , Get().cMatchParam.dwPlateKeepTime
             , 500
-            , 600000
-            , "结果保留时间"
+            , 10000
+            , "Result reserve duration"
             , ""
             , CUSTOM_LEVEL
           );
@@ -2282,8 +2338,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , (INT *)&Get().cMatchParam.dwMatchMinTime
             , Get().cMatchParam.dwMatchMinTime
             , 0
-            , 600000
-            , "结果向前匹配信号最大时间差"
+            , 10000
+            , "Result forward signal matching Max.time difference"
             , ""
             , CUSTOM_LEVEL
           );
@@ -2293,8 +2349,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , (INT *)&Get().cMatchParam.dwMatchMaxTime
             , Get().cMatchParam.dwMatchMaxTime
             , 0
-            , 600000
-            , "结果向后匹配信号最大时间差"
+            , 10000
+            , "Result backward signal matching Max.time difference"
             , ""
             , CUSTOM_LEVEL
           );
@@ -2303,8 +2359,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             , "RecogSnapImg"
             , &Get().cMatchParam.fCaptureRecong
             , Get().cMatchParam.fCaptureRecong
-            , "0:关闭;1:打开"
-            , "抓拍图片识别开关"
+            , "0:Close;1:Open"
+            , "Capture image recognation Switch"
             , ""
             , PROJECT_LEVEL
            );
@@ -2314,7 +2370,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
     }*/
 	Get().cMatchParam.fCaptureRecong = FALSE;
 
-    CHAR szRecogArea[64] = {0};
+    /*CHAR szRecogArea[64] = {0};
     swpa_strcpy(szRecogArea, "(0,50,100,100),6,12");
     GetString("\\OuterCtrl"
             , "RecogArea"
@@ -2334,7 +2390,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
             &Get().cMatchParam.iDetectorAreaBottom,
             &Get().cMatchParam.iDetectorMinScaleNum,
             &Get().cMatchParam.iDetectorMaxScaleNum
-            );
+            );*/
 
     Get().cTrackerCfgParam.cRecogSnapArea.fEnableDetAreaCtrl = FALSE;
     Get().cTrackerCfgParam.cRecogSnapArea.DetectorAreaLeft = Get().cMatchParam.iDetectorAreaLeft;
@@ -2354,8 +2410,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , "SignalType"
                 , (INT *)&Get().cMatchParam.signal[i].dwType
                 , Get().cMatchParam.signal[i].dwType
-                , "0:无;1:速度;3:抓拍图"
-                , "信号类型"
+                , "0:NO;1:Speed;3:Snapshot"
+                , "Signal type"
                 , ""
                 , CUSTOM_LEVEL
                );
@@ -2366,17 +2422,20 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , Get().cMatchParam.signal[i].dwRoadID
                 , 0
                 , 0xFF
-                , "车道号"
-                , ""
+                , "Lane number"
+                , "0:Left,1:Right,All:255"
                 , CUSTOM_LEVEL
               );
+		
+		//if(Get().cMatchParam.signal[i].dwType==3)
+			//Get().cMatchParam.signal[i].dwRoadID=0xFF;
 
-        GetEnum((LPCSTR)strTmp
+        /*GetEnum((LPCSTR)strTmp
                 , "SignalID"
                 , (INT *)&Get().cMatchParam.signal[i].dwSignalID
                 , Get().cMatchParam.signal[i].dwSignalID
                 , "0:0;1:1;2:2"
-                , "同一车道的信号索引"
+                , "Signal Index in Same Lane"
                 , ""
                 , PROJECT_LEVEL
                );
@@ -2385,13 +2444,13 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , "Recognize"
                 , (INT *)&Get().cMatchParam.signal[i].fRecognize
                 , Get().cMatchParam.signal[i].fRecognize
-                , "0:不识别;1:识别"
-                , "图片是否要识别"
+                , "0:Nonrecognition,1:Recognition"
+                , "Image Recognition"
                 , ""
                 , PROJECT_LEVEL
-               );
+               );*/
 
-        GetEnum((LPCSTR)strTmp
+        /*GetEnum((LPCSTR)strTmp
                 , "Condition"
                 , (INT *)&Get().cMatchParam.signal[i].dwCondition
                 , Get().cMatchParam.signal[i].dwCondition
@@ -2399,7 +2458,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitOuterCtrl(VOID)
                 , "匹配条件"
                 , ""
                 , PROJECT_LEVEL
-               );
+               );*/
 		
 		if(Get().cMatchParam.signal[i].dwType>0)
 			Get().cMatchParam.signal[i].dwCondition=0;
@@ -2415,8 +2474,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		  , "AutoControlAll"
 		  , &Get().cCamAppParam.iAutoControlCammeraAll
 		  , Get().cCamAppParam.iAutoControlCammeraAll
-		  , "0:手动控制;1:全自动控制"
-		  , "相机控制模式"
+		  , "0:Manual control;1:Full automatic control"
+		  , "Camera control mode"
 		  , ""
           , PROJECT_LEVEL
 	  );
@@ -2425,8 +2484,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "AWBWorkMode"
     	, &Get().cCamAppParam.iAWBWorkMode
     	, Get().cCamAppParam.iAWBWorkMode
-        , "0:自动白平衡模式一;1:自动白平衡模式二;2:自动白平衡红外模式"
-    	, "自动白平衡工作模式"
+        , "0:AWB mode one;1:AWB mode two;2:AWB IR mode"
+    	, "Automatic white balance work mode"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2437,7 +2496,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iJpegCompressRate
     	, 1
     	, 99
-    	, "视频流Jpeg压缩品质"
+    	, "JPEG Compression Quality"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2448,7 +2507,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iIFrameInterval
     	, 2			//金星要求最小I帧间隔为2
     	, 60		//M3目前限制最大60
-    	, "H.264流I帧间隔"
+    	, "H.264 video stream I frame interval"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2466,7 +2525,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, &Get().cCamAppParam.iResolution
     	, Get().cCamAppParam.iResolution
     	, "0:1080P;1:720P"
-    	, "H.264图像分辨率"
+    	, "H.264 image resolution"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2477,8 +2536,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iTargetBitRate
     	, 512
     	, 16*1024
-    	, "H.264流输出比特率"
-    	, "单位：Kbps"
+    	, "H.264 output bit rate"
+    	, "Units: Kbps"
     	, CUSTOM_LEVEL
     );
 
@@ -2488,8 +2547,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iMaxBitRate
     	, 512
     	, 16*1024
-    	, "H.264流输出最大比特率"
-    	, "单位：Kbps"
+    	, "Max bit rate of H.264 output"
+    	, "Units: Kbps"
     	, CUSTOM_LEVEL
 	);
 
@@ -2498,8 +2557,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, &Get().cCamAppParam.iRateControl
 		, Get().cCamAppParam.iRateControl
 		, "0:VBR;1:CBR"
-		, "H.264码率类型"
-		, "0:VBR 可变码率;1:CBR 恒定码率"
+		, "H.264 bit rate type"
+		, "0:VBR variable bit rate;1:CBR constant bit rate"
 		, CUSTOM_LEVEL
 	);
 
@@ -2509,7 +2568,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iAGCTh
     	, 0
     	, 255
-    	, "AGC测光基准值"
+    	, "AGC light metering standard value"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2518,42 +2577,52 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "AGCDayNightShutterControl"
         , &Get().cCamAppParam.iAGCDayNightShutterControl
         , Get().cCamAppParam.iAGCDayNightShutterControl
-        , "0:关闭;1:开启"
-        , "AGC白天晚上快门上限控制开关"
+        , "0:Close;1:Open"
+        , "AGC day or night shutter/gain control switch"
         , ""
-        , PROJECT_LEVEL
+        , CUSTOM_LEVEL
     );
 
     GetInt("\\CamApp"
         , "AGCNightShutterHOri"
         , &Get().cCamAppParam.iAGCNightShutterHOri
         , Get().cCamAppParam.iAGCNightShutterHOri
-        , 0
+        , 100
         , 30000
-        , "AGC晚上快门调节上限"
+        , "AGC limit adjustment shutter at night"
         , ""
-        , PROJECT_LEVEL
+        , CUSTOM_LEVEL
+    );
+
+	GetInt("\\CamApp"
+    	, "AGCNightGainHOri"
+    	, &Get().cCamAppParam.iAGCNightGainHOri
+    	, Get().cCamAppParam.iAGCNightGainHOri
+        , Get().cCamAppParam.iAGCGainLOri+1         // 最小值为 增益调节下限+1
+        , 360					//金星185前端增益范围为0~480
+    	, "AGC gain adjustment cap at night"
+    	, ""
+    	, CUSTOM_LEVEL
     );
 
     GetInt("\\CamApp"
     	, "AGCShutterLOri"
     	, &Get().cCamAppParam.iAGCShutterLOri
     	, Get().cCamAppParam.iAGCShutterLOri
-    	, 0
+    	, 100
     	, 30000
-    	, "AGC快门调节下限"
+    	, "AGC shutter adjustment lower limit"
     	, ""
     	, CUSTOM_LEVEL
     );
 
-    Get().cCamAppParam.iAGCShutterHOri = 3000;
     GetInt("\\CamApp"
     	, "AGCShutterHOri"
     	, &Get().cCamAppParam.iAGCShutterHOri
     	, Get().cCamAppParam.iAGCShutterHOri
-    	, 0
+    	, 100
     	, 30000
-    	, "AGC快门调节上限"
+    	, "AGC shutter adjustment upper limit"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2562,9 +2631,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "AGCGainLOri"
     	, &Get().cCamAppParam.iAGCGainLOri
     	, Get().cCamAppParam.iAGCGainLOri
-    	, 0
+    	, 10
         , 360					//金星185前端增益范围为0~480
-    	, "AGC增益调节下限"
+    	, "AGC gain adjustment lower limit"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2575,20 +2644,20 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iAGCGainHOri
         , Get().cCamAppParam.iAGCGainLOri+1         // 最小值为 增益调节下限+1
         , 360					//金星185前端增益范围为0~480
-    	, "AGC增益调节上限"
+    	, "AGC gain adjustment upper limit"
     	, ""
     	, CUSTOM_LEVEL
     );
 
-    GetEnum("\\CamApp"
+    /*GetEnum("\\CamApp"
         , "AGCScene"
         , &Get().cCamAppParam.iAGCScene
         , Get().cCamAppParam.iAGCScene
-        , "0:自动;1:偏暗;2:标准;3:较亮"
-        , "情景模式"
+        , "0:Automatic;1:Dark;2:Normal;3:Bright"
+        , "Scene Mode"
         , ""
-        , PROJECT_LEVEL
-    );
+        , CUSTOM_LEVEL
+    );*/
 
     GetInt("\\CamApp"
     	, "GainR"
@@ -2596,7 +2665,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iGainR
     	, 36
     	, 255
-    	, "R增益"
+    	, "R Gain"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2607,9 +2676,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iGainG
     	, 36
     	, 255
-    	, "G增益"
+    	, "G Gain"
     	, ""
-    	, PROJECT_LEVEL
+    	, CUSTOM_LEVEL
     );
 
     GetInt("\\CamApp"
@@ -2618,7 +2687,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iGainB
     	, 36
     	, 255
-    	, "B增益"
+    	, "B Gain"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2627,9 +2696,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "Gain"
     	, &Get().cCamAppParam.iGain
     	, Get().cCamAppParam.iGain
-    	, 0
+    	, 10
         , 360					//金星185前端增益范围为0~480
-    	, "增益"
+    	, "Gain"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2638,10 +2707,10 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "Shutter"
     	, &Get().cCamAppParam.iShutter
     	, Get().cCamAppParam.iShutter
-    	, 0
+    	, 100
     	, 30000
-    	, "快门"
-    	, "单位：us"
+    	, "Shutter"
+    	, "Units:us"
     	, CUSTOM_LEVEL
     );
 #if 1	//暂时无抓拍
@@ -2651,53 +2720,53 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "CaptureAutoParamEnable"
         , &Get().cCamAppParam.iCaptureAutoParamEnable
         , Get().cCamAppParam.iCaptureAutoParamEnable
-        , "0:不使能;1:使能"
-        , "自动抓拍参数设置使能"
-        , "使能则自动，否则用手动参数"
-        , CUSTOM_LEVEL
+        , "0:Disable;1:Enable"
+        , "Open automatically snap parameter Settings"
+        , ""
+        , PROJECT_LEVEL
     );	
 
-//    GetInt("\\CamApp"
-//        , "CaptureGainR"
-//        , &Get().cCamAppParam.iCaptureGainR
-//        , Get().cCamAppParam.iCaptureGainR
-//        , 36
-//        , 255
-//        , "抓拍R增益"
-//        , "手动抓拍使能生效"
-//        , CUSTOM_LEVEL
-//    );
+    GetInt("\\CamApp"
+        , "CaptureGainR"
+        , &Get().cCamAppParam.iCaptureGainR
+        , Get().cCamAppParam.iCaptureGainR
+        , 36
+        , 255
+        , "Capture R Gain"
+        , "Only used in manual capture mode or nighttime"
+        , PROJECT_LEVEL
+    );
 
-//    GetInt("\\CamApp"
-//        , "CaptureGainG"
-//        , &Get().cCamAppParam.iCaptureGainG
-//        , Get().cCamAppParam.iCaptureGainG
-//        , 36
-//        , 255
-//        , "抓拍G增益"
-//        , "手动抓拍使能生效"
-//        , CUSTOM_LEVEL
-//    );
+    GetInt("\\CamApp"
+        , "CaptureGainG"
+        , &Get().cCamAppParam.iCaptureGainG
+        , Get().cCamAppParam.iCaptureGainG
+        , 36
+        , 255
+        , "Capture G Gain"
+        , "Only used in manual capture mode or nighttime"
+        , PROJECT_LEVEL
+    );
 
-//    GetInt("\\CamApp"
-//        , "CaptureGainB"
-//        , &Get().cCamAppParam.iCaptureGainB
-//        , Get().cCamAppParam.iCaptureGainB
-//        , 36
-//        , 255
-//        , "抓拍B增益"
-//        , "手动抓拍使能生效"
-//        , CUSTOM_LEVEL
-//    );
+    GetInt("\\CamApp"
+        , "CaptureGainB"
+        , &Get().cCamAppParam.iCaptureGainB
+        , Get().cCamAppParam.iCaptureGainB
+        , 36
+        , 255
+        , "Capture B Gain"
+        , "Only used in manual capture mode or nighttime"
+        , PROJECT_LEVEL
+    );
 
     GetInt("\\CamApp"
         , "CaptureGain"
         , &Get().cCamAppParam.iCaptureGain
         , Get().cCamAppParam.iCaptureGain
-        , 0
+        , 10
         , 360
-        , "抓拍增益"
-        , "手动抓拍使能生效"
+        , "Capture gain"
+        , "Only used in manual capture mode or nighttime"
         , CUSTOM_LEVEL
     );
 
@@ -2705,10 +2774,10 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "CaptureShutter"
         , &Get().cCamAppParam.iCaptureShutter
         , Get().cCamAppParam.iCaptureShutter
-        , 0
+        , 100
         , 30000
-        , "抓拍快门"
-        , "单位：us 手动抓拍使能生效"
+        , "Capture shutter"
+        , "(Units: us) Only effective in manual capture mode or nighttime"
         , CUSTOM_LEVEL
     );
 
@@ -2724,24 +2793,23 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     );*/
 
 
-//    GetEnum("\\CamApp"
-//        , "EnableCaptureGainRGB"
-//        , &Get().cCamAppParam.iEnableCaptureGainRGB
-//        , Get().cCamAppParam.iEnableCaptureGainRGB
-//        , "0:不使能;1:使能"
-//        , "抓拍RGB增益使能"
-//        , "手动抓拍使能生效"
-//        , CUSTOM_LEVEL
-//    );
-
+    GetEnum("\\CamApp"
+        , "EnableCaptureGainRGB"
+        , &Get().cCamAppParam.iEnableCaptureGainRGB
+        , Get().cCamAppParam.iEnableCaptureGainRGB
+        , "0:Disable;1:Enable"
+        , "Capture RGB gain enable"
+        , "Only used in manual capture mode or nighttime"
+        , PROJECT_LEVEL
+    );
 
     GetEnum("\\CamApp"
         , "EnableCaptureGain"
         , &Get().cCamAppParam.iEnableCaptureGain
         , Get().cCamAppParam.iEnableCaptureGain
-        , "0:不使能;1:使能"
-        , "抓拍增益使能"
-        , "手动抓拍使能生效"
+        , "0:Disable;1:Enable"
+        , "Enable capture gain"
+        , "Only used in manual capture mode"
         , PROJECT_LEVEL
     );
 
@@ -2749,9 +2817,9 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "EnableCaptureShutter"
         , &Get().cCamAppParam.iEnableCaptureShutter
         , Get().cCamAppParam.iEnableCaptureShutter
-        , "0:不使能;1:使能"
-        , "抓拍快门使能"
-        , "手动抓拍使能生效"
+        , "0:Disable;1:Enable"
+        , "Enable capture shutter"
+        , "Only used in manual capture mode"
         , PROJECT_LEVEL
     );
 
@@ -2772,8 +2840,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "JpegAutoCompressEnable"
         , &Get().cCamAppParam.iJpegAutoCompressEnable
         , Get().cCamAppParam.iJpegAutoCompressEnable
-        , "0:不使能;1:使能"
-        , "Jpeg自动调节开关"
+        , "0:Disable;1:Enable"
+        , "JPEG Adjust Automatically"
         , ""
         , PROJECT_LEVEL					//默认打开，不开放设置
     );
@@ -2784,8 +2852,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iJpegExpectSize
     	, 10
     	, 1024
-    	, "Jpeg图片期望大小"
-    	, "单位：KByte（千字节）"
+    	, "JPEG Image Expection Size"
+    	, "Units:us"
     	, CUSTOM_LEVEL
     );
 
@@ -2793,8 +2861,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "JpegType"
     	, &Get().cCamAppParam.iJpegType
     	, Get().cCamAppParam.iJpegType
-    	, "0:YUV分开;1:YUV混合"
-    	, "Jpeg图片格式"
+    	, "0:YUV separate;1: YUV mix"
+    	, "JPEG image type"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2805,7 +2873,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iJpegCompressRateL
     	, 1
     	, 100
-    	, "Jpeg压缩率自动调节下限"
+    	, "JPEG compression ratio automatic adjustment lower limit"
     	, ""
     	, PROJECT_LEVEL				//不开放设置
     );
@@ -2816,7 +2884,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iJpegCompressRateH
     	, 1
     	, 100
-    	, "Jpeg压缩率自动调节上限"
+    	, "JPEG compression ratio automatic adjustment upper limit"
     	, ""
     	, PROJECT_LEVEL				//不开放设置
     );
@@ -2826,8 +2894,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "AGCEnable"
     	, &Get().cCamAppParam.iAGCEnable
     	, Get().cCamAppParam.iAGCEnable
-    	, "0:不使能;1:使能"
-    	, "AGC使能"
+    	, "0:Disable;1:Enable"
+    	, "Obtain AGC"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2836,8 +2904,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "AWBEnable"
     	, &Get().cCamAppParam.iAWBEnable
     	, Get().cCamAppParam.iAWBEnable
-    	, "0:不使能;1:使能"
-    	, "AWB使能"
+    	, "0:Disable;1:Enable"
+    	, "Obtain AWB"
     	, ""
     	, CUSTOM_LEVEL
     );
@@ -2857,8 +2925,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "CaptureSynOutputType"
 		, &Get().cCamAppParam.iCaptureSynOutputType
 		, Get().cCamAppParam.iCaptureSynOutputType
-		, "0:上拉(电平);1:OC（开关）"
-		, "抓拍输出类型"
+		, "0:Pull up(Electrical level);1:OC(Switch)"
+		, "Output snapshot type"
 		, ""
 		, PROJECT_LEVEL
 		);
@@ -2867,8 +2935,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "ExternSyncMode"
 		, &Get().cCamAppParam.iExternalSyncMode
 		, Get().cCamAppParam.iExternalSyncMode
-		, "0:不同步;1:内部电网同步"
-		, "外同步模式"
+		, "0:No-Synchronization;1:Internal Power Grid Synchronization"
+		, "Outer synchronous mode"
 		, ""
 		, CUSTOM_LEVEL
 		);
@@ -2878,8 +2946,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, Get().cCamAppParam.iSyncRelay
 		, 0
 		, 20000
-		, "外同步信号延时"
-		, "单位:微秒"
+		, "Outer Synchronous Signal Delay"
+		, "Units:us"
 		, CUSTOM_LEVEL
 		);
 
@@ -2887,8 +2955,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "CaptureEdge"
     	, &Get().cCamAppParam.iCaptureEdge
     	, Get().cCamAppParam.iCaptureEdge
-    	, "0:不触发;1:外部下降沿触发;2:外部上升沿触发;3:上升沿下降沿都触发"
-    	, "触发抓拍沿"
+    	, "1:Outer Falling Edge Trigger;2:Outer Ascending Edge Trigger;3:Both"
+    	, "Trigger snapshot edge"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2902,7 +2970,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         	, szAGC
         	, &Get().cCamAppParam.rgiAGCZone[i]
         	, Get().cCamAppParam.rgiAGCZone[i]
-        	, "0:关闭;1:打开"
+        	, "0:Close;1:Open"
         	, ""
         	, ""
             , PROJECT_LEVEL
@@ -2930,8 +2998,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, "EnableDCAperture"
     	, &Get().cCamAppParam.iEnableDCAperture
     	, Get().cCamAppParam.iEnableDCAperture
-    	, "0:不使能;1:使能"
-    	, "使能DC光圈"
+    	, "0:Disable;1:Enable"
+    	, "Enabel DC-Iris"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2940,8 +3008,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "ColorMatrixMode"
         , &Get().cCamAppParam.iColorMatrixMode
         , Get().cCamAppParam.iColorMatrixMode
-        , "0:不使能;1:使能"
-        , "图像增强"
+        , "0:Disable;1:Enable"
+        , "Image-Enhance"
         , ""
         , PROJECT_LEVEL
     );
@@ -2952,7 +3020,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iContrastValue
     	, -100
     	, 100
-    	, "对比度"
+    	, "Contrast"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2963,7 +3031,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
     	, Get().cCamAppParam.iSaturationValue
     	, -100
     	, 100
-    	, "饱和度"
+    	, "Saturation"
     	, ""
     	, PROJECT_LEVEL
     );
@@ -2975,11 +3043,11 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , Get().cCamAppParam.iWDRValue
         , 0
         , 4095			//宽动态范围为 0~4095
-        , "WDR强度"
+        , "WDR value"
         , ""
         , PROJECT_LEVEL
     );
-    GetEnum("\\CamApp"
+    /*GetEnum("\\CamApp"
             , "NoiseReduction"
             , &Get().cCamAppParam.iSNFTNFMode
             , Get().cCamAppParam.iSNFTNFMode
@@ -2988,13 +3056,13 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
             , "降噪模式"
             , ""
             , PROJECT_LEVEL
-            );
+            );*/
     GetEnum("\\CamApp"
             , "NoiseReductionThreshold"
             , &Get().cCamAppParam.iTNFSNFValue
             , Get().cCamAppParam.iTNFSNFValue
-            , "0:自动;1:低;2:中;3:高"
-            , "降噪强度"
+            , "0:Disable;1:Enable"
+            , "DeNoise mode"
             , ""
             , INNER_LEVEL
             );
@@ -3004,7 +3072,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , &Get().cCamAppParam.iCVBSMode
         , Get().cCamAppParam.iCVBSMode
         , "0:PAL;1:NTSC"
-        , "CVBS制式"
+        , "CVBS format"
         , ""
         , PROJECT_LEVEL
     );
@@ -3012,8 +3080,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , "BlackWhiteMode"
         , &Get().cCamAppParam.iGrayImageEnable
         , Get().cCamAppParam.iGrayImageEnable
-        , "0:不使能;1:使能 "
-        , "黑白图输出模式"
+        , "0:Disable;1:Enable"
+        , "Output Black-White mode"
         ,""
         , PROJECT_LEVEL
     );
@@ -3045,8 +3113,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
         , Get().cCamAppParam.iEdgeValue
         , 0
         , 255
-        , "图像边缘增强"
-        , "图像边缘增强"
+        , "Enhance Image Edge"
+        , "Enhance image edge"
         , PROJECT_LEVEL
     );
 
@@ -3095,8 +3163,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "FlashPolarity"
 		, &Get().cCamAppParam.iFlashPolarity
 		, Get().cCamAppParam.iFlashPolarity
-		, "0:负极性;1:正极性"
-		, "闪光灯控制极性"
+		, "0:Negative;1:Positive"
+		, " Flash light IO polarity"
 		, ""
 		, CUSTOM_LEVEL
 	);
@@ -3105,18 +3173,18 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "FlashCoupling"
 		, &Get().cCamAppParam.iFlashCoupling
 		, Get().cCamAppParam.iFlashCoupling
-		, "0:不耦合;1:耦合"
-		, "闪光灯耦合性"
+		, "0:No coupling;1:Coupling"
+		, "Flash light coupling"
 		, ""
-        , PROJECT_LEVEL
+        , CUSTOM_LEVEL
 	);
 
 	GetEnum("\\CamApp"
 		, "FlashOutputType"
 		, &Get().cCamAppParam.iFlashOutputType
 		, Get().cCamAppParam.iFlashOutputType
-		, "0:上拉（电平）;1:OC(开关)"
-		, "闪光灯输出类型"
+		, "0:Level;1:Switch"
+		, "Flash light IO type"
 		, ""
 		, CUSTOM_LEVEL
 	);
@@ -3127,7 +3195,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
           , Get().cCamAppParam.iFlashPluseWidth
           , 0
           , 100
-          , "闪光灯脉宽"
+          , "Flash light pulse width"
           , ""
           , PROJECT_LEVEL
       );
@@ -3155,8 +3223,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "F1OutputType"
 		, &Get().cCamAppParam.iF1OutputType
 		, Get().cCamAppParam.iF1OutputType
-		, "0:栏杆机输出信号;1:闪光灯输出信号"
-		, "F1输出类型"
+		, "0:rail machine output signal;1:flash output signal"
+		, "F1 port output type"
 		, ""
 		, PROJECT_LEVEL
 	);
@@ -3166,8 +3234,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, &Get().cCamAppParam.iColorGradation
 		, Get().cCamAppParam.iColorGradation
 		, "0:0~255;1:16~234"
-		, "色阶"
-		, "色阶"
+		, "Color Gradation"
+		, "Color Gradation"
 		, PROJECT_LEVEL
 	);
 
@@ -3241,8 +3309,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , "Enable"
 		  , &Get().cOverlay.fH264Eanble
 		  , Get().cOverlay.fH264Eanble
-		  , "0:不使能;1:使能"
-		  , "H264字符叠加使能"
+		  , "0:Disable;1:Enable"
+		  , "Enabel H264 OSD"
 		  , ""
 		  , CUSTOM_LEVEL
 	);
@@ -3253,7 +3321,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cH264Info.iTopX
 		  , 0
           , 1920
-		  , "X坐标"
+		  , "X Coordinates"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3264,7 +3332,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cH264Info.iTopY
 		  , 0
           , 1080
-		  , "Y坐标"
+		  , "Y Coordinates"
 		  , ""
 		  , CUSTOM_LEVEL
 	  ); 
@@ -3275,7 +3343,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , 32
 		  , 16
 		  , 128
-		  , "字体大小"
+		  , "Font Size"
 		  , ""
 		  , PROJECT_LEVEL
 	  ); 
@@ -3286,7 +3354,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwR
 		  , 0
 		  , 255
-		  , "字体颜色R分量"
+		  , "Font Color R Components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3296,7 +3364,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwG
 		  , 0
 		  , 255
-		  , "字体颜色G分量"
+		  , "Font Color G Components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3306,7 +3374,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwB
 		  , 0
 		  , 255
-		  , "字体颜色B分量"
+		  , "Font Color B Components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3329,7 +3397,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cH264Info.szInfo
 		  , sizeof(Get().cOverlay.cH264Info.szInfo)
 		  , ""
-		  , "叠加信息"
+		  , "OSD information"
 		  , CUSTOM_LEVEL
 	  );
 	if(!swpa_strcmp(Get().cOverlay.cH264Info.szInfo, "NULL"))
@@ -3349,8 +3417,8 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , "Enable"
 		  , &Get().cOverlay.cJPEGInfo.fEnable
 		  , Get().cOverlay.cJPEGInfo.fEnable
-		  , "0:不使能;1:使能"
-		  , "JPEG字符叠加使能"
+		  , "0:Disable;1:Enable"
+		  , "Enable JPEG OSD"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3361,7 +3429,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cJPEGInfo.iX
 		  , 0
           , 3392
-		  , "X坐标"
+		  , "X Coordinates"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3373,7 +3441,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cJPEGInfo.iY
 		  , 0
           , 2000
-		  , "Y坐标"
+		  , "Y Coordinates"
 		  , ""
 		  , CUSTOM_LEVEL
 	  ); 
@@ -3389,7 +3457,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cJPEGInfo.iFontSize
 		  , 16
 		  , 128
-		  , "字体大小"
+		  , "Font size"
 		  , ""
 		  , PROJECT_LEVEL		//不可调，但是web需要该参数
 	  ); 
@@ -3403,7 +3471,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwR
 		  , 0
 		  , 255
-		  , "字体颜色R分量"
+		  , "Font color R components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3413,7 +3481,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwG
 		  , 0
 		  , 255
-		  , "字体颜色G分量"
+		  , "Font color G components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
@@ -3423,12 +3491,12 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , dwB
 		  , 0
 		  , 255
-		  , "字体颜色B分量"
+		  , "Font color B components"
 		  , ""
 		  , CUSTOM_LEVEL
 	  );
 	Get().cOverlay.cJPEGInfo.iColor = (dwB | (dwG << 8) | (dwR << 16));
-	SW_TRACE_DEBUG("jpeg color[0x%08x][0x%02x,0x%02x,0x%02x]", Get().cOverlay.cJPEGInfo.iColor, dwR, dwG, dwB);
+	//SW_TRACE_DEBUG("jpeg color[0x%08x][0x%02x,0x%02x,0x%02x]", Get().cOverlay.cJPEGInfo.iColor, dwR, dwG, dwB);
 #if 0	//是否叠加时间通过通配符
 	GetEnum("\\Overlay\\JPEG"
 		  , "DateTime"
@@ -3446,7 +3514,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCharacter(VOID)
 		  , Get().cOverlay.cJPEGInfo.szInfo
 		  , sizeof(Get().cOverlay.cJPEGInfo.szInfo)
 		  , ""
-		  , "叠加信息"
+		  , "OSD information"
 		  , CUSTOM_LEVEL
 	  );
 
@@ -3490,7 +3558,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitAutoReboot(VOID)
 	  , "0:不使能;1:使能"
 	  , "自动复位"
 	  , ""
-	  , CUSTOM_LEVEL
+	  , PROJECT_LEVEL
 	);	
 
 	GetInt("\\AutoReboot"
@@ -3501,7 +3569,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitAutoReboot(VOID)
 		  , 1000
 		  , "交通流量"
 		  , "单位为十分钟内车辆总数"
-		  , CUSTOM_LEVEL
+		  , PROJECT_LEVEL
 	  );
 
 	GetInt("\\AutoReboot"
@@ -3512,7 +3580,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitAutoReboot(VOID)
 		  , 720
 		  , "运行时间"
 		  , "单位:小时"
-		  , CUSTOM_LEVEL
+		  , PROJECT_LEVEL
 	  );
 
 

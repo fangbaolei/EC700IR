@@ -465,6 +465,7 @@ typedef struct tagPrcoessEventInfoStruct
     CARLEFT_INFO_STRUCT rgCarLeftInfo[MAX_EVENT_COUNT];
     SYNC_DET_DATA cSyncDetData;  //异步检测数据
     int nWDRLevel;	// WDR等级
+	int rgiAllCarTrigger[MAX_EVENT_COUNT];
     tagPrcoessEventInfoStruct()
     {
         dwEventId = EVENT_NONE;
@@ -476,6 +477,7 @@ typedef struct tagPrcoessEventInfoStruct
         iPulseLevel = 0;
         nWDRLevel = 0;
         memset(rcRedLight, 0, sizeof(rcRedLight));
+		memset(rgiAllCarTrigger, 0, sizeof(rgiAllCarTrigger));
     }
 } PROCESS_EVENT_STRUCT;
 
@@ -1063,6 +1065,9 @@ typedef struct _TRACKER_CFG_PARAM
     int nMaxAGCTH;
 	int iImageConstDelay;		//图像延时到达时间
 
+	int nDuskMaxLightTH;
+	int nNightMaxLightTH;
+
     _TRACKER_CFG_PARAM()
     {
         fEnableVote = TRUE;
@@ -1104,7 +1109,7 @@ typedef struct _TRACKER_CFG_PARAM
         nDetReverseRunEnable = 1;
         nSpan = 5;
         iRoadNumberBegin = 0;
-        iStartRoadNum = 0;
+        iStartRoadNum = 1;
         nFlashLightThreshold = 25;
         fDoublePlateEnable = 1;
         nRecogAsteriskThreshold = 0;
@@ -1195,7 +1200,10 @@ typedef struct _TRACKER_CFG_PARAM
         nPlateTrackerOutLine = 20;
 
         nMaxAGCTH = 150;
-		iImageConstDelay = 200;
+		iImageConstDelay = 0;
+
+		nDuskMaxLightTH=60;
+		nNightMaxLightTH=13;
     }
 } TRACKER_CFG_PARAM;
 

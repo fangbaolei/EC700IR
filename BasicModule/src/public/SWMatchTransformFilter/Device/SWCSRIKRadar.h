@@ -9,12 +9,13 @@ class CSWCSRIKRadar : public CSWBaseDevice
 {
 	CLASSINFO(CSWCSRIKRadar, CSWBaseDevice)
 public:
-	CSWCSRIKRadar(DEVICEPARAM *pParam,BOOL fRadarTrigger);
+	CSWCSRIKRadar(DEVICEPARAM *pParam,BOOL fRadarTrigger,BOOL fComServer);
 	virtual ~CSWCSRIKRadar();
 	virtual HRESULT Run(VOID);
 private:
 	BOOL m_fRadarTrigger;
 	DWORD m_dwTime;
+	BOOL m_fComServer;
 };
 #endif
 

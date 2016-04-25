@@ -4,7 +4,6 @@
 	<Process name="./log" error="0"/>
 	<Process name="./OnvifApp" error="0"/>
 	<Process name="./RtspApp" error="0"/>
-	<Process name="./GB28181App" error="0"/>
 	<Process name="./2AApp" error="0"/>
     	<Process name="/tmp/LprApp" error="1" param="-hdd /dev/mmcblk*p">
 		<Exit value="1" Process="./UpgradeApp"/>

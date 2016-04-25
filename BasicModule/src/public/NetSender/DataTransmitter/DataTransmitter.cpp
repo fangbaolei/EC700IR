@@ -319,7 +319,9 @@ HRESULT CDataTransmitter::Send(CSWObject* pObj)
 
 	if (0 == swpa_strcmp(pObj->Name(), "CSWRecord"))
 	{		
+		m_pListLock->Lock();
 		SW_TRACE_DEBUG("Info: Record CDataTransmitter dataQ has %d objs (head:%p)\n", m_lstData.GetCount(), m_lstData.GetHead());
+		m_pListLock->Unlock();
 		SAFE_RELEASE(pObj);
 	}
 	
@@ -1576,11 +1578,13 @@ HRESULT CDataTransmitter::OnSendData()
 					if (GetInfoOffset() > 0 || GetDataOffset() > 0)
 					{
 						//如果支持断点续传，则仍然用先打包再发送的方式
+						SW_TRACE_DEBUG("SendRecord id=%d\n",pRecord->GetCarArriveTime());
 						hr = SendRecord(pRecord);
 					}
 					else
 					{
 						//默认使用不打包直接发送的方式
+						SW_TRACE_DEBUG("SendRecordEx id=%d\n",pRecord->GetCarArriveTime());
 						hr = SendRecordEx(pRecord);
 					}
 

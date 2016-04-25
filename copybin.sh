@@ -42,7 +42,7 @@ PROJECT_CN=([0]="NULL"
 						[4]="纯相机"
 						[5]="违停抓拍"
                         [6]="卡口"
-                        [7]="700WIR卡口")
+                        [7]="海外卡口")
 
 
 if [ $# -ge 1 ];then
@@ -62,7 +62,7 @@ fi
 printf "${PROJECT_EN[${PROJECT}]}(${PROJECT_CN[${PROJECT}]})\n"	
 
 #####################################################################
-MAJOR_VERSION=3.1.208
+MAJOR_VERSION=3.1.107
 MINOR_VERSION=1000	#default
 MY_VERSION=""
 
@@ -84,7 +84,7 @@ then
     MK_APP_SHELL=mk_venus_app.sh
 elif [ $PROJECT -eq $VENUS_TRAFFIC_GATE_700W ]
 then
-    HARDWARE_NAME="EC700一体机"
+    HARDWARE_NAME="EC700红外一体机"
     ROOTFS_DIR=rootfs/filesys/venus
     MK_APP_SHELL=mk_venus_app.sh
 else

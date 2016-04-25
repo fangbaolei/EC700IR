@@ -11,8 +11,9 @@ public:
 	virtual ~CSWBaseDevice();
 	virtual HRESULT Initialize(VOID (*OnEvent)(PVOID pvParam, CSWBaseDevice* pDevice, DEVICE_TYPE type, DWORD dwTime, PDWORD pdwValue), PVOID pvParam, INT iCOMM);
 	virtual HRESULT Close(VOID);
-	virtual HRESULT Write(PVOID pBuffer, INT iSize, INT iTimeOut = 2000);
-	virtual HRESULT Read(PVOID pBuffer, INT iSize, INT iTimeOut = 2000);
+	virtual HRESULT Write(PVOID pBuffer, INT iSize, INT iTimeOut = 1000);
+	virtual HRESULT Read(PVOID pBuffer, INT iSize, INT iTimeOut = 1000);
+	virtual HRESULT Clear();
 	INT GetCOMM(VOID);
 protected:
 	DEVICEPARAM *m_pDevParam;

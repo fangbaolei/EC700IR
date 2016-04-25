@@ -91,6 +91,8 @@ static struct __NETCMDMAPPINGTABLE g_XmlCmdMappingTable[] =
     {"SetRGBGain", 			MSG_SET_RGBGAIN},//设置RGB INT[3];
     {"SetAWBEnable", 		MSG_SET_AWBENABLE},	// AWB 白平衡
     {"GetAWBEnable",    MSG_GET_AWBENABLE},
+	{"SetRadarEnable", 		MSG_SET_RADARENABLE},	// 雷达
+    {"GetRadarEnable",    MSG_GET_RADARENABLE},
     {"GetRGBGain", 			MSG_GET_RGBGAIN},//获取RGB INT[3];
     {"SetGammaData", 		MSG_SET_GAMMA},//lut
 //    {"GetGammaData", 		MSG_GET_GAMMA},//new
@@ -1995,8 +1997,8 @@ HRESULT CSWNetCommandProcess::SendCMD(const DWORD dwCMDID, const CHAR * szValue,
 
 	SAFE_MEM_FREE(*ppvRetBuf); //make sure "NULL == *ppvRetBuf"
 
-	//PRINT("Info: sending %s Cmd...\n", SearchCmdNameByID(dwCMDID));
-	
+	//SW_TRACE_DEBUG("Info: sending %s Cmd type:%s,value:%s,class:%s...\n", SearchCmdNameByID(dwCMDID),pszType,pszValue,szClass);
+
 	if (0 == swpa_strcmp(pszType, "INT"))
 	{
 		INT iVal = 0;
@@ -2143,7 +2145,10 @@ HRESULT CSWNetCommandProcess::SendCMD(const DWORD dwCMDID, const CHAR * szValue,
 			(WPARAM)dwVal,
 			(LPARAM)*ppvRetBuf);
 	}
-	else if (0 == swpa_strcmp(pszType, "STRING"))
+	// huanggr 3.0.0.41及之后的SDK将MAG_APP_SET_NTP_SERVER_IP命令改为CUSTOM类型发送，
+	// 导致设备无法正确执行MAG_APP_SET_NTP_SERVER_IP命令，因此做特殊处理
+	// TODO 应该修改SDK
+	else if (0 == swpa_strcmp(pszType, "STRING") || dwCMDID == MAG_APP_SET_NTP_SERVER_IP)
 	{
 		if (0 == swpa_stricmp(szClass, "Getter"))
 		{
@@ -2165,6 +2170,22 @@ HRESULT CSWNetCommandProcess::SendCMD(const DWORD dwCMDID, const CHAR * szValue,
 			{
 				PRINT("Err: NULL == pszValue for Setter\n");
 				return E_INVALIDARG;
+			}
+			if (dwCMDID == MAG_APP_SET_NTP_SERVER_IP)
+			{
+			    if (strstr(pszValue, "ServerIP"))
+			    {
+			        char szIP[20] = {0};
+			        sscanf(pszValue, "ServerIP[%s]", szIP);
+			        if (strlen(szIP) > 0)
+			        {
+                        if (szIP[strlen(szIP) - 1] == ']')
+                        {
+                            szIP[strlen(szIP) - 1] = 0;
+                        }
+                        strcpy(pszValue, szIP);
+			        }
+			    }
 			}
 		}
 		hr = CSWMessage::SendMessage(dwCMDID,
@@ -3046,6 +3067,7 @@ HRESULT CSWNetCommandProcess::ProcessXmlCmd(const CHAR* pszXMLInBuf,  const DWOR
 					if (FAILED(hr))
 					{
 						PRINT("Err: failed to send cmd: %s\n", g_XmlCmdMappingTable[i].szCmdName);
+						SW_TRACE_DEBUG("1Err: failed to send cmd: %s\n", g_XmlCmdMappingTable[i].szCmdName);
 						GenerateCMDProcessFailedXml(pXmlOutputDoc, Ele->GetText());
 						SAFE_MEM_FREE(pvRetBuf);
 						*pfReboot = FALSE;
@@ -3056,6 +3078,7 @@ HRESULT CSWNetCommandProcess::ProcessXmlCmd(const CHAR* pszXMLInBuf,  const DWOR
 					if (FAILED(GenerateCMDReplyXml(pXmlOutputDoc, g_XmlCmdMappingTable[i].szCmdName, pszType, pszClass, pvRetBuf)))
 					{
 						SAFE_MEM_FREE(pvRetBuf);
+						SW_TRACE_DEBUG("2Err: failed to send cmd: %s\n", g_XmlCmdMappingTable[i].szCmdName);
 						GenerateCMDProcessFailedXml(pXmlOutputDoc, Ele->GetText());
 						break;						
 					}
@@ -3481,8 +3504,7 @@ HRESULT CSWNetCommandProcess::GetConnectedIPInfo(CHAR * RecordLinkIP,CHAR * Imag
     {
         CSWString strInfo = szInfo;
         INT iCount = 0;
-
-        INT iPrePos = strInfo.Find("结果链接:");
+        INT iPrePos = strInfo.Find("结果链接:");		
         INT iEndPos = -1;
         if( iPrePos != -1 )
         {

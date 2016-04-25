@@ -10,12 +10,12 @@
 #include "swbasetype.h"
 #include "swimage.h"
 
-#include "svTgDetApi/svTgDetApi.h"
+#include "svTgVvdDetApi/svTgVvdDetApi.h"
 
 #include "trackerdef.h"
 #include "DspLinkCmd.h"
 
-namespace swTgApp
+namespace swTgVvdApp
 {
     class CAppDetCtrl
     {
@@ -40,13 +40,13 @@ namespace swTgApp
         HRESULT SetLightType(int nEnvLightType, int iEnvStatus);
         HRESULT SetSmallCarRoadRatio(int nSmallCarRoadRatio);
     private:
-        static const int MAX_MOD_DET_INFO = svTgIrDetApi::MOD_DET_INFO::TYPE_COUNT;
-        svTgIrDetApi::MOD_DET_INFO m_rgModDetInfo[MAX_MOD_DET_INFO];
-        svTgIrDetApi::TG_DET_PARAM m_cDetParam;
-        svTgIrDetApi::CTgDetCtrl* m_pDetCtrl;
+        static const int MAX_MOD_DET_INFO = svTgVvdDetApi::MOD_DET_INFO::TYPE_COUNT;
+        svTgVvdDetApi::MOD_DET_INFO m_rgModDetInfo[MAX_MOD_DET_INFO];
+        svTgVvdDetApi::TG_DET_PARAM m_cDetParam;
+        svTgVvdDetApi::CTgDetCtrl* m_pDetCtrl;
 
         static const int MAX_OBJ_ROI = 512;
-        svTgIrDetApi::DET_ROI m_rgObjROI[MAX_OBJ_ROI];
+        svTgVvdDetApi::DET_ROI m_rgObjROI[MAX_OBJ_ROI];
         int m_nObjROICnt;
 
         HRESULT SetDetCfgParam(

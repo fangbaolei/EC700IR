@@ -440,6 +440,7 @@ HRESULT CSWH264SourceFilter::OnH264()
 			}
 			fConnectFailed = FALSE;
 			*/
+			SW_TRACE_DEBUG("MSG_APP_RESETDEVICE 2\n");
 			CSWMessage::SendMessage(MSG_APP_RESETDEVICE, (WPARAM)2, 0); //reset device
 			break;
 		}

@@ -319,11 +319,11 @@ HRESULT CSWJPEGEncodeTransformFilter::OnJpegEncode(WPARAM wParam, LPARAM lParam)
     CSWImage** ppYUVImage = (CSWImage **)wParam;
     CSWCarLeft* pCarLeft = (CSWCarLeft*)lParam;
     LPCSTR szPlate = NULL;
-    BOOL fCrop = FALSE;
-    if (NULL != pCarLeft)
+    //BOOL fCrop = FALSE;
+   	if (NULL != pCarLeft)
     {
         szPlate = (LPCSTR)pCarLeft->GetPlateNo();
-        fCrop = pCarLeft->m_fCropLastImage;
+        //fCrop = pCarLeft->m_fCropLastImage;
     }
 
     CSWImage* pJPEGImage = NULL;
@@ -352,10 +352,10 @@ HRESULT CSWJPEGEncodeTransformFilter::OnJpegEncode(WPARAM wParam, LPARAM lParam)
 	INT iQuantity = (*ppYUVImage)->IsCaptureImage() ? m_iQuantityCapture : m_iQuantity;
 	  
   CSWMemoryFactory* pMemoryFactory = CSWMemoryFactory::GetInstance(SW_SHARED_MEMORY);
-	CSWMemory *pMemory = NULL;
+	//CSWMemory *pMemory = NULL;
 			
 	CSWString strInfo;
-  if(m_pJPEGOverlayInfo && m_pJPEGOverlayInfo->fEnable)
+  /*if(m_pJPEGOverlayInfo && m_pJPEGOverlayInfo->fEnable)
   {  		
   		if(m_pJPEGOverlayInfo->fEnableTime)
   		{
@@ -394,11 +394,11 @@ HRESULT CSWJPEGEncodeTransformFilter::OnJpegEncode(WPARAM wParam, LPARAM lParam)
   				swpa_memcpy(pbBuf, pbBitmap, iBitmapSize); pbBuf += iBitmapSize;
   			}
   		}
-	}
+	}*/
 	HRESULT hr = E_FAIL;		
 	//限制最大80
 	iQuantity = (iQuantity > 80) ? 80 : iQuantity;
-    if (TRUE == fCrop)      // 需要截取特征图
+    /*if (TRUE == fCrop)      // 需要截取特征图
     {
         //计算坐标中心点
         HV_RECT pLastRect = pCarLeft->GetLastPlateRect();
@@ -471,7 +471,22 @@ HRESULT CSWJPEGEncodeTransformFilter::OnJpegEncode(WPARAM wParam, LPARAM lParam)
                 , m_iVColor
                 , &m_cRect
                 , fCrop);
-    }
+    }*/
+	
+	hr = CSWBaseLinkCtrl::GetInstance()->EncodeJpeg(
+			(*ppYUVImage)
+			, &pJPEGImage
+			, iQuantity
+			, m_iJPEGType
+			, m_pJPEGOverlayInfo->fEnable ? (PBYTE)m_pMemory->GetBuffer(MEM_PHY_ADDR) : NULL
+			, m_pJPEGOverlayInfo->fEnable ? (LPCSTR)strInfo : NULL
+			, m_pJPEGOverlayInfo->iX
+			, m_pJPEGOverlayInfo->iY
+			, m_iYColor
+			, m_iUColor
+			, m_iVColor
+			, &m_cRect);
+	
 	if(S_OK == hr)
 	{
 		if(m_iCompressType == 1 && !(*ppYUVImage)->IsCaptureImage())
@@ -577,7 +592,8 @@ HRESULT CSWJPEGEncodeTransformFilter::OnJpegEncode(WPARAM wParam, LPARAM lParam)
 			SW_TRACE_DEBUG("<JPEGEncodeTransformFilter>EncodeJpeg failed: out of memory.\n");
 		}
 		if(m_iEncFailCounter >= ENCODE_FAIL_MAX_COUNT)
-		{			
+		{	
+			SW_TRACE_DEBUG("Reset Device\n");		
 			CSWMessage::SendMessage(MSG_APP_RESETDEVICE, 0, 0);
 		}
 		else

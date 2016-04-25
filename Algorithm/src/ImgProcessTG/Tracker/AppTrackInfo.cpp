@@ -24,11 +24,9 @@ static bool IsOverLap(HV_RECT& rc0, HV_RECT& rc1, int p)
 
   return (100 * nArea2) >= p * SV_MIN(nArea0,nArea1);
 }
-
-
 CAppTrackInfo::TRACK_STATE TrackState2InfoState(int nTrackState)
 {
-    using namespace svTgIrApi;
+    using namespace svTgVvdApi;
 
     CAppTrackInfo::TRACK_STATE tsRet;
 
@@ -53,9 +51,9 @@ CAppTrackInfo::TRACK_STATE TrackState2InfoState(int nTrackState)
     return tsRet;
 }
 
-CAppTrackInfo::TRACK_TYPE TrackType2InfoType(svTgIrApi::ITgTrack::TRACK_TYPE nTrackType)
+CAppTrackInfo::TRACK_TYPE TrackType2InfoType(svTgVvdApi::ITgTrack::TRACK_TYPE nTrackType)
 {
-    using namespace svTgIrApi;
+    using namespace svTgVvdApi;
 
     CAppTrackInfo::TRACK_TYPE ttRet;
 
@@ -81,7 +79,7 @@ CAppTrackInfo::TRACK_TYPE TrackType2InfoType(svTgIrApi::ITgTrack::TRACK_TYPE nTr
     case ITgTrack::TT_WALK_MAN:
         ttRet = CAppTrackInfo::TT_WAKL_MAN;
         break;
-		
+
     default:
         ttRet = CAppTrackInfo::TT_UNKNOW;
     }
@@ -89,37 +87,37 @@ CAppTrackInfo::TRACK_TYPE TrackType2InfoType(svTgIrApi::ITgTrack::TRACK_TYPE nTr
     return ttRet;
 }
 
-CAR_COLOR TgCarColor2CarColor(svTgIrApi::CAR_COLOR nTgColor)
+CAR_COLOR TgCarColor2CarColor(svTgVvdApi::CAR_COLOR nTgColor)
 {
     CAR_COLOR color;
 
     switch(nTgColor)
     {
-    case svTgIrApi::CC_GREY:
+    case svTgVvdApi::CC_GREY:
         color = CC_GREY;
         break;
 
-    case svTgIrApi::CC_WHITE:
+    case svTgVvdApi::CC_WHITE:
         color = CC_WHITE;
         break;
 
-    case svTgIrApi::CC_BLACK:
+    case svTgVvdApi::CC_BLACK:
         color = CC_BLACK;
         break;
 
-    case svTgIrApi::CC_RED:
+    case svTgVvdApi::CC_RED:
         color = CC_RED;
         break;
 
-    case svTgIrApi::CC_GREEN:
+    case svTgVvdApi::CC_GREEN:
         color = CC_GREEN;
         break;
 
-    case svTgIrApi::CC_BLUE:
+    case svTgVvdApi::CC_BLUE:
         color = CC_BLUE;
         break;
 
-    case svTgIrApi::CC_YELLOW:
+    case svTgVvdApi::CC_YELLOW:
         color = CC_YELLOW;
         break;
 
@@ -176,17 +174,17 @@ CSvRect CAppTrackInfo::GetLastPos()
     return *(CSvRect*)&m_rcCurPos;
 }
 
-const svTgIrApi::TG_TRACK_LOCUS& CAppTrackInfo::GetLocus(int nIndex)
+const svTgVvdApi::TG_TRACK_LOCUS& CAppTrackInfo::GetLocus(int nIndex)
 {
     return m_pTrack->GetLocus(nIndex);
 }
 
-const svTgIrApi::TG_TRACK_LOCUS& CAppTrackInfo::GetLastLocus()
+const svTgVvdApi::TG_TRACK_LOCUS& CAppTrackInfo::GetLastLocus()
 {
     return m_pTrack->GetLocus(m_pTrack->GetLocusCount() - 1);
 }
 
-const svTgIrApi::TG_PLATE_INFO& CAppTrackInfo::GetPlate(int nIndex)  // 取过程中识别到的车牌
+const svTgVvdApi::TG_PLATE_INFO& CAppTrackInfo::GetPlate(int nIndex)  // 取过程中识别到的车牌
 {
     return m_pTrack->GetPlate(nIndex);
 }
@@ -204,12 +202,12 @@ void CAppTrackInfo::End()
     Update(m_pTrack); // End之后算法库会进行一些处理如投票等，需要重新Update
 }
 
-sv::SV_RESULT CAppTrackInfo::GetResult(svTgIrApi::ITgTrack::TG_RESULT_INFO* pResInfo)
+sv::SV_RESULT CAppTrackInfo::GetResult(svTgVvdApi::ITgTrack::TG_RESULT_INFO* pResInfo)
 {
     return m_pTrack->GetResult(pResInfo);
 }
 
-sv::SV_RESULT CAppTrackInfo::GetExInfo(svTgIrApi::TG_TRACK_EX_INFO* pExInfo)
+sv::SV_RESULT CAppTrackInfo::GetExInfo(svTgVvdApi::TG_TRACK_EX_INFO* pExInfo)
 {
     return m_pTrack->GetExInfo(pExInfo);
 }
@@ -217,7 +215,7 @@ sv::SV_RESULT CAppTrackInfo::GetExInfo(svTgIrApi::TG_TRACK_EX_INFO* pExInfo)
 
 int CAppTrackInfo::GetRoadNum()
 {
-    svTgIrApi::TG_TRACK_EX_INFO exInfo;
+    svTgVvdApi::TG_TRACK_EX_INFO exInfo;
     m_pTrack->GetExInfo(&exInfo);
 
     return exInfo.nRoadNum;
@@ -239,7 +237,7 @@ void CAppTrackInfo::Free()
 
     m_nReverseRunCount = 0;
 
-    for (int i=0; i<svTgIrApi::PLATE_TYPE_COUNT; ++i)
+    for (int i=0; i<svTgVvdApi::PLATE_TYPE_COUNT; ++i)
     {
         m_rgBestPlateInfo[i].Clear();
     }
@@ -260,14 +258,16 @@ void CAppTrackInfo::Free()
 	m_nLastPlateSimilar = 0;
 
     m_nLastPlateY = 0;  
+    m_iTriggerRoadNum = -1;
+    m_fLastFrameHasPlate = FALSE;
 	
 	m_dwTriggerCameraTimes = 0;
 
 	m_nPlateMovePosCount = 0;
 	memset(m_rgrcPlateMovePos, 0, sizeof(HV_RECT) * m_nMaxPlateMovePos);
 
-	m_nCenterPointMovePosCount = 0;
-	memset(m_CenterPointMovPos, 0, sizeof(HV_POINT) * m_nMaxCenterPointMovePos);
+	//m_nCenterPointMovePosCount = 0;
+	//memset(m_CenterPointMovPos, 0, sizeof(HV_POINT) * m_nMaxCenterPointMovePos);
 }
 
 sv::SV_BOOL CAppTrackInfo::IsUpdated()
@@ -280,21 +280,23 @@ void CAppTrackInfo::SetRoadInfo(CRoadInfo* pRoadInfo)
     m_pRoadInfo = pRoadInfo;
 }
 
-// 当前跟踪状态是否逆行
+inline int GetSVRectCenterY(sv::SV_RECT cRect)
+{
+    return cRect.m_nTop + (cRect.m_nBottom - cRect.m_nTop) >> 1;
+}
+
+/// 当前跟踪状态是否逆行
 BOOL CAppTrackInfo::IsReverseRun()
 {
 	BOOL fReverseRun = FALSE;
-	if (m_nCenterPointMovePosCount > 3)
+    int nPosCount = m_pTrack->GetLocusCount();
+	if (nPosCount > 3)
 	{
 		int iReverseCount = 0;
-		CRect rcPrePos = m_CenterPointMovPos[1];
-		sv::utTrace("m_CenterPointMovPos[1]={%d,%d,%d,%d,%d}\n", m_CenterPointMovPos[0].top,m_CenterPointMovPos[0].left,m_CenterPointMovPos[0].bottom,m_CenterPointMovPos[0].right,rcPrePos.CenterPoint().y);
-		for (int i = 1; i < m_nCenterPointMovePosCount; i++)
+        int nPosY0 = GetSVRectCenterY(m_pTrack->GetLocus(0).m_rcPos);
+		for (int i = 1; i < nPosCount; i++)
 		{
-			CRect rcCur = m_CenterPointMovPos[i];
-			sv::utTrace("m_CenterPointMovPos[%d]={%d,%d,%d,%d,%d}\n", i,m_CenterPointMovPos[i].top,m_CenterPointMovPos[i].left,m_CenterPointMovPos[i].bottom,m_CenterPointMovPos[i].right,rcCur.CenterPoint().y);
-			//iReverseCount += (rcCur.CenterPoint().y-rcPrePos.CenterPoint().y);
-			if (rcPrePos.CenterPoint().y > rcCur.CenterPoint().y)
+            if (nPosY0 > GetSVRectCenterY(m_pTrack->GetLocus(i).m_rcPos))
 			{
 				iReverseCount += 2;
 			}
@@ -311,9 +313,25 @@ BOOL CAppTrackInfo::IsReverseRun()
 	}
     return fReverseRun;
 }
+sv::SV_BOOL CAppTrackInfo::IsLeftToRight(int iImgWidth)
+{
+	sv::SV_BOOL fFlag = FALSE;
+	int iPosCount = GetPosCount();
+	if (iPosCount > 3)
+	{
+		sv::CSvRect rcFirst = GetPos(0);
+		sv::CSvRect rcLast = GetPos(iPosCount - 1);
+		//if (HV_ABS(rcLast.CenterPoint().m_nX - rcFirst.CenterPoint().m_nX) > HV_ABS(rcLast.CenterPoint().m_nY - rcFirst.CenterPoint().m_nY) * 4)
+		if (rcLast.CenterPoint().m_nX > rcFirst.CenterPoint().m_nX && (rcLast.CenterPoint().m_nX - rcFirst.CenterPoint().m_nX) > iImgWidth / 2)
+		{
+			fFlag = TRUE;
+		}
+	}
+	return fFlag;
 
+}
 
-void CAppTrackInfo::Update(svTgIrApi::ITgTrack* pITgTrack)
+void CAppTrackInfo::Update(svTgVvdApi::ITgTrack* pITgTrack)
 {
     m_pTrack = pITgTrack;
     // ID一定要拷贝下来，因为指针内容可能会变，下一次匹配还用指针取ID会不对
@@ -332,13 +350,65 @@ void CAppTrackInfo::Update(svTgIrApi::ITgTrack* pITgTrack)
 
     if (m_nTrackState == TS_END)
     {
-        svTgIrApi::ITgTrack::TG_RESULT_INFO tkRes;
+        svTgVvdApi::ITgTrack::TG_RESULT_INFO tkRes;
         pITgTrack->GetResult(&tkRes);
         m_nCarColor = TgCarColor2CarColor(tkRes.nCarColor);
         m_nTrackType = TrackType2InfoType(tkRes.nTrackType);
     }
+	
+	// 无牌时会返回失败，但不重要
+    const svTgVvdApi::TG_TRACK_LOCUS& cLastLocus = pITgTrack->GetLocus(pITgTrack->GetLocusCount() - 1);  // 最近的轨迹
+    bool fGetPlate = cLastLocus.m_pPlateInfo != NULL;
+    //svEPApi::TG_PLATE_INFO nCurPlate;
+    //bool fHavePlate = pITgTrack->GetPlate(&nCurPlate);
 
-	const svTgIrApi::TG_TRACK_LOCUS& cLastLocus = pITgTrack->GetLocus(pITgTrack->GetLocusCount() - 1);;  // 最近的轨迹
+    //nRecogInValidCount = m_cLastPlate.nRecogInValidCount;
+
+	// 首次更新记录车牌位置
+	if (fGetPlate)
+	{
+		HV_RECT rcCurPlate;
+		rcCurPlate.left = cLastLocus.m_rcPos.m_nLeft;
+		rcCurPlate.right = cLastLocus.m_rcPos.m_nRight;
+		rcCurPlate.top = cLastLocus.m_rcPos.m_nTop;
+		rcCurPlate.bottom = cLastLocus.m_rcPos.m_nBottom;
+		if (m_nPlateMovePosCount == 0
+			|| !IsOverLap(rcCurPlate, m_rgrcPlateMovePos[m_nPlateMovePosCount-1], 95)
+			&& m_nPlateMovePosCount < m_nMaxPlateMovePos)
+		{
+			m_rgrcPlateMovePos[m_nPlateMovePosCount] = rcCurPlate;
+			m_rgdwPlateTick[m_nPlateMovePosCount] = CAppTrackInfo::s_iCurImageTick;
+			++m_nPlateMovePosCount;
+		}
+		m_fLastFrameHasPlate = TRUE;
+		if (!m_fIsTrigger && m_pRoadInfo != NULL)
+		{
+			m_iTriggerRoadNum = m_pRoadInfo->GetRoadNum(m_rcCurPos.CenterPoint());
+		}
+	}
+	else
+	{
+		m_fLastFrameHasPlate = FALSE;
+		if (m_pRoadInfo->GetRoadLineCount() == 3)//只处理双车道
+		{
+			int iSecondLinex = m_pRoadInfo->GetRoadLineX(1,m_rcCurPos.CenterPoint().m_nY);
+			if (m_rcCurPos.m_nLeft > iSecondLinex && m_rcCurPos.m_nRight > iSecondLinex)
+			{
+				m_iTriggerRoadNum = 1;
+			}
+			else if(m_rcCurPos.m_nLeft < iSecondLinex && m_rcCurPos.m_nRight < iSecondLinex)
+			{
+				m_iTriggerRoadNum = 0;
+			}
+			else
+			{
+				m_iTriggerRoadNum = -1;
+			}
+		}
+	}
+
+	/*const svTgVvdApi::TG_TRACK_LOCUS& cLastLocus = pITgTrack->GetLocus(pITgTrack->GetLocusCount() - 1);;  // 最近的轨迹
+	 bool fGetPlate = cLastLocus.m_pPlateInfo != NULL;
 
 	HV_RECT rcCurCenterPointPos={0};
 	rcCurCenterPointPos.left=cLastLocus.m_rcPos.m_nLeft;
@@ -350,7 +420,7 @@ void CAppTrackInfo::Update(svTgIrApi::ITgTrack* pITgTrack)
 		m_CenterPointMovPos[m_nCenterPointMovePosCount] = rcCurCenterPointPos;
 		m_rgdwPlateTick[m_nCenterPointMovePosCount] = CAppTrackInfo::s_iCurImageTick;
 		++m_nCenterPointMovePosCount;
-	}
+	}*/
 
     //     // 无牌时会返回失败，但不重要
     //     bool fHavePlate = pITgTrack->GetPlate(&m_cLastPlate);
@@ -381,14 +451,14 @@ sv::SV_RESULT CAppTrackInfo::UpdateAll(
     CAppTrackInfo* rgDjObj,
     int iMaxObj,
     int* piObjCnt,  // 输入输出
-    svTgIrApi::ITgTrack* rgpTracker[],
+    svTgVvdApi::ITgTrack* rgpTracker[],
     int iTrackerCnt
 )
 {
     // ITgTrack to CDjAppObj
     // 注意，ITgTrack为新时，CDjAppObj中的所有结果属性都不可靠（因为直接用ITgTrack指针），
     // 只有ID可靠，须最先用ID更新CDjAppObj中的ITgTrack指针
-    svTgIrApi::ITgTrack** rgResult = new svTgIrApi::ITgTrack*[iTrackerCnt];
+    svTgVvdApi::ITgTrack** rgResult = new svTgVvdApi::ITgTrack*[iTrackerCnt];
 
     if(rgResult == NULL)
     {

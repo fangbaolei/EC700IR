@@ -22,22 +22,22 @@ CSWAutoControlRenderFilter::CSWAutoControlRenderFilter()
 	swpa_memset(m_irgGain, 0, sizeof(m_irgGain)/sizeof(m_irgGain[0]));
 
 	m_fEnableAutoCapture = FALSE;
-	m_iDayShutterMax = 1500;
-	m_iDayGainMax = 180;
-	m_iNightShutterMax = 2000;
-	m_iNightGainMax = 180;
+	m_iDayShutterMax = 3800;
+	m_iDayGainMax = 120;
+	m_iNightShutterMax = 1500;
+	m_iNightGainMax = 60;
 
-	m_iGainMin = 100;
-	m_iShutterMin = 300;
+	m_iGainMin = 10;
+	m_iShutterMin = 200;
 
 	// 默认为白天
 	m_iIsDayCount = 120;
     m_iIsDuskCount = 120;
-	m_fIsDay = TRUE;
+	m_fIsDay = FALSE;
 	m_fIsDayEx = FALSE;
-    m_iEnvType = 3;
-	m_iCaptureShutter = 600;
-	m_iCaptureGain = 120;
+    m_iEnvType = 1;
+	m_iCaptureShutter = 300;
+	m_iCaptureGain = 60;
 	m_iCaptureImageCount = 0;
 	m_iTotalAvgY = 0;
 	m_fNeedUpdateCaptureParam = FALSE;
@@ -60,8 +60,15 @@ CSWAutoControlRenderFilter::CSWAutoControlRenderFilter()
 	m_fUseMaxAgcShutter = FALSE;
 
     m_iAGCDayNightShutterControl = 0;
-    m_iAGCDayShutterHOri = 2500;
-    m_iAGCNightShutterHOri = 3000;
+    m_iAGCDayShutterHOri = 3800;
+    m_iAGCNightShutterHOri = 1500;
+	m_iAGCNightGainHOri = 60;
+	m_iAGCGainHOri=120;
+
+	m_iTempCaptureGain=60;
+	m_iTempCaptureShutter=1500;
+
+	m_dwAvgY=0;
 }
 
 CSWAutoControlRenderFilter::~CSWAutoControlRenderFilter()
@@ -109,20 +116,21 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 	if(IsDecendant(CSWCameraDataPDU, obj) && TRUE == m_fEnable)
 	{
 		CSWCameraDataPDU* pdu = (CSWCameraDataPDU *)obj;
-
+		
 		// 只有做过白天晚上的判断后才进行频闪脉宽等级的修改。
 		if( m_fIsInit )
 		{
 			// 晚上补光灯一定要亮，白天一定不亮。
-			if(pdu->GetPluseLevel() <= 0 && !m_fIsDay)
+			/*if(pdu->GetPluseLevel() <= 0 && !m_fIsDay)
 			{
 				pdu->SetPluseLevel(4);
 			}
 			else if(m_fIsDay)
 			{
 				pdu->SetPluseLevel(0);
-			}
-			
+			}*/
+			pdu->SetPluseLevel(0);
+
 			if (!m_fIsDay)
 			{
 				pdu->SetLightType(13);	//晚上强制13级
@@ -188,7 +196,7 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 		    CSWCameraDataPDU *pCamPDU = new CSWCameraDataPDU();
             pCamPDU->SetLightType(m_iLightType);   //相机等级
             //pCamPDU->SetCplStatus(m_iCplStatus);   //偏光镜状态
-            pCamPDU->SetPluseLevel(m_iPluseLevel);  //频闪补光脉宽
+            //pCamPDU->SetPluseLevel(m_iPluseLevel);  //频闪补光脉宽
             pCamPDU->SetWDRLevel(-1); //-1表示强制刷新
             if (S_OK != m_lstPDU.Push(pCamPDU))
             {
@@ -323,6 +331,17 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
                                 }
 
                             }
+						//	else
+						//	{
+						//		if( cInfo.iShutter > 3000 && !m_fIsDayEx)
+						//		{
+						//			m_fIsDayEx = TRUE;
+						//		}
+						//		else if( cInfo.iShutter < 2500 )
+						//		{
+						//			m_fIsDayEx = FALSE;
+						//		}
+						//	}
                         }
                     }
                 }
@@ -344,17 +363,25 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 					nStatus = nStatus >= 1 ? nStatus - 1 : 0;
 					nStatus = nStatus > 2 ? 2 : nStatus;
                     SW_TRACE_NORMAL("当前状态：%d-%d, M3状态：%s, 环境亮度：%d[%d],"
-                        "LightType:%d, PluseLevel:%d, WDRLevel[%d], %d\n",
+                        "LightType:%d, PluseLevel:%d, WDRLevel[%d], %d ,%d\n",
                        // m_fIsDay ? "白天" : m_fIsDayEx ? "傍晚" : "晚上",
                         m_fIsDay, m_fIsDayEx,
 				        s_prgM3Status[nStatus],
 				        s_dwAvgY, (m_irgAGCLimit[m_iLightType] - 10),
 				        m_iLightType, m_iPluseLevel,
-                        m_nWDRLevel, cInfo.iShutter);
+                        m_nWDRLevel, cInfo.iShutter,cInfo.iGain);
+
+					m_dwAvgY=s_dwAvgY;	
+
+				    s_nFrameCount = 0;
+				    s_dwTotalY = 0;
+                    OnSetCaptureAutoParam((WPARAM)0,(LPARAM)0);
+					//INT nStatus = -1;
+					SendMessage(MSG_RECOGNIZE_GET_DSP_ENV_LIGHT_TYPE, NULL, (LPARAM)&nStatus);
 
 					switch(nStatus)
 					{
-						case 0:
+						case 2:
 							m_fIsDay=FALSE;
 							m_fIsDayEx=FALSE;
 							break;
@@ -362,21 +389,19 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 							m_fIsDay=FALSE;
 							m_fIsDayEx=TRUE;
 							break;
-						case 2:
+						case 0:
 							m_fIsDay=TRUE;
-							m_fIsDayEx=(m_iLightType>7);
+							m_fIsDayEx=(cInfo.iShutter > 3000);
 							break;
 					}
-
-				    s_nFrameCount = 0;
-				    s_dwTotalY = 0;
-                    OnSetCaptureAutoParam((WPARAM)0,(LPARAM)0);
+					
+					SendMessage(MSG_SET_DSP_FLAG,nStatus,NULL);
 
                     if ( m_iAGCDayNightShutterControl )
                     {
-                        // 晚上需要较大的快门
+                        // 晚上需要较小的快门
                         static INT s_nLastStatus = -1;
-                        INT nStatus = -1;
+                        //INT nStatus = -1;
                         //SendMessage(MSG_GET_M3_DAYNIGHT_STATUS, 0, (LPARAM)&nStatus);       // (3:day, 2:dusk, 1:night)
                         // 0白天，1傍晚，2晚上
                         SendMessage(MSG_RECOGNIZE_GET_DSP_ENV_LIGHT_TYPE, NULL, (LPARAM)&nStatus);
@@ -390,16 +415,26 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
                                 nValue = (m_iAGCNightShutterHOri << 16);
                                 nValue |= (m_iAGCShutterLOri & 0x0000FFFF);
                                 SendMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
-                                SW_TRACE_DEBUG("Set Night ShutterHOri = %d ################\n", m_iAGCNightShutterHOri);
+								nValue=0;
+								nValue=(m_iAGCNightGainHOri<<16);
+								nValue |= (10 & 0x0000FFFF);
+								SendMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
+								SendMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)1, NULL);
+                                SW_TRACE_DEBUG("Set Night ShutterHOri = %d GainHOri=%d ################\n", m_iAGCNightShutterHOri,m_iAGCNightGainHOri);
                             }
                             else
                             {
                                 //设置AGC快门范围
                                 DWORD nValue= 0;
                                 nValue = (m_iAGCDayShutterHOri << 16);
-                                nValue |= (m_iAGCShutterLOri & 0x0000FFFF);
+                                nValue |= (m_iAGCShutterLOri & 0x0000FFFF);						
                                 SendMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
-                                SW_TRACE_DEBUG("Set Day ShutterHOri = %d ################\n", m_iAGCDayShutterHOri);
+								nValue=0;
+								nValue=(m_iAGCGainHOri<<16);
+								nValue |= (10 & 0x0000FFFF);
+								SendMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
+								SendMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)0, NULL);
+                                SW_TRACE_DEBUG("Set Day ShutterHOri = %d GainHOri=%d ################\n", m_iAGCDayShutterHOri,m_iAGCGainHOri);
                             }
                         }
                         s_nLastStatus = nStatus;
@@ -433,23 +468,26 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 	if( m_fForceChange )
 	{
 		m_fForceChange = FALSE;
-		if( m_fIsDay || m_fIsDayEx )
-		{
-			m_iCaptureShutter = m_iDayShutterMax;
-			m_iCaptureGain = m_iDayGainMax; 
-		}
-		else
-		{
-			m_iCaptureGain = m_iNightGainMax;
-			m_iCaptureShutter = m_iNightShutterMax;
-		}
+		//if( m_fIsDay || m_fIsDayEx )
+		//{
+		//	m_iCaptureShutter = m_iDayShutterMax;
+		//	m_iCaptureGain = m_iDayGainMax; 
+		//}
+		//else
+		//{
+			//晚上取上次手动设定的最大值
+			m_iCaptureGain=m_iTempCaptureGain;
+			m_iCaptureShutter=m_iTempCaptureShutter;
+			//m_iCaptureGain = m_iNightGainMax;
+			//m_iCaptureShutter = m_iNightShutterMax;
+		//}
 
 		SW_TRACE_DEBUG("<AutoControlRenderFilter>ForceChange. shutter:%d,gain:%d.", m_iCaptureShutter, m_iCaptureGain);
 		m_fNeedUpdateCaptureParam = TRUE;
 		return;
 	}
 
-	if( m_fIsDay )
+	if( m_fIsDay || m_fIsDayEx)
 	{
 		// 阴天情况下，图片亮度不能太高。
 		if( m_fIsDayEx )
@@ -469,15 +507,27 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 		if( m_iCaptureImageCount == 2 )
 		{
 			m_iTotalAvgY /= 2;
+			SW_TRACE_DEBUG("m_iTotalAvgY=%\n",m_iTotalAvgY);
+			DWORD m_iCaptureGainT=m_iCaptureGain;
+			DWORD m_iCaptureShutterT=m_iCaptureShutter;
 			if( m_iTotalAvgY < iMinAvgY )
 			{
+				m_fNeedUpdateCaptureParam = FALSE;
 				if( m_iCaptureGain < m_iDayGainMax )
 				{
 					m_iCaptureGain += 10;
 					m_iCaptureGain = m_iCaptureGain > m_iDayGainMax ? m_iDayGainMax : m_iCaptureGain;
 					m_fNeedUpdateCaptureParam = TRUE;
 				}
-				else if( m_iCaptureShutter < m_iDayShutterMax )
+				else
+				{
+					if(m_iCaptureGain>m_iDayGainMax)
+					{
+						m_iCaptureGain=m_iDayGainMax;
+						m_fNeedUpdateCaptureParam = TRUE;
+					}
+				}
+				if( m_iCaptureShutter < m_iDayShutterMax )
 				{
 					m_iCaptureShutter += 100;
 					m_iCaptureShutter = m_iCaptureShutter > m_iDayShutterMax ? m_iDayShutterMax : m_iCaptureShutter;
@@ -485,18 +535,25 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 				}
 				else
 				{
-					m_fNeedUpdateCaptureParam = FALSE;
+					m_iCaptureShutter=m_iDayShutterMax;
+					m_fNeedUpdateCaptureParam = TRUE;
 				}
 			}
 			else if( m_iTotalAvgY > iMaxAvgY )
 			{
+				m_fNeedUpdateCaptureParam = FALSE;
 				if( m_iCaptureShutter > m_iShutterMin )
 				{
 					m_iCaptureShutter -= 100;
 					m_iCaptureShutter = m_iCaptureShutter < m_iShutterMin ? m_iShutterMin : m_iCaptureShutter;
 					m_fNeedUpdateCaptureParam = TRUE;
 				}
-				else if( m_iCaptureGain > m_iGainMin )
+				else
+				{
+					m_iCaptureShutter=m_iShutterMin;
+					m_fNeedUpdateCaptureParam = TRUE;
+				}
+				if( m_iCaptureGain > m_iGainMin )
 				{
 					m_iCaptureGain -= 10;
 					m_iCaptureGain = m_iCaptureGain < m_iGainMin ? m_iGainMin : m_iCaptureGain;
@@ -504,8 +561,13 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 				}
 				else
 				{
-					m_fNeedUpdateCaptureParam = FALSE;
+					m_iCaptureGain=m_iGainMin;
+					m_fNeedUpdateCaptureParam = TRUE;
 				}
+			}
+			if(m_iCaptureShutterT==m_iCaptureShutter||m_iCaptureGainT==m_iCaptureGain)
+			{
+				m_fNeedUpdateCaptureParam=FALSE;
 			}
 			m_iCaptureImageCount = 0;
 			m_iTotalAvgY = 0;
@@ -514,13 +576,18 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 	else
 	{
 		// 晚上的调整方式需要抓拍图重识别后的车牌亮度来处理。如果无此值晚上用默认的一套参数。
-		if( m_iCaptureShutter != m_iNightShutterMax || m_iCaptureGain != m_iNightGainMax )
+		if( m_iCaptureShutter != m_iTempCaptureShutter || m_iCaptureGain != m_iTempCaptureGain )
 		{
-			m_iCaptureGain = m_iNightGainMax;
-			m_iCaptureShutter = m_iNightShutterMax;
+		//	m_iCaptureGain = m_iNightGainMax;
+		//	m_iCaptureShutter = m_iNightShutterMax;
+			//晚上取上次手动设定的最大值
+			m_iCaptureGain=m_iTempCaptureGain;
+			m_iCaptureShutter=m_iTempCaptureShutter;
 			m_fNeedUpdateCaptureParam = TRUE;
 		}
 	}
+
+	SW_TRACE_DEBUG("抓拍增益：%d,抓拍快门：%d\n",m_iCaptureGain,m_iCaptureShutter);
 }
 
 void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
@@ -539,13 +606,13 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 				//AGC调整
 				if(TRUE == pThis->m_fEnableAGC)
 				{
-					SW_TRACE_NORMAL("摄像机参数改变:%d[AGCLimit:%d]", iLightType, pThis->m_irgAGCLimit[iLightType]);
+					SW_TRACE_DEBUG("摄像机参数改变:%d[AGCLimit:%d]", iLightType, pThis->m_irgAGCLimit[iLightType]);
 					CSWMessage::SendMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[iLightType]);
 				}
 				//曝光时间、增益调整
 				else
 				{
-					SW_TRACE_NORMAL("摄像机参数改变:%d[ExporeTime:%d, Gain:%d]", iLightType, pThis->m_irgExposureTime[iLightType], pThis->m_irgGain[iLightType]);
+					SW_TRACE_DEBUG("摄像机参数改变:%d[ExporeTime:%d, Gain:%d]", iLightType, pThis->m_irgExposureTime[iLightType], pThis->m_irgGain[iLightType]);
 					CSWMessage::SendMessage(MSG_SET_AGCGAIN, pThis->m_irgGain[iLightType]);
 					CSWMessage::SendMessage(MSG_SET_SHUTTER, pThis->m_irgExposureTime[iLightType]);
 				}
@@ -556,13 +623,13 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 			{
 				iCplStatus = pdu->GetCplStatus();
 				int iSwitch = (iCplStatus == 0) ? 1 : 2;
-				SW_TRACE_NORMAL("偏振镜状态:[%s]", iCplStatus == 0 ? "不使能" : "使能");
+				SW_TRACE_DEBUG("偏振镜状态:[%s]", iCplStatus == 0 ? "不使能" : "使能");
 				CSWMessage::SendMessage(MSG_SET_FILTERSWITCH, iSwitch, 0);
 				
 			}
 			
 			//频闪灯脉宽等级
-			if(iPluseLevel != pdu->GetPluseLevel())
+			/*if(iPluseLevel != pdu->GetPluseLevel())
 			{
 				iPluseLevel = pdu->GetPluseLevel();
 				if(0 == iPluseLevel)
@@ -573,13 +640,13 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 				{
 					INT iStep = (pThis->m_iMaxPSD - pThis->m_iMinPSD)/7;
 					INT iPulseWidth = (pThis->m_iMinPSD + (iPluseLevel -1)* iStep)/100;//us转为1/10ms
-					SW_TRACE_NORMAL("频闪灯脉宽等级:[%d,%d],PSD(%d~%d),step:%d", 
+					SW_TRACE_DEBUG("频闪灯脉宽等级:[%d,%d],PSD(%d~%d),step:%d", 
 						iPluseLevel, iPulseWidth,pThis->m_iMinPSD,pThis->m_iMaxPSD,iStep);
 					//CSWMessage::SendMessage(MSG_SET_FLASHRATE_ENABLE, TRUE);
 					//CSWMessage::SendMessage(MSG_SET_FLASHRATE_PULSE, iPulseWidth);
 					CSWMessage::SendMessage(MSG_SET_EXP_PLUSEWIDTH, iPulseWidth);
 				}
-			}	
+			}*/
 						//WDR
 			if (iWDRLevel != pdu->GetWDRLevel())
 			{
@@ -687,12 +754,12 @@ HRESULT CSWAutoControlRenderFilter::Enable(BOOL fEnable,
 	m_nMaxPlateY = iMaxPlateY;
 
 	// AGC不自动使能，由前端相机参数确定。
-	/*
-	if( m_fEnable )
+	
+	/*if( m_fEnable )
 	{
 		CSWMessage::SendMessage(MSG_SET_AGCENABLE, m_fEnableAGC);
-	}
-	*/
+	}*/
+	
 	return S_OK;
 }
 
@@ -722,8 +789,8 @@ HRESULT CSWAutoControlRenderFilter::SetAutoCaptureParam(BOOL fEnable, INT iDaySh
 
 HRESULT CSWAutoControlRenderFilter::SetCaptureShutterGain(INT iCaptureShutter, INT iCaptureGain)
 {
-    m_iCaptureShutter = iCaptureShutter;
-    m_iCaptureGain = iCaptureGain;
+    m_iCaptureShutter = m_iTempCaptureShutter = iCaptureShutter;
+    m_iCaptureGain = m_iTempCaptureGain = iCaptureGain;
     return S_OK;
 }
 
@@ -761,12 +828,21 @@ HRESULT CSWAutoControlRenderFilter::SetNightThresholdArg(INT nNightShutter, INT 
     return S_OK;
 }
 
-HRESULT CSWAutoControlRenderFilter::SetDayNightShutterHOri(INT iDayNightShutterEnable, INT iDayShutterHOri, INT iNightShutterHOri, INT iShutterLOri)
+HRESULT CSWAutoControlRenderFilter::SetDayNightShutterHOri(INT iDayNightShutterEnable, INT iDayShutterHOri, INT iNightShutterHOri, INT iGainHOri, INT iNightGainHOri, INT iShutterLOri)
 {
     m_iAGCDayNightShutterControl = iDayNightShutterEnable;
     m_iAGCDayShutterHOri = iDayShutterHOri;
     m_iAGCNightShutterHOri = iNightShutterHOri;
+	m_iAGCNightGainHOri= iNightGainHOri;
     m_iAGCShutterLOri = iShutterLOri;
+	m_iAGCGainHOri=iGainHOri;
+    return S_OK;
+}
+
+HRESULT CSWAutoControlRenderFilter::SetRealTimeDayNightShutterHOri(WPARAM wParam, LPARAM lParam)
+{
+	m_iAGCNightShutterHOri = (DWORD)wParam;
+	m_iAGCNightGainHOri= (DWORD)lParam;
     return S_OK;
 }
 

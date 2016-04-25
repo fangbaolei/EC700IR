@@ -1,6 +1,6 @@
 #pragma once
 
-#include "svTgIrApi/svTgIrApi.h"
+#include "svTgVvdApi/svTgVvdApi.h"
 #include "swplatetype.h"
 #include "swImageObj.h"
 #include "trackerdef.h"
@@ -79,17 +79,17 @@ public:
     virtual int GetPosCount();
     virtual sv::CSvRect GetPos(int nIndex);
     virtual sv::CSvRect GetLastPos();
-    virtual const svTgIrApi::TG_TRACK_LOCUS& GetLocus(int nIndex);
-    virtual const svTgIrApi::TG_TRACK_LOCUS& GetLastLocus();
-    virtual const svTgIrApi::TG_PLATE_INFO& GetPlate(int nIndex);  // 取过程中识别到的车牌
+    virtual const svTgVvdApi::TG_TRACK_LOCUS& GetLocus(int nIndex);
+    virtual const svTgVvdApi::TG_TRACK_LOCUS& GetLastLocus();
+    virtual const svTgVvdApi::TG_PLATE_INFO& GetPlate(int nIndex);  // 取过程中识别到的车牌
     virtual int GetPlateCount();
     virtual void End();    // 仅结束检测识别模块的结果，并非释放本对象数据
 
     /// 取结果信息，包括车牌识别结果。仅跟踪为TS_END状态数据才有效。
-    virtual sv::SV_RESULT GetResult(svTgIrApi::ITgTrack::TG_RESULT_INFO* pResInfo);
+    virtual sv::SV_RESULT GetResult(svTgVvdApi::ITgTrack::TG_RESULT_INFO* pResInfo);
 
     /// 取跟踪扩展信息
-    virtual sv::SV_RESULT GetExInfo(svTgIrApi::TG_TRACK_EX_INFO* pExInfo);   
+    virtual sv::SV_RESULT GetExInfo(svTgVvdApi::TG_TRACK_EX_INFO* pExInfo);   
 
 //     /// 当前跟踪状态是否为压线，仅在停止线发下判断
 //     virtual sv::SV_BOOL IsPressRoadLine(int* pnRoadNum = NULL);
@@ -99,6 +99,7 @@ public:
      virtual sv::SV_BOOL IsReverseRun();
 //     /// 当前是否为越线
 //     virtual sv::SV_BOOL IsCrossRoadLine(int* pnRoadNum = NULL);
+	virtual sv::SV_BOOL IsLeftToRight(int iImgWidth);
 
     virtual int GetRoadNum();
 
@@ -111,7 +112,7 @@ public:
         CAppTrackInfo* rgDjObj,
         int iMaxObj,
         int* piObjCnt,  // 输入输出
-        svTgIrApi::ITgTrack** rgpTracker,
+        svTgVvdApi::ITgTrack** rgpTracker,
         int iTrackerCnt
     );
 
@@ -120,17 +121,17 @@ public:
     // 当前帧的时间。
     static sv::SV_UINT32 s_iCurImageTick;
 
-    svTgIrApi::ITgTrack* m_pTrack;
+    svTgVvdApi::ITgTrack* m_pTrack;
 
     // 从算法接口获取的跟踪扩展信息
-    svTgIrApi::TG_TRACK_EX_INFO m_cExInfo;
+    svTgVvdApi::TG_TRACK_EX_INFO m_cExInfo;
 
     BOOL m_fCarArrived;
     BOOL m_fIsTrigger;
     DWORD32 m_nCarArriveRealTime;
     CRect m_rcCarArrivePos;
 private:
-    virtual void Update(svTgIrApi::ITgTrack* pITgTrack);  // 使用检测结果更新状态信息等
+    virtual void Update(svTgVvdApi::ITgTrack* pITgTrack);  // 使用检测结果更新状态信息等
     // < 与DjTrack模块对应变量
     sv::SV_UINT32 m_dwID;
 
@@ -146,7 +147,7 @@ public:
     sv::CSvRect m_rcCurPos;
 
     // 有牌车的图
-    BestPlateInfo m_rgBestPlateInfo[svTgIrApi::PLATE_TYPE_COUNT]; // 为每种类型都保存一个得分最高的车牌图像
+    BestPlateInfo m_rgBestPlateInfo[svTgVvdApi::PLATE_TYPE_COUNT]; // 为每种类型都保存一个得分最高的车牌图像
     IVirtualRefImage *m_pimgBestSnapShot;    // 最清晰大图
     IVirtualRefImage *m_pimgLastSnapShot;
 
@@ -174,9 +175,9 @@ public:
     int m_nPlateMovePosCount;
     HV_RECT m_rgrcPlateMovePos[m_nMaxPlateMovePos];
 
-	int m_nCenterPointMovePosCount;
-	static const int m_nMaxCenterPointMovePos = 64;
-	HV_RECT m_CenterPointMovPos[m_nMaxCenterPointMovePos];
+	//int m_nCenterPointMovePosCount;
+	//static const int m_nMaxCenterPointMovePos = 64;
+	//HV_RECT m_CenterPointMovPos[m_nMaxCenterPointMovePos];
 	
     // zhaopy 记录时间
     DWORD32 m_rgdwPlateTick[m_nMaxPlateMovePos];
@@ -194,6 +195,9 @@ public:
 	
     // 要记录抓拍计数，出结果时使用
     DWORD32 m_dwTriggerCameraTimes;
+    //
+    BOOL m_fLastFrameHasPlate;
+    int m_iTriggerRoadNum;
 };
 
 }

@@ -349,10 +349,10 @@ int swpa_comm_file_read(
 	struct timeval tv, *ptimeout = NULL;
 	FD_ZERO(&rdset);
 	FD_SET(pinfo->fd, &rdset);
-	if (0 <= pinfo->read_timeout)
+	if (1)//0 <= pinfo->read_timeout)
 	{		
-		tv.tv_sec = pinfo->read_timeout / 1000;           // ms to sec
-		tv.tv_usec = (pinfo->read_timeout % 1000) * 1000; // ms to usec
+		tv.tv_sec = 0;//pinfo->read_timeout / 1000;           // ms to sec
+		tv.tv_usec = 500000;//(pinfo->read_timeout % 1000) * 1000; // ms to usec
 
 		ptimeout = &tv;
 	}
@@ -567,6 +567,8 @@ int swpa_comm_file_write(
 		{			
 			if (FD_ISSET(pinfo->fd, &wrset))
 			{
+			    // 清除读缓冲区
+			    tcflush(pinfo->fd, TCIFLUSH);
 				//do write
 				bytes = write(pinfo->fd, buf, size);
 				//写完强制清空硬件缓存然后再切换到接收模式，这样才能保证数据发送完整，同时又能及时接收到应答数据
@@ -782,6 +784,9 @@ int swpa_comm_file_ioctl(
 	
 	switch (cmd)
 	{
+		case SWPA_FILE_IOCTL_COMM_CLEAR:
+			tcflush(fd, TCIOFLUSH);
+			return SWPAR_OK;
 		case SWPA_FILE_IOCTL_COMM_IS_RS485:
 		{
 			if (NULL == args)

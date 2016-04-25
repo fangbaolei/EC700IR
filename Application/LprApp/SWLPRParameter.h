@@ -387,6 +387,7 @@ typedef struct _CamAppParam
 	INT iAGCScene;			/**< AGC情景模式 */
     INT iAGCDayNightShutterControl;     /**< AGC白天、晚上独立快门上限控制 */
     INT iAGCNightShutterHOri;    /**< AGC快门调节上限 */
+	INT iAGCNightGainHOri; //AGC晚上增益上限
 
 	INT iGainR;             /**< R增益 */
 	INT iGainG;             /**< G增益 */
@@ -397,6 +398,9 @@ typedef struct _CamAppParam
 	INT iCaptureGainR;      /**< 抓拍R增益 */
 	INT iCaptureGainG;      /**< 抓拍G增益 */
     INT iCaptureGainB;      /**< 抓拍B增益 */
+	INT iCaptureDayGainR;      /**< 白天抓拍R增益 */
+	INT iCaptureDayGainG;      /**< 白天抓拍G增益 */
+    INT iCaptureDayGainB;      /**< 白天抓拍B增益 */
 	INT iCaptureGain;       /**< 抓拍相机增益 */
 	INT iCaptureShutter;    /**< 抓拍快门时间 */
 	INT iCaptureSharpenThreshold;       /**< 抓拍锐度值 */
@@ -551,14 +555,15 @@ typedef struct _CamAppParam
 		iVbrSensivititySecond = 0;
 
 		iAGCTh = 100;
-		iAGCShutterLOri = 100;
-        iAGCShutterHOri = 3000;
+		iAGCShutterLOri = 200;
+        iAGCShutterHOri = 4200;
 		iAGCGainLOri = 70;
-        iAGCGainHOri = 150;
+        iAGCGainHOri = 120;
 		iAGCScene = 0;
 
         iAGCDayNightShutterControl = 0;
-        iAGCNightShutterHOri = 5000;
+        iAGCNightShutterHOri = 1500;
+		iAGCNightGainHOri=60;
 
 		iGainR = 0;
 		iGainG = 0;
@@ -786,9 +791,9 @@ typedef struct _OVERLAY
 		memset(this, 0, sizeof(*this));
 		cJPEGInfo.iColor = 0x000000FF;
 		cJPEGInfo.iFontSize = 32;
-		swpa_strcpy(cH264Info.szInfo, "$(Time)  路口名称:$(RoadName)  路口方向:$(RoadDir)  设备编号:$(DevID)");
-		swpa_strcpy(cH264SecondInfo.szInfo, "第二路H264流字符叠加样例");
-		swpa_strcpy(cJPEGInfo.szInfo, "$(Time)  路口名称:$(RoadName)  路口方向:$(RoadDir)  $(PlateName)  设备编号:$(DevID)  防伪码:$(EncryptCode)");
+		swpa_strcpy(cH264Info.szInfo, "$(Time)  Road name:$(RoadName)  Road direction:$(RoadDir)  Device ID:$(DevID)");
+		swpa_strcpy(cH264SecondInfo.szInfo, "The second channel H.264 OSD Sample");
+		swpa_strcpy(cJPEGInfo.szInfo, "$(Time)  Road name:$(RoadName)  Road direction:$(RoadDir)  $(PlateName)  Device ID:$(DevID)  Security code:$(EncryptCode)");
 	}
 }OVERLAY;
 #define NAME_LEN 32

@@ -30,7 +30,7 @@ public:
    */
 	virtual HRESULT Initialize(INT iGlobalParamIndex, 
 		INT nLastLightType,INT nLastPulseLevel, INT nLastCplStatus, 
-		PVOID pvParam, INT iMinPlateLight, INT iMaxPlateLight,BOOL fSendRecognize);
+		PVOID pvParam, INT iMinPlateLight, INT iMaxPlateLight);
 	
 	virtual HRESULT RegisterCallBackFunction(PVOID OnDSPAlarm, PVOID pvParam);
 	virtual HRESULT Run();
@@ -141,7 +141,7 @@ protected:
 protected:
 	//自动化映射宏
 	SW_BEGIN_DISP_MAP(CSWRecognizeTGTransformFilter, CSWBaseFilter)
-		SW_DISP_METHOD(Initialize, 8)
+		SW_DISP_METHOD(Initialize, 7)
 		SW_DISP_METHOD(RegisterCallBackFunction, 2)
 		SW_DISP_METHOD(SetReverseRunFilterFlag, 1)
 	SW_END_DISP_MAP()
@@ -179,7 +179,6 @@ private:
 	CSWThread* m_pThread;				// 识别线程
 	CSWSemaphore m_cSemImage;			
 
-	BOOL m_fSendRecognize;
 	BOOL m_fReverseRunFilterFlag;
 
 	DWORD m_dwPlateCount;		//车辆统计
@@ -200,7 +199,7 @@ private:
     CSWList<PROC_QUEUE_ELEM> m_lstMatchImage;
 	CSWSemaphore m_cSemMatch;			
 
-	swTgApp::CAppDetCtrl m_cAlgDetCtrl;
+    swTgVvdApp::CAppDetCtrl m_cAlgDetCtrl;
     BOOL m_fModifyParam;
 	int m_nEnvLightType;
 
@@ -232,6 +231,10 @@ private:
     INT m_nCurEnvPeriod; // 白天、傍晚、晚上状态。3:day, 2:dusk, 1:night
 
     INT m_nEnvFromM3;       // 来自M3  3:day, 2:dusk, 1:night
+    INT m_rgiAllCarTrigger[MAX_EVENT_COUNT];
+	BOOL m_fUpdate;
+
+	DWORD m_iFrame;
 };
 REGISTER_CLASS(CSWRecognizeTGTransformFilter)
 #endif

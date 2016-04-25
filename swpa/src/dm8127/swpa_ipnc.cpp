@@ -1201,7 +1201,7 @@ int swpa_ipnc_Crop_reset(void *addr, int left, int top, int right, int bottom, i
 
                     buf->frameWidth = iResetWidth;
                     buf->frameHeight = iResetHeight;
-                    node->resize = 1;
+                    node->resize = 0;
                     node->offsetY = ((top * buf->framePitch[0] + left));
                     node->offsetUV = ((top / 2) * buf->framePitch[1] + left);
 

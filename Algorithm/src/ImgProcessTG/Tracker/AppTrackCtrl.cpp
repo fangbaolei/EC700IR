@@ -2,7 +2,7 @@
 #include "hvutils.h"
 #include "TrackInfoHigh.h"
 #include "AppUtils.h" 
-//#include "DetModelData.h"
+#include "DetModelData.h"
 #include "AppUtils.h"
 
 #include "AsyncDetResult.h"
@@ -118,7 +118,7 @@ namespace swTgApp
     void CPlateLightCtrl::SetFirstLightType(LIGHT_TYPE nLightType)
     {
         m_nFirstLightType = nLightType;
-        m_dwLastCarLeftTime = sv::utGetSystemTick();
+        m_dwLastCarLeftTime = 0;//sv::utGetSystemTick();
     }
 
     HRESULT CPlateLightCtrl::UpdateLightType(int iCarY, bool fIsAvgBrightness)
@@ -143,6 +143,11 @@ namespace swTgApp
         static DWORD32 s_dwLastSetParamTick = sv::utGetSystemTick();
         DWORD32 dwTimeInterval = 6000;
         if (sv::utGetSystemTick() - s_dwLastSetParamTick < dwTimeInterval && fIsAvgBrightness)
+        {
+            return S_FALSE;
+        }
+
+        if (fIsAvgBrightness)
         {
             return S_FALSE;
         }
@@ -182,6 +187,7 @@ namespace swTgApp
             }
 
             int iAvgBrightness = (iSumBrightness - s_iMaxValue - s_iMinValue) / (iFrameCount - 2);
+            static DWORD32 dwLastTime=0;
             if (iAvgBrightness < iMinBrightness && m_nPlateLightType < LIGHT_TYPE_COUNT)
             {
                 if (m_nPlateLightType < LIGHT_TYPE_COUNT - 1)
@@ -189,7 +195,11 @@ namespace swTgApp
                     /*sprintf(szMsg, "<123ex>CheckLightType ++m_nPlateLightType:%d. iAvgBrightness:%d. Exp:(%d~%d),Count:%d",
                     m_nPlateLightType, iAvgBrightness, iMaxBrightness, iMinBrightness, iFrameCount);
                     Venus_OutputDebug(szMsg);*/
-                    m_nPlateLightType = (LIGHT_TYPE)((int)m_nPlateLightType + 1);
+                	if(dwCurTick-dwLastTime>30000)
+                	{
+                		dwLastTime=dwCurTick;
+                		m_nPlateLightType = (LIGHT_TYPE)((int)m_nPlateLightType + 1);
+                	}
                 }
                 //逆光情况下开启WDR
                 else if (fIsAvgBrightness == FALSE	//TODO 是否有必要通过环境光调节WDR?
@@ -220,8 +230,11 @@ namespace swTgApp
                     /*sprintf(szMsg, "<123ex>CheckLightType --m_nPlateLightType:%d. iAvgBrightness:%d. Exp:(%d~%d),Count:%d",
                     m_nPlateLightType, iAvgBrightness, iMaxBrightness, iMinBrightness, iFrameCount);
                     Venus_OutputDebug(szMsg);*/
-
-                    m_nPlateLightType = (LIGHT_TYPE)((int)m_nPlateLightType - 1);
+                	if(dwCurTick-dwLastTime>30000)
+                	{
+                	    dwLastTime=dwCurTick;
+                	    m_nPlateLightType = (LIGHT_TYPE)((int)m_nPlateLightType - 1);
+                	}
                 }
                 else
                 {
@@ -235,7 +248,11 @@ namespace swTgApp
 
             if (m_fIsARMNight)	//晚上强制最高等级
             {
-                m_nPlateLightType = (LIGHT_TYPE)((int)LIGHT_TYPE_COUNT -1);
+            	if(dwCurTick-dwLastTime>30000)
+            	{
+            		dwLastTime=dwCurTick;
+            		m_nPlateLightType = (LIGHT_TYPE)((int)LIGHT_TYPE_COUNT -1);
+            	}
                 m_nWDRLevel = 0;
             }
 
@@ -330,15 +347,15 @@ namespace swTgApp
         }
         else
         {
-            // 5分钟内没结果，才通过环境亮度判断
-            if (sv::utGetSystemTick() > m_dwLastCarLeftTime
-                && (sv::utGetSystemTick() - m_dwLastCarLeftTime) > 300000)
+            // 1分钟内没结果，才通过环境亮度判断
+            if ((sv::utGetSystemTick() - m_dwLastCarLeftTime) > 30000)
             {
                 /*char szMsg[256];
                 sprintf(szMsg, "<123exdo>CheckLightType tick:%d,m_dwLastCarLeftTime:%d,nEnvAvgY:%d",
                 sv::utGetSystemTick(), m_dwLastCarLeftTime,nEnvAvgY);
                 Venus_OutputDebug(szMsg);*/
                 UpdateLightType(nEnvAvgY, true);
+                m_dwLastCarLeftTime = sv::utGetSystemTick();
             }
 
             if ( nEnvAvgY > m_iNightThreshold )
@@ -457,101 +474,102 @@ namespace swTgApp
         m_pCallback(NULL),
         m_pCurIRefImage(NULL)
     {
+    	m_nEnvLightType = svTgVvdApi::CTgCtrl::LT_DAY;
 
-//        svTgIrApi::MOD_DET_INFO* pModel = m_rgModDetInfo;
-//
-//        // 白天小车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DAY_SMALL_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DaySmall.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DaySmall.nDataLen;
-//        pModel->fltRoadRatio = 0.6f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 6;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
-//
-//        // 白天大车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DAY_LARGE_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DayLarge.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DayLarge.nDataLen;
-//        pModel->fltRoadRatio = 0.9f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 6;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
-//
-//        // 傍晚小车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DUSK_SMALL_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DaySmall.pData;         //傍晚使用白天模型
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DaySmall.nDataLen;
-//        pModel->fltRoadRatio = 0.6f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 6;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
-//
-//        // 傍晚小车增强模型，模型参数需要和傍晚小车一致
-//        *pModel = *(pModel - 1);
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DUSK_SMALL_CAR_EX;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DuskSmallEx.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DuskSmallEx.nDataLen;
-//        ++pModel;
-//
-//        // 傍晚大车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DUSK_LARGE_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DayLarge.pData;         //傍晚使用白天模型
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DayLarge.nDataLen;
-//        pModel->fltRoadRatio = 0.9f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 6;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
-//
-//        // 傍晚大车增强模型，模型参数需要和傍晚小车一致
-//        *pModel = *(pModel - 1);
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::DUSK_LARGE_CAR_EX;
-//        pModel->pbData = swTgApp::g_cTgDetMode_DuskLargeEx.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_DuskLargeEx.nDataLen;
-//        ++pModel;
-//
-//        // 晚上小车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::NIGHT_SMALL_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_NightSmall.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_NightSmall.nDataLen;
-//        pModel->fltRoadRatio = 0.6f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 8;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
-//
-//        // 晚上大车
-//        pModel->nDetType = svTgIrApi::MOD_DET_INFO::NIGHT_LARGE_CAR;
-//        pModel->pbData = swTgApp::g_cTgDetMode_NightLarge.pData;
-//        pModel->nDataLen = swTgApp::g_cTgDetMode_NightLarge.nDataLen;
-//        pModel->fltRoadRatio = 0.9f;
-//        pModel->nStepDivX = 8;
-//        pModel->nStepDivY = 8;
-//        pModel->nScaleNum = 3;
-//        pModel->nMergeNum = 2;
-//        pModel->nMaxROI = 500;
-//        ++pModel;
+        svTgVvdApi::MOD_DET_INFO* pModel = m_rgModDetInfo;
+
+        // 白天小车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DAY_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DaySmall.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DaySmall.nDataLen;
+        pModel->fltRoadRatio = 0.6f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 6;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
+
+        // 白天大车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DAY_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DayLarge.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DayLarge.nDataLen;
+        pModel->fltRoadRatio = 0.9f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 6;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
+
+        // 傍晚小车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DUSK_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DaySmall.pData;         //傍晚使用白天模型
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DaySmall.nDataLen;
+        pModel->fltRoadRatio = 0.6f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 6;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
+
+        // 傍晚小车增强模型，模型参数需要和傍晚小车一致
+        *pModel = *(pModel - 1);
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DUSK_SMALL_CAR_EX;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DuskSmallEx.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DuskSmallEx.nDataLen;
+        ++pModel;
+
+        // 傍晚大车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DUSK_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DayLarge.pData;         //傍晚使用白天模型
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DayLarge.nDataLen;
+        pModel->fltRoadRatio = 0.9f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 6;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
+
+        // 傍晚大车增强模型，模型参数需要和傍晚小车一致
+        *pModel = *(pModel - 1);
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::DUSK_LARGE_CAR_EX;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DuskLargeEx.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DuskLargeEx.nDataLen;
+        ++pModel;
+
+        // 晚上小车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::NIGHT_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_NightSmall.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_NightSmall.nDataLen;
+        pModel->fltRoadRatio = 0.6f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 8;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
+
+        // 晚上大车
+        pModel->nDetType = svTgVvdApi::MOD_DET_INFO::NIGHT_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_NightLarge.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_NightLarge.nDataLen;
+        pModel->fltRoadRatio = 0.9f;
+        pModel->nStepDivX = 8;
+        pModel->nStepDivY = 8;
+        pModel->nScaleNum = 3;
+        pModel->nMergeNum = 2;
+        pModel->nMaxROI = 500;
+        ++pModel;
     }
 
     CAppTrackCtrl::~CAppTrackCtrl(void)
     {
         if (m_pTgCtrl != NULL)
         {
-            svTgIrApi::FreeTgCtrl(m_pTgCtrl);
+            svTgVvdApi::FreeTgCtrl(m_pTgCtrl);
             m_pTgCtrl = NULL;
         }
     }
@@ -569,8 +587,9 @@ namespace swTgApp
         }
 
         SetSVCallBack();
-
-        sv::utTrace("=================SVEPVER:%s================\n", svTgIrApi::GetRevInfo());
+        sv::utTrace("=================SVEPVER:%s================\n", svTgVvdApi::GetRevInfo());
+        //将第二张位置作为触发抓拍线
+        pCfgParam->nCarArrivedPos = pCfgParam->nCaptureTwoPos;
 
         m_cRecogParam = *pRecogParam;
         m_cTrackerCfgParam = *pCfgParam;
@@ -590,7 +609,7 @@ namespace swTgApp
             m_rgTrackInfo[i].Free();
         }
         m_iTrackInfoCnt = 0;
-        m_nEnvLightType = svTgIrApi::CTgCtrl::LT_DAY;
+
         m_nEnvLight = 160;
 
         m_iAverageConfidenceQuan = 0;
@@ -605,7 +624,7 @@ namespace swTgApp
         // create ctrl
         if (m_pTgCtrl == NULL)
         {
-            m_pTgCtrl = svTgIrApi::CreateTgCtrl();
+            m_pTgCtrl = svTgVvdApi::CreateTgCtrl();
         }
 
         if (m_pTgCtrl == NULL)
@@ -619,11 +638,11 @@ namespace swTgApp
         RTN_HR_IF_FAILED(SetTgApiParam(pCfgParam, pRecogParam, iFrameWidth, iFrameHeight));
 
         // load det model
-//        for (int i=0; i<MAX_MOD_DET_INFO; ++i)
-//        {
-//            RTN_HR_IF_SVFAILED(m_pTgCtrl->LoadDetModel(&m_rgModDetInfo[i]));
-//        }
-        m_cApiParam.nDetBottomLine = 80;
+        for (int i=0; i<MAX_MOD_DET_INFO; ++i)
+        {
+           RTN_HR_IF_SVFAILED(m_pTgCtrl->LoadDetModel(&m_rgModDetInfo[i]));
+        }
+
         HRESULT hr = Svresult2Hresult(m_pTgCtrl->Init(&m_cApiParam));
 
         m_pTgCtrl->SetTriggerCallBack(swTgApp::TriggerCallBack, this);
@@ -645,7 +664,7 @@ namespace swTgApp
 
         if (NULL != m_pTgCtrl)
         {
-            svTgIrApi::FreeTgCtrl(m_pTgCtrl);
+            svTgVvdApi::FreeTgCtrl(m_pTgCtrl);
             m_pTgCtrl = NULL;
         }
 
@@ -677,10 +696,15 @@ namespace swTgApp
         svImgFrame.m_rgStrideWidth[0] = hvImgFrame.iStrideWidth[0];
         svImgFrame.m_rgStrideWidth[1] = hvImgFrame.iStrideWidth[1];
         svImgFrame.m_rgStrideWidth[2] = hvImgFrame.iStrideWidth[2];
+		// 抓拍识别
+        if (pProcParam->fIsCaptureImage)
+        {
+            return RS_S_OK;
+        }
 
         HRESULT hr = S_OK;
         const int MAX_RES = 30;
-        svTgIrApi::ITgTrack* rgpTgRes[MAX_RES];
+        svTgVvdApi::ITgTrack* rgpTgRes[MAX_RES];
         int nResCnt = 0;
 
         // 分离异步检测数据
@@ -691,7 +715,7 @@ namespace swTgApp
             pProcessData->cSyncDetData.nLen, 
             &nFrameTime, &pDetROI, &nDetROICnt); 
 
-        svTgIrApi::CTgCtrl::TG_CTRL_INFO exInfo;
+        svTgVvdApi::CTgCtrl::TG_CTRL_INFO exInfo;
 
         //sv::utTrace("# async roi:%d, datlen:%d\n", nDetROICnt, pProcessData->cSyncDetData.nLen);
 
@@ -705,7 +729,7 @@ namespace swTgApp
         //    m_fEnableCarArriveTrigger = FALSE;
         //}
 		//pProcParam->fIsCaptureImage=FALSE;
-#if 0
+/*#if 0
         // 抓拍识别
         pProcParam->fIsCaptureImage = TRUE;
         if (pProcParam->fIsCaptureImage)
@@ -746,7 +770,7 @@ namespace swTgApp
 				utTrace("m_pTgCtrl RecogOneFrame %08X. imgtype %d\n", rt, hvImgFrame.nImgType);
 			}
             return RS_S_OK;
-        }
+        }*/
 
         // 计算延时
         m_dwFrameDelay = dwFrameTimeMs - CAppTrackInfo::s_iCurImageTick;
@@ -755,15 +779,15 @@ namespace swTgApp
         // 更新跟踪时标
         CAppTrackInfo::s_iCurImageTick = dwFrameTimeMs;
 
-        if (m_cPlateLightCtrl.GetPlateLightType() < 4)
-        {
-            m_pTgCtrl->ForceDayEnvLightType();
-        }
+        //if (m_cPlateLightCtrl.GetPlateLightType() < 4)
+        //{
+        //    m_pTgCtrl->ForceDayEnvLightType();
+        //}
 
         // 检测跟踪识别
         sv::SV_RESULT svRet = m_pTgCtrl->Process(svImgFrame, 
             dwFrameTimeMs, 
-            (svTgIrApi::DET_ROI*)pDetROI, nDetROICnt,
+            (svTgVvdApi::DET_ROI*)pDetROI, nDetROICnt,
             rgpTgRes, 
             MAX_RES, 
             &nResCnt,
@@ -780,11 +804,11 @@ namespace swTgApp
         m_nEnvLightType = exInfo.nLightType;
         m_nEnvLight = exInfo.nAvgBrightness;
 
-        if (pProcParam->iEnvStatus == 2 && m_nEnvLightType == svTgIrApi::CTgCtrl::LT_DAY)
+        /*if (pProcParam->iEnvStatus == 2 && m_nEnvLightType == svTgVvdApi::CTgCtrl::LT_DAY)
         {
-            m_nEnvLightType = svTgIrApi::CTgCtrl::LT_DUSK;
+            m_nEnvLightType = svTgVvdApi::CTgCtrl::LT_DUSK;
 			utTrace("EnvStatus == 2, and EnvLightType turn to svTgIrApi::CTgCtrl::LT_DUSK\n");
-        }
+        }*/
 
         // 将检测结果转换到CAppTrackInfo
         RTN_HR_IF_FAILED( CAppTrackInfo::UpdateAll(m_rgTrackInfo, MAX_TRACK_INFO, &m_iTrackInfoCnt, rgpTgRes, nResCnt) );
@@ -814,7 +838,7 @@ namespace swTgApp
         return hr;
     }
 
-    HRESULT CAppTrackCtrl::RecogOneFrame(
+    /*HRESULT CAppTrackCtrl::RecogOneFrame(
         PROCESS_ONE_FRAME_PARAM* pProcParam,
         PROCESS_ONE_FRAME_DATA* pProcessData,
         PROCESS_ONE_FRAME_RESPOND* pProcessRespond,
@@ -946,7 +970,7 @@ namespace swTgApp
         pProcessRespond->cTrigEvent.dwEventId |= EVENT_FRAME_RECOED;
 
         return fGetPlate ? S_OK : S_FALSE;
-    }
+    }*/
 
     void CAppTrackCtrl::SetFirstLightType(LIGHT_TYPE nLightType)
     {
@@ -965,7 +989,7 @@ namespace swTgApp
         // 初始化共享内存引用指针
         IVirtualRefImage::SetImgMemOperLog(&pProcessRespond->cImgMemOperLog);
 
-        if (!pProcParam->fIsCaptureImage)
+        //if (!pProcParam->fIsCaptureImage)
         {
             if (m_pCurIRefImage != NULL)
             {
@@ -985,6 +1009,7 @@ namespace swTgApp
         m_pProcessRespond->cLightType = m_cPlateLightCtrl.GetPlateLightType();
         m_pProcessRespond->nEnvLightType = m_nEnvLightType;
         m_pProcessRespond->nWDRLevel = m_cPlateLightCtrl.GetWDRLevel();
+		//m_pProcessRespond->fIsNight = (m_nEnvLightType == svTgVvdApi::CTgCtrl::LT_DAY) ? 0 : 1;
 
         // 跟踪框信息
         int iMaxRect = sizeof(m_pProcessRespond->cTrackRectInfo.rgTrackRect) / sizeof(m_pProcessRespond->cTrackRectInfo.rgTrackRect[0]);
@@ -994,14 +1019,15 @@ namespace swTgApp
         for (int i=0; i<(int)m_pProcessRespond->cTrackRectInfo.dwTrackCount; ++i)
         {
             SV_RECT rcLastPos = m_rgTrackInfo[i].GetLastPos();
+            if (m_rgTrackInfo[i].GetLastLocus().m_pPlateInfo != NULL)
+            {
+            	svTgVvdApi::TG_PLATE_INFO* pPlateInfo = m_rgTrackInfo[i].GetLastLocus().m_pPlateInfo;
+                rcLastPos.m_nLeft = pPlateInfo->rcPos.m_nLeft + pPlateInfo->rcPlatePos.m_nLeft;
+                rcLastPos.m_nTop = pPlateInfo->rcPos.m_nTop + pPlateInfo->rcPlatePos.m_nTop;
+                rcLastPos.m_nRight = pPlateInfo->rcPos.m_nLeft + pPlateInfo->rcPlatePos.m_nRight;
+                rcLastPos.m_nBottom = pPlateInfo->rcPos.m_nTop + pPlateInfo->rcPlatePos.m_nBottom;
+            }
             m_pProcessRespond->cTrackRectInfo.rgTrackRect[i] = RECT_SV2HV(rcLastPos);
-        }
-
-        // 转化为虚拟引用图像
-        if (m_pCurIRefImage != NULL)
-        {
-            m_pCurIRefImage->Release(); 
-            m_pCurIRefImage = NULL;
         }
 
         return S_OK;
@@ -1024,6 +1050,8 @@ namespace swTgApp
         CheckCapture(pImage);
 
         CheckPeccancy(pImage);
+		int iTriggerCount = 0;
+        memset(pProcessRespond->cTrigEvent.rgiAllCarTrigger, 0, sizeof(pProcessRespond->cTrigEvent.rgiAllCarTrigger));
 
         // 跟踪结束处理
         for (int i=0; i<m_iTrackInfoCnt; ++i)
@@ -1031,6 +1059,15 @@ namespace swTgApp
             if (m_rgTrackInfo[i].GetState() == CAppTrackInfo::TS_END)
             {
                 OnTrackerEnd(&m_rgTrackInfo[i]);
+            }
+
+			if (m_fEnableCarArriveTrigger)
+            {
+				//更新当前跟踪哪些是已经触发抓拍过的
+				if (m_rgTrackInfo[i].m_dwTriggerCameraTimes > 0 && m_rgTrackInfo[i].m_fIsTrigger && iTriggerCount < MAX_EVENT_COUNT)
+				{
+					pProcessRespond->cTrigEvent.rgiAllCarTrigger[iTriggerCount++] = m_rgTrackInfo[i].m_dwTriggerCameraTimes & 0x00FFFFFF;
+				}
             }
         }
 
@@ -1087,16 +1124,17 @@ namespace swTgApp
             // 更新亮度等级
             if(m_fIsCheckLightType)
             {
-                svTgIrApi::ITgTrack::TG_RESULT_INFO tkRes;
+                svTgVvdApi::ITgTrack::TG_RESULT_INFO tkRes;
                 pTrackInfo->GetResult(&tkRes);
                 // 不是无牌车更新车牌亮度
-                if( tkRes.szPlate[0] != 0 && tkRes.nPlateAvgLight > 0)
-                {
+                	m_cPlateLightCtrl.UpdatePlateLight(m_nEnvLight);
+                //if( tkRes.szPlate[0] != 0 && tkRes.nPlateAvgLight > 0)
+                //{
                     /*char szMsg[256];
                     sprintf(szMsg, "<123exdo>CheckLightType plate.tkRes.nPlateAvgLight:%d",tkRes.nPlateAvgLight);
                     Venus_OutputDebug(szMsg);*/
-                    m_cPlateLightCtrl.UpdatePlateLight((int)tkRes.nPlateAvgLight);
-                }
+                //    m_cPlateLightCtrl.UpdatePlateLight((int)tkRes.nPlateAvgLight);
+                //}
             }
 
             // 出结果
@@ -1114,10 +1152,10 @@ namespace swTgApp
 
         bool fCanOutput = false;
 
-        svTgIrApi::ITgTrack::TG_RESULT_INFO tkRes;
+        svTgVvdApi::ITgTrack::TG_RESULT_INFO tkRes;
         TrackInfo.GetResult(&tkRes);
 
-        if (m_nEnvLightType != svTgIrApi::CTgCtrl::LT_DUSK)
+        //if (m_nEnvLightType != svTgIrApi::CTgCtrl::LT_DUSK)
         {
             // 分有牌无牌处理
             if (tkRes.szPlate[0] != 0)   // 结果有牌
@@ -1210,7 +1248,7 @@ namespace swTgApp
                 ///zhugl
                 int nPosY = TrackInfo.GetLastPos().CenterPoint().m_nY;
                 int nPosFirstY = TrackInfo.GetPos(0).CenterPoint().m_nY;
-                bool fReversRun = (nPosY < nPosFirstY);
+                /*bool fReversRun = (nPosY < nPosFirstY);
 
                 int nLinePointY0 = m_cRoadInfo.GetRoadLinePointY0();
                 int nPosDiff = 15;
@@ -1239,35 +1277,32 @@ namespace swTgApp
                     {
                         nPosDiff = 14;
                     }
-                }
+                }*/
 
-                if (tkRes.nValidDetCount >= nValidDetCount 
-                    && (fReversRun || nPosY > m_iFrameHeight * nTopYLimit / 100)      //限制检测框在上方出结果
-                    && abs(nPosY - nPosFirstY) > m_iFrameHeight * nPosDiff / 100)   //一定要移动一定距离
+                if (tkRes.nValidDetCount > 4
+                    && abs(nPosY - nPosFirstY) > m_iFrameHeight * 15 / 100)   //一定要移动一定距离
                 {
                     fCanOutput = true;
                 }
                 else
                 {
-                    sv::utTrace("[%d] Drop Move Y:%d %d>%d %d>%d %d\n",
+                    sv::utTrace("[%d] Drop Move Y:%d %d>%d %d\n",
                         TrackInfo.GetID(), nPosY, 
-                        abs(nPosY - nPosFirstY), m_iFrameHeight * nPosDiff / 100, 
-                        tkRes.nValidDetCount, nValidDetCount,
-                        nTopYLimit
-                        );
+                        abs(nPosY - nPosFirstY), m_iFrameHeight * 15 / 100, 
+                        tkRes.nValidDetCount);
                 }
             }
 
             // 有抓拍识别结果时不应丢弃（如晚上）
-            if (TrackInfo.m_fCaptureFrameHavePlate)
-            {
-                fCanOutput = true;
-            }
+            //if (TrackInfo.m_fCaptureFrameHavePlate)
+            //{
+            //    fCanOutput = true;
+            //}
         }
-        else
+        /*else
         {
             // 傍晚模式
-            int nPosY = TrackInfo.GetLastPos().CenterPoint().m_nY;
+            /*int nPosY = TrackInfo.GetLastPos().CenterPoint().m_nY;
             int nPosFirstY = TrackInfo.GetPos(0).CenterPoint().m_nY;
             bool fReversRun = (nPosY < nPosFirstY);
 
@@ -1318,7 +1353,7 @@ namespace swTgApp
                     nTopYLimit
                     );
             }
-        }
+        }*/
 
         return fCanOutput;
     }
@@ -1326,7 +1361,7 @@ namespace swTgApp
     HRESULT CAppTrackCtrl::FireCarLeftEvent(CAppTrackInfo* pTrackInfo)
     {
 
-        svTgIrApi::ITgTrack::TG_RESULT_INFO tkRes;
+        svTgVvdApi::ITgTrack::TG_RESULT_INFO tkRes;
         pTrackInfo->GetResult(&tkRes);
 
         bool fHavePlate = (tkRes.szPlate[0] != 0);
@@ -1405,7 +1440,7 @@ namespace swTgApp
 
         pCurResult->rcBestPlatePos = RECT_SV2HV(TrackInfo.m_rcBestPos);
         pCurResult->rcLastPlatePos = RECT_SV2HV(TrackInfo.m_rcLastPos);
-        pCurResult->rcFirstPos = TrackInfo.m_rcCarArrivePos;
+        //pCurResult->rcFirstPos = TrackInfo.m_rcCarArrivePos;
 
 #if SV_RUN_PLATFORM == SV_PLATFORM_DSP
         // TODO : DSP临时 BestSnap和LastCapture一样
@@ -1595,7 +1630,7 @@ namespace swTgApp
         {
             pCurResult->fltAverageConfidence = 0;
             pCurResult->fltFirstAverageConfidence = 0;
-            pCurResult->iObservedFrames = 0;//tkRes.nValidDetCount;
+            pCurResult->iObservedFrames = tkRes.nValidDetCount;
             pCurResult->iCarAvgY = 0;
         }
 
@@ -1604,7 +1639,8 @@ namespace swTgApp
         pCurResult->nFirstFrameTime = TrackInfo.m_dwFirstFrameTime;
         pCurResult->iVotedObservedFrames = tkRes.nVotePlateTypeCount;
         pCurResult->nCarColor = TrackInfo.m_nCarColor;
-        pCurResult->fIsNight = (m_nEnvLightType == svTgIrApi::CTgCtrl::LT_NIGHT);
+        pCurResult->fIsNight = (m_nEnvLightType == svTgVvdApi::CTgCtrl::LT_NIGHT);
+
         //	pCurResult->fOutputCarColor = CTrackInfo::m_fEnableRecgCarColor;
 
         // 逆行
@@ -1637,11 +1673,11 @@ namespace swTgApp
         // 	float fltCarSpeed(0.0f);
         // 	float fltScaleOfDistance(1.0f);
         // 	CalcCarSpeed(fltCarSpeed, fltScaleOfDistance, TrackInfo);
-		float fltCarSpeed(0.0f);
+		/*float fltCarSpeed(0.0f);
         fltCarSpeed = tkRes.fltSpeed * m_cTrackerCfgParam.cScaleSpeed.fltAdjustCoef;	// 速度乘上修正系数
         pCurResult->fltCarspeed = (m_cApiParam.fEnableCalcSpeed && (fltCarSpeed <= 1.f || fltCarSpeed > 300.0f)) ? (rand() % 40) + 20 : fltCarSpeed;
         if (pCurResult->fltCarspeed != fltCarSpeed)
-			utTrace("InvalidSpeed rand %0.2f\n", pCurResult->fltCarspeed);
+			utTrace("InvalidSpeed rand %0.2f\n", pCurResult->fltCarspeed);*/
 		
 		pCurResult->fltScaleOfDistance = 0.f;//fltScaleOfDistance;   // TODO 这是啥？
 
@@ -1697,39 +1733,37 @@ namespace swTgApp
         // TODO
         pCurResult->ptType = PT_NORMAL;
 
-//         // 校正坐标，只有有牌车才转成百分比，无牌车在抓拍外总控需要用实坐标
-//         if (fHavePlate)
-//         {
-//             pCurResult->rcBestPlatePos.left   = pCurResult->rcBestPlatePos.left  * 100 / m_iFrameWidth;
-//             pCurResult->rcBestPlatePos.top    = pCurResult->rcBestPlatePos.top   * 100 / m_iFrameHeight;
-//             pCurResult->rcBestPlatePos.right  = pCurResult->rcBestPlatePos.right  * 100 / m_iFrameWidth;
-//             pCurResult->rcBestPlatePos.bottom = pCurResult->rcBestPlatePos.bottom * 100 / m_iFrameHeight;
-// 
-//             pCurResult->rcLastPlatePos.left   = pCurResult->rcLastPlatePos.left  * 100 / m_iFrameWidth;
-//             pCurResult->rcLastPlatePos.top    = pCurResult->rcLastPlatePos.top   * 100 / m_iFrameHeight;
-//             pCurResult->rcLastPlatePos.right  = pCurResult->rcLastPlatePos.right  * 100 / m_iFrameWidth;
-//             pCurResult->rcLastPlatePos.bottom = pCurResult->rcLastPlatePos.bottom * 100 / m_iFrameHeight;
-// 
-//             pCurResult->rcFirstPos.left   = pCurResult->rcFirstPos.left  * 100 / m_iFrameWidth;
-//             pCurResult->rcFirstPos.top    = pCurResult->rcFirstPos.top   * 100 / m_iFrameHeight;
-//             pCurResult->rcFirstPos.right  = pCurResult->rcFirstPos.right  * 100 / m_iFrameWidth;
-//             pCurResult->rcFirstPos.bottom = pCurResult->rcFirstPos.bottom * 100 / m_iFrameHeight;
-// 
-//             pCurResult->rcSecondPos.left   = pCurResult->rcSecondPos.left  * 100 / m_iFrameWidth;
-//             pCurResult->rcSecondPos.top    = pCurResult->rcSecondPos.top   * 100 / m_iFrameHeight;
-//             pCurResult->rcSecondPos.right  = pCurResult->rcSecondPos.right  * 100 / m_iFrameWidth;
-//             pCurResult->rcSecondPos.bottom = pCurResult->rcSecondPos.bottom * 100 / m_iFrameHeight;
-// 
-//             pCurResult->rcThirdPos.left   = pCurResult->rcThirdPos.left  * 100 / m_iFrameWidth;
-//             pCurResult->rcThirdPos.top    = pCurResult->rcThirdPos.top   * 100 / m_iFrameHeight;
-//             pCurResult->rcThirdPos.right  = pCurResult->rcThirdPos.right  * 100 / m_iFrameWidth;
-//             pCurResult->rcThirdPos.bottom = pCurResult->rcThirdPos.bottom * 100 / m_iFrameHeight;
-//         }
+        //校正坐标
+        pCurResult->rcBestPlatePos.left   = pCurResult->rcBestPlatePos.left  * 100 / m_iFrameWidth;
+        pCurResult->rcBestPlatePos.top    = pCurResult->rcBestPlatePos.top   * 100 / m_iFrameHeight;
+        pCurResult->rcBestPlatePos.right  = pCurResult->rcBestPlatePos.right  * 100 / m_iFrameWidth;
+        pCurResult->rcBestPlatePos.bottom = pCurResult->rcBestPlatePos.bottom * 100 / m_iFrameHeight;
+
+        pCurResult->rcLastPlatePos.left   = pCurResult->rcLastPlatePos.left  * 100 / m_iFrameWidth;
+        pCurResult->rcLastPlatePos.top    = pCurResult->rcLastPlatePos.top   * 100 / m_iFrameHeight;
+        pCurResult->rcLastPlatePos.right  = pCurResult->rcLastPlatePos.right  * 100 / m_iFrameWidth;
+        pCurResult->rcLastPlatePos.bottom = pCurResult->rcLastPlatePos.bottom * 100 / m_iFrameHeight;
+
+        pCurResult->rcFirstPos.left   = pCurResult->rcFirstPos.left  * 100 / m_iFrameWidth;
+        pCurResult->rcFirstPos.top    = pCurResult->rcFirstPos.top   * 100 / m_iFrameHeight;
+        pCurResult->rcFirstPos.right  = pCurResult->rcFirstPos.right  * 100 / m_iFrameWidth;
+        pCurResult->rcFirstPos.bottom = pCurResult->rcFirstPos.bottom * 100 / m_iFrameHeight;
+
+        pCurResult->rcSecondPos.left   = pCurResult->rcSecondPos.left  * 100 / m_iFrameWidth;
+        pCurResult->rcSecondPos.top    = pCurResult->rcSecondPos.top   * 100 / m_iFrameHeight;
+        pCurResult->rcSecondPos.right  = pCurResult->rcSecondPos.right  * 100 / m_iFrameWidth;
+        pCurResult->rcSecondPos.bottom = pCurResult->rcSecondPos.bottom * 100 / m_iFrameHeight;
+
+        pCurResult->rcThirdPos.left   = pCurResult->rcThirdPos.left  * 100 / m_iFrameWidth;
+        pCurResult->rcThirdPos.top    = pCurResult->rcThirdPos.top   * 100 / m_iFrameHeight;
+        pCurResult->rcThirdPos.right  = pCurResult->rcThirdPos.right  * 100 / m_iFrameWidth;
+        pCurResult->rcThirdPos.bottom = pCurResult->rcThirdPos.bottom * 100 / m_iFrameHeight;
 
         pCurResult->nWdrLevel = m_cPlateLightCtrl.GetWDRLevel();
 
         // 抓拍标志计数
         pCurResult->dwTriggerIndex = pTrackInfo->m_dwTriggerCameraTimes & 0x00FFFFFF;
+        sv::utTrace("xxxx [%d]__%d\n", pTrackInfo->GetID(), pCurResult->dwTriggerIndex);
         if (fHavePlate)
         {
             //  过滤相同车牌
@@ -1761,6 +1795,9 @@ namespace swTgApp
             m_nLastResultPlateCount++;
             m_nLastResultPlateCount = (m_nLastResultPlateCount % MAX_LAST_RES_PLATE);
         }
+
+        // ARM端加入到附加信息，以便调试观察
+        pCurResult->dwThirdTime = pTrackInfo->GetID();
 
         m_pProcessRespond->cTrigEvent.dwEventId |= EVENT_CARLEFT;
         m_pProcessRespond->cTrigEvent.iCarLeftCount++;
@@ -1797,12 +1834,12 @@ namespace swTgApp
         {      
             CAppTrackInfo& cTrackInfo = m_rgTrackInfo[index];
             CSvRect rcPos = cTrackInfo.GetLastPos();
-            svTgIrApi::TG_TRACK_EX_INFO& cExInfo = cTrackInfo.m_cExInfo;
+            svTgVvdApi::TG_TRACK_EX_INFO& cExInfo = cTrackInfo.m_cExInfo;
 
             // 有牌，则判断是否在抓拍图附近
             bool fGetPlateInOnePos = false;
             bool fGetPlateInTwoPos = false;
-            const svTgIrApi::TG_TRACK_LOCUS& cLastLocus = cTrackInfo.GetLastLocus();  // 最近的轨迹
+            const svTgVvdApi::TG_TRACK_LOCUS& cLastLocus = cTrackInfo.GetLastLocus();  // 最近的轨迹  
             bool fGetPlate = cLastLocus.m_pPlateInfo != NULL;
             SV_POINT ptPlate = {0, 0};
 			int nPlateSimilar = cLastLocus.m_nPlateSimilarCnt;	//当前车牌与投票车牌相似度
@@ -1844,15 +1881,43 @@ namespace swTgApp
 //                 cTrackInfo.m_nCarArriveTime = m_pCurIRefImage->GetRefTime();
 //             }
 
+			// 触发线抓拍，没到触发线前一直更新
+             //bool fUpdateArrive = false;   // 更新了触发图
+/*             if (cTrackInfo.m_pimgBestSnapShot == NULL   // 没有过图
+                 || (!cExInfo.fIsTrackingMiss            // 没有牌的，没有丢失且中心点没有过线，则更新
+                 && rcPos.CenterPoint().m_nY <= iArriveOnePos
+                 && cTrackInfo.m_rcBestPlatePos.m_nLeft == -1)
+                 || (fGetPlate && (nPlateSimilar > 3) && ptPlate.m_nY <= iArriveOnePos)
+                 || (fGetPlate && cTrackInfo.m_rcBestPlatePos.m_nLeft == -1) // 第一次牌更新
+                 )
+             {
+                 ReleaseIReferenceComponentImage(cTrackInfo.m_pimgBestSnapShot);
+                 cTrackInfo.m_pimgBestSnapShot = m_pCurIRefImage;
+                 cTrackInfo.m_pimgBestSnapShot->AddRef();
+
+                 cTrackInfo.m_rcBestPos = rcPos;
+                 if (fGetPlate)   // 有车牌则记录车牌位置
+                 {
+                     cTrackInfo.m_rcBestPlatePos = rcPos;
+                 }
+
+                 sv::utTrace("==CAP-best [%d] CurPos:%d,ArrivePos:%d\n",
+                     cTrackInfo.GetID(), rcPos.CenterPoint().m_nY, iArriveOnePos);
+
+                 fUpdateArrive = true;
+
+                 cTrackInfo.m_nCarArriveTime = m_pCurIRefImage->GetRefTime();
+             }*/
+
             // 判断车辆是否靠近两边
             bool fCloseBound = (rcPos.m_nLeft < nImageBoundTH) || (rcPos.m_nRight > imgFrame.iWidth - nImageBoundTH);
             // 无牌车预测已到达抓拍线
             bool fNoPlatePredictArrive =     
                 (cTrackInfo.GetPlateCount() == 0
                 && cExInfo.fIsTrackingMiss           // 丢失且之前抓拍图过远，且预测中心点没有过线，则更新
-                && cTrackInfo.m_rcLastPos.CenterPoint().m_nY < iArriveTwoPos_PlateMinTH
-                && cExInfo.rcPredictCur.CenterPoint().m_nY > cTrackInfo.m_rcLastPos.CenterPoint().m_nY
-                && cExInfo.rcPredictCur.CenterPoint().m_nY < iArriveTwoPos_PlateMinTH  // 预测可能会慢一拍，因此较上位置才给更新
+                && cTrackInfo.m_rcLastPos.m_nBottom < iArriveTwoPos_PlateMinTH
+                && cExInfo.rcPredictCur.m_nBottom > cTrackInfo.m_rcLastPos.m_nBottom
+                && cExInfo.rcPredictCur.m_nBottom < iArriveTwoPos_PlateMinTH  // 预测可能会慢一拍，因此较上位置才给更新
                 && cTrackInfo.m_rcLastPlatePos.m_nLeft == -1
                 && !fCloseBound);
 
@@ -1860,11 +1925,10 @@ namespace swTgApp
             if (cTrackInfo.m_pimgLastSnapShot == NULL 
                 || fNoPlatePredictArrive
                 ||  (!cExInfo.fIsTrackingMiss          // 没有丢失且中心点没有过线，则更新
-                && rcPos.CenterPoint().m_nY <= iArriveTwoPos
-                && rcPos.m_nBottom < (iFrameHeight - 80))
-                //&& cTrackInfo.m_rcLastPlatePos.m_nLeft == -1)
-                //|| (fGetPlate && ptPlate.m_nY <= iArriveTwoPos)
-                //|| (fGetPlate && cTrackInfo.m_rcLastPlatePos.m_nLeft == -1)               // 在第二线附近检到牌
+                && rcPos.m_nBottom <= iArriveTwoPos
+                && cTrackInfo.m_rcLastPlatePos.m_nLeft == -1) 
+                || (fGetPlate && ptPlate.m_nY <= iArriveTwoPos)
+                || (fGetPlate && cTrackInfo.m_rcLastPlatePos.m_nLeft == -1)               // 在第二线附近检到牌
                 )
             {    
                 ReleaseIReferenceComponentImage(cTrackInfo.m_pimgLastSnapShot);
@@ -1878,14 +1942,14 @@ namespace swTgApp
                     cTrackInfo.m_rcLastPlatePos = rcPos;
                 }
 				fUpdateArrive = true;
-                sv::utTrace("==CAP-last [%d] CurPos:%d,ArriveTwoPos:%d,fGetPlate:%d,Similar:%d\n", 
-                    cTrackInfo.GetID(),rcPos.CenterPoint().m_nY, iArriveTwoPos, fGetPlate,cLastLocus.m_nPlateSimilarCnt);
+                sv::utTrace("==CAP-last [%d] CurPos:%d,ArriveTwoPos:%d\n", 
+                    cTrackInfo.GetID(),rcPos.m_nBottom, iArriveTwoPos);
             }
 
             //< 小图（车牌图）保存处理
             if (cTrackInfo.GetLastLocus().m_pPlateInfo != NULL)
             {
-                svTgIrApi::TG_PLATE_INFO& cPlateInfo = *cTrackInfo.GetLastLocus().m_pPlateInfo;
+                svTgVvdApi::TG_PLATE_INFO& cPlateInfo = *cTrackInfo.GetLastLocus().m_pPlateInfo;
                 sv::SV_RECT rcPlatePos = cPlateInfo.rcPos;
 
                 // 4的整数倍。
@@ -2075,7 +2139,7 @@ namespace swTgApp
         )
     {
         // set roadinfo
-        svTgIrApi::TG_PARAM& cParam = m_cApiParam;
+        svTgVvdApi::TG_PARAM& cParam = m_cApiParam;
 
         cParam.nRoadLineCount = pCfgParam->nRoadLineNumber; //车道线数
         cParam.nRoadLineCount = SV_MIN(sizeof(cParam.rgRoadLine)/sizeof(cParam.rgRoadLine[0]), cParam.nRoadLineCount);
@@ -2121,8 +2185,8 @@ namespace swTgApp
             cParam.fltYScale = 0.5f;
         }
 
-        cParam.nDuskMaxLightTH = 70;
-        cParam.nNightMaxLightTH = 10;
+        cParam.nDuskMaxLightTH = pCfgParam->nDuskMaxLightTH;
+        cParam.nNightMaxLightTH = pCfgParam->nNightMaxLightTH;
         // 	cParam.iSmallCarMinWidthRadio = 42;
 
         cParam.nDetMinScaleNum = pCfgParam->cDetectArea.nDetectorMinScaleNum;   // 车牌检测框的最小宽度=56*1.1^g_nDetMinScaleNum
@@ -2140,7 +2204,7 @@ namespace swTgApp
         cParam.nBlackPlateThreshold_H0 = pCfgParam->nProcessPlate_BlackPlateThreshold_H0; // 蓝牌色度下限
         cParam.nBlackPlateThreshold_H1 = pCfgParam->nProcessPlate_BlackPlateThreshold_H1; // 蓝牌色度上限
 
-        cParam.nTriggerLine = pCfgParam->nCarArrivedPos;
+        cParam.nTriggerLine = pCfgParam->nCaptureTwoPos;
 
     	cParam.nProcessPlate_LightBlue = pCfgParam->nProcessPlate_LightBlue;
 
@@ -2148,6 +2212,8 @@ namespace swTgApp
 								   
 								   
         cParam.fEnableRecogCarColor = TRUE;     //使能车身颜色识别
+		cParam.nDetTopLine = 25;
+		cParam.nDetBottomLine = 75;
 
         return S_OK;
     }
@@ -2187,11 +2253,13 @@ namespace swTgApp
         }
         DWORD32 dwCurTick = GetSystemTick();
         CSvRect rcPos = pTrack->GetLastPos();
+        CSvRect rcFirst=pTrack->GetPos(0);
 
         // zhaopy 触发抓拍
+        bool fCanTrigger = false;
         if(m_fEnableCarArriveTrigger && !pTrack->m_fIsTrigger )
         {	
-            if ((dwCurTick - m_dwLastTriggerTick) > MIN_TRIGGER_TIME)
+            if (m_dwLastTriggerTick == 0 || dwCurTick < m_dwLastTriggerTick || (dwCurTick - m_dwLastTriggerTick) > MIN_TRIGGER_TIME)
             {
 				//添加延时，避免快速出发时ARM读取附加信息寄存器出现相同值的情况
 				//const int cntIntervalTime = 5;
@@ -2210,13 +2278,56 @@ namespace swTgApp
 				//		while(iDelayCount > 0) iDelayCount--;
 				//	}
 				//}
+				/*if(IsNeedCaptureAll())
+        		{
+        			nRoadNum = 0xFF;
+        			sv::utTrace("id:%d,road=0x%02x\n",pTrack->GetID(),nRoadNum);
+        		}*/
 
-                m_dwLastTriggerTick = dwCurTick;
-                ++m_dwTriggerCameraTimes;
-                TriggerCamera(nRoadNum);
+            	fCanTrigger = false;
+            	//逆行则触发抓拍
+                if(m_nEnvLightType != svTgVvdApi::CTgCtrl::LT_NIGHT)//rcPos.CenterPoint().m_nY-rcFirst.CenterPoint().m_nY < -10)
+            	{
+            		fCanTrigger = true;
+            	}
+            	//正向
+            	else
+            	{
+                    svTgVvdApi::ITgTrack::TG_RESULT_INFO tkRes;
+                    pTrack->GetResult(&tkRes);
+            		if(rcFirst.CenterPoint().m_nY>0.5*m_iFrameHeight)
+					{
+                        if(tkRes.nValidDetCount<3 && dwCurTick-m_dwLastTriggerTick<500)
+            			{
+            				fCanTrigger = false;
+            			}
+            			else
+            			{
+            				fCanTrigger = true;
+            			}
+					}
+            		else
+            		{
+            			fCanTrigger = true;
+            		}
+            	}
+
+            	if(fCanTrigger)
+            	{
+            		m_dwLastTriggerRoadNum = nRoadNum;
+            		m_dwLastTriggerTick = dwCurTick;
+            		++m_dwTriggerCameraTimes;
+            		TriggerCamera(nRoadNum);
+            		sv::utTrace("TriggerCamera [%d] CurPos:%d,ArrivePos:%d,roadno:%d\n", pTrack->GetID(), rcPos.CenterPoint().m_nY, m_iArriveTwoPos * m_iFrameHeight / 100,nRoadNum);
+            		//utTrace("[%d] Trigger cnt:%d Tick:%u-------------------\n", pTrack->GetID(), m_dwTriggerCameraTimes, dwCurTick);
+            	}
+
+            }
+            else
+            {
+            	utTrace("[%d] AddTriggerRecogPos-------------------\n", pTrack->GetID());
             }
 
-            utTrace("[%d] Trigger cnt:%d_%u-------------------\n", pTrack->GetID(), m_dwTriggerCameraTimes, m_dwLastTriggerTick);
             pTrack->m_fIsTrigger = TRUE;
         }
         // 抓拍计数
@@ -2224,7 +2335,28 @@ namespace swTgApp
 
         pTrack->m_nCarArriveTime = dwImageTime;
         pTrack->m_nCarArriveRealTime = dwCurTick;    //?
+        
+        //如果是晚上，则需要判断临近的抓拍
+        if(fCanTrigger && m_nEnvLightType == svTgVvdApi::CTgCtrl::LT_NIGHT)
+				{
+					for(int i = 0; i < m_iTrackInfoCnt; i++)
+					{
+						if(pTrack != &m_rgTrackInfo[i]
+						&&	abs(m_rgTrackInfo[i].GetLastPos().CenterPoint().m_nY - rcPos.CenterPoint().m_nY)*100/m_iFrameHeight < 5)
+						{
+							m_rgTrackInfo[i].m_fCarArrived = true;
+							m_rgTrackInfo[i].m_fIsTrigger = true;
+							m_rgTrackInfo[i].m_dwTriggerCameraTimes = pTrack->m_dwTriggerCameraTimes;
+							m_rgTrackInfo[i].m_nCarArriveTime = pTrack->m_nCarArriveTime;
+							m_rgTrackInfo[i].m_nCarArriveRealTime = pTrack->m_nCarArriveRealTime;
+							m_rgTrackInfo[i].m_nOutRoadNum = m_cRoadInfo.GetRoadNum(m_rgTrackInfo[i].GetLastPos().CenterPoint());
+							m_rgTrackInfo[i].m_rcBestPos = m_rgTrackInfo[i].GetLastPos();
+							//m_rgTrackInfo[i].m_rcCarArrivePos = m_rgTrackInfo[i].GetLastPos();
 
+							utTrace("[%d] use [%d] trigger.", m_rgTrackInfo[i].GetID(), pTrack->GetID());
+						}
+					}
+				}
         // zhaopy抓拍图片的时间.
         pTrack->m_nCarArriveRealTime = m_dwLastTriggerTick; // TODO: image time? 
 
@@ -2232,22 +2364,29 @@ namespace swTgApp
         CARARRIVE_INFO_STRUCT carArriveInfo;
 
         //pTrack->m_nOutRoadNum = RecoverRoadNum(m_cRoadInfo.GetRoadNum(rcPos.CenterPoint()));
-        pTrack->m_rcBestPos = rcPos;     // 一定要给，否则不能出抓拍图
+        //pTrack->m_rcBestPos = rcPos;     // 一定要给，否则不能出抓拍图
 
         // zhaopy
         carArriveInfo.iRoadNumber = m_cRoadInfo.GetRoadNum(rcPos.CenterPoint());//pTrack->m_nOutRoadNum;
         carArriveInfo.iPlateLightType = m_cPlateLightCtrl.GetPlateLightType();
         // zhaopy
-        //carArriveInfo.dwTriggerOutDelay = m_pCurIRefImage->GetRefTime();
+        carArriveInfo.dwTriggerOutDelay = m_pCurIRefImage->GetRefTime();
         carArriveInfo.dwCarArriveTime = dwImageTime;
         carArriveInfo.dwCarArriveRealTime = dwCurTick;
 
         carArriveInfo.dwFirstPos = rcPos.CenterPoint().m_nY * 100 / m_iFrameHeight;
         carArriveInfo.dwEndPos = carArriveInfo.dwFirstPos;
 
-        CARARRIVE_INFO_STRUCT* pCarArriveInfo = &pProcessRespond->cTrigEvent.rgCarArriveInfo[pProcessRespond->cTrigEvent.iCarArriveCount++];
-        memcpy(pCarArriveInfo, &carArriveInfo, sizeof(CARARRIVE_INFO_STRUCT));
-        pProcessRespond->cTrigEvent.dwEventId |= EVENT_CARARRIVE;
+		if (pProcessRespond->cTrigEvent.iCarArriveCount < sizeof(pProcessRespond->cTrigEvent.rgCarArriveInfo)/sizeof(CARARRIVE_INFO_STRUCT))
+		{
+			CARARRIVE_INFO_STRUCT* pCarArriveInfo = &pProcessRespond->cTrigEvent.rgCarArriveInfo[pProcessRespond->cTrigEvent.iCarArriveCount++];
+			memcpy(pCarArriveInfo, &carArriveInfo, sizeof(CARARRIVE_INFO_STRUCT));
+			pProcessRespond->cTrigEvent.dwEventId |= EVENT_CARARRIVE;
+		}
+		else
+		{
+			utTrace("CarArrive info buffer is full!\n");
+		}
 
         pTrack->m_fCarArrived = true;
 
@@ -2271,7 +2410,7 @@ namespace swTgApp
 	}
 
     /// 还原到原始车道号，自动恢复右起、起始号不为0的情况，用于输出
-    int CAppTrackCtrl::RecoverRoadNum(int iRoadNum)
+    /*int CAppTrackCtrl::RecoverRoadNum(int iRoadNum)
     {
         if (m_cTrackerCfgParam.iRoadNumberBegin != 0)
         {
@@ -2279,7 +2418,7 @@ namespace swTgApp
         }
 
         return m_cTrackerCfgParam.iStartRoadNum + iRoadNum;
-    }
+    }*/
 	
 	void CAppTrackCtrl::TriggerCamera(const int iRoadNum)
     {
@@ -2342,5 +2481,73 @@ namespace swTgApp
         return (sum1+sum2);
     }
 #endif
+    //压线判断
+    CROSS_OVER_LINE_TYPE CAppTrackCtrl::IsOverYellowLine(CAppTrackInfo* pTrack)
+    {
+    	CROSS_OVER_LINE_TYPE coltLines[5] = {COLT_LINE0, COLT_LINE1, COLT_LINE2, COLT_LINE3, COLT_LINE4};
+
+    	int iCount[5] = {0, 0, 0, 0, 0};
+
+    	for (int i = 0; i < m_cRoadInfo.GetRoadLineCount(); i++)
+    	{
+    		if ((CTrackInfo::m_ActionDetectParam.iIsYellowLine[i] != 1 &&
+    			CTrackInfo::m_ActionDetectParam.iIsYellowLine[i] != 2) ||
+    			CTrackInfo::m_roadInfo[i].ptTop.y - CTrackInfo::m_roadInfo[i].ptBottom.y == 0 )
+    		{
+    			continue;
+    		}
+    		for (int t = 0; t < pTrack->m_nPlateMovePosCount; t++)
+    		{
+    			//求车牌宽度的一半
+    			int iHalfWidth = (pTrack->m_rgrcPlateMovePos[i].right - pTrack->m_rgrcPlateMovePos[i].left) / 2;
+    			// 根据灵敏度修正
+    			iHalfWidth = (int)(iHalfWidth * m_cTrackerCfgParam.fltOverLineSensitivity);
+    			// 根据车型，向两边括相应大小
+    			switch (pTrack->GetType())
+    			{
+    			case CAppTrackInfo::TT_SMALL_CAR:
+    				break;
+    			case CAppTrackInfo::TT_MID_CAR:
+    				iHalfWidth = (int)(iHalfWidth * 1.2f);
+    				break;
+    			case CAppTrackInfo::TT_LARGE_CAR:
+    				iHalfWidth = (int)(iHalfWidth * 1.5f);
+    				break;
+    			}
+    			//求中心点
+    			int iCenterX = (pTrack->m_rgrcPlateMovePos[i].right + pTrack->m_rgrcPlateMovePos[i].left) / 2;
+    			int iCenterY = (pTrack->m_rgrcPlateMovePos[i].bottom + pTrack->m_rgrcPlateMovePos[i].top) / 2;
+
+    			//求黄线对应Y上的X
+    			float fTop = 1.0f*(iCenterY - CTrackInfo::m_roadInfo[i].ptTop.y) *
+    				(CTrackInfo::m_roadInfo[i].ptTop.x - CTrackInfo::m_roadInfo[i].ptBottom.x);
+    			float fBottom = 1.0f*(CTrackInfo::m_roadInfo[i].ptTop.y - CTrackInfo::m_roadInfo[i].ptBottom.y);
+    			int iXCenter =  (int)(fTop / fBottom) + CTrackInfo::m_roadInfo[i].ptTop.x;
+    			if (abs(iCenterX - iXCenter) < iHalfWidth)
+    			{
+    				iCount[i]++;
+    			}
+    		}
+    	}
+
+    	int iMax = 0;
+    	int iIndex(0);
+    	for (int i = 0; i < 5; i++)
+    	{
+    		if (iCount[i] > iMax)
+    		{
+    			iMax = iCount[i];
+    			iIndex = i;
+    		}
+    	}
+    	if (0 >= iMax)
+    	{
+    		return COLT_NO;
+    	}
+    	else
+    	{
+    		return coltLines[iIndex];
+    	}
+    }
 
 }

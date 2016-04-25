@@ -970,6 +970,8 @@ protected:
      *@return 成功返回S_OK,其他值为错误代码
      */
 	HRESULT OnGetPTZInfo(PVOID pvBuffer, INT iSize);
+
+	HRESULT OnSetDspFlag(WPARAM wParam,LPARAM lParam);
 	 
 
 	/**
@@ -1192,6 +1194,7 @@ protected:
         SW_MESSAGE_HANDLER(MSG_GET_CAPTURE_SHARPEN_THR, OnGetCaptureSharpen)
 
         SW_MESSAGE_HANDLER(MSG_GET_M3_DAYNIGHT_STATUS, OnGetM3DayNightStatus)
+        SW_MESSAGE_HANDLER(MSG_SET_DSP_FLAG, OnSetDspFlag)
 
         SW_MESSAGE_HANDLER(MSG_SET_WDR_LEVEL, OnSetWDRLevel)
 
@@ -1264,6 +1267,9 @@ protected:
 		int m_nCaptureG;
 		int m_nCaptureB;
 		int m_nCapSharpen;
+
+		BOOL m_IsDay;
+		DWORD rgWriteRegParam[2];
 };
 REGISTER_CLASS(CSWCameraControl2AMSG)
 #endif // __SW_CAMERA_CONTROL_2A_MSG_H__

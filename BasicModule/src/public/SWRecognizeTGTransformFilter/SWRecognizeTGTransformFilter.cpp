@@ -3,11 +3,11 @@
 #include "SWRecognizeTGTransformFilter.h"
 #include "SWGB28181Parameter.h"
 #include "AsyncDetResult.h"
-using namespace swTgApp;
+using namespace swTgVvdApp;
 
 #define DEF_PULSE_WIDTH (4)
 CSWRecognizeTGTransformFilter::CSWRecognizeTGTransformFilter()
-	: CSWBaseFilter(1,4)
+	: CSWBaseFilter(1,3)
 	, CSWMessage(MSG_RECOGNIZE_CTRL_START, MSG_RECOGNIZE_CTRL_END)
 	, m_pTrackerCfg(NULL)
 	, m_fSendJPEG(FALSE)
@@ -32,13 +32,14 @@ CSWRecognizeTGTransformFilter::CSWRecognizeTGTransformFilter()
 	, m_iPulseWidthLevel(DEF_PULSE_WIDTH)
 	, m_pMatchThread(NULL)
     , m_nEnvFromM3(3)
+    , m_iFrame(0)
 {
     m_nCurEnvPeriod = 3; // 默认白天
 	GetIn(0)->AddObject(CLASSID(CSWImage));
 	GetOut(0)->AddObject(CLASSID(CSWPosImage));
 	GetOut(1)->AddObject(CLASSID(CSWCarLeft));
 	GetOut(2)->AddObject(CLASSID(CSWCameraDataPDU));
-	GetOut(3)->AddObject(CLASSID(CSWImage));
+	//GetOut(3)->AddObject(CLASSID(CSWImage));
 }
 
 CSWRecognizeTGTransformFilter::~CSWRecognizeTGTransformFilter()
@@ -61,7 +62,6 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 	, PVOID pvParam
 	, INT iMinPlateLight
 	, INT iMaxPlateLight
-	, BOOL fSendRecognize
 	)
 {
 	if( m_fInitialized )
@@ -75,8 +75,6 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 
 	m_pTrackerCfg = (TRACKER_CFG_PARAM *)pvParam;
 	m_pTrackerCfg->iPlatform = 2;
-
-	m_fSendRecognize=fSendRecognize;
 
 	INIT_VIDEO_RECOGER_PARAM cInitParam;
 	cInitParam.nPlateRecogParamIndex = iGlobalParamIndex;
@@ -130,6 +128,8 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 
 	m_lstMatchImage.SetMaxCount(MAX_MATCH_COUNT);
 	m_cSemMatch.Create(0, 1);
+
+	swpa_memset(m_rgiAllCarTrigger, 0, sizeof(m_rgiAllCarTrigger));
 
 	
 	SW_TRACE_DEBUG("CSWRecognizeTGTransformFilter initialize finish!\n");
@@ -332,6 +332,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnRecognizePhoto(WPARAM wParam, LPARAM lP
     if (NULL == pImage)
     {
         SW_TRACE_DEBUG("<RecognizeTransformFilter OnRecognizePhoto>No image, can't recognize!\n");
+		return E_INVALIDARG;
     }
 
 	CSWCarLeftArray *carLeft = (CSWCarLeftArray *)lParam;
@@ -394,7 +395,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnRecognizePhoto(WPARAM wParam, LPARAM lP
 			carLeft->Get(i)->SetParameter(m_pTrackerCfg, &cEvent.rgCarLeftInfo[i]);
 			if(swpa_utils_file_exist("./test.txt"))
 			{
-				carLeft->Get(i)->SetPlateNo("测试");
+				carLeft->Get(i)->SetPlateNo("Test");
 				carLeft->Get(i)->SetCarColor(CC_WHITE);
 			}
 		}
@@ -488,8 +489,9 @@ HRESULT CSWRecognizeTGTransformFilter::Receive(CSWObject* obj)
 				pPosImage->Release();
 			}
 #else
-			//抓拍图也要先放入匹配队列进行匹配降噪，然后再压缩JPEG
-            PROC_QUEUE_ELEM OneElem;
+			if (pImage->GetFlag() == 0 && !m_fSendJPEG) return S_OK;//H264模式下抓拍标记为0不需要等降噪帧
+			//抓拍图也要先放入匹配队列进行匹配，然后再压缩JPEG
+			PROC_QUEUE_ELEM OneElem;
             OneElem.pImage = pImage;
             OneElem.pData = NULL;
 			m_cMutexMatch.Lock();
@@ -514,6 +516,20 @@ HRESULT CSWRecognizeTGTransformFilter::Receive(CSWObject* obj)
 #endif
 			return S_OK;
 		}
+		else
+		{
+			static DWORD m_LastTime=0;
+			m_iFrame++;
+			DWORD m_NowTime=CSWDateTime::GetSystemTick();
+			DWORD m_DiffTime=m_NowTime-m_LastTime;
+			if(m_DiffTime>10000)
+			{
+				m_LastTime=m_NowTime;
+				SW_TRACE_DEBUG("帧率:%d\n",m_iFrame);
+				m_iFrame=0;
+			}
+		}
+		
 		// 测试协议等待队列有空闲空间
 		// 默认VPIF采集的帧名都是“VPIF”。
 		if(swpa_strcmp("VPIF", pImage->GetFrameName()) != 0 )
@@ -582,6 +598,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcess()
 		{
 			SW_TRACE_DEBUG("ImageList is empty.");
 			m_cMutexImage.Unlock();
+			continue;
 		}
 		
 		//SW_TRACE_DEBUG("m_fEnable=%d,m_fOutPutDebug=%d", m_fEnable, m_fOutPutDebug);
@@ -659,7 +676,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcess()
                     {
                         m_nEnvFromM3 = nStatus;
                         m_cAlgDetCtrl.SetLightType(m_nEnvLightType, nStatus);
-                        SendMessage(MSG_RECOGNIZE_ENVPERIOD_CHANGED,(WPARAM)nStatus,0);
+                        //SendMessage(MSG_RECOGNIZE_ENVPERIOD_CHANGED,(WPARAM)nStatus,0);
                         SW_TRACE_DEBUG("CSWRecognizeTGTransformFilter::OnProcess< SetLightType: %d(3:day, 2:dusk, 1:night)******************* >.\n", nStatus);
                         nLastEnvPeriod = nStatus;
                     }
@@ -805,6 +822,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 	BOOL fIsARMCheckNight = FALSE;
 	DWORD dwFrameCount = 0;
 	INT nLastEnvPeriod = -1;
+	BOOL fUpdate=FALSE;
 
 	while(S_OK == m_pProcQueueThread->IsValid() && GetState() == FILTER_RUNNING)
 	{
@@ -869,7 +887,6 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 			static char s_szTemp[256] = {0};
 
             HRESULT hr = CSWBaseLinkCtrl::GetInstance()->ProcessOneFrame(pImage, pProcessEvent, &recogParam);
-			//HRESULT hr = S_OK;
 
             dwTmpCurTick = CSWDateTime::GetSystemTick() - dwTmpCurTick;
             s_dwTotalTick += dwTmpCurTick;
@@ -892,6 +909,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 			{
 				if ( pProcessEvent->dwEventId & EVENT_CARARRIVE )
 				{
+					SW_TRACE_DEBUG("EVENT_CARARRIVE %d\n",pProcessEvent->iCarArriveInfoCount);
 					for( int i = 0; i < pProcessEvent->iCarArriveInfoCount; ++i )
 					{	 
 						CarArriveEvent(&pProcessEvent->rgCarArriveInfo[i]);
@@ -899,19 +917,35 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 				}
 				if( pProcessEvent->dwEventId & EVENT_CARLEFT )
 				{
+					SW_TRACE_DEBUG("EVENT_CARLEFT %d\n",pProcessEvent->iCarArriveInfoCount);
 					for( int i = 0; i < pProcessEvent->iCarLeftInfoCount; ++i )
 					{
 						//有车牌,而且是ARM判断为晚上才计入统计
-						if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0)
-							//&& fIsARMCheckNight)
-						{
+						//if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0)
+						//	&& fIsARMCheckNight)
+						//{
 							iPulseLevel = AdjustPulseWidth(pProcessEvent->rgCarLeftInfo[i].cCoreResult.iCarAvgY);
-						}
+						//}
 	
 						pProcessEvent->rgCarLeftInfo[i].cCoreResult.iPulseLevel = iPulseLevel;//生成结果附件信息XML时用到
 						CarLeftEvent(&pProcessEvent->rgCarLeftInfo[i]);
 					}
 				}
+
+				for (int i = 0; i < MAX_EVENT_COUNT;i++)
+				{
+					if (m_rgiAllCarTrigger[i] != pProcessEvent->rgiAllCarTrigger[i])
+					{
+						fUpdate = TRUE;
+					}
+					m_rgiAllCarTrigger[i] = pProcessEvent->rgiAllCarTrigger[i];
+				}
+				if(fUpdate)
+				{
+					//通知更新当前还需要保留还些抓拍图
+					CSWMessage::SendMessage(MSG_UPDATE_ALL_TRIGGER, (WPARAM)m_rgiAllCarTrigger, 0);
+				}
+				fUpdate=FALSE;
 
 #if 0
                 TG_DET_API_RESULT_HEAD* pHead = (TG_DET_API_RESULT_HEAD*)pProcessEvent->cSyncDetData.pbData;
@@ -953,7 +987,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
                 {
                     INT nStatus = -1;
                     nStatus = m_nEnvLightType == 0 ? 3 : 1;
-                    SendMessage(MSG_RECOGNIZE_ENVPERIOD_CHANGED,(WPARAM)nStatus,0);
+                    //SendMessage(MSG_RECOGNIZE_ENVPERIOD_CHANGED,(WPARAM)nStatus,0);
                     SW_TRACE_DEBUG("EnvLightType changed from dsp : %d (0:day, 1:dusk, 2:night)\n", m_nEnvLightType);
                 }
                 s_iLastEnvLightType = m_nEnvLightType;
@@ -967,6 +1001,13 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 					CSWMessage::SendMessage(MSG_APP_RESETDEVICE, 0, 0);
 				}
 			}
+		}
+		else if (!fUpdate)
+		{
+			//切换为JPEG码流时，发送一次更新标记
+			swpa_memset(m_rgiAllCarTrigger, 0, sizeof(m_rgiAllCarTrigger));
+			CSWMessage::SendMessage(MSG_UPDATE_ALL_TRIGGER, (WPARAM)m_rgiAllCarTrigger, 0);
+			fUpdate = TRUE;
 		}
 
 		// print fps
@@ -1003,6 +1044,13 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 		{
             PROC_QUEUE_ELEM DelElem = m_lstMatchImage.RemoveHead();
             SAFE_RELEASE(DelElem.pImage);
+			PROCESS_EVENT_STRUCT* pDelProcessEvent = (PROCESS_EVENT_STRUCT*)(DelElem.pData);
+			if(NULL != pDelProcessEvent && NULL != pDelProcessEvent->cSyncDetData.pbData )
+        	{
+            	delete[] pDelProcessEvent->cSyncDetData.pbData;
+            	pDelProcessEvent->cSyncDetData.pbData = NULL;
+        	}
+        	SAFE_DELETE(pDelProcessEvent);
             cQueueElem.pImage->AddRef();
             m_lstMatchImage.AddTail(cQueueElem);
 		}
@@ -1042,7 +1090,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnMatchImage()
 		if (S_OK != m_cSemMatch.Pend(1000))
 		{
 			SW_TRACE_DEBUG("OnMatchImage Semaphore Pend failed!");
-			continue;
+			//continue;
 		}
 
 		m_cMutexMatch.Lock();
@@ -1085,6 +1133,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnMatchImage()
 		
 				continue;
 			}
+			
 		}
 
         if (m_fSendDebug || m_fSendJPEG)
@@ -1183,7 +1232,7 @@ HRESULT CSWRecognizeTGTransformFilter::CarLeftEvent(CARLEFT_INFO_STRUCT *pCarLef
 			pCarLeft->GetImage(3), pCarLeft->GetImage(4), pCarLeft->GetImage(5), 
 			pCarLeft->GetImage(6), (LPCSTR)s);
 
-        HV_RECT pLastRect = pCarLeft->GetLastPlateRect();
+        //HV_RECT pLastRect = pCarLeft->GetLastPlateRect();
         /*SW_TRACE_DEBUG("PlateNo:%s, LastRect <left = %d, top = %d, right = %d, bottom = %d> .\n",
                        (LPCSTR)pCarLeft->GetPlateNo(), pLastRect.left, pLastRect.top, pLastRect.right, pLastRect.bottom);*/
 
@@ -1198,11 +1247,10 @@ HRESULT CSWRecognizeTGTransformFilter::CarLeftEvent(CARLEFT_INFO_STRUCT *pCarLef
             {
                 pCarLeft->SetRoadNo(0);
             }
-			if(m_fSendRecognize)
-		    	GetOut(1)->Deliver(pCarLeft);
+		    GetOut(1)->Deliver(pCarLeft);
 		}
 		
-		GetOut(3)->Deliver(pCarLeft->GetImage(PLATE_IMAGE));
+		//GetOut(3)->Deliver(pCarLeft->GetImage(PLATE_IMAGE));
 		pCarLeft->Release();
 		SW_TRACE_DEBUG("object carleft done.\n");
 	}

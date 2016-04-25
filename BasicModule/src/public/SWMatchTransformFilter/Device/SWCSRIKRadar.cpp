@@ -2,10 +2,11 @@
 #include "SWCSRIKRadar.h"
 #include "SWMessage.h"
 
-CSWCSRIKRadar::CSWCSRIKRadar(DEVICEPARAM *pParam,BOOL fRadarTrigger):CSWBaseDevice(pParam)
+CSWCSRIKRadar::CSWCSRIKRadar(DEVICEPARAM *pParam,BOOL fRadarTrigger,BOOL fComServer):CSWBaseDevice(pParam)
 {
 	m_fRadarTrigger=fRadarTrigger;
 	m_dwTime=0;
+	m_fRadarTrigger?m_fComServer=fComServer:m_fComServer=FALSE;
 }
 
 CSWCSRIKRadar::~CSWCSRIKRadar()
@@ -14,8 +15,8 @@ CSWCSRIKRadar::~CSWCSRIKRadar()
 
 HRESULT CSWCSRIKRadar::Run(VOID)
 {	
-	BYTE bSpeed = 0;
 	BYTE bResultRadar[2];
+	
 	if(!m_fRadarTrigger)
 	{
 		BYTE bCmdSend[5]={0xFA,0x38,0x31,0x30,0xFB};
@@ -24,7 +25,7 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 
 		while(TRUE)
 		{
-			if(S_OK==Write(bCmdSend,5,2000))
+			if(S_OK==Write(bCmdSend,5,1000))
 			{
 				swpa_memset(bCmdRecv,0,9);
 				if(S_OK==Read(bCmdRecv,9))
@@ -60,34 +61,72 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 	}
 	else
 	{
-		while(S_OK == IsValid())
+		if(!m_fComServer)
 		{
-			swpa_memset(bResultRadar,0,2);
-			if(S_OK == Read(&bResultRadar, 2) && NULL != m_pOnEvent)
+			BYTE bSpeed=0;
+			while(S_OK == IsValid())
 			{
-				if(bResultRadar[0]>0xF0&&bResultRadar[1]>0)
+				if(S_OK == Read(&bSpeed, 1) && bSpeed > 0 && NULL != m_pOnEvent)
 				{
-				DWORD dwSpeed = bResultRadar[1];
-				DWORD dwRoad = 0;
-				switch(bResultRadar[0]-0xF0)
-				{
-					case 1:
-						dwRoad=m_pDevParam->iComNo2RoadNo1;
-						break;
-					case 2:
-						dwRoad=m_pDevParam->iComNo2RoadNo2;
-						break;
-					default:
-						dwRoad=0xFF;
-				}
-					
-				SW_TRACE_DEBUG("receive radar speed:%d,roadno:%d.\n", dwSpeed, dwRoad);
-					
-				DWORD rgParam[3] = {dwSpeed, dwRoad,0};
+					DWORD dwSpeed = bSpeed;
+					DWORD dwRoad = m_pDevParam->iRoadNo;
+					SW_TRACE_DEBUG("receive radar speed:%d,roadno:%d.\n", dwSpeed, dwRoad);
 
-				CSWMessage::PostMessage(MSG_APP_RADAR_TRIGGER, dwRoad,m_dwTime++);
-					
-				m_pOnEvent(m_pvParam, this, SPEED, CSWDateTime::GetSystemTick(), rgParam);
+					DWORD rgParam[3] = {dwSpeed, dwRoad,0};
+
+					CSWMessage::PostMessage(MSG_APP_RADAR_TRIGGER, dwRoad,m_dwTime++);
+			
+					m_pOnEvent(m_pvParam, this, SPEED, CSWDateTime::GetSystemTick(), rgParam);
+				}
+			}
+		}
+		else
+		{
+			Clear();
+			while(S_OK == IsValid())
+			{
+				swpa_memset(bResultRadar,0,2);
+				HRESULT hr=S_OK;
+				if(S_OK == (hr=Read(&bResultRadar, 2)) && NULL != m_pOnEvent)
+				{
+					if(bResultRadar[0]<=0xF0)
+					{
+						Read(&bResultRadar, 1);
+						continue;
+					}
+
+					if(bResultRadar[1]<=0)
+					{
+						continue;
+					}
+
+					DWORD dwSpeed = bResultRadar[1];
+					DWORD dwRoad = 0;
+					switch(bResultRadar[0]-0xF0)
+					{
+						case 1:
+							dwRoad=m_pDevParam->iComNo2RoadNo1;
+							break;
+						case 2:
+							dwRoad=m_pDevParam->iComNo2RoadNo2;
+							break;
+						case 3:
+							dwRoad=m_pDevParam->iComNo2RoadNo3;
+							break;
+						case 4:
+							dwRoad=m_pDevParam->iComNo2RoadNo4;
+							break;
+					}
+						
+					SW_TRACE_DEBUG("receive radar speed:%d,roadno:%d.\n", dwSpeed, dwRoad);
+						
+					DWORD rgParam[3] = {dwSpeed, dwRoad,0};
+						
+					m_pOnEvent(m_pvParam, this, SPEED, CSWDateTime::GetSystemTick(), rgParam);
+				}
+				else
+				{
+					SW_TRACE_DEBUG("receive radar error %lu.\n", hr);
 				}
 			}
 		}

@@ -29,7 +29,7 @@ typedef struct tagSIGNAL_PARAM
 	BOOL    fTrigger;   //是否要触发抓拍,对于视频检测信号，必定触发抓拍
 	BOOL    fRecognize; //是否识别
 	DWORD dwCondition;  //匹配条件，0:此信号可有可无，只要有车牌即可出牌，1:必须有此信号和车牌才能出结果,2:只要有此信号，就必定出牌
-	SIGNAL  signal[15]; //此信号类型的信号数据
+	SIGNAL  signal[6]; //此信号类型的信号数据
 	
 	tagSIGNAL_PARAM()
 	{
@@ -72,7 +72,7 @@ typedef struct tagMATCHPARAM
 	DWORD dwMatchMinTime;      //车牌时间-信号时间的最小差距
 	DWORD dwMatchMaxTime;      //信号时间-车牌时间的最大差距
 	DWORD dwSignalNum;         //信号数量
-	SIGNAL_PARAM  signal[10];  //单个信号的属性
+	SIGNAL_PARAM  signal[6];  //单个信号的属性
 
 	BOOL fCaptureRecong;		// 抓拍图重识别开关
 	int iDetectorAreaLeft;
@@ -123,6 +123,8 @@ typedef struct tagDEVICEPARAM
 	INT iCommType;			      // 串口类型：0：RS232 1：RS485
 	INT iComNo2RoadNo1;	//串口1对应车道
 	INT iComNo2RoadNo2;	//串口2对应车道
+	INT iComNo2RoadNo3;	//串口3对应车道
+	INT iComNo2RoadNo4;	//串口4对应车道
 	
 	COIL_PARAM cCoilParam;     //车检器参数
 	tagDEVICEPARAM()
@@ -132,8 +134,10 @@ typedef struct tagDEVICEPARAM
 		iRoadNo = 0;
 		//金星只支持RS485
 		iCommType = 1;
-		iComNo2RoadNo1=1;
-		iComNo2RoadNo2=2;
+		iComNo2RoadNo1=0;
+		iComNo2RoadNo2=1;
+		iComNo2RoadNo1=0;
+		iComNo2RoadNo2=0;
 	}
 }DEVICEPARAM;
 #endif

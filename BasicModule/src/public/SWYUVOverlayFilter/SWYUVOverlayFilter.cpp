@@ -672,8 +672,8 @@ CSWString CSWYUVOverlayFilter::RuleString(DWORD dwOverlayTime, CSWCarLeft *pCarL
 #ifdef YUV_TEST	
 	CSWCarLeft carLeft;
 	pCarLeft = &carLeft;
-	pCarLeft->SetPlateNo("蓝桂ABC123");
-	m_strOverlay = "\n车牌号码:$(PlateName)\n车牌颜色:$(PlateColor)\n路口名称:$(RoadName)\n路口方向:$(RoadDir)\n错误叠加:$&&**()";
+	pCarLeft->SetPlateNo("Unlicensed");
+	m_strOverlay = "\nPlate name:$(PlateName)\nPlate color:$(PlateColor)\nRoad name:$(RoadName)\nRoad direction:$(RoadDir)\n错误叠加:$&&**()";
 #endif	
 	CSWString strKey;
 	m_fRuleString = FALSE;
@@ -754,7 +754,7 @@ CSWString CSWYUVOverlayFilter::RuleString(DWORD dwOverlayTime, CSWCarLeft *pCarL
 						}
 						else if(strKey == (CSWString)"$(PlateName)")
 						{
-							strText += pCarLeft->GetPlateNo();
+							strText += "Unlicensed";
 						}
 						else if(strKey == (CSWString)"$(PlateColor)")
 						{
@@ -779,7 +779,7 @@ CSWString CSWYUVOverlayFilter::RuleString(DWORD dwOverlayTime, CSWCarLeft *pCarL
 						{
 							CSWString strCarType;
 
-							CHAR *szCarTypeMap[] = {"未知","小型车","中型车","大型车","行人","非机动车","机动车"};
+							CHAR *szCarTypeMap[] = {"Unkown","Small","Medium","Big","Pedestrian","Non-motor vehicle","Motor vehicles"};
 							DWORD dwCarType = pCarLeft->GetCarType();
 							if (dwCarType < CT_COUNT)
 							{
@@ -822,7 +822,7 @@ CSWString CSWYUVOverlayFilter::RuleString(DWORD dwOverlayTime, CSWCarLeft *pCarL
 							}
 							
 						}
-                        else if(strKey == (CSWString)"$(LimitSpeed)")
+                        else if(strKey == (CSWString)"$(Limit)")
 						{
                             CSWString strLimitSpeed;
                             strLimitSpeed.Format("%d", m_iSpeedLimit);

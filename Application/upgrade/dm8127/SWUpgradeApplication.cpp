@@ -1650,13 +1650,13 @@ HRESULT CSWUpgradeApp::GenerateProbeReplyXml(CHAR ** ppszXmlBuf, DWORD *pdwXmlLe
 	hr = ReadCustomizedDevName(szDevName);
 	if (E_NOTIMPL == hr)
 	{
-		swpa_strcpy(szDevName, "未命名");
-		SaveCustomizedDevName("未命名");
+		swpa_strcpy(szDevName, "Unnamed");
+		SaveCustomizedDevName("Unnamed");
 	}
 	else if (FAILED(hr)) //other errors
 	{
 		SW_TRACE_NORMAL("Err: failed to get customized dev name\n");
-		swpa_strcpy(szDevName, "获取失败");
+		swpa_strcpy(szDevName, "Get Fail");
 		return E_FAIL;
 	}
     

@@ -122,7 +122,7 @@ HRESULT CSWJPEGOverlayFilter::Receive(CSWObject* obj)
 		if (TRUE == m_fMJPEGDoStrOverlay)//MJPEG叠加假的结果信息，方便上位机及时看到叠加效果
 		{
 			pCarLeft = &carLeft;
-			pCarLeft->SetPlateNo("蓝桂ABC123");
+			pCarLeft->SetPlateNo("Unlicensed");
 			pCarLeft->SetRoadNo(1);
 			pCarLeft->SetCarType(CT_SMALL);
 			pCarLeft->SetCarspeed(65.0);
@@ -587,6 +587,7 @@ HRESULT CSWJPEGOverlayFilter::OnOSDSetJPEGPox(WPARAM wParam, LPARAM lParam)
 	INT* iPos = (INT *)wParam;
 	m_iX = iPos[0];
 	m_iY = iPos[1];
+	SW_TRACE_DEBUG("CSWJPEGOverlayFilter::OnOSDSetJPEGPox(x=%d, y=%d)", iPos[0], iPos[1]);
 	SendMessage(MSG_RESULT_FILTER_OVERLAY_POS_CHANGED, wParam, lParam);
 	return S_OK;
 }

@@ -48,7 +48,7 @@ public:
 		BYTE8 rgContent[8];
 		DWORD32 dw_TrackEndTime;
 		CRect rcPos;
-	}m_detectsaver[1];
+	}m_detectsaver[7200];
 	//m_iBlockTwinsTimeout时间内队列长度计数 quanjh 2011-02-23
 	int m_iTimeinCount;
 };
@@ -249,10 +249,10 @@ public:
 
 
 protected:
-	static const int s_knMaxTrackInfo = 1;
-	static const int s_knMaxPlateCandidate = 1;
-	static const int s_knMaxObjCandidate = 1;
-	static const int s_knMaxVideoChannel = 1;
+	static const int s_knMaxTrackInfo = 30;
+	static const int s_knMaxPlateCandidate = 200;
+	static const int s_knMaxObjCandidate = 30;
+	static const int s_knMaxVideoChannel = 4;
 
 	BOOL m_fEnablePreciseRectify;
 
@@ -710,7 +710,7 @@ private:
 
 	TRACKER_CFG_PARAM m_cfgParam;
 	//added by liujie 控制大车多检
-	CAR_LEFT_STRUCT m_leftCar[1];
+	CAR_LEFT_STRUCT m_leftCar[16];
 	int m_iBigCarDelayFrameNo;
 
 	int m_iCarArriveTrig; //收费站模式下是否进行抓拍

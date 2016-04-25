@@ -12,7 +12,7 @@
 #include "ExLib.h"
 void ShowROI(
     const sv::SV_IMAGE* pImg,
-    svTgIrDetApi::DET_ROI* rgROI,
+    svTgVvdDetApi::DET_ROI* rgROI,
     int iCount,
     int iMs,
     char* szName
@@ -37,7 +37,7 @@ void ShowROI(
         }
     }
 
-    ShowRectIntx2Img(pImg, rgrcInfo, NULL, iInfo1, rgrcInfo2, NULL, iInfo2, iMs, szName);
+    //ShowRectIntx2Img(pImg, rgrcInfo, NULL, iInfo1, rgrcInfo2, NULL, iInfo2, iMs, szName);
     delete [] rgrcInfo;
     delete [] rgrcInfo2;
 }
@@ -45,7 +45,7 @@ void ShowROI(
 
 static char g_szBufLog[1024];
 
-namespace swTgApp
+namespace swTgVvdApp
 {
 
 #if SV_RUN_PLATFORM == SV_PLATFORM_LINUX
@@ -230,12 +230,12 @@ namespace swTgApp
         : m_pDetCtrl(NULL)
         , m_nEnvLightType(0)
     {
-        svTgIrDetApi::MOD_DET_INFO* pModel = m_rgModDetInfo;
+        svTgVvdDetApi::MOD_DET_INFO* pModel = m_rgModDetInfo;
 
         // 白天小车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DAY_SMALL_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_DaySmall.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DaySmall.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DAY_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DaySmall.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DaySmall.nDataLen;
         pModel->fltRoadRatio = 0.6f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 6;
@@ -245,9 +245,9 @@ namespace swTgApp
         ++pModel;
 
         // 白天大车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DAY_LARGE_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_DayLarge.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DayLarge.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DAY_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DayLarge.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DayLarge.nDataLen;
         pModel->fltRoadRatio = 0.9f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 6;
@@ -257,9 +257,9 @@ namespace swTgApp
         ++pModel;
 
         // 傍晚小车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DUSK_SMALL_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_DaySmall.pData;         //傍晚使用白天模型
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DaySmall.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DUSK_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DuskSmall.pData;         //傍晚使用白天模型
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DuskSmall.nDataLen;
         pModel->fltRoadRatio = 0.6f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 6;
@@ -269,16 +269,16 @@ namespace swTgApp
         ++pModel;
 
         // 傍晚小车增强模型，模型参数需要和傍晚小车一致
-        *pModel = *(pModel - 1);
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DUSK_SMALL_CAR_EX;
-        pModel->pbData = swTgApp::g_cTgDetMode_DuskSmallEx.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DuskSmallEx.nDataLen;
-        ++pModel;
+        //*pModel = *(pModel - 1);
+        //pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DUSK_SMALL_CAR_EX;
+        //pModel->pbData = swTgVvdApp::g_cTgDetMode_DuskSmallEx.pData;
+        //pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DuskSmallEx.nDataLen;
+        //++pModel;
 
         // 傍晚大车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DUSK_LARGE_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_DayLarge.pData;         //傍晚使用白天模型
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DayLarge.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DUSK_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DayLarge.pData;         //傍晚使用白天模型
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DayLarge.nDataLen;
         pModel->fltRoadRatio = 0.9f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 6;
@@ -289,15 +289,15 @@ namespace swTgApp
 
         // 傍晚大车增强模型，模型参数需要和傍晚小车一致
         *pModel = *(pModel - 1);
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::DUSK_LARGE_CAR_EX;
-        pModel->pbData = swTgApp::g_cTgDetMode_DuskLargeEx.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_DuskLargeEx.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::DUSK_LARGE_CAR_EX;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_DuskLargeEx.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_DuskLargeEx.nDataLen;
         ++pModel;
 
         // 晚上小车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::NIGHT_SMALL_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_NightSmall.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_NightSmall.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::NIGHT_SMALL_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_NightSmall.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_NightSmall.nDataLen;
         pModel->fltRoadRatio = 0.6f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 8;
@@ -307,9 +307,9 @@ namespace swTgApp
         ++pModel;
 
         // 晚上大车
-        pModel->nDetType = svTgIrDetApi::MOD_DET_INFO::NIGHT_LARGE_CAR;
-        pModel->pbData = swTgApp::g_cTgDetMode_NightLarge.pData;
-        pModel->nDataLen = swTgApp::g_cTgDetMode_NightLarge.nDataLen;
+        pModel->nDetType = svTgVvdDetApi::MOD_DET_INFO::NIGHT_LARGE_CAR;
+        pModel->pbData = swTgVvdApp::g_cTgDetMode_NightLarge.pData;
+        pModel->nDataLen = swTgVvdApp::g_cTgDetMode_NightLarge.nDataLen;
         pModel->fltRoadRatio = 0.9f;
         pModel->nStepDivX = 8;
         pModel->nStepDivY = 8;
@@ -324,7 +324,7 @@ namespace swTgApp
     {
         if (m_pDetCtrl != NULL)
         {
-            svTgIrDetApi::FreeTgDetCtrl(m_pDetCtrl);
+            svTgVvdDetApi::FreeTgDetCtrl(m_pDetCtrl);
             m_pDetCtrl = NULL;
         }
     }
@@ -352,7 +352,7 @@ namespace swTgApp
         // create ctrl
         if (m_pDetCtrl == NULL)
         {
-            m_pDetCtrl = svTgIrDetApi::CreateTgDetCtrl();
+            m_pDetCtrl = svTgVvdDetApi::CreateTgDetCtrl();
         }
 
         if (m_pDetCtrl == NULL)
@@ -370,7 +370,13 @@ namespace swTgApp
         {
             RTN_HR_IF_SVFAILED(m_pDetCtrl->LoadDetModel(&m_rgModDetInfo[i]));
         }
+#ifndef BIKE_DET_MODE
+        m_cDetParam.nDetTopLine = 20;
         m_cDetParam.nDetBottomLine = 80;
+#else
+        m_cDetParam.nDetBottomLine = 99;
+        m_cDetParam.nMergeOverlapRatio = 65;
+#endif
         RTN_HR_IF_SVFAILED(m_pDetCtrl->Init(&m_cDetParam));
         return S_OK;
     }
@@ -380,7 +386,7 @@ namespace swTgApp
         if (NULL != m_pDetCtrl)
         {
             m_pDetCtrl->ReleaseDetModel();
-            svTgIrDetApi::FreeTgDetCtrl(m_pDetCtrl);
+            svTgVvdDetApi::FreeTgDetCtrl(m_pDetCtrl);
             m_pDetCtrl = NULL;
         }
         return S_OK;
@@ -427,17 +433,17 @@ namespace swTgApp
 
         HRESULT hr = S_OK;
         m_nObjROICnt = 0;
-		svTgIrDetApi::CTgDetCtrl::LIGHT_TYPE nLightType = svTgIrDetApi::CTgDetCtrl::LT_DAY;
+		svTgVvdDetApi::CTgDetCtrl::LIGHT_TYPE nLightType = svTgVvdDetApi::CTgDetCtrl::LT_DAY;
 		switch (m_nEnvLightType)
 		{
-		case svTgIrDetApi::CTgDetCtrl::LT_DAY:
-			nLightType = svTgIrDetApi::CTgDetCtrl::LT_DAY;
+		case svTgVvdDetApi::CTgDetCtrl::LT_DAY:
+			nLightType = svTgVvdDetApi::CTgDetCtrl::LT_DAY;
 			break;
-		case svTgIrDetApi::CTgDetCtrl::LT_DUSK:
-			nLightType = svTgIrDetApi::CTgDetCtrl::LT_DUSK;
+		case svTgVvdDetApi::CTgDetCtrl::LT_DUSK:
+			nLightType = svTgVvdDetApi::CTgDetCtrl::LT_DUSK;
 			break;
-		case svTgIrDetApi::CTgDetCtrl::LT_NIGHT:
-			nLightType = svTgIrDetApi::CTgDetCtrl::LT_NIGHT;
+		case svTgVvdDetApi::CTgDetCtrl::LT_NIGHT:
+			nLightType = svTgVvdDetApi::CTgDetCtrl::LT_NIGHT;
 			break;
 		default:
 			break;
@@ -467,17 +473,21 @@ namespace swTgApp
 
         sv::utTrace("m_pDetCtrl Get ROI:%d. Data:%d\n", m_nObjROICnt, *pAsycDataSize);
 
+#if SV_RUN_PLATFORM == SV_PLATFORM_LINUX
+
         SW_TRACE_DSP(g_szBufLog);
+
+#endif
 
         // zhaopy
         // printf("m_pDetCtrl Get ROI:%d. Plate:%d. Data:%d\n", m_nObjROICnt, 0, iDataSize);
         // TODO 打印时间和输出数
         // m_rgObjROI
 
-#if SV_RUN_PLATFORM == SV_PLATFORM_WIN
-        ShowROI(&svImgFrame, m_rgObjROI, m_nObjROICnt, 1, "DR");
-#endif
-
+//#if SV_RUN_PLATFORM == SV_PLATFORM_WIN
+//        ShowROI(&svImgFrame, m_rgObjROI, m_nObjROICnt, 1, "DR");
+//#endif
+//
         return hr;
     }
 
@@ -485,8 +495,8 @@ namespace swTgApp
     {
         m_nEnvLightType = nEnvLightType;
         if (iEnvStatus == 2
-			&& (m_nEnvLightType == svTgIrDetApi::CTgDetCtrl::LT_DAY
-			|| m_nEnvLightType == svTgIrDetApi::CTgDetCtrl::LT_DUSK))
+			&& (m_nEnvLightType == svTgVvdDetApi::CTgDetCtrl::LT_DAY
+			|| m_nEnvLightType == svTgVvdDetApi::CTgDetCtrl::LT_DUSK))
 		{
         	if (m_pDetCtrl)
         	{
@@ -509,7 +519,7 @@ namespace swTgApp
         )
     {
         // set roadinfo
-        svTgIrDetApi::TG_DET_PARAM& cParam = m_cDetParam;
+        svTgVvdDetApi::TG_DET_PARAM& cParam = m_cDetParam;
 
         cParam.nRoadLineCount = pCfgParam->nRoadLineNumber; //车道线数
 
@@ -559,7 +569,7 @@ namespace swTgApp
             cParam.fltYScale = 0.5f;
         }
 
-        cParam.nDetTopLine = 20;
+        //cParam.nDetTopLine = 20;
 
         return S_OK;
     }

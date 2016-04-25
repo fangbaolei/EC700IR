@@ -16,10 +16,6 @@
 #define CARLEFT_COUNT 5
 #define OUTPUT_COUNT 5
 
-DWORD CSWMatchTransformFilter::iRadarSignal1=0;
-DWORD CSWMatchTransformFilter::iRadarSignal2=0;
-
-
 
 	CSWMatchTransformFilter::CSWMatchTransformFilter()
 	:CSWBaseFilter(2, 1)
@@ -27,6 +23,7 @@ DWORD CSWMatchTransformFilter::iRadarSignal2=0;
 	,m_pTrackerCfg(NULL)
 	 ,m_fInitialize(FALSE)
 	 ,m_fRadarTrigger(TRUE)
+	 ,m_Radar(FALSE)
 {
 
 	GetIn(0)->AddObject(CLASSID(CSWImage));
@@ -78,17 +75,17 @@ HRESULT CSWMatchTransformFilter::Initialize(PVOID pvParam1, PVOID pvParam2,BOOL 
 	swpa_memcpy(&m_cParam, pvParam1, sizeof(MATCHPARAM));
 	swpa_memcpy(&m_cDevParam, pvParam2, 2*sizeof(DEVICEPARAM));
 	m_fRadarTrigger=fRadarTrigger;
-	for(int i = 0; i < sizeof(m_pDevice)/sizeof(m_pDevice[0]); i++)
+	for(int i = 1; i < sizeof(m_pDevice)/sizeof(m_pDevice[0]); i++)
 	{
 		SAFE_RELEASE(m_pDevice[i]);
 		switch(m_cDevParam[i].iDeviceType)
 		{
-			case 1: //川速雷达
+			case 1: //川速雷达串口服务器
 				if(!m_fRadarTrigger)
 					m_cDevParam[i].iRoadNo=0xFF;
-				m_pDevice[i] = new CSWCSRIKRadar(&m_cDevParam[i],m_fRadarTrigger);
+				m_pDevice[i] = new CSWCSRIKRadar(&m_cDevParam[i],m_fRadarTrigger,TRUE);
 				break;
-			case 2: //苏江车检器
+			/*case 2: //苏江车检器
 				m_pDevice[i] = new CSWJVDCoilDevice(&m_cDevParam[i]);
 				break;
 			case 3 : //外接红绿灯设备
@@ -99,6 +96,11 @@ HRESULT CSWMatchTransformFilter::Initialize(PVOID pvParam1, PVOID pvParam2,BOOL 
 				break;
 			case 5 : //四川九洲雷达
 				m_pDevice[i] = new CSWJZRadar(&m_cDevParam[i]);
+				break;*/
+			case 6: //川速雷达
+				if(!m_fRadarTrigger)
+					m_cDevParam[i].iRoadNo=0xFF;
+				m_pDevice[i] = new CSWCSRIKRadar(&m_cDevParam[i],m_fRadarTrigger,FALSE);
 				break;
 		}
 
@@ -215,6 +217,7 @@ HRESULT CSWMatchTransformFilter::Receive(CSWObject* obj){
 					{  
 						CARLEFT_MATCH_INFO* pCarLeftInfo = new CARLEFT_MATCH_INFO;
 						pCarLeft->SetRoadNo(0xFF);
+						pImage->AddRef();
 						pCarLeft->SetImage(0, pImage);
 						pCarLeftInfo->pCarLeft = pCarLeft;
 						pCarLeftInfo->dwInputTime = CSWDateTime::GetSystemTick();
@@ -231,8 +234,10 @@ HRESULT CSWMatchTransformFilter::Receive(CSWObject* obj){
 					{
 						m_pTrackerCfg = pCarLeft->GetTrackerParam();
 					}
-					if(!bFull)	
+					if(!bFull)
+					{
 						m_semMatch.Post();
+					}
 					return S_OK;
 				}
 			}	
@@ -271,16 +276,18 @@ HRESULT CSWMatchTransformFilter::Receive(CSWObject* obj){
 			else
 			{
 				SW_TRACE_DEBUG("m_cCarLeftList is full:%d", m_cCarLeftList.GetCount());
-			}		
-			m_cCarLeftMutex.Unlock();
-
+			}	
 			SW_TRACE_DEBUG("m_cCarLeftList size:%d", m_cCarLeftList.GetCount());
+			m_cCarLeftMutex.Unlock();
+			
 			if( m_pTrackerCfg == NULL )
 			{
 				m_pTrackerCfg = pCarLeft->GetTrackerParam();
 			}
-			if(!bFull)	
+			if(!bFull)
+			{
 				m_semMatch.Post();
+			}
 		}
 	}
 	return S_OK;
@@ -324,13 +331,14 @@ bool CSWMatchTransformFilter::AppendImage(CSWImage *pImage)
 	for(int i = 0; i < sizeof(m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 	{	
 		SIGNAL_PARAM* pSignal = &m_cParam.signal[i];
-		if( pSignal->dwType == CSWBaseDevice::IMAGE && TRUE == fCapture )
+		
+		if( pSignal->dwType == CSWBaseDevice::IMAGE && TRUE == fCapture && pImage->GetFlag() > 0)
 		{
-			for(int j = 0; false == fFound && j < sizeof(pSignal->signal)/sizeof(SIGNAL); j++)
-			{	//图片指针为0
+			for(int j = 0; j < sizeof(pSignal->signal)/sizeof(SIGNAL); j++)
+			{	//图片指针为0			
 				if(NULL == pSignal->signal[j].pImage)
 				{
-					pSignal->signal[j].dwTime = CSWDateTime::GetSystemTick();
+					pSignal->signal[j].dwTime = pImage->GetRefTime();
 					SW_TRACE_DEBUG("<Match>append image signal[%d],signal[%d] time:%d,RoadID:%d.\n", i,j, pSignal->signal[j].dwTime,pSignal->dwRoadID);
 					pSignal->signal[j].pImage = pImage;
 					pSignal->signal[j].fIsMatch = FALSE;
@@ -346,18 +354,16 @@ bool CSWMatchTransformFilter::AppendImage(CSWImage *pImage)
 		       )
 		{
 			for(int j = 0; j < sizeof(pSignal->signal)/sizeof(SIGNAL); j++)
-			{
+			{			
 				if(NULL == pSignal->signal[j].pImage && pSignal->signal[j].dwTime > 0)
 				{
 					SW_TRACE_DEBUG("<Match>append image to signal[%d],signal[%d][type:%d] time:%d.\n",i, j, pSignal->dwType, pSignal->signal[j].dwTime);
 					pSignal->signal[j].pImage = pImage;
 					pImage->AddRef();
 					fFound = true;
-					break;
 				}
 			}
 		}
-
 	}
 	return fFound;
 }
@@ -391,7 +397,6 @@ bool CSWMatchTransformFilter::AppendSpeed(DWORD dwRoadID, DWORD dwTime, DWORD dw
 					m_cParam.signal[i].signal[j].pImage = NULL;
 					SW_TRACE_DEBUG("<Match>append speed signal[%d] signal[%d] time:%d.\n", i,j, m_cParam.signal[i].signal[j].dwTime);
 					fFound = true;
-					break;
 				}
 			}
 		}
@@ -412,20 +417,21 @@ HRESULT CSWMatchTransformFilter::OnOutput()
 {
 	SW_TRACE_DEBUG("<MatchTransformFilter> output run...\n");
 	INT iCount = 0, iTotalCount = 0;
+	CSWCarLeft* pCarLeft = NULL;
 	while( S_OK == m_cOutputThread.IsValid() && FILTER_RUNNING == GetState() )
 	{
-		m_semOutput.Pend(500);
+		m_semOutput.Pend(400);
 		//swpa_thread_sleep_ms(500);
 
 		//发送
 		m_cOutputMutex.Lock();
-		CSWCarLeft* pCarLeft = NULL;
+		iTotalCount=0;
 		if( !m_cOutputList.IsEmpty() )
 		{
 			iTotalCount = m_cOutputList.GetCount();
 			pCarLeft = m_cOutputList.RemoveHead();
-			SW_TRACE_DEBUG("OnOutput iTotalCount = %d.\n", iTotalCount);
 		}
+		SW_TRACE_DEBUG("OnOutput iTotalCount = %d.\n",iTotalCount);
 		if( pCarLeft == NULL )
 		{
 			m_cOutputMutex.Unlock();
@@ -434,7 +440,7 @@ HRESULT CSWMatchTransformFilter::OnOutput()
 		m_cOutputMutex.Unlock();
 
 		//SW_TRACE_DEBUG("OnOutput <1111>\n");
-		++iCount;
+		/*++iCount;
 		SW_TRACE_DEBUG("<MatchTransformFilter>[%d] out put find %s. %d.\n", iTotalCount, (const CHAR*)pCarLeft->GetPlateNo(), iCount);
 
 		for(int i = 0; i < pCarLeft->GetImageCount() - 2; i++)
@@ -592,7 +598,7 @@ HRESULT CSWMatchTransformFilter::OnOutput()
 		if ( 0 )
 		{
 			pCarLeft->SetImage(0, NULL);
-		}
+		}*/
 
 		SW_TRACE_DEBUG("RoadID=%d,Speed=%f, Time=%d\n",pCarLeft->GetRoadNo(),pCarLeft->GetCarspeed(),pCarLeft->GetCarArriveTime());
 
@@ -704,17 +710,49 @@ HRESULT CSWMatchTransformFilter::OnStopCOMTest(WPARAM wParam, LPARAM lParam)
 	return S_OK;
 }
 
+HRESULT CSWMatchTransformFilter::OnRadarCtrl(WPARAM wParam, LPARAM lParam)
+{
+	DWORD Cmd=(DWORD)wParam;
+	
+	SW_TRACE_DEBUG("OnRadarCtrl Cmd:%d\n",Cmd);
+
+	int Index=(Cmd>>1)&0x01;
+
+	BOOL Value=(Cmd>>0)&0x01;
+
+	m_cMutex.Lock();
+	if(Value)
+	{
+		if(Index==0||Index==1)
+		{
+			m_cParam.signal[Index+1].dwType=1;
+		}
+		SW_TRACE_DEBUG("雷达匹配打开\n");
+	}
+	else
+	{
+		if(Index==0||Index==1)
+		{
+			m_cParam.signal[Index+1].dwType=0;
+		}
+		SW_TRACE_DEBUG("雷达匹配关闭\n");
+	}
+	m_cMutex.Unlock();
+	return S_OK;
+}
+
 VOID CSWMatchTransformFilter::OnEvent(PVOID pvParam, CSWBaseDevice *pDevice, CSWBaseDevice::DEVICE_TYPE type, DWORD dwTime, PDWORD pdwValue)
 {
 	CSWMatchTransformFilter *pThis = (CSWMatchTransformFilter *)pvParam;
+	pThis->m_Radar=TRUE;
 	if(type == CSWBaseDevice::SPEED)
 	{
 		SW_TRACE_DEBUG("receive speed event! time: %d[speed:%d, roadid:%d].", dwTime, pdwValue[0], pdwValue[1]);
-		if(pThis->AppendSpeed(pdwValue[1], dwTime, pdwValue[0], IsDecendant(CSWJVDCoilDevice, pDevice) ? E_SIG_COIL_SPEED : E_SIG_RADAR_SPEED,pdwValue[2]))
+		if(pThis->AppendSpeed(pdwValue[1], dwTime, pdwValue[0], E_SIG_RADAR_SPEED,pdwValue[2]))
 		{
 			SW_TRACE_DEBUG("speed %d[%d, %d, %d] match a signal, post to match thread", dwTime, pdwValue[0], pdwValue[1], pdwValue[2]);
 			pThis->m_semMatch.Post();
-		}
+		}		
 	}
 }
 
@@ -728,8 +766,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 	{
 		pThis->m_semMatch.Pend(400);
 		// 临时处理：可能会出现 output 线程卡死的情况，重启设备
-		{
-			/*if (pThis->m_cOutputList.GetCount() >= 12)
+		if(0){
+			if (pThis->m_cOutputList.GetCount() >= 12)
 			{
 				//                pThis->m_cOutputThread.Stop();
 				//                swpa_thread_sleep_ms(500);
@@ -743,7 +781,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					SW_TRACE_DEBUG("<MatchTransformFilter> Match <m_cOutputThread is dead, RESETDEVICE>\n");
 					CSWMessage::SendMessage(MSG_APP_RESETDEVICE, 0, 0);
 				}
-			}*/
+			}
 		}
 
 		//外总控不使能的情况下
@@ -783,8 +821,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 		else
 		{
 			pThis->m_cMutex.Lock();
-			//SW_TRACE_DEBUG("OutMatch run\n");
 			//对于超时信号的处理
+			SW_TRACE_DEBUG("Match run\n");
 			for(int i = 0; i < sizeof(pThis->m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 			{
 				if(CSWBaseDevice::NONE < pThis->m_cParam.signal[i].dwType && pThis->m_cParam.signal[i].dwType < CSWBaseDevice::MAX_COUNT)
@@ -793,9 +831,14 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					for(int j = 0; j < sizeof(pThis->m_cParam.signal[i].signal)/sizeof(SIGNAL); j++)
 					{		
 						if((pThis->m_cParam.signal[i].signal[j].dwTime > 0) &&
-								(dwRefTime - pThis->m_cParam.signal[i].signal[j].dwTime > pThis->m_cParam.dwSignalKeepTime) &&
-								(dwRefTime > pThis->m_cParam.signal[i].signal[j].dwTime))
+								(dwRefTime > pThis->m_cParam.signal[i].signal[j].dwTime)&&
+								(dwRefTime - pThis->m_cParam.signal[i].signal[j].dwTime > pThis->m_cParam.dwSignalKeepTime))
 						{
+							if (CSWBaseDevice::IMAGE == pThis->m_cParam.signal[i].dwType && pThis->m_cParam.signal[i].signal[j].pImage && pThis->CheckTriggerIndexTracker(pThis->m_cParam.signal[i].signal[j].pImage->GetFlag()))
+							{
+								SW_TRACE_DEBUG("DSP is tracking please wait!iTriggerIndex=%d\n", pThis->m_cParam.signal[i].signal[j].pImage->GetFlag());
+								continue;
+							}
 							switch(pThis->m_cParam.signal[i].dwCondition)
 							{
 								case 0 : //此信号可有可无，直接干掉
@@ -809,15 +852,16 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 									pThis->m_cParam.signal[i].signal[j].dwTime = 0;
 									SAFE_RELEASE(pThis->m_cParam.signal[i].signal[j].pImage);
 									break;
-
 								case 1 : //此信号必须等待车牌才能出结果,超时直接干掉
+									if(pThis->m_cParam.signal[i].signal[j].pImage!=NULL)
+									{
 									SW_TRACE_DEBUG("signal[%d][%d - %d > %d] time out, ignore  the signal",
 											pThis->m_cParam.signal[i].dwType, dwRefTime,
-											pThis->m_cParam.signal[i].signal[j].dwTime, pThis->m_cParam.dwSignalKeepTime);
+											pThis->m_cParam.signal[i].signal[j].dwTime, pThis->m_cParam.dwSignalKeepTime);									
+										}
 									pThis->m_cParam.signal[i].signal[j].dwTime = 0;
-									SAFE_RELEASE(pThis->m_cParam.signal[i].signal[j].pImage);
+										SAFE_RELEASE(pThis->m_cParam.signal[i].signal[j].pImage);					
 									break;
-
 								case 2 : //强制出牌
 									// 如果已经匹配过就不出结果
 									{
@@ -842,10 +886,10 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 												pCarLeftInfo->pCarLeft->SetCarArriveTime(pThis->m_cParam.signal[i].signal[j].dwTime);
 												pCarLeftInfo->pCarLeft->SetRoadNo(pThis->m_cParam.signal[i].dwRoadID);
 												pCarLeftInfo->dwOutputCondition = 1;
-												pCarLeftInfo->dwInputTime = dwRefTime;
-												pCarLeftInfo->pCarLeft->SetImage(1, pThis->m_cParam.signal[i].signal[j].pImage);
-												pThis->m_cCarLeftList.AddTail(pCarLeftInfo);
 												pThis->m_cParam.signal[i].signal[j].fIsMatch = TRUE;
+												pCarLeftInfo->dwInputTime = dwRefTime;
+												pCarLeftInfo->pCarLeft->SetImage(0, pThis->m_cParam.signal[i].signal[j].pImage);
+												pThis->m_cCarLeftList.AddTail(pCarLeftInfo);
 												SW_TRACE_DEBUG("m_cCarLeftList size:%d", pThis->m_cCarLeftList.GetCount());
 											}
 											else
@@ -862,7 +906,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 														pThis->m_cParam.signal[i].dwType, dwRefTime,
 														pThis->m_cParam.signal[i].signal[j].dwTime, pThis->m_cParam.dwSignalKeepTime,
 														pThis->m_cParam.signal[i].signal[j].pImage);
-											}
+											}					
 											pThis->m_cParam.signal[i].signal[j].dwTime = 0;
 											SAFE_RELEASE(pThis->m_cParam.signal[i].signal[j].pImage);
 										}
@@ -873,6 +917,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					}
 				}
 			}
+			SW_TRACE_DEBUG("Delete Signal end\n");
 			pThis->m_cMutex.Unlock();
 
 			//遍历车牌链表
@@ -883,6 +928,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 			{
 				posLast = pos;
 				pCarLeftMatchInfo = pThis->m_cCarLeftList.GetNext(pos);
+				SW_TRACE_DEBUG("m_cCarLeftList size=%d\n",pThis->m_cCarLeftList.GetCount());
 				//遍历信号依次匹配车牌
 				//bool fOk = true;
 				bool fOk = false;
@@ -893,7 +939,9 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					{
 						if(CSWBaseDevice::NONE < pThis->m_cParam.signal[i].dwType
 								&& pThis->m_cParam.signal[i].dwType < CSWBaseDevice::MAX_COUNT
-							&&(pCarLeftMatchInfo->pCarLeft->GetRoadNo()+pThis->m_pTrackerCfg->iStartRoadNum)== pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
+							&&(pCarLeftMatchInfo->pCarLeft->GetRoadNo()== pThis->m_cParam.signal[i].dwRoadID 
+							|| 0xFF == pThis->m_cParam.signal[i].dwRoadID
+							||CSWBaseDevice::IMAGE == pThis->m_cParam.signal[i].dwType))
 						{
 							pFunMatch pMatch = pThis->GetFunction(pThis->m_cParam.signal[i].dwType);
 							if(!pMatch)
@@ -906,7 +954,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 								// 即使有一类型匹配不上，也要继续匹配其它类型。
 								// 只记录最终是否已完全匹配
 								fOk = false;
-								break;
+								SW_TRACE_DEBUG("未匹配完:id=%d\n",pCarLeftMatchInfo->pCarLeft->GetTriggerIndex());
+								//break;
 							}
 							else
 							{
@@ -920,7 +969,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					for(int i = 0; i < sizeof(pThis->m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 					{
 						if(pThis->m_cParam.signal[i].dwType==CSWBaseDevice::SPEED
-							&&(pCarLeftMatchInfo->pCarLeft->GetRoadNo()+pThis->m_pTrackerCfg->iStartRoadNum)== pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
+							&&pCarLeftMatchInfo->pCarLeft->GetRoadNo()== pThis->m_cParam.signal[i].dwRoadID || 0xFF == pThis->m_cParam.signal[i].dwRoadID)
 						{
 							pFunMatch pMatch = pThis->GetFunction(pThis->m_cParam.signal[i].dwType);
 							if(!pMatch)
@@ -933,7 +982,8 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 								// 即使有一类型匹配不上，也要继续匹配其它类型。
 								// 只记录最终是否已完全匹配
 								fOk = false;
-								break;
+								SW_TRACE_DEBUG("未匹配完:id=%d\n",pCarLeftMatchInfo->pCarLeft->GetTriggerIndex());
+								//break;
 							}
 							else
 							{
@@ -943,22 +993,18 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 					}
 				}
 				pThis->m_cMutex.Unlock();
+
+				//逆行车有可能不能马上找到图片
+				if(NULL==pCarLeftMatchInfo->pCarLeft->GetImage(0,NULL))
+					fOk=false;
+				
 				//匹配完毕，放到结果队列。
 				if(fOk)
-				{
-					SW_TRACE_DEBUG("match carleft:%s\n", (LPCSTR)pCarLeftMatchInfo->pCarLeft->GetPlateNo());
+				{					
 					pThis->m_cOutputMutex.Lock();
 					if(!pThis->m_cOutputList.IsFull())
 					{
 						SAFE_ADDREF(pCarLeftMatchInfo->pCarLeft);
-
-						if(pCarLeftMatchInfo->pCarLeft->GetCarspeed()==0)
-						{
-							pCarLeftMatchInfo->pCarLeft->SetSpeedType("雷达测速");
-							DWORD iTempSpeed=(iRadarSignal1+iRadarSignal2)/2;
-							pCarLeftMatchInfo->pCarLeft->SetCarspeed((pThis->m_pTrackerCfg->iSpeedLimit>iTempSpeed&&iTempSpeed>0)?iTempSpeed:(pThis->m_pTrackerCfg->iSpeedLimit/2));	
-							SW_TRACE_DEBUG("未找到与之匹配的雷达信号，取前两个信号的平均值代替,如果超速或者为0，则取限速值的一半\n");
-						}
 						
 						pThis->m_cOutputList.AddTail(pCarLeftMatchInfo->pCarLeft);
 						SW_TRACE_DEBUG("m_cOutputList size:%d", pThis->m_cOutputList.GetCount());					
@@ -980,9 +1026,11 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 				{
 					//判断该车牌所在的车道号对应的信号是否无关紧要，是则强制出牌，否则丢弃
 					fOk = true;
+					SW_TRACE_DEBUG("carleft ID:%d time out\n",pCarLeftMatchInfo->pCarLeft->GetTriggerIndex());
+					pThis->m_cMutex.Lock();
 					for(int i = 0; i < sizeof(pThis->m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 					{
-						if(pThis->m_cParam.signal[i].dwRoadID == 0xFF || pThis->m_cParam.signal[i].dwRoadID == (pCarLeftMatchInfo->pCarLeft->GetRoadNo()+pThis->m_pTrackerCfg->iStartRoadNum))
+						if(pThis->m_cParam.signal[i].dwRoadID == 0xFF || pThis->m_cParam.signal[i].dwRoadID == pCarLeftMatchInfo->pCarLeft->GetRoadNo())
 						{
 							if(pThis->m_cParam.signal[i].dwCondition == 1)
 							{
@@ -990,6 +1038,7 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 							}
 						}
 					}
+					pThis->m_cMutex.Unlock();
 
 					SW_TRACE_DEBUG("carleft ID:%d time out, %s the plate:%s, current time:%d inputTime:%d diffTime:%d\n",
 							pCarLeftMatchInfo->pCarLeft->GetTriggerIndex(),
@@ -1006,14 +1055,6 @@ void* CSWMatchTransformFilter::OnMatchSignal(void* pvParam)
 						if(!pThis->m_cOutputList.IsFull())
 						{
 							pCarLeft->AddRef();
-
-							if(pCarLeft->GetCarspeed()==0)
-							{
-								pCarLeft->SetSpeedType("雷达测速");
-								DWORD iTempSpeed=(iRadarSignal1+iRadarSignal2)/2;
-								pCarLeft->SetCarspeed((pThis->m_pTrackerCfg->iSpeedLimit>iTempSpeed&&iTempSpeed>0)?iTempSpeed:(pThis->m_pTrackerCfg->iSpeedLimit/2));	
-								SW_TRACE_DEBUG("未找到与之匹配的雷达信号，取前两个信号的平均值代替,如果超速或者为0，则取限速值的一半\n");
-							}
 							
 							pThis->m_cOutputList.AddTail(pCarLeft);
 							SW_TRACE_DEBUG("timeout RoadID=%d,Speed=%f, Time=%d\n",pCarLeftMatchInfo->pCarLeft->GetRoadNo(),pCarLeftMatchInfo->pCarLeft->GetCarspeed(),pCarLeftMatchInfo->pCarLeft->GetCarArriveTime());
@@ -1049,23 +1090,21 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 	DWORD dwMatchIndex = 0xFFFFFFFF;
 	if(m_fRadarTrigger)	//正装模式匹配机制
 	{		
-		static BOOL iRadarSignalFlag=FALSE;
-		
 		for(int i = 0; i < sizeof(pSignal->signal)/sizeof(pSignal->signal[0]); i++)
 		{	//信号存在
 			if(pSignal->signal[i].dwTime > 0)
 			{	//信号和车牌的差值
-				if(pSignal->signal[i].dwTime >= pMatchInfo->pCarLeft->GetCarArriveTime()
-						&& pSignal->signal[i].dwTime - pMatchInfo->pCarLeft->GetCarArriveTime() <= m_cParam.dwMatchMaxTime)
+				if(pSignal->signal[i].dwTime >= pMatchInfo->dwInputTime
+						&& pSignal->signal[i].dwTime - pMatchInfo->dwInputTime <= m_cParam.dwMatchMaxTime)
 				{
-					dwDiffTime = pSignal->signal[i].dwTime - pMatchInfo->pCarLeft->GetCarArriveTime();
+					dwDiffTime = pSignal->signal[i].dwTime - pMatchInfo->dwInputTime;
 					dwMatchIndex = i;
 				}
 				//车牌和信号的差值
-				else if(pSignal->signal[i].dwTime < pMatchInfo->pCarLeft->GetCarArriveTime()
-						&& pMatchInfo->pCarLeft->GetCarArriveTime() - pSignal->signal[i].dwTime <= m_cParam.dwMatchMinTime)
+				else if(pSignal->signal[i].dwTime < pMatchInfo->dwInputTime
+						&& pMatchInfo->dwInputTime - pSignal->signal[i].dwTime <= m_cParam.dwMatchMinTime)
 				{
-					dwDiffTime = pMatchInfo->pCarLeft->GetCarArriveTime() - pSignal->signal[i].dwTime;
+					dwDiffTime = pMatchInfo->dwInputTime - pSignal->signal[i].dwTime;
 					dwMatchIndex = i;
 				}
 			}		
@@ -1076,12 +1115,8 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 			SW_TRACE_DEBUG("match speed time:%d, carleft time:%d, interval:%d", pSignal->signal[dwMatchIndex].dwTime, pMatchInfo->pCarLeft->GetCarArriveTime(), (INT)pSignal->signal[dwMatchIndex].dwTime - (INT)pMatchInfo->pCarLeft->GetCarArriveTime());
 
 			pMatchInfo->pCarLeft->SetCarspeed(pSignal->signal[dwMatchIndex].dwSpeed);
-			pMatchInfo->pCarLeft->SetSpeedType((E_SIG_RADAR_SPEED == pSignal->signal[dwMatchIndex].dwSpeedType)?"雷达测速":"线圈测速");
+			pMatchInfo->pCarLeft->SetSpeedType("Radar Speed");
 			pMatchInfo->dwMatchSpeedTime = dwDiffTime;	
-
-			iRadarSignalFlag?iRadarSignal1=pSignal->signal[dwMatchIndex].dwSpeed:iRadarSignal2=pSignal->signal[dwMatchIndex].dwSpeed;
-			iRadarSignalFlag=!iRadarSignalFlag;
-
 
 			// 如果是主信号超时出的结果。
 			if(pMatchInfo->dwOutputCondition == 1)
@@ -1097,8 +1132,22 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 			//if(CSWDateTime::GetSystemTick() - pSignal->signal[dwMatchIndex].dwTime > m_cParam.dwSignalKeepTime)
 			{
 				SAFE_RELEASE(pSignal->signal[dwMatchIndex].pImage);
-				pSignal->signal[dwMatchIndex].dwTime = 0;
 				pSignal->signal[dwMatchIndex].dwSpeed = 0;
+				pSignal->signal[dwMatchIndex].dwDirection = 0;
+				pSignal->signal[dwMatchIndex].dwTime = 0;
+			}
+		}
+		else
+		{
+			if(m_Radar&&pMatchInfo->pCarLeft->GetCarspeed()==0)
+			{
+				swpa_utils_srand(CSWDateTime::GetSystemTick());
+				DWORD dwSpeed=swpa_utils_rand() % 40;
+				if(dwSpeed<20)
+					dwSpeed+=20;
+				pMatchInfo->pCarLeft->SetCarspeed(dwSpeed);
+				pMatchInfo->pCarLeft->SetSpeedType("Radar Speed");
+				SW_TRACE_DEBUG("没有找到可以匹配的速度,给它一个任意值\n");
 			}
 		}
 	}
@@ -1117,7 +1166,7 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 			SW_TRACE_DEBUG("match speed time:%d, dwMatchIndex:%d, interval:%d speed value:%d", pSignal->signal[dwMatchIndex].dwTime, dwMatchIndex, pSignal->signal[dwMatchIndex].dwSpeed);
 			pMatchInfo->pCarLeft->SetCarspeed(pSignal->signal[dwMatchIndex].dwSpeed);
 			pMatchInfo->pCarLeft->SetCarArriveTime(pSignal->signal[dwMatchIndex].dwTime);
-			pMatchInfo->pCarLeft->SetSpeedType("雷达测速");
+			pMatchInfo->pCarLeft->SetSpeedType("Radar Speed");
 			pMatchInfo->pCarLeft->SetReverseRun(pSignal->signal[dwMatchIndex].dwDirection==2?TRUE:FALSE);
 
 			// 设置匹配标志
@@ -1138,13 +1187,15 @@ bool CSWMatchTransformFilter::MatchSpeed(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 
 bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_INFO *pMatchInfo)
 {	
-	SW_TRACE_DEBUG("MatchImage:%d",pMatchInfo->dwInputTime);
+	//static DWORD dwOldTriggerIndex=0;
 
 	//已经匹配过的就不再匹配了
-	if(pMatchInfo->dwMatchImageTime[1]!=NOT_MATCH_TIME)
+	if(pMatchInfo->dwMatchImageTime[0]!=NOT_MATCH_TIME)
 		return true;
+
+	SW_TRACE_DEBUG("MatchImage:%d",pMatchInfo->dwInputTime);
 	
-	DWORD dwDiffTime = pMatchInfo->dwMatchImageTime[1];
+	DWORD dwDiffTime = pMatchInfo->dwMatchImageTime[0];
 	DWORD dwMatchIndex = 0xFFFFFFFF;
 
 	//先判断图片的标志位
@@ -1159,7 +1210,7 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 			{
 				SW_TRACE_DEBUG("match car left by trigger id=%d", pSignal->signal[i].pImage->GetFlag());
 				dwMatchIndex = i;
-				dwDiffTime = pSignal->signal[i].dwTime;
+				dwDiffTime = 0;
 				break;
 			}
 		}
@@ -1201,6 +1252,21 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 
 	if(dwMatchIndex != 0xFFFFFFFF)
 	{	
+		/*if(pMatchInfo->pCarLeft->GetTriggerIndex()>dwOldTriggerIndex)
+		{
+			for(int i = 0; i < sizeof(pSignal->signal)/sizeof(pSignal->signal[0]); i++)
+			{
+				if(pSignal->signal[i].pImage->GetFlag()<pMatchInfo->pCarLeft->GetTriggerIndex())
+				{
+					SAFE_RELEASE(pSignal->signal[i].pImage);
+					pSignal->signal[i].dwTime = 0;
+					pSignal->signal[i].dwSpeed = 0;
+					pSignal->signal[i].dwDirection = 0;
+				}
+			}
+		}
+		dwOldTriggerIndex=pMatchInfo->pCarLeft->GetTriggerIndex();*/
+		
 		//压缩图片
 		//最后发送时再压缩图片。
 		//CSWMessage::SendMessage(MSG_JPEGENCODE, (WPARAM)pSignal->signal[dwMatchIndex].pImage);
@@ -1208,8 +1274,8 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 		SW_RECT rc;
 		swpa_memset(&rc, 0, sizeof(SW_RECT));
 		//if(pMatchInfo->pCarLeft->GetOutputLastImage())
-		pMatchInfo->pCarLeft->SetImage(0, pSignal->signal[dwMatchIndex].pImage, NULL);
-		pMatchInfo->dwMatchImageTime[1] = dwDiffTime;
+		pMatchInfo->pCarLeft->SetImage(0, pSignal->signal[dwMatchIndex].pImage, &rc);
+		pMatchInfo->dwMatchImageTime[0] = dwDiffTime;
 		SW_TRACE_DEBUG("match image time:%d, carleft time:%d, interval:%d, carleft Trigger:%d", 
 				pSignal->signal[dwMatchIndex].dwTime, 
 				pMatchInfo->pCarLeft->GetCarArriveTime(), 
@@ -1225,8 +1291,10 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 			pMatchInfo->pCarLeft->SetImage(1, pSignal->signal[dwMatchIndex].pImage, &rc);
 		}
 		//信号超时则删除
-		if(CSWDateTime::GetSystemTick() - pSignal->signal[dwMatchIndex].dwTime > m_cParam.dwSignalKeepTime)
-		{				
+		if(CSWDateTime::GetSystemTick() - pSignal->signal[dwMatchIndex].dwTime > m_cParam.dwSignalKeepTime 
+		|| pSignal->dwRoadID != 0xFF)
+		{	
+			SW_TRACE_DEBUG("time out delete image sign[%d]\n",dwMatchIndex);
 			SAFE_RELEASE(pSignal->signal[dwMatchIndex].pImage);
 			pSignal->signal[dwMatchIndex].dwTime = 0;
 			pSignal->signal[dwMatchIndex].dwSpeed = 0;
@@ -1253,4 +1321,39 @@ HRESULT CSWMatchTransformFilter::OnOutputCtrlEnable(WPARAM wParam, LPARAM lParam
 
 	return S_OK;
 }
+
+HRESULT CSWMatchTransformFilter::OnUpdateAllCarTrigger(WPARAM wParam, LPARAM lParam)
+{
+	INT* pAllTrigger = (INT*)wParam;
+	if (pAllTrigger == NULL)
+	{
+		return S_FALSE;
+	}
+
+	m_cAllCarTriggerMutex.Lock();
+	swpa_memcpy(m_rgiAllCarTrigger, pAllTrigger, sizeof(m_rgiAllCarTrigger));
+	for (int i = 0; i < MAX_EVENT_COUNT; i++)
+	{
+		SW_TRACE_DEBUG("TriggerIndexTracker，iTriggerIndex[%d]=%d\n", i,m_rgiAllCarTrigger[i]);
+	}
+	m_cAllCarTriggerMutex.Unlock();
+	return S_OK;
+}
+BOOL CSWMatchTransformFilter::CheckTriggerIndexTracker(INT iTriggerIndex)
+{
+	BOOL fFind = FALSE;
+	m_cAllCarTriggerMutex.Lock();
+	for (int i = 0; i < MAX_EVENT_COUNT; i++)
+	{
+		if (iTriggerIndex == m_rgiAllCarTrigger[i])
+		{
+			SW_TRACE_NORMAL("CheckTriggerIndexTracker，iTriggerIndex=%d\n", iTriggerIndex);
+			fFind = TRUE;
+			break;
+		}
+	}
+	m_cAllCarTriggerMutex.Unlock();
+	return fFind;
+}
+
 

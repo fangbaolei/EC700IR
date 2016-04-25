@@ -297,7 +297,7 @@ HRESULT CSWResultFilter::Receive(CSWObject* obj)
 						if (S_OK != pImage->ReplaceFrameBuffer(CSWMemoryFactory::GetInstance(SW_SHARED_MEMORY)))
 						{
 							//SAFE_RELEASE(pImage);
-							SW_TRACE_NORMAL("result get vnf frame failed, release the image and SetImage = NULL!\n");
+							SW_TRACE_DEBUG("result get vnf frame failed, release the image and SetImage = NULL!\n");
                             pCarLeft->SetImage(i, NULL, NULL);
 							continue;
 						}
@@ -305,11 +305,11 @@ HRESULT CSWResultFilter::Receive(CSWObject* obj)
 
 					//TODO测试协议待测试
 					//如果是jpeg就跳过jpeg编码
-					if(pImage->GetType() == SW_IMAGE_JPEG)
-						continue;
+					//if(pImage->GetType() == SW_IMAGE_JPEG)
+					//	continue;
 
                     //fanghy Crop test
-                    if (CSWCarLeft::GetOutputCropImage() && 1 == i)
+                    /*if (CSWCarLeft::GetOutputCropImage() && 1 == i)
                     {
                          CSWImage* pImageCrop = NULL;
                         pImageCrop = pCarLeft->GetImage(i, &rcRect) ;
@@ -329,19 +329,19 @@ HRESULT CSWResultFilter::Receive(CSWObject* obj)
                             pCarLeft->m_fCropLastImage = FALSE;
                         }
                         SAFE_RELEASE(pImageCrop);
-                    }
+                    }*/
 
                     if(fIsTestImage == FALSE && pImage->GetType() == SW_IMAGE_YUV420SP)
                     {
                         CSWMessage::SendMessage(MSG_OVERLAY_PROCESS, (WPARAM)pImage,(LPARAM)pCarLeft);
                     }
 
-                    pCarLeft->m_fCropLastImage = FALSE;
+                    //pCarLeft->m_fCropLastImage = FALSE;
                     //如果压缩失败，则把图片设置为空。
                     if( S_OK != CSWMessage::SendMessage(MSG_JPEGENCODE, (WPARAM)&pImage, (LPARAM)pCarLeft))
                     {
                         SW_TRACE_DEBUG("CSWResultFilter MSG_JPEGENCODE Fail!\n");
-                        pCarLeft->SetImage(i, NULL);
+                        pCarLeft->SetImage(i, NULL,NULL);
                     }
                     else
 					{

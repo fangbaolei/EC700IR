@@ -430,13 +430,13 @@ HRESULT CSWBaseLinkCtrl::ProcessOneFrame(CSWImage* pImage, PROCESS_EVENT_STRUCT*
 	pProcessParam->iDiffTick = 0;
 	pProcessParam->iVideoID = 0;
 	pProcessParam->fIsARMNight = (pProcessEvent->nEnvLightType == 2);	//ARM端白天晚上的判断结果传入DSP
-    if (!pImage->IsCaptureImage())
+    /*if (!pImage->IsCaptureImage())
     {
         if (NULL != pFrameRecognizeParam)
         {
             pProcessParam->iEnvStatus = pFrameRecognizeParam->iEnvStatus;       // 3:day, 2:dusk, 1:night
         }
-    }
+    }*/
 
 	// data
 	ConvertImage(pImage, pProcessData->hvImage);
@@ -620,6 +620,7 @@ HRESULT CSWBaseLinkCtrl::ProcessOneFrame(CSWImage* pImage, PROCESS_EVENT_STRUCT*
 			pProcessEvent->nWDRLevel = pProcessRespond->nWDRLevel;
 			//拷贝红灯坐标，要求这2个数组的大小一致
 			memcpy(pProcessEvent->rcRedLight, pProcessRespond->rcRedLight, sizeof(pProcessEvent->rcRedLight));
+			memcpy(pProcessEvent->rgiAllCarTrigger, pProcessRespond->cTrigEvent.rgiAllCarTrigger, sizeof(pProcessEvent->rgiAllCarTrigger));
 			if (pProcessEvent->dwEventId & EVENT_CARARRIVE)
 			{
 				for (int i = 0; i < pProcessEvent->iCarArriveInfoCount; i++)

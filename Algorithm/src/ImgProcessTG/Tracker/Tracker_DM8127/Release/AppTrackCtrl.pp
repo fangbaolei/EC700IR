@@ -12,7 +12,7 @@ AppTrackCtrl.obj: D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/string.h
 AppTrackCtrl.obj: D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/linkage.h
 AppTrackCtrl.obj: D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/stdio.h
 AppTrackCtrl.obj: D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/stdarg.h
-AppTrackCtrl.obj: ../../../../Inc/svTgIrApi/svTgIrApi.h
+AppTrackCtrl.obj: ../../../../Inc/svTgVvdApi/svTgVvdApi.h
 AppTrackCtrl.obj: ../../../../Inc/svBase/svBase.h
 AppTrackCtrl.obj: ../../../../Inc/svBase/sv_basetype.h
 AppTrackCtrl.obj: ../../../../Inc/svBase/sv_config.h
@@ -145,6 +145,7 @@ AppTrackCtrl.obj: ../../../../Inc/HvDataStruct.h
 AppTrackCtrl.obj: ../../../../Inc/HVHistogram.h
 AppTrackCtrl.obj: ../../../../Inc/ScaleSpeed.h
 AppTrackCtrl.obj: Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppUtils.h
+AppTrackCtrl.obj: Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/DetModelData.h
 AppTrackCtrl.obj: Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AsyncDetResult.h
 
 Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppTrackCtrl.cpp: 
@@ -159,7 +160,7 @@ D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/string.h:
 D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/linkage.h: 
 D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/stdio.h: 
 D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/stdarg.h: 
-../../../../Inc/svTgIrApi/svTgIrApi.h: 
+../../../../Inc/svTgVvdApi/svTgVvdApi.h: 
 ../../../../Inc/svBase/svBase.h: 
 ../../../../Inc/svBase/sv_basetype.h: 
 ../../../../Inc/svBase/sv_config.h: 
@@ -292,4 +293,5 @@ D:/ti/ccsv5/tools/compiler/c6000_7.4.1/include/string.h:
 ../../../../Inc/HVHistogram.h: 
 ../../../../Inc/ScaleSpeed.h: 
 Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppUtils.h: 
+Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/DetModelData.h: 
 Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AsyncDetResult.h: 

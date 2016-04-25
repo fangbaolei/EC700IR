@@ -2,7 +2,7 @@
 
 AppTrackInfo.obj: Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppTrackInfo.cpp
 AppTrackInfo.obj: Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppTrackInfo.h
-AppTrackInfo.obj: ../../../../Inc/svTgIrApi/svTgIrApi.h
+AppTrackInfo.obj: ../../../../Inc/svTgVvdApi/svTgVvdApi.h
 AppTrackInfo.obj: ../../../../Inc/svBase/svBase.h
 AppTrackInfo.obj: ../../../../Inc/svBase/sv_basetype.h
 AppTrackInfo.obj: ../../../../Inc/svBase/sv_config.h
@@ -134,7 +134,7 @@ AppTrackInfo.obj: D:/ti/xdctools_3_24_05_48/packages/xdc/runtime/Error.h
 
 Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppTrackInfo.cpp: 
 Z:/ICX816_CCD_700IR_AP/Algorithm/src/ImgProcessTG/Tracker/AppTrackInfo.h: 
-../../../../Inc/svTgIrApi/svTgIrApi.h: 
+../../../../Inc/svTgVvdApi/svTgVvdApi.h: 
 ../../../../Inc/svBase/svBase.h: 
 ../../../../Inc/svBase/sv_basetype.h: 
 ../../../../Inc/svBase/sv_config.h: 

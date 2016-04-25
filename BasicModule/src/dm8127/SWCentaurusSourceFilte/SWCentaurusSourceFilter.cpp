@@ -349,6 +349,11 @@ int CSWCentaurusSourceFilter::OnResult(void *pContext, int type, void *struct_pt
 
 			pThis->UpdateExtensionInfo(pImage, image);
 
+			if(pImage->IsCaptureImage())
+			{
+				SW_TRACE_DEBUG("Capture ID:%d\n",pImage->GetFlag());
+			}
+
 			INT nRecognizeChannelNum = SWPA_VPSS_JPEG_CHANNEL;
 			INT nIpncMode = swpa_ipnc_mode();
 			if (ICX816 == nIpncMode 
@@ -379,7 +384,7 @@ int CSWCentaurusSourceFilter::OnResult(void *pContext, int type, void *struct_pt
 				
                 m_iJpegFrameCount++;
             }
-            else if (SWPA_VPSS_H264_CHANNEL == image->channel)
+            else if (SWPA_VPSS_H264_CHANNEL == image->channel && !(image->isCapture))
             {
             	pThis->m_cMutexH264Image.Lock();
 				if( pThis->m_lstH264Image.GetCount() < MAX_IMAGE_COUNT )
@@ -400,7 +405,7 @@ int CSWCentaurusSourceFilter::OnResult(void *pContext, int type, void *struct_pt
 				
                 m_iH264FrameCount++;
             }
-			else if (SWPA_VPSS_H264_SECOND_CHANNEL == image->channel)
+			else if (SWPA_VPSS_H264_SECOND_CHANNEL == image->channel && !(image->isCapture))
 			{
 				pThis->GetOut(2)->Deliver(pImage);
 				m_iH264SecondFrameCount++;

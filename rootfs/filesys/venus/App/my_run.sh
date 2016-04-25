@@ -37,6 +37,9 @@ chmod +x /tmp/*
 # 请应用开发部的人员在下面添加，谢谢！！！
 # ！！！！！！！！！！！！
 
+ulimit -c unlimited
+echo "/home/root/core" > /proc/sys/kernel/core_pattern
+
 # 加载fpga
 ./load_fpga fpga.xsvf
 
@@ -44,5 +47,4 @@ chmod +x /tmp/*
 insmod /lib/modules/cmemk.ko phys_start=0x88000000 phys_end=0x8e000000, pools=1x100663296
 
 # 守护进程
-./deamon 
-
+./deamon

@@ -77,11 +77,19 @@ protected:
    */
 	HRESULT OnStopCOMTest(WPARAM wParam, LPARAM lParam);
 
+	/**
+   *@brief 雷达接收信号开关
+   */
+	HRESULT OnRadarCtrl(WPARAM wParam, LPARAM lParam);
+
 		/**
 		   @brief 外总控使能开关
 		   @param [in] 1使能 0不使能
 		 */
 	HRESULT OnOutputCtrlEnable(WPARAM wParam, LPARAM lParam);
+
+	//更新当前存在的所有触发且还没有结束跟踪的
+	HRESULT OnUpdateAllCarTrigger(WPARAM wParam, LPARAM lParam);
 
 protected:
 	/**
@@ -115,6 +123,8 @@ protected:
 	static VOID OnEvent(PVOID pvParam, CSWBaseDevice *pDevice, CSWBaseDevice::DEVICE_TYPE type, DWORD dwTime, PDWORD pdwValue);
 	
 	VOID Close(VOID);
+
+	BOOL CheckTriggerIndexTracker(INT iTriggerIndex);
 	
 	/**
 	 *@brief OLE初始化
@@ -140,11 +150,12 @@ protected:
 	SW_MESSAGE_HANDLER(MSG_COM_OUTPUT_CTRL_ENABLE, OnOutputCtrlEnable)
  
 	SW_MESSAGE_HANDLER(MSG_COM_TEST_DISABLE, OnStopCOMTest)
+
+	SW_MESSAGE_HANDLER(MSG_SET_RADARENABLE, OnRadarCtrl)
+
+	SW_MESSAGE_HANDLER(MSG_UPDATE_ALL_TRIGGER, OnUpdateAllCarTrigger)
 	SW_END_MESSAGE_MAP()
 private:
-
-	static DWORD iRadarSignal1;
-	static DWORD iRadarSignal2;
 	
 	BOOL        m_fInitialize;
 	MATCHPARAM  m_cParam;
@@ -167,8 +178,14 @@ private:
 
 	CSWList<CARLEFT_MATCH_INFO*,6> m_cCarLeftList;
 	CSWMutex m_cCarLeftMutex;
+	CSWMutex m_cImportMutex;
 
 	TRACKER_CFG_PARAM* m_pTrackerCfg;
+
+	INT m_rgiAllCarTrigger[MAX_EVENT_COUNT];
+	CSWMutex  m_cAllCarTriggerMutex;
+
+	BOOL m_Radar;
 
 //    INT m_iOutputThreadRestartTime;     // 结果输出线程重启次数
 };

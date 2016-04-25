@@ -21,7 +21,7 @@ CSWCarLeft::CSWCarLeft()
 	swpa_memset(m_pCarLeft, 0, sizeof(CARLEFT_INFO_STRUCT));
 	SetCarArriveTime(CSWDateTime::GetSystemTick());
 	m_strFilterInfo = "";
-	m_strSpeedType = "视频测速";
+	m_strSpeedType = "Vedio Speed";
 	m_fReadOnly = false;
     m_fCropLastImage = FALSE;
     m_fCaptureRecogResult = FALSE;
@@ -305,7 +305,7 @@ CSWString CSWCarLeft::BuildNormalString()
 		if(0 < GetCarspeed())
 		{ 
 			//车速
-			strTmp.Format("视频测速:%d Km/h\n", (int)GetCarspeed());
+			strTmp.Format("Vedio Speed:%d Km/h\n", (int)GetCarspeed());
 			strInfo.Append(strTmp);
 		}
 
@@ -365,7 +365,8 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   CSWString strPlate = GetPlateNo();
 
   TiXmlElement* pValue = new TiXmlElement("PlateName");
-  TiXmlText* pText = new TiXmlText((LPCSTR)strPlate);
+  TiXmlText* pText = new TiXmlText("Unlicensed");
+  	
   if (pValue && pText)
   {
       pValue->LinkEndChild(pText);
@@ -373,7 +374,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   }
   
   //车牌颜色
-  /*pValue = new TiXmlElement("Color");
+  pValue = new TiXmlElement("Color");
   if ( pValue )
   {
       pValue->SetAttribute("raw_value", GetPlateColor());
@@ -407,7 +408,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   }
   
   //车牌类型
-  pValue = new TiXmlElement("Type");
+  /*pValue = new TiXmlElement("Type");
   if ( pValue )
   {
       pValue->SetAttribute("raw_value", GetPlateType());
@@ -446,9 +447,9 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   		pValue = new TiXmlElement("ReverseRun");
       if (pValue)
       {
-      		strTmp.Format("%s", GetReverseRun() ? "是" : "否");
+      		strTmp.Format("%s", GetReverseRun() ? "Yes" : "No");
           pValue->SetAttribute("value", (LPCSTR)strTmp);
-          pValue->SetAttribute("chnname", "车辆逆向行驶");
+          pValue->SetAttribute("chnname", "Reverse Run");
           pResult->LinkEndChild(pValue);
       }
     } 
@@ -472,12 +473,12 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
             CSWImage* pImage = GetImage(1);
             if (pImage)
             {
-                strTmp.Format("<结果来源：%s  大图来源：%s>",
-                              m_fCaptureRecogResult ? "抓拍识别" : "视频识别" ,
-                              pImage->IsCaptureImage() ? "抓拍大图"  : "视频流图");
+                strTmp.Format("<Result type：%s  Big image type：%s>",
+                              m_fCaptureRecogResult ? "Snapshot image" : "Video stream image" ,
+                              pImage->IsCaptureImage() ? "Snapshot image"  : "Video stream image");
 
                 pValue->SetAttribute("value", (LPCSTR)strTmp);
-                pValue->SetAttribute("chnname", "结果说明");
+                pValue->SetAttribute("chnname", "Result Description");
                 pResult->LinkEndChild(pValue);
             }
         }
@@ -500,7 +501,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
       {
           strTmp.Format("%d Km/h", m_pTrackerCfg->iSpeedLimit);
           pValue->SetAttribute("value", (LPCSTR)strTmp);
-          pValue->SetAttribute("chnname", "限速值");
+          pValue->SetAttribute("chnname", "Speed Limit");
           pResult->LinkEndChild(pValue);
       }
 //      //距离计算的误差比例
@@ -520,7 +521,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     {
         strTmp.Format("%d", GetObservedFrames());
         pValue->SetAttribute("value", (LPCSTR)strTmp);
-        pValue->SetAttribute("chnname", "有效帧数");
+        pValue->SetAttribute("chnname", "Effective Frames");
         pResult->LinkEndChild(pValue);
     }
 
@@ -551,7 +552,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     		CSWDateTime dt(GetFirstFrameTime());
         strTmp.Format("%04d-%02d-%02d %02d:%02d:%02d:%03d", dt.GetYear(), dt.GetMonth(), dt.GetDay(), dt.GetHour(), dt.GetMinute(), dt.GetSecond(), dt.GetMSSecond());
         pValue->SetAttribute("value", (LPCSTR)strTmp);
-        pValue->SetAttribute("chnname", "车辆检测时间");
+        pValue->SetAttribute("chnname", "Vehicle Detection Time");
         pResult->LinkEndChild(pValue);
     }
     
@@ -602,38 +603,38 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     {
     	if (CT_LARGE == GetCarType() && PLATE_DOUBLE_MOTO != GetPlateType())
         {
-            strTmp = "大";
+            strTmp = "Big";
         }
         else if (CT_SMALL == GetCarType() && PLATE_DOUBLE_MOTO != GetPlateType())
         {
-            strTmp = "小";
+            strTmp = "Small";
         }
         else if (CT_MID == GetCarType() && PLATE_DOUBLE_MOTO != GetPlateType())
         {
-            strTmp = "中";
+            strTmp = "Medium";
         }
         else if (PLATE_DOUBLE_MOTO == GetPlateType())
         {
-            strTmp = "摩托车";
+            strTmp = "Motorcycle";
         }
         else if (CT_WALKMAN == GetCarType())
         {
-            strTmp = "行人";
+            strTmp = "Pedestrian";
         }
         else if (CT_BIKE == GetCarType())
         {
-            strTmp = "非机动车";
+            strTmp = "Non-motor vehicle";
         }
         else if (CT_VEHICLE == GetCarType())
         {
-            strTmp = "机动车";
+            strTmp = "Motor vehicles";
         }
         else
         {
-            strTmp = "未知";
+            strTmp = "Unknow";
         }
         pValue->SetAttribute("value", (LPCSTR)strTmp);
-        pValue->SetAttribute("chnname", "车辆类型");
+        pValue->SetAttribute("chnname", "Vehicle Type");
         pResult->LinkEndChild(pValue);
     }
     
@@ -670,7 +671,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
         //strTmp.Format("%d", GetRoadNo() + (255 == GetRoadNo() ? 0 : m_pTrackerCfg->iStartRoadNum));
 		strTmp.Format("%d", GetOutPutRoadNo());
 		pValue->SetAttribute("value", (LPCSTR)strTmp);
-        pValue->SetAttribute("chnname", "车道");
+        pValue->SetAttribute("chnname", "Lane");
         pResult->LinkEndChild(pValue);
     }
     
@@ -680,14 +681,14 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     {
         if (m_pTrackerCfg->iRoadNumberBegin == 0)
         {
-            strTmp.Format("<左,%d>", m_pTrackerCfg->iStartRoadNum);
+            strTmp.Format("<Left,%d>", m_pTrackerCfg->iStartRoadNum);
         }
         else
         {
-            strTmp.Format("<右,%d>", m_pTrackerCfg->iStartRoadNum);
+            strTmp.Format("<Right,%d>", m_pTrackerCfg->iStartRoadNum);
         }
         pValue->SetAttribute("value", (LPCSTR)strTmp);
-        pValue->SetAttribute("chnname", "起始车道号");
+        pValue->SetAttribute("chnname", "Start Lane");
         pResult->LinkEndChild(pValue);
     }
     
@@ -696,7 +697,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     if (pValue)
     {
         pValue->SetAttribute("value", GetRoadName());
-        pValue->SetAttribute("chnname", "路口名称");
+        pValue->SetAttribute("chnname", "Road Name");
         pResult->LinkEndChild(pValue);
     }
     
@@ -705,7 +706,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     if (pValue)
     {
         pValue->SetAttribute("value", GetRoadDirection());
-        pValue->SetAttribute("chnname", "路口方向");
+        pValue->SetAttribute("chnname", "Road Direction");
         pResult->LinkEndChild(pValue);
     }   
   }
@@ -718,7 +719,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   	if (pValue)
   	{
   	    pValue->SetAttribute("value", (LPCSTR)strTmp);
-  	    pValue->SetAttribute("chnname", "事件检测");
+  	    pValue->SetAttribute("chnname", "Event Check");
   	    pResult->LinkEndChild(pValue);
     }
   }
@@ -739,7 +740,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
     if ( pValue )
     {
         pValue->SetAttribute("value", (LPCSTR)strFrameName);
-        pValue->SetAttribute("chnname", "视频帧名");
+        pValue->SetAttribute("chnname", "Name of Video Frame");
         pResult->LinkEndChild(pValue);        
     }
 	}
@@ -750,7 +751,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
   {
       strTmp.Format("%02d级", GetPlateLightType());
       pValue->SetAttribute("value", (LPCSTR)strTmp);
-      pValue->SetAttribute("chnname", "摄像机亮度等级");
+      pValue->SetAttribute("chnname", "Camera Brightness");
       pResult->LinkEndChild(pValue);
   }
 
@@ -816,7 +817,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
 
       strTmp.Format("%d", iAvgY);
       pValue->SetAttribute("value", (LPCSTR)strTmp);
-      pValue->SetAttribute("chnname", "环境亮度");
+      pValue->SetAttribute("chnname", "Ambient Brightness");
       pResult->LinkEndChild(pValue);
   }
 
@@ -848,7 +849,7 @@ HRESULT CSWCarLeft::BuildPlateString(TiXmlDocument& xmlDoc)
 	  if (pValue)
 	  {
 		  pValue->SetAttribute("value", strFilterInfo);
-		  pValue->SetAttribute("chnname", "后处理信息");
+		  pValue->SetAttribute("chnname", "Background processing information");
 		  pResult->LinkEndChild(pValue);
 	  } 
   }

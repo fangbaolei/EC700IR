@@ -8,6 +8,7 @@
 #include "SWOnvifRtspParameter.h"
 #include "SWCarLeft.h"
 #include "SWNetOpt.h"
+#include <time.h>
 
 
 
@@ -1102,6 +1103,12 @@ HRESULT CSWLPRApplication::Run()
 		{
 			//自动复位检查
 			CheckRebootEvent();
+			CSWDateTime cTime;
+			if(cTime.GetHour()==2&&cTime.GetMinute()==30)
+			{
+				SW_TRACE_DEBUG("OnResetDevice 2:30\n");
+				OnResetDevice((WPARAM)2,0);
+			}
 		}
 
 	}
@@ -1439,6 +1446,8 @@ HRESULT CSWLPRApplication::OnCameralControlMSG(CSWObject *pObject)
 	info.fEnableTriggerOut = GetParam().Get().cResultSenderParam.fEnableTriggerOut;
 	info.nTriggerOutNormalStatus = GetParam().Get().cResultSenderParam.nTriggerOutNormalStatus;
 	info.nCaptureSynOutputType = GetParam().Get().cCamAppParam.iCaptureSynOutputType;
+
+	info.iColorGradation=GetParam().Get().cCamAppParam.iColorGradation;
 
 	//ALM IO
 	info.iALMPolarity = GetParam().Get().cCamAppParam.iALMPolarity;
@@ -2959,7 +2968,6 @@ HRESULT CSWLPRApplication::OnRecognizeTGTransformFilterInitialize(CSWObject *pOb
 	                     , (PVOID)&GetParam().Get().cTrackerCfgParam
 	                     , GetParam().Get().cCamCfgParam.iMinPlateLight
 	                     , GetParam().Get().cCamCfgParam.iMaxPlateLight
-	                     , GetParam().Get().cCamCfgParam.iDynamicTriggerEnable>0
 	                );
 
 	pObject->Invoke("RegisterCallBackFunction", (PVOID)OnDSPAlarm, (PVOID)this);	
@@ -3077,6 +3085,8 @@ HRESULT CSWLPRApplication::OnAutoControlRenderFilterInitialize(CSWObject *pObjec
                     GetParam().Get().cCamAppParam.iAGCDayNightShutterControl,
                     GetParam().Get().cCamAppParam.iAGCShutterHOri,
                     GetParam().Get().cCamAppParam.iAGCNightShutterHOri,
+                    GetParam().Get().cCamAppParam.iAGCGainHOri,
+                    GetParam().Get().cCamAppParam.iAGCNightGainHOri,
                     GetParam().Get().cCamAppParam.iAGCShutterLOri);
     INT I = 0;
 
@@ -4636,7 +4646,7 @@ HRESULT CSWLPRApplication::NtpTimeSync()
 	//NTP时间同步
 	if (GetParam().Get().cResultSenderParam.fEnableNtp)
 	{
-		char szCmd[255];
+		char szCmd[255]={0};
 		INT iSyncInterval = GetParam().Get().cResultSenderParam.iNtpSyncInterval;
 		if (iSyncInterval < 300)
 		{
@@ -4793,7 +4803,7 @@ HRESULT CSWLPRApplication::ReadBackupSystemVersion(CHAR* pszVersion)
 		return E_FAIL;
 	}
 
-	swpa_strcpy(pszVersion,"3.1.208.");
+	swpa_strcpy(pszVersion,"3.1.0.");
 	swpa_strcat(pszVersion, szVersion);
 	cVerFile.Close();
 
@@ -5375,13 +5385,13 @@ HRESULT CSWLPRApplication::OnGetCustomizedDevName(WPARAM wParam, LPARAM lParam)
 	HRESULT hr = ReadCustomizedDevName(szName);
 	if (E_NOTIMPL == hr)
 	{
-		swpa_strcpy(szName, "未命名");
-		SaveCustomizedDevName("未命名");
+		swpa_strcpy(szName, "Unnamed");
+		SaveCustomizedDevName("Unnamed");
 	}
 	else if (FAILED(hr)) //other errors
 	{
 		SW_TRACE_NORMAL("Err: failed to get customized dev name\n");
-		swpa_strcpy(szName, "获取失败");
+		swpa_strcpy(szName, "Get Fail");
 		return E_FAIL;
 	}
 

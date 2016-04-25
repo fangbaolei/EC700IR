@@ -4,7 +4,6 @@ include ../../Makefile.mk
 #м╥нд╪Ч
 INC += -I$(WORK_BASE)/Algorithm/src/Inc
 INC += -I$(WORK_BASE)/BasicModule/inc/inc_det
-INC += -I$(WORK_BASE)/BasicModule/inc/inc_det
 
 #for jupiter
 INC += -I$(WORK_BASE)/swpa/src/dm8127/ipc/inc

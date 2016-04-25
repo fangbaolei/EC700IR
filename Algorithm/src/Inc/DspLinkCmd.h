@@ -99,12 +99,14 @@ typedef struct _TRIG_EVENT
     int iCarLeftCount;
     CARARRIVE_INFO_STRUCT rgCarArriveInfo[MAX_EVENT_COUNT];
     PROCESS_IMAGE_CORE_RESULT rgCarLeftCoreInfo[MAX_EVENT_COUNT];
+	int rgiAllCarTrigger[MAX_EVENT_COUNT];
 #ifdef __cplusplus
     _TRIG_EVENT()
     {
         iCarArriveCount = 0;
         iCarLeftCount = 0;
         dwEventId = 0x00;
+		memset(rgiAllCarTrigger, 0, sizeof(rgiAllCarTrigger));
     }
 #endif
 } TRIG_EVENT;

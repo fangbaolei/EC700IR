@@ -77,6 +77,7 @@ enum{
     MSG_GET_RGBGAIN,                        // 获取当前RGB增益
     MSG_SET_AWBENABLE,                      // 自动白平衡使能
     MSG_GET_AWBENABLE,                      // 获取白平衡使能
+	
     MSG_SET_AWB_MODE,
     MSG_GET_AWB_MODE,
 
@@ -219,6 +220,7 @@ enum{
     MSG_GET_CAMERA_WORKSTATE,//获取相机工作状态
 
     MSG_GET_M3_DAYNIGHT_STATUS,//获取M3白天晚上标识
+    MSG_SET_DSP_FLAG, 
 	//
 	MSG_SET_LED_SWITCH,		//设置补光灯开关
 	MSG_GET_LED_SWITCH,		//获取补光灯快关状态
@@ -414,7 +416,8 @@ enum{
 	MSG_AUTO_CONTROL_GET_REALPARAM,
 	MSG_AUTO_CONTROL_GET_ENVPERIOD,	//获取时段信息，0白天，1晚上
 	MSG_AUTO_SET_MAXAGCSHUTTER,
-	MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM,	//设置自动抓拍参数
+	MSG_REALTIME_SET_MAXAGCSHUTTERGAIN,
+	//MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM,	//设置自动抓拍参数
     MSG_AUTO_CONTROL_END,
 
     //识别
@@ -691,7 +694,12 @@ enum{
     MSG_COM_TEST_BEGIN,
     MSG_COM_TEST_ENABLE,
     MSG_COM_TEST_DISABLE,
+	
 	MSG_COM_OUTPUT_CTRL_ENABLE,		//外总控动态开关
+	MSG_UPDATE_ALL_TRIGGER,			//更新当前所有的触发信息
+
+	MSG_SET_RADARENABLE,                      // 自动雷达使能
+    MSG_GET_RADARENABLE,                      // 获取雷达使能
     MSG_COM_TEST_END,
 
     MSG_GB28181_BEGIN,

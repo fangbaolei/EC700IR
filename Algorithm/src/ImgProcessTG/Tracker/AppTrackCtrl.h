@@ -3,7 +3,7 @@
 #include "swbasetype.h"
 #include "swimage.h"
 
-#include "svTgIrApi/svTgIrApi.h"
+#include "svTgVvdApi/svTgVvdApi.h"
 #include "hvinterface.h"
 //#include "DspLinkCmd.h"
 #include "AppTrackInfo.h"
@@ -97,13 +97,13 @@ namespace swTgApp
             );
     private:
 
-        HRESULT RecogOneFrame(
+        /*HRESULT RecogOneFrame(
             PROCESS_ONE_FRAME_PARAM* pProcParam,
             PROCESS_ONE_FRAME_DATA* pProcessData,
             PROCESS_ONE_FRAME_RESPOND* pProcessRespond,
             HV_COMPONENT_IMAGE hvImgFrame,
             HiVideo::CRect& rcRecogArae
-            );
+            );*/
 
         HRESULT PreProcess(
             PROCESS_ONE_FRAME_PARAM* pProcParam,
@@ -167,16 +167,16 @@ namespace swTgApp
 		void pwm_writeinfo_in_dsp(DWORD32 temp_data);
 		void pwm_int_in_dsp(void);
         void TriggerCamera(const int iRoadNum);
-
+		CROSS_OVER_LINE_TYPE IsOverYellowLine(CAppTrackInfo* pTrack);
         /// 还原到原始车道号，自动恢复右起、起始号不为0的情况，用于输出
-        int RecoverRoadNum(int iRoadNum);
-
+        //int RecoverRoadNum(int iRoadNum);
+		bool IsNeedCaptureAll();
     protected:
-        static const int MAX_MOD_DET_INFO = svTgIrApi::MOD_DET_INFO::TYPE_COUNT;
-        //svTgIrApi::MOD_DET_INFO m_rgModDetInfo[MAX_MOD_DET_INFO];
-        svTgIrApi::TG_PARAM m_cApiParam;
-        svTgIrApi::CTgCtrl* m_pTgCtrl;
-        svTgIrApi::CTgCtrl::LIGHT_TYPE m_nEnvLightType;  // 环境亮度类型
+        static const int MAX_MOD_DET_INFO = svTgVvdApi::MOD_DET_INFO::TYPE_COUNT;
+        svTgVvdApi::MOD_DET_INFO m_rgModDetInfo[MAX_MOD_DET_INFO];
+        svTgVvdApi::TG_PARAM m_cApiParam;
+        svTgVvdApi::CTgCtrl* m_pTgCtrl;
+        svTgVvdApi::CTgCtrl::LIGHT_TYPE m_nEnvLightType;  // 环境亮度类型
 
         TRACKER_CFG_PARAM m_cTrackerCfgParam;
 
@@ -217,11 +217,12 @@ namespace swTgApp
         // 是否使能车辆到达抓拍，在本类中动态改变
         BOOL m_fEnableCarArriveTrigger;
 
-        static const int MIN_TRIGGER_TIME = 80;	// 两次触发最小间隔时间
+        static const int MIN_TRIGGER_TIME = 150;	// 两次触发最小间隔时间
         DWORD32 m_dwLastTriggerTick;	// 最后一次触发的时间
+		DWORD32 m_dwLastTriggerRoadNum;
         DWORD32 m_dwTriggerCameraTimes;		// 当前触发次数
 
-//        DWORD32 m_dwRecvTriggerImageTimes;  // 接收到的抓拍图次数
+        DWORD32 m_dwRecvTriggerImageTimes;  // 接收到的抓拍图次数
 //
 //        // 抓拍识别位置队列
 //        static const int MAX_TRIGGER_INFO = 10;

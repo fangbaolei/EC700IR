@@ -8,10 +8,7 @@
 /// 
 
 #pragma once
-
-//#define BIKE_DET_MODE  // 非机动车检测模式
-
-namespace swTgApp
+namespace swTgVvdApp
 {
 
 struct TG_DET_MODE_INFO

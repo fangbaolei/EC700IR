@@ -56,7 +56,7 @@ protected:
 
     HRESULT SetNightThresholdArg(INT nNightShutter, INT nNightThreshold, INT nDuskThreshold, INT nMaxAgcShutter);
 
-    HRESULT SetDayNightShutterHOri(INT iDayNightShutterEnable, INT iDayShutterHOri, INT iNightShutterHOri, INT iShutterLOri);
+    HRESULT SetDayNightShutterHOri(INT iDayNightShutterEnable, INT iDayShutterHOri, INT iNightShutterHOri,INT iGainHOri, INT iNightGainHOri, INT iShutterLOri);
 protected:
 		//自动化映射宏
 	SW_BEGIN_DISP_MAP(CSWAutoControlRenderFilter, CSWBaseFilter)
@@ -65,7 +65,7 @@ protected:
 		SW_DISP_METHOD(SetAutoCaptureParam, 5)
         SW_DISP_METHOD(SetCaptureShutterGain, 2)
         SW_DISP_METHOD(SetNightThresholdArg, 4)
-        SW_DISP_METHOD(SetDayNightShutterHOri, 4)
+        SW_DISP_METHOD(SetDayNightShutterHOri, 6)
 	SW_END_DISP_MAP()
 	
 	/**
@@ -109,13 +109,16 @@ protected:
 	 */
 	HRESULT OnSetCaptureAutoParam(WPARAM wParam, LPARAM lParam);
 
+	HRESULT SetRealTimeDayNightShutterHOri(WPARAM wParam, LPARAM lParam);
+
 	//消息映射宏
 	SW_BEGIN_MESSAGE_MAP(CSWAutoControlRenderFilter, CSWMessage)
 		SW_MESSAGE_HANDLER(MSG_AUTO_CONTROL_READPARAM, OnReadParam)
 		SW_MESSAGE_HANDLER(MSG_AUTO_CONTROL_GET_REALPARAM, OnGetRealParam)
 		SW_MESSAGE_HANDLER(MSG_AUTO_CONTROL_GET_ENVPERIOD, OnGetEnvPeriod)
 		SW_MESSAGE_HANDLER(MSG_AUTO_SET_MAXAGCSHUTTER, OnSetMaxAgcShutter)
-		SW_MESSAGE_HANDLER(MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM, OnSetCaptureAutoParam)
+		SW_MESSAGE_HANDLER(MSG_REALTIME_SET_MAXAGCSHUTTERGAIN, SetRealTimeDayNightShutterHOri)
+		//SW_MESSAGE_HANDLER(MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM, OnSetCaptureAutoParam)
 	SW_END_MESSAGE_MAP()
 public:
 	INT  m_iLightType;
@@ -148,6 +151,10 @@ private:
 	BOOL m_fForceChange;	// 在场景跳变时强制改变抓拍参数。
 	INT m_iCaptureShutter;
 	INT m_iCaptureGain;
+
+	INT m_iTempCaptureShutter;
+	INT m_iTempCaptureGain;
+	
 	BOOL m_fNeedUpdateCaptureParam;
 	INT m_iCaptureImageCount;
 	INT m_iTotalAvgY;
@@ -168,11 +175,15 @@ private:
 
 	BOOL m_fUseMaxAgcShutter;
 
+	DWORD m_dwAvgY;	//亮度
+
     // 白天、晚上 独立快门上限值
     INT m_iAGCDayNightShutterControl;       // 开关 0:关   1:开
     INT m_iAGCDayShutterHOri;       // 白天快门上限
     INT m_iAGCNightShutterHOri;     // 晚上快门上限
     INT m_iAGCShutterLOri;      // 快门下限
+    INT m_iAGCNightGainHOri; 	//晚上增益上限
+    INT m_iAGCGainHOri; 	//白天增益上限
 };
 REGISTER_CLASS(CSWAutoControlRenderFilter)
 #endif

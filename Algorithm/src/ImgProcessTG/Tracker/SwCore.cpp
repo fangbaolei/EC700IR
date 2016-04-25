@@ -108,8 +108,8 @@ int InitDspCmdLib_Video(int nPlateRecogParamIndex, int nLastLightType, int nLast
 		{
 			using namespace HvCore;
 			IHvModel* pHvModel;
-			//g_modelStore.QueryInterface(IID_IHvModel, (void**)&pHvModel);
-			//g_pTrackerVideo->SetHvModel(&g_modelStore);
+			g_modelStore.QueryInterface(IID_IHvModel, (void**)&pHvModel);
+			g_pTrackerVideo->SetHvModel(&g_modelStore);
 			hr = g_pTrackerVideo->InitTracker((TRACKER_CFG_PARAM*)pvParam);
 			g_pTrackerVideo->SetFirstLightType((LIGHT_TYPE)nLastLightType);
 			g_pTrackerVideo->SetFirstPulseLevel(nLastPulseLevel);
@@ -562,10 +562,9 @@ int ProcessOneFrame(void* pvParam, int iSize, void* pvRespond, int iRespondSize)
 				|| pData->hvImageYuv.nImgType == HV_IMAGE_YUV_420)
 		{
 				// 图片抽场
-			// 600W 已经抽场。
+			// 600W 已经抽场,816未抽场，需要抽场
 			// todo. 需要根据图片类型
-			if( pData->hvImageYuv.iWidth < 3000
-				|| pData->hvImageYuv.iWidth >= 3300) // 700w
+			if( pData->hvImageYuv.iWidth < 4000)
 			{
 				pData->hvImageYuv.iStrideWidth[0] = (pData->hvImageYuv.iStrideWidth[0] << 1);
 				pData->hvImageYuv.iStrideWidth[1] = (pData->hvImageYuv.iStrideWidth[1] << 1);

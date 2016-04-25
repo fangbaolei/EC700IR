@@ -143,6 +143,7 @@ HRESULT CSWRecordTransformFilter::Receive(CSWObject * pObj)
 		for (INT i=0; i<GetOutCount(); i++)
 		{
 			GetOut(i)->Deliver(pRecord);
+			SW_TRACE_DEBUG("send pRecord i=%d\n",i);
 		}
 
 		SAFE_RELEASE(pRecord);

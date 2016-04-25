@@ -106,7 +106,7 @@ public/SWRecognizeTGTransformFilter/SWRecognizeTGTransformFilter.o public/SWReco
  public/SWRecognizeTGTransformFilter/AppDetCtrl.h \
  /home/cangmu2007/ICX816_CCD_700IR_AP/Algorithm/src/Inc/swbasetype.h \
  /home/cangmu2007/ICX816_CCD_700IR_AP/Algorithm/src/Inc/swimage.h \
- /home/cangmu2007/ICX816_CCD_700IR_AP/BasicModule/inc/inc_det/svTgDetApi/svTgDetApi.h \
+ /home/cangmu2007/ICX816_CCD_700IR_AP/BasicModule/inc/inc_det/svTgVvdDetApi/svTgVvdDetApi.h \
  /home/cangmu2007/ICX816_CCD_700IR_AP/Algorithm/src/Inc/svBase/svBase.h \
  /home/cangmu2007/ICX816_CCD_700IR_AP/Algorithm/src/Inc/svBase/sv_basetype.h \
  /home/cangmu2007/ICX816_CCD_700IR_AP/Algorithm/src/Inc/svBase/sv_config.h \

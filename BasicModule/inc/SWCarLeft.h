@@ -148,6 +148,7 @@ public:
 	DECLEAR_GET_FUNCTION(INT,    GetiS,             iS)
 	DECLEAR_GET_FUNCTION(INT,    GetiL,             iL)
 	DECLEAR_GET_FUNCTION(INT,    GetWdrLevel,             nWdrLevel)
+	DECLEAR_GET_FUNCTION(INT,    GetTrackId,             dwThirdTime)
 protected:
 	CARLEFT_INFO_STRUCT* m_pCarLeft;
 	TRACKER_CFG_PARAM*   m_pTrackerCfg;
