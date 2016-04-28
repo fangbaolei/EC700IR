@@ -240,13 +240,13 @@ HRESULT CSWMatchTransformFilter::Receive(CSWObject* obj){
 					}
 					return S_OK;
 				}
+				//信号匹配上，则通知匹配
+				if(true == AppendImage(pImage))
+				{
+					SW_TRACE_DEBUG("image %d match a signal, post to match thread", pImage->GetRefTime());
+					m_semMatch.Post();
+				}
 			}	
-			//信号匹配上，则通知匹配
-			if(true == AppendImage(pImage))
-			{
-				SW_TRACE_DEBUG("image %d match a signal, post to match thread", pImage->GetRefTime());
-				m_semMatch.Post();
-			}
 		}
 		//识别结果
 		else if(IsDecendant(CSWCarLeft, obj))
@@ -326,7 +326,7 @@ bool CSWMatchTransformFilter::AppendImage(CSWImage *pImage)
 {
 	CSWAutoLock aLock(&m_cMutex);
 	bool fFound = false;
-	bool fCapture = pImage->IsCaptureImage();
+	BOOL fCapture = pImage->IsCaptureImage();
 	//先搜索空闲的空间保存图片
 	for(int i = 0; i < sizeof(m_cParam.signal)/sizeof(SIGNAL_PARAM); i++)
 	{	
@@ -364,6 +364,10 @@ bool CSWMatchTransformFilter::AppendImage(CSWImage *pImage)
 				}
 			}
 		}
+	}
+	if(!fFound&&fCapture)
+	{
+		SW_TRACE_DEBUG("image is full,drop %d\n",pImage->GetFlag());
 	}
 	return fFound;
 }
@@ -1274,7 +1278,7 @@ bool CSWMatchTransformFilter::MatchImage(SIGNAL_PARAM *pSignal, CARLEFT_MATCH_IN
 		SW_RECT rc;
 		swpa_memset(&rc, 0, sizeof(SW_RECT));
 		//if(pMatchInfo->pCarLeft->GetOutputLastImage())
-		pMatchInfo->pCarLeft->SetImage(0, pSignal->signal[dwMatchIndex].pImage, &rc);
+		pMatchInfo->pCarLeft->SetImage(0, pSignal->signal[dwMatchIndex].pImage, NULL);
 		pMatchInfo->dwMatchImageTime[0] = dwDiffTime;
 		SW_TRACE_DEBUG("match image time:%d, carleft time:%d, interval:%d, carleft Trigger:%d", 
 				pSignal->signal[dwMatchIndex].dwTime, 

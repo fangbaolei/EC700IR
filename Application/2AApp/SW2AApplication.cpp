@@ -5,7 +5,6 @@
 #include "SW2AApplication.h"
 #include "SW_Alg_Aewb.h"
 #include <errno.h>
-#include <unistd.h>
 
 
 #define SW_2A_CTRL_CHECK(fun)   \
@@ -247,7 +246,7 @@ HRESULT CSW2AApp::OnProcessExtendData(VOID)
 		HRESULT hd = cLocalTcpSock.Read(&head,sizeof(head),&dwReadLen);
         if (S_OK != hd)
         {
-			SW_TRACE_DEBUG("2AApp: cLocalTcpSock.Read(&iSize,sizeof(iSize));\n");
+			SW_TRACE_DEBUG("2AApp: cLocalTcpSock.Read(&iSize,sizeof(iSize)); %d\n",errno);
 			swpa_thread_sleep_ms(1000);
 			cLocalTcpSock.Close();
             continue;

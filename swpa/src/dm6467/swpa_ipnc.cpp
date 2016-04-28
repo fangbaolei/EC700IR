@@ -41,6 +41,11 @@ int swpa_ipnc_send_data(int link_id, void *addr, int size, void *appData, int da
 	return SWPAR_OK;
 }
 
+int swpa_ipnc_get_vnf_frame(void *reg_frame_addr, IMAGE *vnf_image_info)
+{
+	return SWPAR_OK;
+}
+
 int swpa_ipnc_control(int linkId, int cmd, void *pPrm, int prmSize, int timeout)
 {
 	return SWPAR_OK;	

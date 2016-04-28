@@ -103,7 +103,7 @@ HRESULT CSWSocket::Connect(const char * szPath)
 
     swpa_memset(&m_objLocalAddr,0,sizeof(SWPA_SOCKADDR_UN));
 
-	//swpa_memset(m_objLocalAddr.sun_path, '\0', sizeof(m_objLocalAddr.sun_path));
+	swpa_memset(m_objLocalAddr.sun_path, '\0', sizeof(m_objLocalAddr.sun_path));
     if( szPath != NULL )
         swpa_strncpy(m_objLocalAddr.sun_path, szPath , sizeof(m_objLocalAddr.sun_path)-1);
 

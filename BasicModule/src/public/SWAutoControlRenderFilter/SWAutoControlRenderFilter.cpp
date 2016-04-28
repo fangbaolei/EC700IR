@@ -507,7 +507,7 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 		if( m_iCaptureImageCount == 2 )
 		{
 			m_iTotalAvgY /= 2;
-			SW_TRACE_DEBUG("m_iTotalAvgY=%\n",m_iTotalAvgY);
+			SW_TRACE_DEBUG("m_iTotalAvgY=%d\n",m_iTotalAvgY);
 			DWORD m_iCaptureGainT=m_iCaptureGain;
 			DWORD m_iCaptureShutterT=m_iCaptureShutter;
 			if( m_iTotalAvgY < iMinAvgY )

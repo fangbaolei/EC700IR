@@ -2344,8 +2344,8 @@ namespace swTgApp
 						if(pTrack != &m_rgTrackInfo[i]
 						&&	abs(m_rgTrackInfo[i].GetLastPos().CenterPoint().m_nY - rcPos.CenterPoint().m_nY)*100/m_iFrameHeight < 5)
 						{
-							m_rgTrackInfo[i].m_fCarArrived = true;
-							m_rgTrackInfo[i].m_fIsTrigger = true;
+							m_rgTrackInfo[i].m_fCarArrived = TRUE;
+							m_rgTrackInfo[i].m_fIsTrigger = TRUE;
 							m_rgTrackInfo[i].m_dwTriggerCameraTimes = pTrack->m_dwTriggerCameraTimes;
 							m_rgTrackInfo[i].m_nCarArriveTime = pTrack->m_nCarArriveTime;
 							m_rgTrackInfo[i].m_nCarArriveRealTime = pTrack->m_nCarArriveRealTime;

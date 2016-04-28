@@ -1103,12 +1103,12 @@ HRESULT CSWLPRApplication::Run()
 		{
 			//自动复位检查
 			CheckRebootEvent();
-			CSWDateTime cTime;
+			/*CSWDateTime cTime;
 			if(cTime.GetHour()==2&&cTime.GetMinute()==30)
 			{
 				SW_TRACE_DEBUG("OnResetDevice 2:30\n");
 				OnResetDevice((WPARAM)2,0);
-			}
+			}*/
 		}
 
 	}

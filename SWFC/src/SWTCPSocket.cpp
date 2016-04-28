@@ -86,7 +86,6 @@ HRESULT CSWTCPSocket::Read(VOID *pbBuf, DWORD dwSize , DWORD *rcvDataLen ){
                 m_nState ^= CONNECTIONT;
 
             if( rcvDataLen != NULL ) *rcvDataLen = dwCurrentPos;
-
             return E_FAIL;
         }
 

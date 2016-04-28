@@ -1615,7 +1615,7 @@ HRESULT CTrackerImpl_Photo::RecognizeCarColourPlus(
 		fAdjTop = 5;
 	}
 
-	CRect rcCutArea[YELLOW_NUM];            //车身颜色截取区域
+	CRect rcCutArea[YELLOW_NUM+4];            //车身颜色截取区域
 	BYTE8 rgResult[2][YELLOW_NUM] = {0};   //车身颜色识别结果
 	BYTE8 rgCutAreaL[2][YELLOW_NUM] = {0}; 
 	int iPlateColor,iPlateColor2;

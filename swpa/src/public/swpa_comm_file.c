@@ -349,10 +349,10 @@ int swpa_comm_file_read(
 	struct timeval tv, *ptimeout = NULL;
 	FD_ZERO(&rdset);
 	FD_SET(pinfo->fd, &rdset);
-	if (1)//0 <= pinfo->read_timeout)
+	if (0 <= pinfo->read_timeout)
 	{		
-		tv.tv_sec = 0;//pinfo->read_timeout / 1000;           // ms to sec
-		tv.tv_usec = 500000;//(pinfo->read_timeout % 1000) * 1000; // ms to usec
+		tv.tv_sec = pinfo->read_timeout / 1000;           // ms to sec
+		tv.tv_usec = (pinfo->read_timeout % 1000) * 1000; // ms to usec
 
 		ptimeout = &tv;
 	}

@@ -508,6 +508,13 @@ HRESULT CSWRecognizeTGTransformFilter::Receive(CSWObject* obj)
 			{
                 PROC_QUEUE_ELEM DelElem = m_lstMatchImage.RemoveHead();
                 SAFE_RELEASE(DelElem.pImage);
+				PROCESS_EVENT_STRUCT* pDelProcessEvent = (PROCESS_EVENT_STRUCT*)(DelElem.pData);
+				if(NULL != pDelProcessEvent && NULL != pDelProcessEvent->cSyncDetData.pbData )
+        		{
+            		delete[] pDelProcessEvent->cSyncDetData.pbData;
+            		pDelProcessEvent->cSyncDetData.pbData = NULL;
+        		}
+        		SAFE_DELETE(pDelProcessEvent);
 				pImage->AddRef();
                 m_lstMatchImage.AddTail(OneElem);
 			}

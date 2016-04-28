@@ -88,10 +88,10 @@ typedef struct tagMATCHPARAM
 		swpa_memset(this, 0, sizeof(*this));
 		fEnable = TRUE;
 		fCaptureRecong = FALSE;
-		dwPlateKeepTime = 2000;
-		dwSignalKeepTime = 3000;
-		dwMatchMaxTime = 2000;
-		dwMatchMinTime = 2000;
+		dwPlateKeepTime = 1500;
+		dwSignalKeepTime = 2000;
+		dwMatchMaxTime = 1500;
+		dwMatchMinTime = 1500;
 	}
 }MATCHPARAM;
 
