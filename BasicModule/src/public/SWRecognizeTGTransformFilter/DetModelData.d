@@ -1,2 +1,0 @@
-public/SWRecognizeTGTransformFilter/DetModelData.o public/SWRecognizeTGTransformFilter/DetModelData.d : public/SWRecognizeTGTransformFilter/DetModelData.cpp \
- public/SWRecognizeTGTransformFilter/DetModelData.h

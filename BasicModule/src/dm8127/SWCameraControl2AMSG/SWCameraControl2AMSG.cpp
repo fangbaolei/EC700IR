@@ -2845,7 +2845,7 @@ BOOL CSWCameraControl2AMSG::OnIncreaseBrightness()
 
 
 	rgFpgaParam[0] = 0xb83;		//数字增益提亮
-    rgFpgaParam[1] = 0x01;
+    rgFpgaParam[1] = 0x02;
 	OnSetCamFpgaReg((WPARAM)rgFpgaParam, 0);
 
 	rgFpgaParam[0] = 0xa3c;
