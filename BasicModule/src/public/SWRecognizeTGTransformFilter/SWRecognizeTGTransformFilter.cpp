@@ -127,9 +127,7 @@ HRESULT CSWRecognizeTGTransformFilter::Initialize(
 	m_cSemProcQueue.Create(0, MAX_DECT_COUNT);
 
 	m_lstMatchImage.SetMaxCount(MAX_MATCH_COUNT);
-	m_cSemMatch.Create(0, 1);
-
-	swpa_memset(m_rgiAllCarTrigger, 0, sizeof(m_rgiAllCarTrigger));
+	m_cSemMatch.Create(0, MAX_MATCH_COUNT);
 
 	
 	SW_TRACE_DEBUG("CSWRecognizeTGTransformFilter initialize finish!\n");
@@ -928,11 +926,11 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 					for( int i = 0; i < pProcessEvent->iCarLeftInfoCount; ++i )
 					{
 						//有车牌,而且是ARM判断为晚上才计入统计
-						//if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0)
-						//	&& fIsARMCheckNight)
-						//{
+						if (pProcessEvent->rgCarLeftInfo[i].cCoreResult.rgbContent[0] != 0
+							&& fIsARMCheckNight)
+						{
 							iPulseLevel = AdjustPulseWidth(pProcessEvent->rgCarLeftInfo[i].cCoreResult.iCarAvgY);
-						//}
+						}
 	
 						pProcessEvent->rgCarLeftInfo[i].cCoreResult.iPulseLevel = iPulseLevel;//生成结果附件信息XML时用到
 						CarLeftEvent(&pProcessEvent->rgCarLeftInfo[i]);

@@ -2,7 +2,7 @@
 include ../../Makefile.mk
 INC+=-I$(WORK_BASE)/BasicModule/src/public/SWBaseLinkCtrl -I$(WORK_BASE)/Algorithm/src/Inc
 LDFLAG += -L$(WORK_BASE)/Plugin/FreeType -lfreetype
-LDFLAG += -L$(WORK_BASE)/BasicModule/lib -lsvEPDetApi.DM8127 -lsvTLDetApi.DM8127 -lsvTgDetApi.DM8127 -lsvTgDetApi.DM8127 -lsvDet.DM8127 -lsvLPRCore.DM8127 -lsvBase.DM8127 
+LDFLAG += -L$(WORK_BASE)/BasicModule/lib -lsvEPDetApi.DM8127 -lsvTLDetApi.DM8127 -lsvTgDetApi.DM8127 -lsvTgDetApi.DM8127 -lsvDet.DM8127 -lsvLPRCore.DM8127 -lsvBase.DM8127 -lsvTgVvdDetApi.DM8127
 #目标文件
 PROGRAM=LprApp
 

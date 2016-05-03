@@ -394,18 +394,15 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
 							m_fIsDayEx=(cInfo.iShutter > 3000);
 							break;
 					}
-					
+					static INT s_nLastStatus = -1;
 					SendMessage(MSG_SET_DSP_FLAG,nStatus,NULL);
 
                     if ( m_iAGCDayNightShutterControl )
                     {
-                        // 晚上需要较小的快门
-                        static INT s_nLastStatus = -1;
+                        // 晚上需要较小的快门                   
                         //INT nStatus = -1;
                         //SendMessage(MSG_GET_M3_DAYNIGHT_STATUS, 0, (LPARAM)&nStatus);       // (3:day, 2:dusk, 1:night)
                         // 0白天，1傍晚，2晚上
-                        SendMessage(MSG_RECOGNIZE_GET_DSP_ENV_LIGHT_TYPE, NULL, (LPARAM)&nStatus);
-                        SW_TRACE_DEBUG("Get  Dsp Env Light Type:  %d ################\n", nStatus);
                         if (nStatus != s_nLastStatus)
                         {
                             if (2 == nStatus)
@@ -414,12 +411,12 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
                                 DWORD nValue= 0;
                                 nValue = (m_iAGCNightShutterHOri << 16);
                                 nValue |= (m_iAGCShutterLOri & 0x0000FFFF);
-                                SendMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
+                                PostMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
 								nValue=0;
 								nValue=(m_iAGCNightGainHOri<<16);
 								nValue |= (10 & 0x0000FFFF);
-								SendMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
-								SendMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)1, NULL);
+								PostMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
+								PostMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)1, NULL);
                                 SW_TRACE_DEBUG("Set Night ShutterHOri = %d GainHOri=%d ################\n", m_iAGCNightShutterHOri,m_iAGCNightGainHOri);
                             }
                             else
@@ -428,12 +425,12 @@ HRESULT CSWAutoControlRenderFilter::Receive(CSWObject* obj)
                                 DWORD nValue= 0;
                                 nValue = (m_iAGCDayShutterHOri << 16);
                                 nValue |= (m_iAGCShutterLOri & 0x0000FFFF);						
-                                SendMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
+                                PostMessage(MSG_SET_SHU_RANGE, (WPARAM)nValue, NULL);
 								nValue=0;
 								nValue=(m_iAGCGainHOri<<16);
 								nValue |= (10 & 0x0000FFFF);
-								SendMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
-								SendMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)0, NULL);
+								PostMessage(MSG_SET_GAIN_RANGE, (WPARAM)nValue, NULL);
+								PostMessage(MSG_CAPTURERGB_ENABLE, (WPARAM)0, NULL);
                                 SW_TRACE_DEBUG("Set Day ShutterHOri = %d GainHOri=%d ################\n", m_iAGCDayShutterHOri,m_iAGCGainHOri);
                             }
                         }
@@ -607,14 +604,14 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 				if(TRUE == pThis->m_fEnableAGC)
 				{
 					SW_TRACE_DEBUG("摄像机参数改变:%d[AGCLimit:%d]", iLightType, pThis->m_irgAGCLimit[iLightType]);
-					CSWMessage::SendMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[iLightType]);
+					CSWMessage::PostMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[iLightType]);
 				}
 				//曝光时间、增益调整
 				else
 				{
 					SW_TRACE_DEBUG("摄像机参数改变:%d[ExporeTime:%d, Gain:%d]", iLightType, pThis->m_irgExposureTime[iLightType], pThis->m_irgGain[iLightType]);
-					CSWMessage::SendMessage(MSG_SET_AGCGAIN, pThis->m_irgGain[iLightType]);
-					CSWMessage::SendMessage(MSG_SET_SHUTTER, pThis->m_irgExposureTime[iLightType]);
+					CSWMessage::PostMessage(MSG_SET_AGCGAIN, pThis->m_irgGain[iLightType]);
+					CSWMessage::PostMessage(MSG_SET_SHUTTER, pThis->m_irgExposureTime[iLightType]);
 				}
 			}
 			
@@ -624,7 +621,7 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 				iCplStatus = pdu->GetCplStatus();
 				int iSwitch = (iCplStatus == 0) ? 1 : 2;
 				SW_TRACE_DEBUG("偏振镜状态:[%s]", iCplStatus == 0 ? "不使能" : "使能");
-				CSWMessage::SendMessage(MSG_SET_FILTERSWITCH, iSwitch, 0);
+				CSWMessage::PostMessage(MSG_SET_FILTERSWITCH, iSwitch, 0);
 				
 			}
 			
@@ -657,12 +654,12 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
                     // 关闭WDR后需要重新设置AGC基准值
                     if (iWDRLevel == 0 && pThis->m_fEnableAGC)
                     {
-                        SendMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[13]);
+                        PostMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[13]);
                     }
 			    }
 			    else if (pdu->GetWDRLevel() < 0) //强制刷新WDR等级
 			    {
-			        SendMessage(MSG_SET_WDR_LEVEL, (WPARAM)iWDRLevel, 0);
+			        PostMessage(MSG_SET_WDR_LEVEL, (WPARAM)iWDRLevel, 0);
 			    }
 			}		
 			pdu->Release();
@@ -672,8 +669,8 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 		else if( pThis->m_fNeedUpdateCaptureParam ) // 调整抓拍参数
 		{
 			// 只要抓拍参数不为-1， 会默认使能抓拍独立参数。
-			CSWMessage::SendMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)&pThis->m_iCaptureShutter, 0);
-			CSWMessage::SendMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)&pThis->m_iCaptureGain, 0);
+			CSWMessage::PostMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)&pThis->m_iCaptureShutter, 0);
+			CSWMessage::PostMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)&pThis->m_iCaptureGain, 0);
 			SW_TRACE_DEBUG("<AutoControlRenderFilter>Capture change shutter:%d,gain:%d.\n", pThis->m_iCaptureShutter, pThis->m_iCaptureGain);
 			pThis->m_fNeedUpdateCaptureParam = FALSE;
 		}
@@ -865,10 +862,10 @@ HRESULT CSWAutoControlRenderFilter::OnSetCaptureAutoParam(WPARAM wParam, LPARAM 
 	if((dwRegValue[1] & 0x3) != 0x3)
 	{
 		dwRegValue[1] |= 0x3;	//强制使能抓拍快门和增益
-		CSWMessage::SendMessage(MSG_SET_CAM_FPGA_REG, (WPARAM)dwRegValue, NULL);
+		CSWMessage::PostMessage(MSG_SET_CAM_FPGA_REG, (WPARAM)dwRegValue, NULL);
 
-        CSWMessage::SendMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)(DWORD*)&m_iCaptureShutter, NULL);
-        CSWMessage::SendMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)(DWORD*)&m_iCaptureGain, NULL);
+        CSWMessage::PostMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)(DWORD*)&m_iCaptureShutter, NULL);
+        CSWMessage::PostMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)(DWORD*)&m_iCaptureGain, NULL);
 	}
 
 

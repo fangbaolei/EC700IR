@@ -49,14 +49,11 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cCamCfgParam.iMaxAGCLimit = 163;
 	Get().cCamCfgParam.iDynamicTriggerEnable = 1;	
 	Get().cCamCfgParam.iNightShutterThreshold = -1;
-    Get().cCamCfgParam.iNightAvgYThreshold = 55;
-    Get().cCamCfgParam.iDuskAvgYThreshold = 60;
-    Get().cCamCfgParam.iDynamicCfgEnable = 1;
-
-	//Get().cCamCfgParam.iWorkType = 0;
-	
-    Get().cCamAppParam.iAGCShutterHOri = 3800;
-	Get().cCamAppParam.iAGCGainHOri = 120;
+    Get().cCamCfgParam.iNightAvgYThreshold = 10;
+    Get().cCamCfgParam.iDuskAvgYThreshold = 50;
+    Get().cCamCfgParam.iDynamicCfgEnable = 1;	
+    Get().cCamAppParam.iAGCShutterHOri = 3000;
+	Get().cCamAppParam.iAGCGainHOri = 150;
     Get().cCamAppParam.iAGCGainLOri = 10;	//最小增益默认为10，最小增益太大容易引起AGC震荡
 
 	//卡口默认的视频测速修正系数
@@ -68,7 +65,7 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	
 	// 抓拍位置初始值
 	Get().cTrackerCfgParam.nCaptureOnePos = 20;
-	Get().cTrackerCfgParam.nCaptureTwoPos = 60;
+	Get().cTrackerCfgParam.nCaptureTwoPos = 55;
 
 	// 金星无频闪补光灯
 	//Get().cTrackerCfgParam.iUsedLight = 1;
@@ -165,7 +162,7 @@ CSWLPRVenusTrafficGateEC700Parameter::CSWLPRVenusTrafficGateEC700Parameter()
 	Get().cResultSenderParam.iBestSnapshotOutput = 1;
 	Get().cResultSenderParam.iLastSnapshotOutput = 1;
 
-	Get().cCamAppParam.iSNFTNFMode = 1;
+	Get().cCamAppParam.iSNFTNFMode = 3;
 	Get().cTrackerCfgParam.nNightPlus = 1;
 	Get().cTrackerCfgParam.cVideoDet.nCheckAcross = 0;
 
@@ -3223,7 +3220,7 @@ HRESULT CSWLPRVenusTrafficGateEC700Parameter::InitCamera(VOID)
 		, "F1OutputType"
 		, &Get().cCamAppParam.iF1OutputType
 		, Get().cCamAppParam.iF1OutputType
-		, "0:rail machine output signal;1:flash output signal"
+		, "0:Rail machine output signal;1:Flash output signal"
 		, "F1 port output type"
 		, ""
 		, PROJECT_LEVEL
