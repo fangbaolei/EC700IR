@@ -146,7 +146,7 @@ HRESULT CSWResultHDDTransformFilter::Receive(CSWObject * pObj)
 	
 	if (IsDecendant(CSWRecord, pObj))
 	{		
-		PRINT("1Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("1Info: ResultHdd got a CSWRecord obj\n");
 		CSWRecord* pRecord = (CSWRecord*)pObj;
 
 		if (NULL == pRecord)
@@ -155,16 +155,16 @@ HRESULT CSWResultHDDTransformFilter::Receive(CSWObject * pObj)
 			return E_INVALIDARG;
 		}
 
-		PRINT("2Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("2Info: ResultHdd got a CSWRecord obj\n");
 
 		if (!pRecord->IsNormal() && GetFilterUnSurePeccancy() && pRecord->GetUnSurePeccancy())
 		{
 			pRecord->SetPTType(PT_NORMAL);
 		}
-		PRINT("3Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("3Info: ResultHdd got a CSWRecord obj\n");
 		BOOL fIsPeccancySrc = (pRecord->GetPTType() != PT_NORMAL);
 
-		PRINT("4Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("4Info: ResultHdd got a CSWRecord obj\n");
 
 		//send real time image immediately
 		BOOL fPeccancy = FALSE;
@@ -187,7 +187,7 @@ HRESULT CSWResultHDDTransformFilter::Receive(CSWObject * pObj)
 						fSend = FALSE;
 					}
 					//PRINT("\n[]\nm_dwOutType[%d]:%d,m_iOutputType:%d,fSend:%d", i, m_dwOutType[i], m_iOutputType, fSend);
-					SW_TRACE_DEBUG("\n[]\nm_dwOutType[%d]:%d,m_iOutputType:%d,fSend:%d", i, m_dwOutType[i], m_iOutputType, fSend);
+					//SW_TRACE_DEBUG("\n[]\nm_dwOutType[%d]:%d,m_iOutputType:%d,fSend:%d", i, m_dwOutType[i], m_iOutputType, fSend);
 				}
 
 				if( fSend )
@@ -198,7 +198,7 @@ HRESULT CSWResultHDDTransformFilter::Receive(CSWObject * pObj)
 			}
 		}	
 
-		PRINT("5Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("5Info: ResultHdd got a CSWRecord obj\n");
 		
 
 		if (!m_fHistoryFileSaveDisabled && GetSaveHistoryFlag())
@@ -235,7 +235,7 @@ HRESULT CSWResultHDDTransformFilter::Receive(CSWObject * pObj)
 			}
 
 		}
-		PRINT("6Info: ResultHdd got a CSWRecord obj\n");
+		//PRINT("6Info: ResultHdd got a CSWRecord obj\n");
 	}
 	
 

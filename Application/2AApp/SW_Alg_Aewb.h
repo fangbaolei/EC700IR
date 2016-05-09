@@ -80,14 +80,12 @@ typedef enum SW_2A_CMD_e
     SW2A_CMD_SET_CAPT_SHUTTER,//抓拍快门
     SW2A_CMD_SET_CAPT_GAIN,//抓拍增益
     SW2A_CMD_SET_CAPT_SHARPEN,//抓拍锐度
-    SW2A_CMD_SET_CAPT_AWB_ENABLE,//抓拍自动白平衡使能
     SW2A_CMD_SET_CAPT_RGB,//抓拍RGB增益
     SW2A_CMD_SET_BACK_LIGHT,//背光
     SW2A_CMD_SET_AWB_MODE,//白平衡模式
     SW2A_CMD_SET_TNF_STATUS,//时域降噪开关
     SW2A_CMD_SET_SNF_STATUS,//空域降噪开关
 	SW2A_CMD_SET_EDGE_ENHANCE,//边缘增强
-	SW2A_CMD_SET_NIGHT_DELAY,//设置晚上状态延迟时间，816方案有效
 	SW2A_CMD_SET_REG,//设置fpga寄存器-------[31 - 20]:addr,[19 - 0]:value
     //Get
     SW2A_CMD_GET_SHUTTER,
@@ -113,7 +111,7 @@ typedef enum SW_2A_CMD_e
     SW2A_CMD_GET_GRAY_IMAGE_STATE,
     SW2A_CMD_GET_DAY_LIGHT,
     SW2A_CMD_GET_EDGE_ENHANCE,
-	SW2A_CMD_GET_REG,//读取fpga寄存器-------[31 - 20]:addr(传入),[31 - 0]:value(传出)
+	SW2A_CMD_GET_REG,//读取fpga寄存器-------[31 - 20]:addr(传入),[19 - 0]:value(传出)
     SW2A_CMD_END
 }SW_2A_CMD;
 /* ===================================================================

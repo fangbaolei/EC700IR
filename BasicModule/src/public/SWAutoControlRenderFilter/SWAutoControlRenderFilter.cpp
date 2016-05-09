@@ -102,7 +102,7 @@ VOID CSWAutoControlRenderFilter::DoInit()
 		// 获取GAMMAMODE
 		if( S_OK == SendMessage(MSG_GET_GAMMA_MODE, 0, (LPARAM)&iMode) )
 		{
-			SW_TRACE_DEBUG("<AutoControlRenderFilter>gamma mode:%d.", iMode);
+			//SW_TRACE_DEBUG("<AutoControlRenderFilter>gamma mode:%d.", iMode);
 			m_iGammaMode = iMode;			
 			HRESULT hr = SendMessage(MSG_SET_GAMMA_MODE, m_fIsDay ? 0 : (WPARAM)m_iGammaMode, 0);
 		}
@@ -479,7 +479,7 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 			//m_iCaptureShutter = m_iNightShutterMax;
 		//}
 
-		SW_TRACE_DEBUG("<AutoControlRenderFilter>ForceChange. shutter:%d,gain:%d.", m_iCaptureShutter, m_iCaptureGain);
+		//SW_TRACE_DEBUG("<AutoControlRenderFilter>ForceChange. shutter:%d,gain:%d.", m_iCaptureShutter, m_iCaptureGain);
 		m_fNeedUpdateCaptureParam = TRUE;
 		return;
 	}
@@ -504,7 +504,7 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 		if( m_iCaptureImageCount == 2 )
 		{
 			m_iTotalAvgY /= 2;
-			SW_TRACE_DEBUG("m_iTotalAvgY=%d\n",m_iTotalAvgY);
+			//SW_TRACE_DEBUG("m_iTotalAvgY=%d\n",m_iTotalAvgY);
 			DWORD m_iCaptureGainT=m_iCaptureGain;
 			DWORD m_iCaptureShutterT=m_iCaptureShutter;
 			if( m_iTotalAvgY < iMinAvgY )
@@ -584,7 +584,7 @@ VOID CSWAutoControlRenderFilter::UpdateCaptureParam(const IMAGE_EXT_INFO& cInfo)
 		}
 	}
 
-	SW_TRACE_DEBUG("抓拍增益：%d,抓拍快门：%d\n",m_iCaptureGain,m_iCaptureShutter);
+	//SW_TRACE_DEBUG("抓拍增益：%d,抓拍快门：%d\n",m_iCaptureGain,m_iCaptureShutter);
 }
 
 void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
@@ -603,27 +603,27 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 				//AGC调整
 				if(TRUE == pThis->m_fEnableAGC)
 				{
-					SW_TRACE_DEBUG("摄像机参数改变:%d[AGCLimit:%d]", iLightType, pThis->m_irgAGCLimit[iLightType]);
+					SW_TRACE_NORMAL("摄像机参数改变:%d[AGCLimit:%d]", iLightType, pThis->m_irgAGCLimit[iLightType]);
 					CSWMessage::PostMessage(MSG_SET_AGCTH, pThis->m_irgAGCLimit[iLightType]);
 				}
 				//曝光时间、增益调整
 				else
 				{
-					SW_TRACE_DEBUG("摄像机参数改变:%d[ExporeTime:%d, Gain:%d]", iLightType, pThis->m_irgExposureTime[iLightType], pThis->m_irgGain[iLightType]);
+					SW_TRACE_NORMAL("摄像机参数改变:%d[ExporeTime:%d, Gain:%d]", iLightType, pThis->m_irgExposureTime[iLightType], pThis->m_irgGain[iLightType]);
 					CSWMessage::PostMessage(MSG_SET_AGCGAIN, pThis->m_irgGain[iLightType]);
 					CSWMessage::PostMessage(MSG_SET_SHUTTER, pThis->m_irgExposureTime[iLightType]);
 				}
 			}
 			
 			//偏光镜状态
-			if(iCplStatus != pdu->GetCplStatus())
+			/*if(iCplStatus != pdu->GetCplStatus())
 			{
 				iCplStatus = pdu->GetCplStatus();
 				int iSwitch = (iCplStatus == 0) ? 1 : 2;
 				SW_TRACE_DEBUG("偏振镜状态:[%s]", iCplStatus == 0 ? "不使能" : "使能");
 				CSWMessage::PostMessage(MSG_SET_FILTERSWITCH, iSwitch, 0);
 				
-			}
+			}*/
 			
 			//频闪灯脉宽等级
 			/*if(iPluseLevel != pdu->GetPluseLevel())
@@ -686,7 +686,7 @@ HRESULT CSWAutoControlRenderFilter::SaveParam(INT iLightType, INT iCplStatus, IN
 		file.Write(&iLightType, sizeof(INT));		
 		file.Write(&iPluseLevel, sizeof(INT));
 		file.Write(&iCplStatus, sizeof(INT));
-		SW_TRACE_DEBUG("<writeparam>lighttype:%d,iPluse:%d,iCpl:%d.\n", iLightType, iPluseLevel, iCplStatus);
+		//SW_TRACE_DEBUG("<writeparam>lighttype:%d,iPluse:%d,iCpl:%d.\n", iLightType, iPluseLevel, iCplStatus);
 		return S_OK;
 	}
 	return E_FAIL;
@@ -699,7 +699,7 @@ HRESULT CSWAutoControlRenderFilter::OnReadParam(WPARAM wParam, LPARAM lParam)
 	if(S_OK == file.Open("BLOCK//tmp/.light.dat", "r"))
 	{
 		file.Read(iParam, 3*sizeof(INT));
-		SW_TRACE_DEBUG("<readparam>lighttype:%d,iPluse:%d,iCpl:%d.\n", iParam[0], iParam[1], iParam[2]);
+		//SW_TRACE_DEBUG("<readparam>lighttype:%d,iPluse:%d,iCpl:%d.\n", iParam[0], iParam[1], iParam[2]);
 		return S_OK;
 	}
 	return E_FAIL;
@@ -762,7 +762,7 @@ HRESULT CSWAutoControlRenderFilter::Enable(BOOL fEnable,
 
 HRESULT CSWAutoControlRenderFilter::SetLevel(INT iLevel, INT iAGCLimit, INT iExposureTime, INT iGain)
 {
-	SW_TRACE_NORMAL("level:%d, AGCLimit:%d, ExporeTime:%d,Gain:%d\n", iLevel, iAGCLimit, iExposureTime, iGain);
+	//SW_TRACE_NORMAL("level:%d, AGCLimit:%d, ExporeTime:%d,Gain:%d\n", iLevel, iAGCLimit, iExposureTime, iGain);
 	if(iLevel < 14)
 	{
 		m_irgAGCLimit[iLevel] = iAGCLimit;
@@ -804,7 +804,7 @@ HRESULT CSWAutoControlRenderFilter::SetNightThresholdArg(INT nNightShutter, INT 
 {
 	if (nNightThreshold < 0)
 	{
-		SW_TRACE_DEBUG("Err: invalid arg: %d,%d\n", nNightShutter, nNightThreshold);
+		SW_TRACE_NORMAL("Err: invalid arg: %d,%d\n", nNightShutter, nNightThreshold);
 		return E_INVALIDARG;
 	}
 

@@ -118,7 +118,7 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 							break;
 					}
 						
-					SW_TRACE_DEBUG("receive radar speed:%d,roadno:%d.\n", dwSpeed, dwRoad);
+					//SW_TRACE_DEBUG("receive radar speed:%d,roadno:%d.\n", dwSpeed, dwRoad);
 						
 					DWORD rgParam[3] = {dwSpeed, dwRoad,0};
 						
@@ -126,7 +126,7 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 				}
 				else
 				{
-					SW_TRACE_DEBUG("receive radar error %lu.\n", hr);
+					//SW_TRACE_DEBUG("receive radar error %lu.\n", hr);
 				}
 			}
 		}

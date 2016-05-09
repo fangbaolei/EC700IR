@@ -2026,7 +2026,7 @@ VOID CSWLPRApplication::OnDSPAlarm(PVOID pvParam, INT iInfo)
         iLane = pThis->m_iFlashDiffFlag ? 1 : 2;
         pThis->m_iFlashDiffFlag = !pThis->m_iFlashDiffFlag;
 	}	
-    SW_TRACE_DEBUG("DSPAlarm, Lane:%d, SEQ:%d,DSPTrigger:%d\n", iLane, iSEQ, pThis->m_fDSPTrigger);
+    //SW_TRACE_DEBUG("DSPAlarm, Lane:%d, SEQ:%d,DSPTrigger:%d\n", iLane, iSEQ, pThis->m_fDSPTrigger);
 
 	if(pThis->m_fDSPTrigger)
 	{

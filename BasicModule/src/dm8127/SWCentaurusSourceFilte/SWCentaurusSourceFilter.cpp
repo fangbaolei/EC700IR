@@ -349,10 +349,10 @@ int CSWCentaurusSourceFilter::OnResult(void *pContext, int type, void *struct_pt
 
 			pThis->UpdateExtensionInfo(pImage, image);
 
-			if(pImage->IsCaptureImage())
+			/*if(pImage->IsCaptureImage())
 			{
 				SW_TRACE_DEBUG("Capture ID:%d\n",pImage->GetFlag());
-			}
+			}*/
 
 			INT nRecognizeChannelNum = SWPA_VPSS_JPEG_CHANNEL;
 			INT nIpncMode = swpa_ipnc_mode();
@@ -412,7 +412,7 @@ int CSWCentaurusSourceFilter::OnResult(void *pContext, int type, void *struct_pt
 			}
 			else 
 			{	
-				SW_TRACE_NORMAL("channel id is %d\n",image->channel);
+				//SW_TRACE_NORMAL("channel id is %d\n",image->channel);
 			}
 
             pImage->Release();

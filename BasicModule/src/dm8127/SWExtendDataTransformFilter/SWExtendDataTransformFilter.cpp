@@ -121,7 +121,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 		return E_OBJ_NO_INIT;
 	}
 
-	SW_TRACE_DEBUG("Info: %s: %s() Running ..........\n",__FILE__, __FUNCTION__);
+	SW_TRACE_DEBUG("Running ..........\n");
 
 	
 	BOOL fIsHaveConnect = FALSE;
@@ -131,7 +131,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 	HRESULT hr;
 	if (FAILED(cLocalTcpSock.Create(TRUE)))
 	{
-        SW_TRACE_DEBUG("Info: ExtendData filter open %s failed.", szExtendDataSockFile);
+        SW_TRACE_NORMAL("Info: ExtendData filter open %s failed.", szExtendDataSockFile);
 		return E_FAIL;
 	}
 
@@ -140,7 +140,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 		hr = cLocalTcpSock.Bind(szExtendDataSockFile);
 		if (FAILED(hr))
 		{
-			SW_TRACE_DEBUG("Info: ExtendData filter bind %s failed.",szExtendDataSockFile);
+			SW_TRACE_NORMAL("Info: ExtendData filter bind %s failed.",szExtendDataSockFile);
 			swpa_thread_sleep_ms(2000);
 			continue;
 		}
@@ -164,7 +164,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 			tExtendDataNode* pNode = m_lstExtendData.RemoveHead();
 			if (NULL == pNode || NULL == pNode->pData)
 			{
-				SW_TRACE_DEBUG("Extend data node is null............\n");
+				SW_TRACE_NORMAL("Extend data node is null............\n");
 				m_pSemaLock->Post();
 				continue;
 			}
@@ -182,7 +182,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 					continue;
 				}
 				
-				SW_TRACE_DEBUG("Info: ExtendData local socket got a connection...\n");
+				SW_TRACE_NORMAL("Info: ExtendData local socket got a connection...\n");
 				sockData.Attach(outSock);
 				sockData.SetSendTimeout(1000);
 				sockData.SetSendBufferSize(32768);	//
@@ -213,10 +213,11 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 			tDataHead head;
 			head.dwDataLen = pNode->dwDataLen;
 			head.dwTimeStamp = pNode->dwTimeStamp;
+
 			HRESULT hr = sockData.Send((void*)&head, sizeof(head),&dwOutLengthSent);
 			if (FAILED(hr) || dwOutLengthSent != sizeof(head))
 			{
-				SW_TRACE_DEBUG("Err: failed to send ExtendData head size via hr:0x%08x,Len:%d Sent:%d\n",
+				SW_TRACE_NORMAL("Err: failed to send ExtendData head size via hr:0x%08x,Len:%d Sent:%d\n",
 					hr,pNode->dwDataLen,dwOutLengthSent);
 				sockData.Close();
 				fIsHaveConnect = FALSE;
@@ -225,7 +226,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 			hr = sockData.Send((void*)pNode->pData, pNode->dwDataLen, &dwOutLengthSent);
 			if (FAILED(hr) || dwOutLengthSent != pNode->dwDataLen)
 			{
-				SW_TRACE_DEBUG("Err: failed to send ExtendData size via hr:0x%08x,Len:%d Sent:%d\n",
+				SW_TRACE_NORMAL("Err: failed to send ExtendData size via hr:0x%08x,Len:%d Sent:%d\n",
 					hr,pNode->dwDataLen,dwOutLengthSent);
 				sockData.Close();
 				fIsHaveConnect = FALSE;
@@ -246,7 +247,7 @@ HRESULT CSWExtendDataTransformFilter::SendExtendData()
 	sockData.Close();
 	cLocalTcpSock.Close();
 
-	SW_TRACE_DEBUG("Info: %s: %s() exited\n", __FILE__, __FUNCTION__);
+	SW_TRACE_NORMAL("Info: %s: %s() exited\n", __FILE__, __FUNCTION__);
 	
 	return S_OK;
 }

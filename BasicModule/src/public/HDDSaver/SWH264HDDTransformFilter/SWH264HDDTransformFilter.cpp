@@ -434,7 +434,7 @@ HRESULT CSWH264HDDTransformFilter::Receive(CSWObject * obj)
 			}
 		}
 		static INT iGBEnableTick = 0;
-		if( iGBEnableTick > 50 )
+		if( iGBEnableTick > 500 )
 		{
 			SW_TRACE_DEBUG("m_fGBVideoSaveCtlEnable:%d,m_fGBVideoSaveRecord:%d\n",m_fGBVideoSaveCtlEnable,m_fGBVideoSaveRecord);
 			iGBEnableTick=0;

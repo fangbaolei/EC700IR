@@ -339,7 +339,7 @@ HRESULT CSWRTSPTransformFilter::OnSendData()
 	return S_OK;
 }
 
-HRESULT CSWRTSPTransformFilter::ReduceStreamBitrate(H264_STATUS_HEADER *pStatusHeader, CSWTCPSocket *pGetStatusSock)
+/*HRESULT CSWRTSPTransformFilter::ReduceStreamBitrate(H264_STATUS_HEADER *pStatusHeader, CSWTCPSocket *pGetStatusSock)
 {
 	if(pStatusHeader == NULL || pGetStatusSock == NULL)
 		return E_FAIL;
@@ -639,7 +639,7 @@ HRESULT CSWRTSPTransformFilter::Authenticate(H264_STATUS_HEADER *pStatusHeader, 
 	}
 
 	return S_OK;
-}
+}*/
 
 
 PVOID CSWRTSPTransformFilter::OnSendDataProxy(PVOID pvArg)
@@ -674,15 +674,14 @@ HRESULT CSWRTSPTransformFilter::OnGetConnStatus()
 	INT iCurBitrate = 0;
 	DWORD dwInDataLen = 0;
 
-	//m_dwLastReduceTick = 0;//CSWDateTime::GetSystemTick();	
-
+	DWORD dwLastUpdateTimeMs = CSWDateTime::GetSystemTick();	
 	if (FAILED(cGetStatusSock.Create()))
 	{
 		SW_TRACE_NORMAL("Info: RTSP filter get connection status Create socket failed\n");
 		return E_FAIL;
 	}
-
-//	cGetStatusSock.SetSendTimeout(4000);
+	cGetStatusSock.SetRecvTimeout(1000);
+	cGetStatusSock.SetSendTimeout(4000);
 	while (FILTER_RUNNING == GetState())
     {	
 		while(!isConnected && FILTER_RUNNING == GetState())
@@ -694,8 +693,8 @@ HRESULT CSWRTSPTransformFilter::OnGetConnStatus()
 					SW_TRACE_NORMAL("Info: RTSP filter get connection status Create socket failed\n");
 					return E_FAIL;
 				}
-				//cGetStatusSock.SetRecvTimeout(20000);
-//				cGetStatusSock.SetSendTimeout(4000);
+				cGetStatusSock.SetRecvTimeout(1000);
+				cGetStatusSock.SetSendTimeout(4000);
 			}
 			hr = cGetStatusSock.Connect("127.0.0.1", 10086);
 			if (FAILED(hr))
@@ -705,7 +704,7 @@ HRESULT CSWRTSPTransformFilter::OnGetConnStatus()
 				continue;
 			}
 			isConnected = TRUE;
-			cGetStatusSock.SetRecvTimeout(60000);
+			//cGetStatusSock.SetRecvTimeout(60000);
 		}
 
 		if (FILTER_RUNNING != GetState())
@@ -713,7 +712,7 @@ HRESULT CSWRTSPTransformFilter::OnGetConnStatus()
 			break;
 		}
 	
-		swpa_memset(&cStatusHeader, 0, sizeof(H264_STATUS_HEADER));
+		/*swpa_memset(&cStatusHeader, 0, sizeof(H264_STATUS_HEADER));
 		dwInDataLen = 0;
 			
 		//	SW_TRACE_DEBUG("-------------------- Read Status Cmd\n");
@@ -776,6 +775,64 @@ HRESULT CSWRTSPTransformFilter::OnGetConnStatus()
 			cGetStatusSock.Close();
 			isConnected = FALSE;
 			break;
+		}
+	}*/
+	
+	if( CSWDateTime::GetSystemTick() - dwLastUpdateTimeMs > 5 * 1000 )
+		{
+			CSWString strInfo = "";
+			CHAR byConnInfo[512] = {0};
+			DWORD dwOutDataLen = 0;
+			DWORD dwInDataLen = 0;
+			INT iGetStrLen = 0;
+			
+			if( m_iChannelId == 0 )
+			{
+				strInfo.Append("RTSP¨¢¡ä?¨®:");
+				eGetConnStatusCmd = H264_STATUS_FIRST_STREAM_CONN;
+			}
+			else
+			{
+				strInfo.Append("RTSP¦Ì¨²?t?¡¤¨¢¡ä?¨®:");
+				eGetConnStatusCmd = H264_STATUS_SECOND_STREAM_CONN;
+			}
+			hr = cGetStatusSock.Send((VOID *)&eGetConnStatusCmd, sizeof(INT), &dwOutDataLen);
+			if(FAILED(hr))
+			{
+				SW_TRACE_NORMAL("Err: send RTSP connection command fail\n");
+				cGetStatusSock.Close();
+				isConnected = FALSE;
+				swpa_thread_sleep_ms(2000);
+				continue;
+			}
+			hr = cGetStatusSock.Read((VOID *)&iGetStrLen, sizeof(INT), &dwInDataLen);
+			if(FAILED(hr))
+			{
+				SW_TRACE_NORMAL("Err: Read RTSP connection info length fail\n");
+				cGetStatusSock.Close();
+				isConnected = FALSE;
+				swpa_thread_sleep_ms(2000);
+				continue;
+			}
+			hr = cGetStatusSock.Read((VOID *)byConnInfo, iGetStrLen, &dwInDataLen);
+			if(FAILED(hr) || (dwInDataLen != iGetStrLen) || (dwInDataLen == 0))
+			{
+				SW_TRACE_NORMAL("Err: Read RTSP connection info fail\n");
+				cGetStatusSock.Close();
+				isConnected = FALSE;
+				swpa_thread_sleep_ms(2000);
+				continue;
+			}
+			strInfo.Append(byConnInfo);
+			CHAR szMsg[512] = {0};
+			swpa_strncpy(szMsg, (const CHAR*)strInfo, sizeof(szMsg));
+			CSWMessage::SendMessage(MSG_APP_UPDATE_STATUS, (WPARAM)szMsg, 0);
+
+			dwLastUpdateTimeMs = CSWDateTime::GetSystemTick();
+		}
+		else
+		{
+			swpa_thread_sleep_ms(2000);
 		}
 	}
 

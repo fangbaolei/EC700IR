@@ -269,7 +269,7 @@ HRESULT CSW2AApp::OnProcessExtendData(VOID)
             continue;
         }
 		SW_2A_Process((void *)pExtendData);
-#if 1
+#if 0
 		static INT nCount = 0;
 		if (nCount++%100 == 0)
 			SW_TRACE_NORMAL("CSW2AApp Process Extend Data,data len:%d ..............\n",dwReadLen);

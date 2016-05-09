@@ -521,7 +521,7 @@ HRESULT CSWRecognizeTGTransformFilter::Receive(CSWObject* obj)
 #endif
 			return S_OK;
 		}
-		else
+		/*else
 		{
 			static DWORD m_LastTime=0;
 			m_iFrame++;
@@ -533,7 +533,7 @@ HRESULT CSWRecognizeTGTransformFilter::Receive(CSWObject* obj)
 				SW_TRACE_DEBUG("帧率:%d\n",m_iFrame);
 				m_iFrame=0;
 			}
-		}
+		}*/
 		
 		// 测试协议等待队列有空闲空间
 		// 默认VPIF采集的帧名都是“VPIF”。
@@ -914,7 +914,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 			{
 				if ( pProcessEvent->dwEventId & EVENT_CARARRIVE )
 				{
-					SW_TRACE_DEBUG("EVENT_CARARRIVE %d\n",pProcessEvent->iCarArriveInfoCount);
+					//SW_TRACE_DEBUG("EVENT_CARARRIVE %d\n",pProcessEvent->iCarArriveInfoCount);
 					for( int i = 0; i < pProcessEvent->iCarArriveInfoCount; ++i )
 					{	 
 						CarArriveEvent(&pProcessEvent->rgCarArriveInfo[i]);
@@ -922,7 +922,7 @@ HRESULT CSWRecognizeTGTransformFilter::OnProcessSync()
 				}
 				if( pProcessEvent->dwEventId & EVENT_CARLEFT )
 				{
-					SW_TRACE_DEBUG("EVENT_CARLEFT %d\n",pProcessEvent->iCarArriveInfoCount);
+					//SW_TRACE_DEBUG("EVENT_CARLEFT %d\n",pProcessEvent->iCarArriveInfoCount);
 					for( int i = 0; i < pProcessEvent->iCarLeftInfoCount; ++i )
 					{
 						//有车牌,而且是ARM判断为晚上才计入统计
@@ -1230,12 +1230,12 @@ HRESULT CSWRecognizeTGTransformFilter::CarLeftEvent(CARLEFT_INFO_STRUCT *pCarLef
 		case MAX_EQUAL_FRAME: s = "连续识别结果相同";break;
 		case MAX_VOTE_FRAME: s = "有效结果超过阈值";break;
 		}
-		SW_TRACE_NORMAL("object carleft name:%s,PlateNo:%s"
+		/*SW_TRACE_NORMAL("object carleft name:%s,PlateNo:%s"
 			"[0x%08x,0x%08x,0x%08x,0x%08x,0x%08x,0x%08x,0x%08x][%s]", 
 			pCarLeft->Name(), (LPCSTR)pCarLeft->GetPlateNo(), 
 			pCarLeft->GetImage(0), pCarLeft->GetImage(1), pCarLeft->GetImage(2), 
 			pCarLeft->GetImage(3), pCarLeft->GetImage(4), pCarLeft->GetImage(5), 
-			pCarLeft->GetImage(6), (LPCSTR)s);
+			pCarLeft->GetImage(6), (LPCSTR)s);*/
 
         //HV_RECT pLastRect = pCarLeft->GetLastPlateRect();
         /*SW_TRACE_DEBUG("PlateNo:%s, LastRect <left = %d, top = %d, right = %d, bottom = %d> .\n",
@@ -1257,7 +1257,7 @@ HRESULT CSWRecognizeTGTransformFilter::CarLeftEvent(CARLEFT_INFO_STRUCT *pCarLef
 		
 		//GetOut(3)->Deliver(pCarLeft->GetImage(PLATE_IMAGE));
 		pCarLeft->Release();
-		SW_TRACE_DEBUG("object carleft done.\n");
+		//SW_TRACE_DEBUG("object carleft done.\n");
 	}
 	return S_OK;
 }

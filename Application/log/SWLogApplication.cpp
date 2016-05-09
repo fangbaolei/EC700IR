@@ -226,8 +226,16 @@ PVOID CSWLogApplication::OnLog(PVOID pvParam)
 					
 					dwFailCount = 0;
 					pThis->m_cSemaLock[dwID].Pend();
-					pThis->m_lstLog[dwID].AddTail(szLog);
-					pThis->m_cSema[dwID].Post();
+					SW_POSITION pos = pThis->m_lstLog[dwID].AddTail(szLog);
+					if(NULL!=pos)
+					{
+						pThis->m_cSema[dwID].Post();
+					}
+					else
+					{
+						SAFE_MEM_FREE(szLog);
+					}
+					
 					pThis->m_cSemaLock[dwID].Post();
 				}
 				else

@@ -1574,8 +1574,8 @@ HRESULT CDataTransmitter::OnSendData()
 				}
 				else
 				{
-
-					if (GetInfoOffset() > 0 || GetDataOffset() > 0)
+					hr = SendRecord(pRecord);
+					/*if (GetInfoOffset() > 0 || GetDataOffset() > 0)
 					{
 						//如果支持断点续传，则仍然用先打包再发送的方式
 						SW_TRACE_DEBUG("SendRecord id=%d\n",pRecord->GetCarArriveTime());
@@ -1586,7 +1586,7 @@ HRESULT CDataTransmitter::OnSendData()
 						//默认使用不打包直接发送的方式
 						SW_TRACE_DEBUG("SendRecordEx id=%d\n",pRecord->GetCarArriveTime());
 						hr = SendRecordEx(pRecord);
-					}
+					}*/
 
 					if (FAILED(hr))
 					{

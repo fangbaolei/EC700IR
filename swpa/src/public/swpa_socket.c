@@ -292,7 +292,7 @@ int swpa_socket_send(
     SWPA_SOCKET_PRINT("len=%d\n", len);
     SWPA_SOCKET_PRINT("succ_send_len=0x%08x\n", (unsigned int)succ_send_len);
 
-    int length = send(skt, buf, len, MSG_NOSIGNAL);
+    int length = send(skt, buf, len, 0);
 
     if( succ_send_len != NULL )  *succ_send_len = length;
 
