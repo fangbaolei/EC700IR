@@ -669,8 +669,8 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 		else if( pThis->m_fNeedUpdateCaptureParam ) // 调整抓拍参数
 		{
 			// 只要抓拍参数不为-1， 会默认使能抓拍独立参数。
-			CSWMessage::PostMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)&pThis->m_iCaptureShutter, 0);
-			CSWMessage::PostMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)&pThis->m_iCaptureGain, 0);
+			CSWMessage::SendMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)&pThis->m_iCaptureShutter, 0);
+			CSWMessage::SendMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)&pThis->m_iCaptureGain, 0);
 			SW_TRACE_DEBUG("<AutoControlRenderFilter>Capture change shutter:%d,gain:%d.\n", pThis->m_iCaptureShutter, pThis->m_iCaptureGain);
 			pThis->m_fNeedUpdateCaptureParam = FALSE;
 		}
@@ -864,8 +864,8 @@ HRESULT CSWAutoControlRenderFilter::OnSetCaptureAutoParam(WPARAM wParam, LPARAM 
 		dwRegValue[1] |= 0x3;	//强制使能抓拍快门和增益
 		CSWMessage::PostMessage(MSG_SET_CAM_FPGA_REG, (WPARAM)dwRegValue, NULL);
 
-        CSWMessage::PostMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)(DWORD*)&m_iCaptureShutter, NULL);
-        CSWMessage::PostMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)(DWORD*)&m_iCaptureGain, NULL);
+        CSWMessage::SendMessage(MSG_SET_CAPTURESHUTTER, (WPARAM)(DWORD*)&m_iCaptureShutter, NULL);
+        CSWMessage::SendMessage(MSG_SET_CAPTRUEGAIN, (WPARAM)(DWORD*)&m_iCaptureGain, NULL);
 	}
 
 

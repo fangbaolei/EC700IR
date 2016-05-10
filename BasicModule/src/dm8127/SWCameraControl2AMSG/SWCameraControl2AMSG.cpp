@@ -2477,6 +2477,12 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSofttouch(WPARAM wParam,LPARAM lParam
 		crgWriteRegParam[1] = iSet;
 		OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
 	}
+	else
+	{
+		crgWriteRegParam[0] = iLaneInfSoftReg;
+		crgWriteRegParam[1] = 0;
+		OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
+	}
 	
 	//SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SOFT_CAPTURE, iInfo);
 
