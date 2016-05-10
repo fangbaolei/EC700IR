@@ -650,7 +650,7 @@ void* CSWAutoControlRenderFilter::OnProcessCameraPDU(void* pvParam)
 			    if (pdu->GetWDRLevel() >= 0 && pdu->GetWDRLevel() <= 4)
 			    {
                     iWDRLevel = pdu->GetWDRLevel();
-                    SendMessage(MSG_SET_WDR_LEVEL, (WPARAM)iWDRLevel, 0);
+                    PostMessage(MSG_SET_WDR_LEVEL, (WPARAM)iWDRLevel, 0);
                     // 关闭WDR后需要重新设置AGC基准值
                     if (iWDRLevel == 0 && pThis->m_fEnableAGC)
                     {

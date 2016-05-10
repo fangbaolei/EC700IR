@@ -249,6 +249,9 @@ HRESULT CSWCameraControl2AMSG::OnInitialCameralParam( WPARAM wParam,LPARAM lPara
         dwRegValue[1] |= 0x3;	//强制使能抓拍快门和增益
         CSWMessage::SendMessage(MSG_SET_CAM_FPGA_REG, (WPARAM)dwRegValue, NULL);
     }
+
+	DWORD WriteRegParam[2]={0x92f,0x0};
+	OnSetCamFpgaReg((WPARAM)WriteRegParam, 0);
 	
 #if 0	
 	INT rgCaptureShutterValue[2] = {0};
