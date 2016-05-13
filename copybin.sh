@@ -45,13 +45,15 @@ PROJECT_CN=([0]="NULL"
                         [7]="海外卡口")
 
 
-if [ $# -ge 1 ];then
-	PROJECT=$1
-else
-	usage_func 
-	printf "Please input your choose:"
-	read PROJECT
-fi
+#if [ $# -ge 1 ];then
+#	PROJECT=$1
+#else
+#	usage_func 
+#	printf "Please input your choose:"
+#	read PROJECT
+#fi
+#跳过选择分型，直接选择700W卡口
+PROJECT=7
 
 printf "your choose:$PROJECT-"
 if [ $PROJECT -lt 1 ] || [ $PROJECT -gt 7 ];then
@@ -64,7 +66,6 @@ printf "${PROJECT_EN[${PROJECT}]}(${PROJECT_CN[${PROJECT}]})\n"
 #####################################################################
 MAJOR_VERSION=3.1.107
 MINOR_VERSION=1000	#default
-MY_VERSION=""
 
 
 if [ $PROJECT -eq $VENUS_EPOLICE ]
@@ -96,27 +97,21 @@ fi
 XML_CONFIG_PATH=Config/
 START_TIME=$(date +%s)
 CONFIG_H=config.h
+VERSION_H=DspBuildNo.h
 
-if [ -e $CONFIG_H ];then
-	MINOR_VERSION=`cat $CONFIG_H | 
-					grep "MAIN_VERSION" | 
-					awk '{print $3}' | 
-					tr -d '\n\r'`
+if [ -e $VERSION_H ];then
+	MINOR_VERSION=`cat $VERSION_H | 
+					grep "PSZ_DSP_BUILD_NO" | 
+					awk '{print $5}' | 
+					tr -d ';""\n\r'`
 fi
 
-if [ -e $CONFIG_H ];then
-	MY_VERSION=`cat $CONFIG_H | 
-					grep "USER_VERSION" | 
-					awk '{print $3}' | 
-					tr -d '\n\r' |
-					tr -d '\"'`
-fi
+#if [ "$MINOR_VERSION"x = x ];then
+#	MINOR_VERSION=1000
+#fi
 
-if [ "$MINOR_VERSION"x = x ];then
-	MINOR_VERSION=1000
-fi
-
-APP_VERSION=${MAJOR_VERSION}.${MINOR_VERSION}${MY_VERSION}
+#APP_VERSION=${MAJOR_VERSION}.${MINOR_VERSION}
+APP_VERSION=${MINOR_VERSION}
 
 IMAGE_NAME="App_${HARDWARE_NAME}_${APP_VERSION}_${PROJECT_CN[${PROJECT}]}"
 

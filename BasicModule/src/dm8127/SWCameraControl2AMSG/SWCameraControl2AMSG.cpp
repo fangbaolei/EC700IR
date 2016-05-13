@@ -2466,6 +2466,7 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSofttouch(WPARAM wParam,LPARAM lParam
 		CSWMessage::SendMessage(MSG_AUTO_CONTROL_SET_AUTO_CAPTURE_PARAM, NULL, NULL);
 	}*/
 
+	crgWriteRegParam[0] = iLaneInfSoftReg;
 	if(!m_IsDay)
 	{			
 		if(iInfo==0)
@@ -2473,16 +2474,13 @@ HRESULT CSWCameraControl2AMSG::OnSetCaptureSofttouch(WPARAM wParam,LPARAM lParam
 			iSet=3;
 		}		
 		//设置道路亮灯使能		
-		crgWriteRegParam[0] = iLaneInfSoftReg;
 		crgWriteRegParam[1] = iSet;
-		OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
 	}
 	else
-	{
-		crgWriteRegParam[0] = iLaneInfSoftReg;
+	{		
 		crgWriteRegParam[1] = 0;
-		OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
 	}
+	OnSetCamFpgaReg((WPARAM)crgWriteRegParam, 0);
 	
 	//SW_TRACE_DEBUG("%s cmd = %d value = %d\n",__FUNCTION__,CMD_SOFT_CAPTURE, iInfo);
 

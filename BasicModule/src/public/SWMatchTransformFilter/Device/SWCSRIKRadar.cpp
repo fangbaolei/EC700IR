@@ -124,10 +124,10 @@ HRESULT CSWCSRIKRadar::Run(VOID)
 						
 					m_pOnEvent(m_pvParam, this, SPEED, CSWDateTime::GetSystemTick(), rgParam);
 				}
-				else
-				{
+				//else
+				//{
 					//SW_TRACE_DEBUG("receive radar error %lu.\n", hr);
-				}
+				//}
 			}
 		}
 	}

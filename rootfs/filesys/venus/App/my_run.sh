@@ -37,9 +37,6 @@ chmod +x /tmp/*
 # 请应用开发部的人员在下面添加，谢谢！！！
 # ！！！！！！！！！！！！
 
-ulimit -c unlimited
-echo "/home/root/core" > /proc/sys/kernel/core_pattern
-
 # 加载fpga
 ./load_fpga fpga.xsvf
 
